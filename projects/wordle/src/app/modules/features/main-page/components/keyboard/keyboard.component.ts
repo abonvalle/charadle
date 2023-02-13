@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Letter } from '@core/models';
+import { GameService } from '@core/services/game.service';
 
 @Component({
   selector: 'keyboard',
@@ -8,11 +9,24 @@ import { Letter } from '@core/models';
 export class KeyboardComponent {
   letters: Map<string, Letter>;
   keyboard: { [row: number]: string[] };
-  constructor() {
+  constructor(public gameService: GameService) {
     this.letters = new Map();
     this.keyboard = {};
     this._setKeyboardAndLetters();
   }
+
+  enter() {
+    this.gameService.submitGuess();
+  }
+
+  delete() {
+    this.gameService.removeLastGuessLetter();
+  }
+
+  enterLetter(letter: string) {
+    this.gameService.addCurrentGuessLetter(letter);
+  }
+
   private _setKeyboardAndLetters() {
     this.keyboard = {
       1: ['a', 'z', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],

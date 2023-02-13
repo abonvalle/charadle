@@ -23,6 +23,7 @@ module.exports = {
         'partial-alt': '#ece821', //yellow
         right: '#1db963', //green
         partial: '#f28600', //orange
+        unused: '#3a3a3c',
         white: '#f7f7f7', //white
       },
     },

@@ -10,6 +10,7 @@ import { SettingsDialogComponent } from './components/settings-dialog/settings.c
 import { TopbarComponent } from './components/topbar/topbar.component';
 import { MainPageRoutingModule } from './main-page-routing.module';
 import { MainPageComponent } from './main-page.component';
+
 @NgModule({
   declarations: [
     MainPageComponent,
