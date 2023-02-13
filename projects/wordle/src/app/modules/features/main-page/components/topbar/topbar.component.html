@@ -1,0 +1,71 @@
+<div class="flex flex-row justify-between bg-primary py-2">
+  <div class="flex items-center ">
+    <div
+      class="bg-secondary w-10 h-10 rounded-lg ml-2 flex justify-center items-center cursor-pointer hover:bg-background/75 border-b-2 border-background">
+      <i class="icon icon-settings text-white"></i>
+    </div>
+    <div (click)="openHelp()"
+      class="bg-secondary w-10 h-10 rounded-lg ml-2 flex justify-center items-center cursor-pointer hover:bg-background/75 border-b-2 border-background">
+      <i class="icon icon-help-circle text-white"></i>
+    </div>
+  </div>
+  <div class="flex flex-col">
+    <h1 class="text-white font-title all:text-3xl xxs:text-4xl xs:text-5xl font-bold whitespace-nowrap text-center">
+      Wordle</h1>
+    <h2 class="text-complementary text-center all:text-[0.5rem] xxs:text-xs xs:text-sm pl-14 mt-[-5px]">
+      Séries edition
+    </h2>
+  </div>
+  <div class="flex items-center justify-end w-[84px]">
+    <!-- <div
+      class="bg-secondary w-10 h-10 rounded-lg mr-2 flex justify-center items-center cursor-pointer hover:bg-background/75 border-b-2 border-background">
+      <i class="icon icon-calendar text-white"></i>
+    </div> -->
+    <!-- <div
+      class="bg-secondary w-10 h-10 rounded-lg mr-2 flex justify-center items-center cursor-pointer hover:bg-background/75 border-b-2 border-background">
+      <i class="icon icon-share-2 text-white"></i>
+    </div> -->
+    <!-- <div
+      class="bg-secondary w-10 h-10 rounded-lg mr-2 flex justify-center items-center cursor-pointer hover:bg-background/75 border-b-2 border-background"> -->
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <i class="icon icon-more-vertical text-white text-xl mr-4"></i>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item class="flex flex-row justify-start items-center">
+        <i class="icon icon-calendar pr-2"></i>
+        <span>Archives</span>
+      </button>
+      <button mat-menu-item class="flex flex-row justify-start items-center">
+        <i class="icon icon-share-2 pr-2"></i>
+        <span>Partager score</span>
+      </button>
+      <button (click)="openHelp()" mat-menu-item class="flex flex-row justify-start items-center">
+        <i class="icon icon-help-circle pr-2"></i>
+        <span>Comment jouer ?</span>
+      </button>
+      <button mat-menu-item class="flex flex-row justify-start items-center">
+        <i class="icon icon-settings pr-2"></i>
+        <span>Paramètres</span>
+      </button>
+    </mat-menu>
+    <!-- </div> -->
+  </div>
+</div>
+
+<!-- <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+  <mat-icon>more_vert</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>
+    <mat-icon>dialpad</mat-icon>
+    <span>Redial</span>
+  </button>
+  <button mat-menu-item disabled>
+    <mat-icon>voicemail</mat-icon>
+    <span>Check voice mail</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>notifications_off</mat-icon>
+    <span>Disable alerts</span>
+  </button>
+</mat-menu> -->

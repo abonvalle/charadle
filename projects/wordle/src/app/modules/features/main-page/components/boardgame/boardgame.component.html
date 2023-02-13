@@ -1,0 +1,15 @@
+<div class="flex justify-center">
+  <div *ngFor="let letter of (gameService.wordle$ | async) | strToArr"
+    class="w-20 h-20 border-2 border-secondary rounded-md m-1 text-white flex justify-center items-center">
+    {{letter}}
+  </div>
+  <!-- <div class="w-20 h-20 border-2 border-secondary rounded-md m-1">
+
+  </div>
+  <div class="w-20 h-20 border-2 border-secondary rounded-md m-1">
+
+  </div>
+  <div class="w-20 h-20 border-2 border-secondary rounded-md m-1">
+
+  </div> -->
+</div>

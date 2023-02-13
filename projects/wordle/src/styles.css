@@ -1,0 +1,28 @@
+@import "../../nucleo/css/icons.css";
+
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  scroll-behavior: smooth;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+}
+
+.mat-menu-item {
+  display: flex !important;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
