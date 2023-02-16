@@ -24,14 +24,19 @@
   </div>
   <div *ngFor="let row of keyboard | keyvalue" class="flex flex-row justify-center items-center w-full">
     <ng-container *ngFor="let letter of row.value" class="">
-      <div *ngIf="!isLetterSpecial(letter); else specialLetter" (click)="enterLetter(letter)"
+      <div *ngIf="!isLetterSpecial(letter); else specialLetter" (click)="clickEnterLetter(letter)"
+        (touchstart)="enterLetter(letter)"
         class="text-white bg-secondary rounded-sm flex justify-center items-center m-0.5 w-[10%] text-[130%] select-none h-16 border-b-2 border-sky-900 uppercase hover:bg-sky-700 active:bg-sky-900 active:border-0">
+        <span *ngIf=" (letterFeedback$ | async)===letter"
+          class="absolute bg-slate-500 h-16 w-[10vw] text-white flex justify-center items-center mb-24 z-50 pointer-events-none">
+          {{letter}}</span>
+
         {{letter}}
       </div>
       <ng-template #specialLetter>
-        <div (click)="enterSpecialLetter(letter)"
+        <div (click)="clickEnterSpecialLetter(letter)" (touchstart)="enterSpecialLetter(letter)"
           class="text-white bg-secondary rounded-sm flex justify-center items-center m-0.5 w-[15%] text-[130%] select-none h-16 border-b-2 border-sky-900 uppercase hover:bg-sky-700 active:bg-sky-900 active:border-0"
-          [ngClass]="{'opacity-50':letter==='enter' && gameService.hasCurrentGuessEnoughLetter()}"
+          [ngClass]="{'opacity-50':letter==='enter' && gameService.hasCurrentGuessNotEnoughLetter()}"
           [innerHTML]="getSpecialLetter(letter)">
         </div>
       </ng-template>
@@ -39,6 +44,7 @@
     </ng-container>
   </div>
 </div>
+
 <!-- <div class="flex flex-col justify-end items-end w-full absolute bottom-1 right-1">
     <button (click)="delete()"
       class="text-white bg-secondary rounded-sm flex justify-center items-center m-0.5 w-[15%] text-[130%] select-none h-14 border-b-2 border-sky-900 uppercase hover:bg-sky-700 active:bg-sky-900 active:border-0">

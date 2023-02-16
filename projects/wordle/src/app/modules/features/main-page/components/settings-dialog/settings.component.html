@@ -1,11 +1,24 @@
 <h2 mat-dialog-title>Paramètres</h2>
 <mat-dialog-content>
-  <form>
-    <mat-slide-toggle ngModel name="colorBlindMode">Mode daltonien</mat-slide-toggle>
-    <mat-slide-toggle ngModel name="acceptTerms" required>Accept Terms of Service</mat-slide-toggle>
-    <button mat-raised-button type="submit">Save Settings</button>
+  <form [formGroup]="form" class="pt-4 flex flex-col justify-center items-start">
+    <mat-form-field>
+      <mat-label>Votre prénom</mat-label>
+      <input matInput type="text" formControlName="playerName">
+      <button *ngIf="form.get('playerName')?.value" matSuffix mat-icon-button aria-label="Clear"
+        (click)="form.get('playerName')?.setValue('')">
+        <i class="icon icon-x p-2 absolute right-1 top-2"></i>
+      </button>
+    </mat-form-field>
+    <mat-slide-toggle class="mb-6" formControlName="colorBlindMode"><span class="ml-2">Mode
+        daltonien</span></mat-slide-toggle>
+
+
   </form>
+  <hr class="mb-4">
+  <button mat-stroked-button color="warn" class="text-sm whitespace-nowrap" (click)="deleteAllData()">Supprimer toutes
+    les données</button>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Fermer</button>
+  <button mat-button mat-dialog-close>Annuler</button>
+  <button mat-button mat-dialog-close [disabled]=" form.pristine" (click)="save()">Sauvegarder</button>
 </mat-dialog-actions>

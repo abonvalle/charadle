@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Letter } from '@core/models';
 import { GameService } from '@core/services/game.service';
+import { PlatformService } from '@core/services/platform.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'keyboard',
@@ -9,12 +11,13 @@ import { GameService } from '@core/services/game.service';
 export class KeyboardComponent {
   letters: Map<string, Letter>;
   keyboard: { [row: number]: string[] };
-  constructor(public gameService: GameService) {
+  letterFeedback$: BehaviorSubject<string>;
+  constructor(public gameService: GameService, public platformServ: PlatformService) {
     this.letters = new Map();
     this.keyboard = {};
+    this.letterFeedback$ = new BehaviorSubject('');
     this._setKeyboardAndLetters();
   }
-
   enter() {
     this.gameService.submitGuess();
   }
@@ -22,8 +25,23 @@ export class KeyboardComponent {
   delete() {
     this.gameService.removeLastGuessLetter();
   }
-
-  enterLetter(letter: string) {
+  clickEnterLetter(letter: string): void {
+    if (this.platformServ.touchStart$?.value) {
+      return;
+    }
+    this.enterLetter(letter);
+  }
+  clickEnterSpecialLetter(letter: string): void {
+    if (this.platformServ.touchStart$?.value) {
+      return;
+    }
+    this.enterSpecialLetter(letter);
+  }
+  enterLetter(letter: string): void {
+    this.letterFeedback$.next(letter);
+    setTimeout(() => {
+      this.letterFeedback$.next('');
+    }, 200);
     this.gameService.addCurrentGuessLetter(letter);
   }
 

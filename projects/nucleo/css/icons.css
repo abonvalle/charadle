@@ -142,3 +142,7 @@ Generated using nucleoapp.com
 .icon-more-vertical::before {
   content: "\ea12";
 }
+
+.icon-x::before {
+  content: "\ea13";
+}

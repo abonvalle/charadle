@@ -4,24 +4,13 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@config/*": [
-        "projects/wordle/src/environments/*"
-      ],
-      "@core/*": [
-        "projects/wordle/src/app/modules/core/*"
-      ],
-      "@features/*": [
-        "projects/wordle/src/app/modules/features/*"
-      ],
-      "@models/*": [
-        "projects/wordle/src/app/modules/core/models"
-      ],
-      "@modules/*": [
-        "projects/wordle/src/app/modules/*"
-      ],
-      "@shared/*": [
-        "projects/wordle/src/app/modules/shared/*"
-      ]
+      "@config/*": ["projects/wordle/src/environments/*"],
+      "@core/*": ["projects/wordle/src/app/modules/core/*"],
+      "@features/*": ["projects/wordle/src/app/modules/features/*"],
+      "@models/*": ["projects/wordle/src/app/modules/core/models"],
+      "@modules/*": ["projects/wordle/src/app/modules/*"],
+      "@shared/*": ["projects/wordle/src/app/modules/shared/*"],
+      "@assets/*": ["projects/wordle/src/assets/*"]
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
@@ -38,10 +27,7 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "es2020",
-    "lib": [
-      "es2020",
-      "dom"
-    ],
+    "lib": ["es2020", "dom"],
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "allowUnreachableCode": true,

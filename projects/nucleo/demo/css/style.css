@@ -243,3 +243,7 @@ icons
   content: "\ea12";
 }
 
+.icon-x::before {
+  content: "\ea13";
+}
+

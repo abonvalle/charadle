@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
-import { MatLegacySnackBar as MatSnackBar, MatLegacySnackBarRef as MatSnackBarRef, LegacyTextOnlySnackBar as TextOnlySnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar, MatSnackBarRef, TextOnlySnackBar } from '@angular/material/snack-bar';
+import * as characters from '@assets/characters.json';
+import * as words from '@assets/words.json';
 import { letterState } from '@core/models';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class GameService {
@@ -9,17 +12,33 @@ export class GameService {
   currentGuess$: BehaviorSubject<string>;
   guesses$: BehaviorSubject<string[]>;
   success$: BehaviorSubject<boolean>;
-  constructor(private _snackBar: MatSnackBar) {
-    this.wordle$ = new BehaviorSubject('khal');
+  destroy$: Subject<void>;
+  constructor(private _snackBar: MatSnackBar, private _localStrgeServ: LocalStorageService) {
+    this.wordle$ = new BehaviorSubject('khald');
     this.currentGuess$ = new BehaviorSubject<string>('');
     this.guesses$ = new BehaviorSubject<string[]>(['eren', 'jean', 'jean', 'jean', 'jean']);
     this.success$ = new BehaviorSubject<boolean>(false);
+    this.destroy$ = new Subject();
+    console.warn(characters);
+    console.warn(words);
+    this._event();
   }
-  hasCurrentGuessEnoughLetter(): boolean {
+  ngOnDestroy(): void {
+    this.destroy$?.next();
+    this.destroy$?.unsubscribe();
+  }
+  private _event(): void {
+    this._localStrgeServ.clear$.pipe(takeUntil(this.destroy$)).subscribe(() => {
+      this.currentGuess$.next('');
+      this.guesses$.next([]);
+      this.success$.next(false);
+    });
+  }
+  hasCurrentGuessNotEnoughLetter(): boolean {
     return this.wordle$.value?.length > this.currentGuess$.value?.length;
   }
   addCurrentGuessLetter(letter: string): void {
-    if (this.hasCurrentGuessEnoughLetter()) {
+    if (this.hasCurrentGuessNotEnoughLetter()) {
       this.currentGuess$.next(this.currentGuess$.value + letter);
     }
   }
@@ -46,7 +65,7 @@ export class GameService {
 
   submitGuess(): void {
     const currentGuess = this.currentGuess$.value;
-    if (!this.hasCurrentGuessEnoughLetter()) {
+    if (this.hasCurrentGuessNotEnoughLetter()) {
       return;
     }
     if (!this.list.includes(currentGuess)) {
@@ -70,7 +89,7 @@ export class GameService {
       horizontalPosition: 'center',
       verticalPosition: 'top',
       duration: 3500,
-      panelClass: ['font-bold', 'text-white', type === 'alert' ? 'bg-red-600' : 'bg-green-600']
+      panelClass: ['font-bold', 'text-white', type ?? '']
     });
   }
   tagNameAsValid(name: string) {
