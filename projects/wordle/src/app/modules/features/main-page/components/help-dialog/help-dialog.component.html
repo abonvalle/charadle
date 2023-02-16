@@ -1,16 +1,20 @@
 <h2 mat-dialog-title>Comment jouer ?</h2>
-<mat-dialog-content class="mat-typography">
-  <p>Ce jeu reprend le principe du jeu télévisé Motus mais sur le thème des séries. <br>Chaque jour, un nouveau prénom
+<mat-dialog-content>
+  <p>Ce jeu reprend le principe du jeu télévisé Motus mais sur le thème des séries.
+    <br>Chaque jour,
+    un nouveau prénom
     de
     personnage de série populaire est proposé. A vous de trouver en faisant des essais avec <u>n'importe quel
       prénom</u>.
-    <i>(Un prénom valide est marqué comme non-valide ? signalez le en cliquant <a
-        class="cursor-pointer"><u>ici</u></a>)</i>
+  </p>
+  <p>
+    Tentez de faire le meilleur score possible !
   </p>
   <!-- <p><strong>Devinez un nouveau prénom chaque jour</strong>Cvisé Motus.</p>
   <h2>Devinez un nouveau prénom chaque jour.</h2>
   <h3>Devinez un nouveau prénom chaque jour.</h3> -->
-  <h4>Exemples :</h4>
+  <br>
+  <h4 class="text-lg mb-2">Exemples :</h4>
   <div class="flex flex-col justify-center gap-2">
     <div class="flex justify-center bg-background rounded-sm">
       <div
@@ -63,14 +67,46 @@
       </div>
     </div>
     <p class="pl-2">Bravo, vous avez trouvé !</p>
+    <br>
   </div>
   <hr class="mb-3">
-  <h4>Cas particulier :</h4>
+  <h3 class="text-xl">Jokers :</h3>
+  <br>
+  <p>Pour vous aider, vous disposez de plusieurs jokers différents :
+  </p>
+  <br>
+
+  <div class="flex flex-row">
+    <i
+      class="icon icon-format-paint text-xl w-10 h-10 rounded-full bg-secondary flex flex-col justify-center items-center text-white"></i>
+    <p class="ml-2">
+      - Révele une lettre utilisée dans le prénom à trouver.
+    </p>
+  </div>
+  <div class="flex flex-row">
+    <i
+      class="icon icon-format-color-text text-xl w-10 h-10 rounded-full bg-secondary flex flex-col justify-center items-center text-white"></i>
+    <p class="ml-2">
+      - Révéle et place correctement une lettre utilisée dans le
+      prénom à trouver.
+    </p>
+  </div>
+  <div class="flex flex-row">
+    <i class="icon icon-tv text-xl w-10 h-10 rounded-full bg-secondary flex flex-col justify-center items-center
+    text-white"></i>
+    <p class="ml-2">- Révéle la série d'origine dupersonnage.</p>
+  </div>
+  <br>
+
+  <hr class="mb-3">
+  <h3 class="text-xl">Cas particulier :</h3>
+  <br>
   <p>Certains prénoms à trouver sont des prénoms composés <i>(Jean-Christophe par exemple)</i>.
     Dans ce cas, vous pourrez tenter un essai composé de deux prénoms valides mais qui ne forme pas un prénom composé
     existant.
   </p>
-  <h4>Exemples :</h4>
+  <br>
+  <h4 class="text-lg mb-2">Exemples :</h4>
   <div class="flex flex-col justify-center gap-2">
     <div class="flex justify-center bg-background rounded-sm">
       <div
@@ -117,5 +153,5 @@
   </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>A vous de jouer !</button>
+  <button mat-button mat-dialog-close>Compris !</button>
 </mat-dialog-actions>

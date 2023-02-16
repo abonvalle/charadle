@@ -1,6 +1,6 @@
 <div class="flex flex-row justify-between bg-primary py-2">
   <div class="flex items-center ">
-    <div
+    <div (click)="openSettings()"
       class="bg-secondary w-10 h-10 rounded-lg ml-2 flex justify-center items-center cursor-pointer hover:bg-background/75 border-b-2 border-background">
       <i class="icon icon-settings text-white"></i>
     </div>
@@ -43,7 +43,7 @@
         <i class="icon icon-help-circle pr-2"></i>
         <span>Comment jouer ?</span>
       </button>
-      <button mat-menu-item class="flex flex-row justify-start items-center">
+      <button (click)="openSettings()" mat-menu-item class="flex flex-row justify-start items-center">
         <i class="icon icon-settings pr-2"></i>
         <span>Paramètres</span>
       </button>

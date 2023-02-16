@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { MatSnackBar, MatSnackBarRef, TextOnlySnackBar } from '@angular/material/snack-bar';
 import { letterState } from '@core/models';
 import { BehaviorSubject } from 'rxjs';
 
@@ -7,20 +8,18 @@ export class GameService {
   wordle$: BehaviorSubject<string>;
   currentGuess$: BehaviorSubject<string>;
   guesses$: BehaviorSubject<string[]>;
-  constructor() {
-    this.wordle$ = new BehaviorSubject('Khal');
+  success$: BehaviorSubject<boolean>;
+  constructor(private _snackBar: MatSnackBar) {
+    this.wordle$ = new BehaviorSubject('khal');
     this.currentGuess$ = new BehaviorSubject<string>('');
     this.guesses$ = new BehaviorSubject<string[]>(['eren', 'jean', 'jean', 'jean', 'jean']);
+    this.success$ = new BehaviorSubject<boolean>(false);
   }
-  get wordleLength(): number {
-    return this.wordle$.value?.length;
-  }
-  get isWordleLengthSupCurrentGuess(): boolean {
+  hasCurrentGuessEnoughLetter(): boolean {
     return this.wordle$.value?.length > this.currentGuess$.value?.length;
   }
-
   addCurrentGuessLetter(letter: string): void {
-    if (this.isWordleLengthSupCurrentGuess) {
+    if (this.hasCurrentGuessEnoughLetter()) {
       this.currentGuess$.next(this.currentGuess$.value + letter);
     }
   }
@@ -46,7 +45,36 @@ export class GameService {
   }
 
   submitGuess(): void {
-    this.guesses$.next([...this.guesses$.value, this.currentGuess$.value]);
+    const currentGuess = this.currentGuess$.value;
+    if (!this.hasCurrentGuessEnoughLetter()) {
+      return;
+    }
+    if (!this.list.includes(currentGuess)) {
+      let snackBarRef = this.openSnackBar('Prénom inconnu', 'alert', 'Signaler comme existant');
+      const snackAction = snackBarRef.onAction().subscribe(() => {
+        this.tagNameAsValid(currentGuess);
+      });
+      setTimeout(() => snackAction?.unsubscribe(), 3550);
+      return;
+    }
+    if (currentGuess === this.wordle$.value) {
+      this.openSnackBar('Bravo !', 'success');
+      this.success$.next(true);
+    }
+    this.guesses$.next([...this.guesses$.value, currentGuess]);
     this.currentGuess$.next('');
+  }
+  list = ['slt', 'khal'];
+  openSnackBar(msg: string, type?: 'alert' | 'success' | '', action?: string): MatSnackBarRef<TextOnlySnackBar> {
+    return this._snackBar.open(msg, action, {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      duration: 3500,
+      panelClass: ['font-bold', 'text-white', type === 'alert' ? 'bg-red-600' : 'bg-green-600']
+    });
+  }
+  tagNameAsValid(name: string) {
+    console.warn('tag as valid ', name);
+    return;
   }
 }

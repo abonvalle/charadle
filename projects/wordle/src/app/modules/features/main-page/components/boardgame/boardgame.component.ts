@@ -11,7 +11,7 @@ export class BoardgameComponent {
   constructor(public gameService: GameService) {}
   get boxLetterSize(): string {
     let size = 0;
-    switch (this.gameService.wordleLength) {
+    switch (this.gameService.wordle$.value?.length) {
       case 2:
       case 3:
       case 4:
@@ -40,7 +40,7 @@ export class BoardgameComponent {
   }
   get letterSize(): string {
     let size = 0;
-    switch (this.gameService.wordleLength) {
+    switch (this.gameService.wordle$.value?.length) {
       case 2:
       case 3:
       case 4:

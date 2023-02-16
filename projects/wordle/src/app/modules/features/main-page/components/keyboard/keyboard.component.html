@@ -1,43 +1,52 @@
-<div class="flex flex-col justify-center items-center p-2">
+<div class="flex flex-col justify-center items-center p-1">
   <div class="flex mb-2">
 
     <joker-button class="m-1">
       <button
-        class="text-white bg-secondary rounded-full flex justify-center items-center m-1 w-10 h-10 hover:bg-sky-900 z-20 relative">
+        class="text-white bg-secondary rounded-full flex justify-center items-center m-1 w-10 h-10 hover:bg-sky-900 z-20 relative select-none">
         <i class="icon icon-format-paint"></i>
       </button>
     </joker-button>
     <joker-button class="m-1" [uses]="'1/5'">
       <button
-        class="text-white bg-secondary rounded-full flex justify-center items-center m-1 w-10 h-10 hover:bg-sky-900 z-20 relative">
+        class="text-white bg-secondary rounded-full flex justify-center items-center m-1 w-10 h-10 hover:bg-sky-900 z-20 relative select-none">
         <i class="icon icon-format-color-text"></i>
       </button>
     </joker-button>
     <joker-button class="m-1" [uses]="'2/5'">
       <button
-        class="text-white bg-secondary rounded-full flex justify-center items-center m-1 w-10 h-10 hover:bg-sky-900 z-20 relative">
+        class="text-white bg-secondary rounded-full flex justify-center items-center m-1 w-10 h-10 hover:bg-sky-900 z-20 relative select-none">
         <i class="icon icon-tv"></i>
       </button>
     </joker-button>
 
 
   </div>
-  <div *ngFor="let row of keyboard | keyvalue" class="flex flex-row justify-center items-center">
-    <div *ngFor="let letter of row.value" class="">
-      <ng-container [ngSwitch]="letter">
-        <button *ngSwitchCase="'enter'" (click)="enter()"
-          class="text-white bg-secondary rounded-sm flex justify-center items-center m-1 w-16 h-10 border-b-2 border-sky-900 uppercase hover:bg-sky-700 active:bg-sky-900 active:border-0">
-          <i class="icon icon-corner-down-left"></i>
-        </button>
-        <button *ngSwitchCase="'delete'" (click)="delete()"
-          class="text-white bg-secondary rounded-sm flex justify-center items-center m-1 w-16 h-10 border-b-2 border-sky-900 uppercase hover:bg-sky-700 active:bg-sky-900 active:border-0">
-          <i class="icon icon-delete"></i>
-        </button>
-        <button *ngSwitchDefault (click)="enterLetter(letter)"
-          class="text-white bg-secondary rounded-sm flex justify-center items-center m-1 w-8 h-10 border-b-2 border-sky-900 uppercase hover:bg-sky-700 active:bg-sky-900 active:border-0">
-          {{letter}}
-        </button>
-      </ng-container>
-    </div>
+  <div *ngFor="let row of keyboard | keyvalue" class="flex flex-row justify-center items-center w-full">
+    <ng-container *ngFor="let letter of row.value" class="">
+      <div *ngIf="!isLetterSpecial(letter); else specialLetter" (click)="enterLetter(letter)"
+        class="text-white bg-secondary rounded-sm flex justify-center items-center m-0.5 w-[10%] text-[130%] select-none h-16 border-b-2 border-sky-900 uppercase hover:bg-sky-700 active:bg-sky-900 active:border-0">
+        {{letter}}
+      </div>
+      <ng-template #specialLetter>
+        <div (click)="enterSpecialLetter(letter)"
+          class="text-white bg-secondary rounded-sm flex justify-center items-center m-0.5 w-[15%] text-[130%] select-none h-16 border-b-2 border-sky-900 uppercase hover:bg-sky-700 active:bg-sky-900 active:border-0"
+          [ngClass]="{'opacity-50':letter==='enter' && gameService.hasCurrentGuessEnoughLetter()}"
+          [innerHTML]="getSpecialLetter(letter)">
+        </div>
+      </ng-template>
+
+    </ng-container>
   </div>
 </div>
+<!-- <div class="flex flex-col justify-end items-end w-full absolute bottom-1 right-1">
+    <button (click)="delete()"
+      class="text-white bg-secondary rounded-sm flex justify-center items-center m-0.5 w-[15%] text-[130%] select-none h-14 border-b-2 border-sky-900 uppercase hover:bg-sky-700 active:bg-sky-900 active:border-0">
+      <i class="icon icon-delete"></i>
+    </button>
+    <button (click)="enter()"
+      class="text-white bg-secondary rounded-sm flex justify-center items-center m-0.5 w-[15%] text-[130%] select-none h-14 border-b-2 border-sky-900 uppercase hover:bg-sky-700 active:bg-sky-900 active:border-0">
+      <i class="icon icon-corner-down-left"></i>
+    </button>
+
+  </div> -->

@@ -32,6 +32,7 @@ export class KeyboardComponent {
       1: ['a', 'z', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
       2: ['q', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm'],
       3: ['enter', 'w', 'x', 'c', 'v', 'b', 'n', 'delete']
+      // 4: ['enter', 'j1', 'j2', 'j3', 'delete']
     };
 
     Object.entries(this.keyboard).forEach(([rowNumber, letters]) => {
@@ -39,5 +40,14 @@ export class KeyboardComponent {
         this.letters.set(letter, new Letter(letter, parseInt(rowNumber), index));
       });
     });
+  }
+  getSpecialLetter(letter: string): string {
+    return letter === 'delete' ? '<i class="icon icon-delete"></i>' : '<i class="icon icon-corner-down-left"></i>';
+  }
+  enterSpecialLetter(letter: string): void {
+    return letter === 'delete' ? this.delete() : this.enter();
+  }
+  isLetterSpecial(letter: string): boolean {
+    return letter === 'delete' || letter === 'enter';
   }
 }
