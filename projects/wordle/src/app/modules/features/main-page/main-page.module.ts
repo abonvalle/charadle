@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
+import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
+import { MatLegacySlideToggleModule as MatSlideToggleModule } from '@angular/material/legacy-slide-toggle';
 import { SharedModule } from '@modules/shared/shared.module';
 import { BoardgameComponent } from './components/boardgame/boardgame.component';
 import { HelpDialogComponent } from './components/help-dialog/help-dialog.component';
