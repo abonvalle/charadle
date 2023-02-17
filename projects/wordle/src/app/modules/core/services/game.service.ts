@@ -10,20 +10,32 @@ import { LocalStorageService } from './local-storage.service';
 @Injectable({ providedIn: 'root' })
 export class GameService {
   wordle$: BehaviorSubject<string>;
-  currentGuess$: BehaviorSubject<string>;
-  guesses$: BehaviorSubject<string[]>;
+  board$: BehaviorSubject<Map<number, { guess: string; submitted: boolean; current: boolean; lineIndex: number }>>;
+  currentLine$: BehaviorSubject<number>;
   success$: BehaviorSubject<boolean>;
   destroy$: Subject<void>;
   constructor(private _snackBar: MatSnackBar, private _localStrgeServ: LocalStorageService) {
     this.wordle$ = new BehaviorSubject('');
-    this.currentGuess$ = new BehaviorSubject<string>('');
-    this.guesses$ = new BehaviorSubject<string[]>([]);
     this.success$ = new BehaviorSubject<boolean>(false);
+    this.board$ = new BehaviorSubject(new Map());
+
+    this.currentLine$ = new BehaviorSubject<number>(0);
     this.destroy$ = new Subject();
     console.warn(charactersJSON);
     console.warn(wordsJSON);
     this._event();
+    this.setBoard();
     this.setWordle();
+  }
+  setBoard() {
+    const board2 = new Map();
+    board2.set(0, { guess: '', submitted: false, current: true, lineIndex: 0 });
+    board2.set(1, { guess: '', submitted: false, current: false, lineIndex: 1 });
+    board2.set(2, { guess: '', submitted: false, current: false, lineIndex: 2 });
+    board2.set(3, { guess: '', submitted: false, current: false, lineIndex: 3 });
+    board2.set(4, { guess: '', submitted: false, current: false, lineIndex: 4 });
+    board2.set(5, { guess: '', submitted: false, current: false, lineIndex: 5 });
+    this.board$ = new BehaviorSubject(board2);
   }
   ngOnDestroy(): void {
     this.destroy$?.next();
@@ -31,34 +43,48 @@ export class GameService {
   }
   private _event(): void {
     this._localStrgeServ.clear$.pipe(takeUntil(this.destroy$)).subscribe(() => {
-      this.currentGuess$.next('');
-      this.guesses$.next([]);
+      this.setBoard();
       this.success$.next(false);
     });
   }
   hasCurrentGuessNotEnoughLetter(): boolean {
-    return this.wordle$.value?.length > this.currentGuess$.value?.length;
+    const board2 = this.board$?.value;
+    const board2CurrentLine = board2.get(this.currentLine$?.value);
+    return !!board2CurrentLine && this.wordle$.value?.length > board2CurrentLine.guess?.length;
   }
+
   addCurrentGuessLetter(letter: string): void {
     if (this.hasCurrentGuessNotEnoughLetter()) {
-      this.currentGuess$.next(this.currentGuess$.value + letter);
+      const board2 = this.board$?.value;
+      const board2CurrentLine = board2.get(this.currentLine$?.value);
+      if (!!board2CurrentLine) {
+        board2CurrentLine.guess = board2CurrentLine.guess + letter;
+        board2.set(this.currentLine$?.value, board2CurrentLine);
+        this.board$.next(board2);
+      }
     }
   }
 
   removeLastGuessLetter(): void {
-    const letters = this.currentGuess$.value;
-    this.currentGuess$.next(letters.slice(0, letters.length - 1));
+    const board2 = this.board$?.value;
+    const board2CurrentLine = board2.get(this.currentLine$?.value);
+    if (!!board2CurrentLine) {
+      const guess = board2CurrentLine.guess.split('');
+      guess.pop();
+      board2CurrentLine.guess = guess.join('');
+      board2.set(this.currentLine$?.value, board2CurrentLine);
+      this.board$.next(board2);
+    }
   }
 
-  getGuessLetter(index: number): string {
-    const letters = this.currentGuess$.value;
-    return letters ? letters[index] ?? '' : '';
-  }
-
-  getLetterState(letter: string, index: number): letterState {
-    if (this.wordle$.value[index] === letter) {
+  getLetterState(
+    line: { guess: string; submitted: boolean; current: boolean; lineIndex: number },
+    indexLetter: number
+  ): letterState {
+    const letter = line ? line.guess[indexLetter] : '';
+    if (this.wordle$?.value[indexLetter] === letter) {
       return 'right';
-    } else if (this.wordle$.value.includes(letter)) {
+    } else if (this.wordle$?.value.includes(letter ?? '')) {
       return 'partial';
     } else {
       return 'unused';
@@ -66,7 +92,13 @@ export class GameService {
   }
 
   submitGuess(): void {
-    const currentGuess = this.currentGuess$.value;
+    const board2 = this.board$?.value;
+    const board2CurrentLineIndex = this.currentLine$?.value;
+    const board2CurrentLine = board2.get(board2CurrentLineIndex);
+    if (!board2CurrentLine) {
+      return;
+    }
+    const currentGuess = board2CurrentLine.guess;
     if (this.hasCurrentGuessNotEnoughLetter()) {
       return;
     }
@@ -85,8 +117,18 @@ export class GameService {
       this.openSnackBar('Bravo !', 'success');
       this.success$.next(true);
     }
-    this.guesses$.next([...this.guesses$.value, currentGuess]);
-    this.currentGuess$.next('');
+
+    board2CurrentLine.current = false;
+    board2CurrentLine.submitted = true;
+    board2.set(board2CurrentLineIndex, board2CurrentLine);
+    const board2NextLine = board2.get(board2CurrentLineIndex + 1);
+    if (!!board2NextLine) {
+      board2NextLine.current = true;
+      board2.set(this.currentLine$?.value + 1, board2NextLine);
+    }
+    this.board$.next(board2);
+
+    this.currentLine$.next(this.currentLine$?.value + 1);
   }
   openSnackBar(msg: string, type?: 'alert' | 'success' | '', action?: string): MatSnackBarRef<TextOnlySnackBar> {
     return this._snackBar.open(msg, action, {

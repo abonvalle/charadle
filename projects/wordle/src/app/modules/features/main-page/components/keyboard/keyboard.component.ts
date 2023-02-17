@@ -38,21 +38,9 @@ export class KeyboardComponent {
     this.enterSpecialLetter(letter);
   }
   enterLetter(letter: string): void {
-    // this.letterFeedback$.next(letter);
-    // setTimeout(() => {
-    //   this.letterFeedback$.next('');
-    // }, 200);
-    // this.letterFeedback$
-    //   .pipe(
-    //     switchMap(() => timer(200)),
-    //     takeUntil(timer(250))
-    //   )
-    //   .subscribe
     setTimeout(() => {
       const letters = this.letterFeedback$?.value;
-      console.warn(letters);
       letters?.shift();
-      console.warn(letters);
       this.letterFeedback$.next([...letters]);
     }, 200);
     this.letterFeedback$.next([...this.letterFeedback$.value, letter]);
@@ -65,7 +53,6 @@ export class KeyboardComponent {
       1: ['a', 'z', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
       2: ['q', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm'],
       3: ['enter', 'w', 'x', 'c', 'v', 'b', 'n', 'delete']
-      // 4: ['enter', 'j1', 'j2', 'j3', 'delete']
     };
 
     Object.entries(this.keyboard).forEach(([rowNumber, letters]) => {
@@ -80,9 +67,7 @@ export class KeyboardComponent {
   enterSpecialLetter(letter: string): void {
     setTimeout(() => {
       const letters = this.letterFeedback$?.value;
-      console.warn(letters);
       letters?.shift();
-      console.warn(letters);
       this.letterFeedback$.next([...letters]);
     }, 200);
     this.letterFeedback$.next([...this.letterFeedback$.value, letter]);

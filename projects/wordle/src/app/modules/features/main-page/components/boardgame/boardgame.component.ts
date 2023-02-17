@@ -69,10 +69,25 @@ export class BoardgameComponent {
     }
     return size / 1.8 + 'vw';
   }
-  getLetterStateClass(letter: string, index: number): string {
-    const state = this.gameService.getLetterState(letter, index);
-    return `animate-[flip-${state}_1.5s_ease-in-out_${Math.floor(index * 0.3 * 10) / 10}s_forwards]`;
+  getLetterStateClass(
+    line: { guess: string; submitted: boolean; current: boolean; lineIndex: number },
+    indexLetter: number
+  ): string {
+    const state = this.gameService.getLetterState(line, indexLetter);
+    return `animate-[flip-${state}_1.5s_ease-in-out_${Math.floor(indexLetter * 0.3 * 10) / 10}s_forwards]`;
     // return `border-${state} bg-${state}`;
+  }
+  isLineSubmitted(line: number): boolean {
+    return this.gameService.currentLine$?.value > line;
+  }
+  isCurrentLineEdit(line: number): boolean {
+    return this.gameService.currentLine$?.value === line;
+  }
+  isCursor(
+    line: { guess: string; submitted: boolean; current: boolean; lineIndex: number },
+    indexLetter: number
+  ): boolean {
+    return line.current && line.guess.length === indexLetter;
   }
   test() {
     // const words = [
