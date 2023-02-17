@@ -2,7 +2,7 @@
   <div class="flex flex-col gap-2 overflow-scroll py-2 max-h-56">
     <div *ngFor="let guess of (gameService.guesses$ | async)" class="flex justify-center">
       <div *ngFor="let letter of guess | strToArr;let i = index"
-        class="border-2 rounded-md text-white flex justify-center items-center uppercase scale-90 opacity-60"
+        class="border-2 border-secondary rounded-md text-white flex justify-center items-center uppercase scale-90"
         [ngClass]="getLetterStateClass(letter,i)"
         [ngStyle]="{'width':boxLetterSize,'height':boxLetterSize,'font-size':letterSize}">
         {{letter}}

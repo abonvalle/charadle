@@ -26,18 +26,19 @@
     <ng-container *ngFor="let letter of row.value" class="">
       <div *ngIf="!isLetterSpecial(letter); else specialLetter" (click)="clickEnterLetter(letter)"
         (touchstart)="enterLetter(letter)"
-        class="text-white bg-secondary rounded-sm flex justify-center items-center m-0.5 w-[10%] text-[130%] select-none h-16 border-b-2 border-sky-900 uppercase hover:bg-sky-700 active:bg-sky-900 active:border-0">
-        <span *ngIf=" (letterFeedback$ | async)===letter"
-          class="absolute bg-slate-500 h-16 w-[10vw] text-white flex justify-center items-center mb-24 z-50 pointer-events-none">
+        class="text-white bg-secondary rounded-sm flex justify-center items-center m-0.5 w-[10%] text-[130%] select-none h-16 border-b-2 border-sky-900 uppercase transition-all">
+        <span *ngIf="(letterFeedback$ | async)?.includes(letter)"
+          class="absolute bg-cyan-600 h-28 w-[9.5vw] text-white flex justify-center items-start mb-12 pt-3 z-50 pointer-events-none">
           {{letter}}</span>
 
         {{letter}}
       </div>
       <ng-template #specialLetter>
         <div (click)="clickEnterSpecialLetter(letter)" (touchstart)="enterSpecialLetter(letter)"
-          class="text-white bg-secondary rounded-sm flex justify-center items-center m-0.5 w-[15%] text-[130%] select-none h-16 border-b-2 border-sky-900 uppercase hover:bg-sky-700 active:bg-sky-900 active:border-0"
-          [ngClass]="{'opacity-50':letter==='enter' && gameService.hasCurrentGuessNotEnoughLetter()}"
-          [innerHTML]="getSpecialLetter(letter)">
+          class="text-white bg-secondary rounded-sm flex justify-center items-center m-0.5 w-[15%] text-[130%] select-none h-16 border-b-2 border-sky-900 uppercase transition-all"
+          [ngClass]="{'opacity-50':letter==='enter' && gameService.hasCurrentGuessNotEnoughLetter(),'border-b-0 bg-cyan-600':(letterFeedback$ | async)?.includes(letter)}">
+          <i *ngIf="letter === 'delete'" class="icon icon-delete"></i>
+          <i *ngIf="letter === 'enter'" class="icon icon-corner-down-left"></i>
         </div>
       </ng-template>
 

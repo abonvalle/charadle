@@ -11,11 +11,11 @@ import { BehaviorSubject } from 'rxjs';
 export class KeyboardComponent {
   letters: Map<string, Letter>;
   keyboard: { [row: number]: string[] };
-  letterFeedback$: BehaviorSubject<string>;
+  letterFeedback$: BehaviorSubject<string[]>;
   constructor(public gameService: GameService, public platformServ: PlatformService) {
     this.letters = new Map();
     this.keyboard = {};
-    this.letterFeedback$ = new BehaviorSubject('');
+    this.letterFeedback$ = new BehaviorSubject<string[]>([]);
     this._setKeyboardAndLetters();
   }
   enter() {
@@ -38,10 +38,25 @@ export class KeyboardComponent {
     this.enterSpecialLetter(letter);
   }
   enterLetter(letter: string): void {
-    this.letterFeedback$.next(letter);
+    // this.letterFeedback$.next(letter);
+    // setTimeout(() => {
+    //   this.letterFeedback$.next('');
+    // }, 200);
+    // this.letterFeedback$
+    //   .pipe(
+    //     switchMap(() => timer(200)),
+    //     takeUntil(timer(250))
+    //   )
+    //   .subscribe
     setTimeout(() => {
-      this.letterFeedback$.next('');
+      const letters = this.letterFeedback$?.value;
+      console.warn(letters);
+      letters?.shift();
+      console.warn(letters);
+      this.letterFeedback$.next([...letters]);
     }, 200);
+    this.letterFeedback$.next([...this.letterFeedback$.value, letter]);
+
     this.gameService.addCurrentGuessLetter(letter);
   }
 
@@ -63,6 +78,15 @@ export class KeyboardComponent {
     return letter === 'delete' ? '<i class="icon icon-delete"></i>' : '<i class="icon icon-corner-down-left"></i>';
   }
   enterSpecialLetter(letter: string): void {
+    setTimeout(() => {
+      const letters = this.letterFeedback$?.value;
+      console.warn(letters);
+      letters?.shift();
+      console.warn(letters);
+      this.letterFeedback$.next([...letters]);
+    }, 200);
+    this.letterFeedback$.next([...this.letterFeedback$.value, letter]);
+
     return letter === 'delete' ? this.delete() : this.enter();
   }
   isLetterSpecial(letter: string): boolean {

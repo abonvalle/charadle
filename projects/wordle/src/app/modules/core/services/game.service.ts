@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarRef, TextOnlySnackBar } from '@angular/material/snack-bar';
-import * as characters from '@assets/characters.json';
-import * as words from '@assets/words.json';
+import * as charactersJSON from '@assets/characters.json';
+import * as wordlesJSON from '@assets/w1-3.json';
+import * as wordsJSON from '@assets/words.json';
 import { letterState } from '@core/models';
-import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
+import { BehaviorSubject, Subject, takeUntil, timer } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 
 @Injectable({ providedIn: 'root' })
@@ -14,14 +15,15 @@ export class GameService {
   success$: BehaviorSubject<boolean>;
   destroy$: Subject<void>;
   constructor(private _snackBar: MatSnackBar, private _localStrgeServ: LocalStorageService) {
-    this.wordle$ = new BehaviorSubject('khald');
+    this.wordle$ = new BehaviorSubject('');
     this.currentGuess$ = new BehaviorSubject<string>('');
-    this.guesses$ = new BehaviorSubject<string[]>(['eren', 'jean', 'jean', 'jean', 'jean']);
+    this.guesses$ = new BehaviorSubject<string[]>([]);
     this.success$ = new BehaviorSubject<boolean>(false);
     this.destroy$ = new Subject();
-    console.warn(characters);
-    console.warn(words);
+    console.warn(charactersJSON);
+    console.warn(wordsJSON);
     this._event();
+    this.setWordle();
   }
   ngOnDestroy(): void {
     this.destroy$?.next();
@@ -68,12 +70,15 @@ export class GameService {
     if (this.hasCurrentGuessNotEnoughLetter()) {
       return;
     }
-    if (!this.list.includes(currentGuess)) {
+    const words = wordsJSON;
+    if (!words.words.includes(currentGuess)) {
       let snackBarRef = this.openSnackBar('Prénom inconnu', 'alert', 'Signaler comme existant');
-      const snackAction = snackBarRef.onAction().subscribe(() => {
-        this.tagNameAsValid(currentGuess);
-      });
-      setTimeout(() => snackAction?.unsubscribe(), 3550);
+      snackBarRef
+        .onAction()
+        .pipe(takeUntil(timer(200)))
+        .subscribe(() => {
+          this.tagNameAsValid(currentGuess);
+        });
       return;
     }
     if (currentGuess === this.wordle$.value) {
@@ -83,7 +88,6 @@ export class GameService {
     this.guesses$.next([...this.guesses$.value, currentGuess]);
     this.currentGuess$.next('');
   }
-  list = ['slt', 'khal'];
   openSnackBar(msg: string, type?: 'alert' | 'success' | '', action?: string): MatSnackBarRef<TextOnlySnackBar> {
     return this._snackBar.open(msg, action, {
       horizontalPosition: 'center',
@@ -95,5 +99,15 @@ export class GameService {
   tagNameAsValid(name: string) {
     console.warn('tag as valid ', name);
     return;
+  }
+  setWordle() {
+    let date = new Date();
+    let numerodujour = date.getDate();
+    let numerodumois = date.getMonth() + 1;
+    let numeroannee = date.getFullYear() - 2022;
+    const wordles = wordlesJSON;
+    const ind =
+      12 * (numerodujour - 1) + numerodumois + (Math.pow(numerodujour, 2) + 1 * numerodujour) / 2 + 868 * numeroannee;
+    this.wordle$.next(wordles.words[ind - 1] ?? '');
   }
 }
