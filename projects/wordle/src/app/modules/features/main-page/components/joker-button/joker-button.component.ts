@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { jokersUses } from '@core/services/joker.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'joker-button',
@@ -6,6 +8,6 @@ import { Component, Input } from '@angular/core';
   templateUrl: 'joker-button.component.html'
 })
 export class JokerButtonComponent {
-  @Input() uses: '1/3' | '2/3' | '1/5' | '2/5' | '3/5' | '4/5' | '0' = '0';
+  @Input() uses: BehaviorSubject<jokersUses> = new BehaviorSubject<jokersUses>('0');
   constructor() {}
 }

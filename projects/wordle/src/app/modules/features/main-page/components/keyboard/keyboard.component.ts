@@ -1,80 +1,64 @@
 import { Component } from '@angular/core';
-import { Letter } from '@core/models';
-import { GameService } from '@core/services/game.service';
+import { JokerService } from '@core/services/joker.service';
 import { PlatformService } from '@core/services/platform.service';
-import { BehaviorSubject } from 'rxjs';
+import { KeyboardService } from './keyboard.service';
 
 @Component({
   selector: 'keyboard',
   templateUrl: 'keyboard.component.html'
 })
 export class KeyboardComponent {
-  letters: Map<string, Letter>;
-  keyboard: { [row: number]: string[] };
-  letterFeedback$: BehaviorSubject<string[]>;
-  constructor(public gameService: GameService, public platformServ: PlatformService) {
-    this.letters = new Map();
-    this.keyboard = {};
-    this.letterFeedback$ = new BehaviorSubject<string[]>([]);
-    this._setKeyboardAndLetters();
-  }
-  enter() {
-    this.gameService.submitGuess();
-  }
+  constructor(
+    public keyboardService: KeyboardService,
+    public jokerService: JokerService,
+    private _platformServ: PlatformService
+  ) {}
 
-  delete() {
-    this.gameService.removeLastGuessLetter();
+  isDisabled(letter: string): boolean {
+    return this.keyboardService.isEnterDisabled(letter);
+  }
+  enterSpecialLetter(letter: string): void {
+    this.keyboardService.enterSpecialLetter(letter);
+  }
+  clickEnterSpecialLetter(letter: string): void {
+    if (this._platformServ.touchStart$?.value) {
+      return;
+    }
+    this.keyboardService.enterSpecialLetter(letter);
   }
   clickEnterLetter(letter: string): void {
-    if (this.platformServ.touchStart$?.value) {
+    if (this._platformServ.touchStart$?.value) {
       return;
     }
     this.enterLetter(letter);
   }
-  clickEnterSpecialLetter(letter: string): void {
-    if (this.platformServ.touchStart$?.value) {
+  enterLetter(letter: string): void {
+    this.keyboardService.enterLetter(letter);
+  }
+  clickJoker(joker: number): void {
+    if (this._platformServ.touchStart$?.value) {
       return;
     }
-    this.enterSpecialLetter(letter);
+    this.touchJoker(joker);
   }
-  enterLetter(letter: string): void {
-    setTimeout(() => {
-      const letters = this.letterFeedback$?.value;
-      letters?.shift();
-      this.letterFeedback$.next([...letters]);
-    }, 200);
-    this.letterFeedback$.next([...this.letterFeedback$.value, letter]);
-
-    this.gameService.addCurrentGuessLetter(letter);
+  touchJoker(joker: number): void {
+    this.jokerService.useJoker(joker);
   }
 
-  private _setKeyboardAndLetters() {
-    this.keyboard = {
-      1: ['a', 'z', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
-      2: ['q', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm'],
-      3: ['enter', 'w', 'x', 'c', 'v', 'b', 'n', 'delete']
-    };
-
-    Object.entries(this.keyboard).forEach(([rowNumber, letters]) => {
-      letters.forEach((letter, index) => {
-        this.letters.set(letter, new Letter(letter, parseInt(rowNumber), index));
-      });
-    });
-  }
-  getSpecialLetter(letter: string): string {
-    return letter === 'delete' ? '<i class="icon icon-delete"></i>' : '<i class="icon icon-corner-down-left"></i>';
-  }
-  enterSpecialLetter(letter: string): void {
-    setTimeout(() => {
-      const letters = this.letterFeedback$?.value;
-      letters?.shift();
-      this.letterFeedback$.next([...letters]);
-    }, 200);
-    this.letterFeedback$.next([...this.letterFeedback$.value, letter]);
-
-    return letter === 'delete' ? this.delete() : this.enter();
-  }
-  isLetterSpecial(letter: string): boolean {
-    return letter === 'delete' || letter === 'enter';
+  getLetterClass(letter: string): string {
+    const state = this.keyboardService.getLetterState(letter);
+    switch (state) {
+      case 'partial':
+        return 'bg-partial';
+        break;
+      case 'right':
+        return 'bg-right';
+        break;
+      case 'unused':
+        return 'bg-unused';
+        break;
+      default:
+        return 'bg-secondary border-sky-900';
+    }
   }
 }

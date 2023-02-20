@@ -4,7 +4,7 @@ import * as charactersJSON from '@assets/characters.json';
 import * as wordlesJSON from '@assets/w1-3.json';
 import * as wordsJSON from '@assets/words.json';
 import { letterState } from '@core/models';
-import { BehaviorSubject, Subject, takeUntil, timer } from 'rxjs';
+import { BehaviorSubject, first, Subject, takeUntil, timer } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 
 @Injectable({ providedIn: 'root' })
@@ -18,7 +18,6 @@ export class GameService {
     this.wordle$ = new BehaviorSubject('');
     this.success$ = new BehaviorSubject<boolean>(false);
     this.board$ = new BehaviorSubject(new Map());
-
     this.currentLine$ = new BehaviorSubject<number>(0);
     this.destroy$ = new Subject();
     console.warn(charactersJSON);
@@ -104,15 +103,10 @@ export class GameService {
     }
     const words = wordsJSON;
     if (!words.words.includes(currentGuess)) {
-      let snackBarRef = this.openSnackBar('Prénom inconnu', 'alert', 'Signaler comme existant');
-      snackBarRef
-        .onAction()
-        .pipe(takeUntil(timer(200)))
-        .subscribe(() => {
-          this.tagNameAsValid(currentGuess);
-        });
+      this.showUnkownNameAlert(currentGuess);
       return;
     }
+
     if (currentGuess === this.wordle$.value) {
       this.openSnackBar('Bravo !', 'success');
       this.success$.next(true);
@@ -130,16 +124,30 @@ export class GameService {
 
     this.currentLine$.next(this.currentLine$?.value + 1);
   }
-  openSnackBar(msg: string, type?: 'alert' | 'success' | '', action?: string): MatSnackBarRef<TextOnlySnackBar> {
+
+  showUnkownNameAlert(currentGuess: string): void {
+    let snackBarRef = this.openSnackBar('Prénom inconnu', 'alert', 'Signaler comme existant');
+    snackBarRef
+      .onAction()
+      .pipe(first(), takeUntil(timer(4000)))
+      .subscribe(() => {
+        this.tagNameAsValid(currentGuess);
+      });
+  }
+
+  openSnackBar(msg: string, type?: 'alert' | 'success', action?: string): MatSnackBarRef<TextOnlySnackBar> {
+    const panelClass = ['font-bold', 'text-white'];
+    type && panelClass.push(type);
     return this._snackBar.open(msg, action, {
       horizontalPosition: 'center',
       verticalPosition: 'top',
       duration: 3500,
-      panelClass: ['font-bold', 'text-white', type ?? '']
+      panelClass
     });
   }
   tagNameAsValid(name: string) {
     console.warn('tag as valid ', name);
+    this.openSnackBar('Prénom en cours de vérification, merci !');
     return;
   }
   setWordle() {
@@ -151,5 +159,8 @@ export class GameService {
     const ind =
       12 * (numerodujour - 1) + numerodumois + (Math.pow(numerodujour, 2) + 1 * numerodujour) / 2 + 868 * numeroannee;
     this.wordle$.next(wordles.words[ind - 1] ?? '');
+  }
+  isDifficult() {
+    return false;
   }
 }
