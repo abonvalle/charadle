@@ -26,13 +26,13 @@ export class SettingsService implements OnDestroy {
     });
   }
   private _setStorageSettings(): void {
-    const settings = this._localStrgeServ.getItem(this._localStrgeServ.settings);
+    const settings = this._localStrgeServ.OLDgetItem(this._localStrgeServ.settings);
     this.colorBlindMode$.next(settings?.colorBlindMode ?? false);
     this.playerName$.next(settings?.playerName ?? '');
   }
   saveStorageSettings(settings: { playerName: string; colorBlindMode: boolean }): void {
     this.colorBlindMode$.next(settings?.colorBlindMode ?? this.colorBlindMode$?.value);
     this.playerName$.next(settings?.playerName ?? this.playerName$?.value);
-    this._localStrgeServ.setItem(this._localStrgeServ.settings, settings);
+    this._localStrgeServ.OLDsetItem(this._localStrgeServ.settings, settings);
   }
 }

@@ -23,9 +23,9 @@ export class TopbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    if (!this._localStrg.getItem(this._localStrg.firstTime)) {
+    if (!this._localStrg.OLDgetItem(this._localStrg.firstTime)) {
       const dialog = this.openHelp();
-      this._localStrg.setItem(this._localStrg.firstTime, true);
+      this._localStrg.OLDsetItem(this._localStrg.firstTime, true);
       if (!this._settingsServ.playerName$?.value) {
         dialog
           .afterClosed()

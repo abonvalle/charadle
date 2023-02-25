@@ -1,0 +1,16 @@
+<div *ngIf="!isSpecial else specialLetter" (click)="clickEnterLetter(letter)" (touchstart)="enterLetter(letter)"
+  class="text-white rounded-sm flex justify-center items-center m-0.5 w-[10%] text-[130%] select-none h-16 border-b-2 uppercase transition-all border-black/40"
+  [ngClass]="backgroundClass">
+  <span *ngIf="(feedBack$ | async) === true"
+    class="absolute bg-cyan-600 h-28 w-[9.5vw] text-white flex justify-center items-start mb-12 pt-3 z-50 pointer-events-none">
+    {{letter}}</span>
+
+  {{letter}}
+</div>
+<ng-template #specialLetter>
+  <div (click)="clickEnterLetter(letter)" (touchstart)="enterLetter(letter)"
+    class="text-white rounded-sm flex justify-center items-center m-0.5 w-[15%] text-[130%] select-none h-16 border-sky-900 uppercase transition-all"
+    [ngClass]="{'border-b-0 bg-cyan-600':(feedBack$ | async) === true,'bg-secondary border-b-2':(feedBack$ | async) === false}">
+    <i class="icon" [ngClass]="letterIcon"></i>
+  </div>
+</ng-template>

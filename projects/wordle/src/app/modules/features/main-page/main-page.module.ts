@@ -6,10 +6,10 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SharedModule } from '@modules/shared/shared.module';
+import { KeyboardComponent } from '../../../standalone-components/keyboard/keyboard.component';
 import { BoardgameComponent } from './components/boardgame/boardgame.component';
 import { HelpDialogComponent } from './components/help-dialog/help-dialog.component';
 import { JokerButtonComponent } from './components/joker-button/joker-button.component';
-import { KeyboardComponent } from './components/keyboard/keyboard.component';
 import { NameInputDialogComponent } from './components/name-input/name-input-dialog.component';
 import { SettingsDialogComponent } from './components/settings-dialog/settings.component';
 import { TopbarComponent } from './components/topbar/topbar.component';
@@ -19,7 +19,6 @@ import { MainPageComponent } from './main-page.component';
   declarations: [
     MainPageComponent,
     TopbarComponent,
-    KeyboardComponent,
     BoardgameComponent,
     JokerButtonComponent,
     HelpDialogComponent,
@@ -34,7 +33,8 @@ import { MainPageComponent } from './main-page.component';
     MatSlideToggleModule,
     MatInputModule,
     MatButtonModule,
-    MatTooltipModule
+    MatTooltipModule,
+    KeyboardComponent
   ]
 })
 export class MainPageModule {}

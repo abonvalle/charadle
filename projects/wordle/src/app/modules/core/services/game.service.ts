@@ -3,7 +3,7 @@ import { MatSnackBar, MatSnackBarRef, TextOnlySnackBar } from '@angular/material
 import * as charactersJSON from '@assets/characters.json';
 import * as wordlesJSON from '@assets/w1-3.json';
 import * as wordsJSON from '@assets/words.json';
-import { letterState } from '@core/models';
+import { letterState } from 'projects/wordle/src/app/models';
 import { BehaviorSubject, first, Subject, takeUntil, timer } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 
@@ -162,5 +162,18 @@ export class GameService {
   }
   isDifficult() {
     return false;
+  }
+  enterLetter(letter: string): void {
+    if (letter === 'enter') {
+      this.submitGuess();
+      return;
+    }
+
+    if (letter === 'delete') {
+      this.removeLastGuessLetter();
+      return;
+    }
+
+    this.addCurrentGuessLetter(letter);
   }
 }

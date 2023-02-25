@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GameService } from '@core/services/game.service';
 
 @Component({
   selector: 'main-page',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   templateUrl: 'main-page.component.html'
 })
 export class MainPageComponent {
-  constructor() {}
+  constructor(private _gameService: GameService) {}
+  onLetterClick(letter: string) {
+    this._gameService.enterLetter(letter);
+  }
 }

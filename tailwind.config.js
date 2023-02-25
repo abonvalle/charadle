@@ -2,7 +2,6 @@
 module.exports = {
   mode: 'jit',
   content: ['./projects/wordle/src/**/*.{html,ts}'],
-  purge: ['./projects/wordle/src/**/*.{html,ts}'],
   safelist: ['border-cyan-500', 'animate-flip-right',
     'animate-flip-partial',
     'animate-flip-unused',

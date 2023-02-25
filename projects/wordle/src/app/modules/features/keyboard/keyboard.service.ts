@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Letter, letterState } from '@core/models';
 import { GameService } from '@core/services/game.service';
+import { Letter, letterState } from 'projects/wordle/src/app/models';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })

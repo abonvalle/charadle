@@ -1,5 +1,5 @@
 <div class="flex flex-col justify-between h-full">
   <topbar></topbar>
   <boardgame></boardgame>
-  <keyboard></keyboard>
+  <app-keyboard (letterClick)="onLetterClick($event)"></app-keyboard>
 </div>

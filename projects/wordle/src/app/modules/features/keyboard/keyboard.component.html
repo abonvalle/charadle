@@ -1,7 +1,7 @@
 <div class="flex flex-col justify-center items-center p-1">
   <div class="flex mb-2">
 
-    <joker-button class="m-1" [uses]="jokerService.joker1Uses$" (click)="clickJoker(1)" (touchstart)="touchJoker(1)">
+    <!-- <joker-button class="m-1" [uses]="jokerService.joker1Uses$" (click)="clickJoker(1)" (touchstart)="touchJoker(1)">
       <button
         class="text-white bg-secondary rounded-full flex justify-center items-center m-1 w-10 h-10 hover:bg-sky-900 z-20 relative select-none">
         <i class="icon icon-format-paint"></i>
@@ -18,7 +18,7 @@
         class="text-white bg-secondary rounded-full flex justify-center items-center m-1 w-10 h-10 hover:bg-sky-900 z-20 relative select-none">
         <i class="icon icon-tv"></i>
       </button>
-    </joker-button>
+    </joker-button> -->
 
 
   </div>
@@ -34,7 +34,7 @@
       </ng-container> -->
 
         <!-- <ng-template #letterTpl let-letter> -->
-        <div *ngIf="!letter.special else specialLetter" (click)="clickEnterLetter(letter.letter)"
+        <!-- <div *ngIf="!letter.special else specialLetter" (click)="clickEnterLetter(letter.letter)"
           (touchstart)="enterLetter(letter.letter)"
           class="text-white rounded-sm flex justify-center items-center m-0.5 w-[10%] text-[130%] select-none h-16 border-b-2 uppercase transition-all"
           [ngClass]="getLetterClass(letter.letter)">
@@ -43,15 +43,15 @@
             {{letter.letter}}</span>
 
           {{letter.letter}}
-        </div>
-        <ng-template #specialLetter>
+        </div> -->
+        <!-- <ng-template #specialLetter>
           <div (click)="clickEnterSpecialLetter(letter.letter)" (touchstart)="enterSpecialLetter(letter.letter)"
             class="text-white rounded-sm flex justify-center items-center m-0.5 w-[15%] text-[130%] select-none h-16 border-sky-900 uppercase transition-all"
             [ngClass]="{'opacity-50':isDisabled(letter.letter),'border-b-0 bg-cyan-600':(keyboardService.letterFeedback$ | async)?.includes(letter.letter),'bg-secondary border-b-2':!(keyboardService.letterFeedback$ | async)?.includes(letter.letter)}">
             <i *ngIf="letter.letter === 'delete'" class="icon icon-delete"></i>
             <i *ngIf="letter.letter === 'enter'" class="icon icon-corner-down-left"></i>
           </div>
-        </ng-template>
+        </ng-template> -->
         <!-- </ng-template> -->
       </ng-container>
     </div>

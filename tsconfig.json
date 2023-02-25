@@ -7,7 +7,7 @@
       "@config/*": ["projects/wordle/src/environments/*"],
       "@core/*": ["projects/wordle/src/app/modules/core/*"],
       "@features/*": ["projects/wordle/src/app/modules/features/*"],
-      "@models/*": ["projects/wordle/src/app/modules/core/models"],
+      "@models/*": ["projects/wordle/src/app/models"],
       "@modules/*": ["projects/wordle/src/app/modules/*"],
       "@shared/*": ["projects/wordle/src/app/modules/shared/*"],
       "@assets/*": ["projects/wordle/src/assets/*"]
