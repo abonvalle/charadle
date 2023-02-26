@@ -8,9 +8,7 @@ import { GameService } from '@core/services/game.service';
   // styleUrls: ['boardgame.component.css']
 })
 export class BoardgameComponent {
-  constructor(public gameService: GameService) {
-    this.test();
-  }
+  constructor(public gameService: GameService) {}
   get boxLetterSize(): string {
     let size = 0;
     switch (this.gameService.wordle$.value?.length) {

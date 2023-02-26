@@ -1,0 +1,9 @@
+<ng-container *ngFor="let box of (boxes$ | async);let boxIndex = index">
+  <board-letter-box [active]="isCursor(boxIndex)" [letter]="text[boxIndex] ?? ''"></board-letter-box>
+</ng-container>
+<!-- <div *ngFor="let letter of (letters$ | async) | strToArr;let letterindex = index"
+class="border-2 rounded-md text-white flex justify-center items-center uppercase"
+[ngClass]="(isCursor(line.value,letterindex) ? 'border-cyan-500 ' :'border-secondary ') + (line.value.submitted ? getLetterStateClass(line.value,letterindex):'')"
+[ngStyle]="{'width':boxLetterSize,'height':boxLetterSize,'font-size':letterSize, 'margin': '0 0.5vw'}">
+{{ line.value.guess[letterindex] ?? ''}}
+</div> -->
