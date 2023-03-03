@@ -3,19 +3,19 @@ import { MatSnackBar, MatSnackBarRef, TextOnlySnackBar } from '@angular/material
 import * as charactersJSON from '@assets/characters.json';
 import * as wordlesJSON from '@assets/w1-3.json';
 import * as wordsJSON from '@assets/words.json';
-import { letterState } from 'projects/wordle/src/app/models';
+import { BoardGame, letterState } from 'projects/wordle/src/app/models';
 import { BehaviorSubject, first, Subject, takeUntil, timer } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class GameService {
-  wordle$: BehaviorSubject<string>;
+  wordle$: BehaviorSubject<string> = new BehaviorSubject('');
   board$: BehaviorSubject<Map<number, { guess: string; submitted: boolean; current: boolean; lineIndex: number }>>;
+  boardGame$: BehaviorSubject<BoardGame | null> = new BehaviorSubject<BoardGame | null>(null);
   currentLine$: BehaviorSubject<number>;
   success$: BehaviorSubject<boolean>;
   destroy$: Subject<void>;
   constructor(private _snackBar: MatSnackBar, private _localStrgeServ: LocalStorageService) {
-    this.wordle$ = new BehaviorSubject('');
     this.success$ = new BehaviorSubject<boolean>(false);
     this.board$ = new BehaviorSubject(new Map());
     this.currentLine$ = new BehaviorSubject<number>(0);
@@ -24,7 +24,10 @@ export class GameService {
     console.warn(wordsJSON);
     this._event();
     this.setBoard();
+  }
+  initGame(): void {
     this.setWordle();
+    this.boardGame$.next(new BoardGame(this.wordle$?.value?.length ?? 0));
   }
   setBoard() {
     const board2 = new Map();
@@ -54,6 +57,12 @@ export class GameService {
 
   addCurrentGuessLetter(letter: string): void {
     if (this.hasCurrentGuessNotEnoughLetter()) {
+      let boardGame: BoardGame = new BoardGame(0);
+      Object.assign(boardGame, this.boardGame$.value);
+      boardGame?.updateLetter(this.currentLine$?.value, letter);
+      this.boardGame$.next(boardGame);
+
+      console.warn(this.boardGame$?.value);
       const board2 = this.board$?.value;
       const board2CurrentLine = board2.get(this.currentLine$?.value);
       if (!!board2CurrentLine) {
@@ -65,6 +74,11 @@ export class GameService {
   }
 
   removeLastGuessLetter(): void {
+    let boardGame: BoardGame = new BoardGame(0);
+    Object.assign(boardGame, this.boardGame$.value);
+    boardGame?.updateLetter(this.currentLine$?.value, '');
+    this.boardGame$.next(boardGame);
+
     const board2 = this.board$?.value;
     const board2CurrentLine = board2.get(this.currentLine$?.value);
     if (!!board2CurrentLine) {

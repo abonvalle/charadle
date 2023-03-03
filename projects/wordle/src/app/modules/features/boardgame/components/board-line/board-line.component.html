@@ -1,6 +1,8 @@
-<ng-container *ngFor="let box of (boxes$ | async);let boxIndex = index">
-  <board-letter-box [active]="isCursor(boxIndex)" [letter]="text[boxIndex] ?? ''"></board-letter-box>
-</ng-container>
+<div class="flex flex-row items-center justify-center">
+  <ng-container *ngFor="let boardBox of boardLine.boardBoxes | keyvalue; trackBy: trackByFn">
+    <board-letter-box *ngIf="boardBox.value" [boardBox]="boardBox.value | immutable"></board-letter-box>
+  </ng-container>
+</div>
 <!-- <div *ngFor="let letter of (letters$ | async) | strToArr;let letterindex = index"
 class="border-2 rounded-md text-white flex justify-center items-center uppercase"
 [ngClass]="(isCursor(line.value,letterindex) ? 'border-cyan-500 ' :'border-secondary ') + (line.value.submitted ? getLetterStateClass(line.value,letterindex):'')"

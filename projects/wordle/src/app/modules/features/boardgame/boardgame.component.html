@@ -9,9 +9,10 @@
   </div>
 </div> -->
 <div class="flex flex-col justify-center gap-2 h-full">
-  <ng-container *ngFor="let line of (gameService.board$ | async) | keyvalue">
-    <board-line [isCurrent]="isCurrentLineEdit(line.key)"
-      [boxCount]="(gameService.wordle$ | async)?.length ?? 0"></board-line>
+  <!-- <ng-container *ngIf="boardLines$ | async;let boardLines"> -->
+  <ng-container *ngFor="let boardLine of boardLines$ | async; trackBy: trackByFn">
+    <board-line [boardLine]="boardLine | immutable"></board-line>
+    <!-- </ng-container> -->
   </ng-container>
   <!-- <div *ngFor="let line of (gameService.board$ | async) | keyvalue;let lineIndex = index" class="flex justify-center">
     <div *ngFor="let letter of (gameService.wordle$ | async) | strToArr;let letterindex = index"

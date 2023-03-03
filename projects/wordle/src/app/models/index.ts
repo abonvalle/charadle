@@ -1,3 +1,6 @@
+export * from './board-box';
+export * from './board-game';
+export * from './board-line';
 export * from './default-settings';
 export * from './keyboard-azerty';
 export * from './keyboard-key-background-letter';

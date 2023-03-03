@@ -1,85 +1,46 @@
-import { Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges
+} from '@angular/core';
 import { GameService } from '@core/services/game.service';
+import { Subject } from 'rxjs';
+import { BoardGame } from '../../../models/board-game';
+import { BoardLine } from '../../../models/board-line';
 
 @Component({
   selector: 'boardgame',
   templateUrl: 'boardgame.component.html',
-  styles: [':host{flex-grow:1}']
+  styles: [':host{flex-grow:1}'],
+  changeDetection: ChangeDetectionStrategy.OnPush
   // styleUrls: ['boardgame.component.css']
 })
-export class BoardgameComponent {
-  constructor(public gameService: GameService) {}
-  get boxLetterSize(): string {
-    let size = 0;
-    switch (this.gameService.wordle$.value?.length) {
-      case 2:
-      case 3:
-      case 4:
-        size = 20;
-        break;
-      case 5:
-        size = 16;
-        break;
-      case 6:
-        size = 14;
-        break;
-      case 7:
-      case 8:
-      case 9:
-        size = 12;
-        break;
-      case 10:
-        size = 10;
-        break;
-      case 11:
-      case 12:
-        size = 8;
-        break;
+export class BoardgameComponent implements OnInit, OnChanges {
+  @Input() texts: string[] = [];
+  @Input() currentLine: number = 0;
+  @Input() boardGame!: BoardGame;
+  boardLines$: Subject<BoardLine[]> = new Subject();
+  constructor(public gameService: GameService, private _cdr: ChangeDetectorRef) {}
+  ngOnInit(): void {
+    this.boardLines$.next(Array.from(this.boardGame.boardLines.values()));
+    this._cdr.detectChanges();
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!changes) {
+      return;
     }
-    return size + 'vw';
-  }
-  get letterSize(): string {
-    let size = 0;
-    switch (this.gameService.wordle$.value?.length) {
-      case 2:
-      case 3:
-      case 4:
-        size = 20;
-        break;
-      case 5:
-        size = 16;
-        break;
-      case 6:
-        size = 14;
-        break;
-      case 7:
-      case 8:
-      case 9:
-        size = 12;
-        break;
-      case 10:
-        size = 10;
-        break;
-      case 11:
-      case 12:
-        size = 8;
-        break;
+    if (changes['boardGame']) {
+      console.warn('boardgame cpmnt - boardgame inpt change');
+      this.boardLines$.next(Array.from(this.boardGame.boardLines.values()));
+      this._cdr.detectChanges();
     }
-    return size / 1.8 + 'vw';
   }
-  getLetterStateClass(
-    line: { guess: string; submitted: boolean; current: boolean; lineIndex: number },
-    indexLetter: number
-  ): string {
-    const state = this.gameService.getLetterState(line, indexLetter);
-    return `animate-[flip-${state}_1.5s_ease-in-out_${Math.floor(indexLetter * 0.3 * 10) / 10}s_forwards]`;
-    // return `border-${state} bg-${state}`;
-  }
-  isLineSubmitted(line: number): boolean {
-    return this.gameService.currentLine$?.value > line;
-  }
-  isCurrentLineEdit(line: number): boolean {
-    return this.gameService.currentLine$?.value === line;
+  trackByFn(_index: number, item: BoardLine) {
+    return item.index;
   }
   isCursor(
     line: { guess: string; submitted: boolean; current: boolean; lineIndex: number },
