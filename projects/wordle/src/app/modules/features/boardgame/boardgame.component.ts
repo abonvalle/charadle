@@ -1,15 +1,6 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { GameService } from '@core/services/game.service';
-import { Subject } from 'rxjs';
-import { BoardGame } from '../../../models/board-game';
+import { Subject, takeUntil } from 'rxjs';
 import { BoardLine } from '../../../models/board-line';
 
 @Component({
@@ -17,27 +8,30 @@ import { BoardLine } from '../../../models/board-line';
   templateUrl: 'boardgame.component.html',
   styles: [':host{flex-grow:1}'],
   changeDetection: ChangeDetectionStrategy.OnPush
-  // styleUrls: ['boardgame.component.css']
 })
-export class BoardgameComponent implements OnInit, OnChanges {
-  @Input() texts: string[] = [];
-  @Input() currentLine: number = 0;
-  @Input() boardGame!: BoardGame;
+export class BoardgameComponent implements OnInit, OnDestroy {
   boardLines$: Subject<BoardLine[]> = new Subject();
-  constructor(public gameService: GameService, private _cdr: ChangeDetectorRef) {}
+  _destroy$: Subject<void> = new Subject();
+  constructor(private _gameService: GameService, private _cdr: ChangeDetectorRef) {}
   ngOnInit(): void {
-    this.boardLines$.next(Array.from(this.boardGame.boardLines.values()));
+    this._gameService.initGame();
+    const boardGame = this._gameService.boardGame$?.value;
+    const boardLines = Array.from(boardGame?.boardLines.values() ?? []);
+    this.boardLines$.next(boardLines);
     this._cdr.detectChanges();
+    this._gameService.boardGame$
+      .asObservable()
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((boardGame) => {
+        const boardLines = Array.from(boardGame?.boardLines.values() ?? []);
+        this.boardLines$.next(boardLines);
+        this._cdr.detectChanges();
+        console.warn(boardGame);
+      });
   }
-  ngOnChanges(changes: SimpleChanges): void {
-    if (!changes) {
-      return;
-    }
-    if (changes['boardGame']) {
-      console.warn('boardgame cpmnt - boardgame inpt change');
-      this.boardLines$.next(Array.from(this.boardGame.boardLines.values()));
-      this._cdr.detectChanges();
-    }
+  ngOnDestroy(): void {
+    this._destroy$?.next();
+    this._destroy$?.unsubscribe();
   }
   trackByFn(_index: number, item: BoardLine) {
     return item.index;

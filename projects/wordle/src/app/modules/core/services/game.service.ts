@@ -10,8 +10,10 @@ import { LocalStorageService } from './local-storage.service';
 @Injectable({ providedIn: 'root' })
 export class GameService {
   wordle$: BehaviorSubject<string> = new BehaviorSubject('');
+  /**@deprecated */
   board$: BehaviorSubject<Map<number, { guess: string; submitted: boolean; current: boolean; lineIndex: number }>>;
   boardGame$: BehaviorSubject<BoardGame | null> = new BehaviorSubject<BoardGame | null>(null);
+  /**@deprecated */
   currentLine$: BehaviorSubject<number>;
   success$: BehaviorSubject<boolean>;
   destroy$: Subject<void>;
@@ -23,29 +25,29 @@ export class GameService {
     console.warn(charactersJSON);
     console.warn(wordsJSON);
     this._event();
-    this.setBoard();
+    // this.setBoard();
   }
   initGame(): void {
     this.setWordle();
     this.boardGame$.next(new BoardGame(this.wordle$?.value?.length ?? 0));
   }
-  setBoard() {
-    const board2 = new Map();
-    board2.set(0, { guess: '', submitted: false, current: true, lineIndex: 0 });
-    board2.set(1, { guess: '', submitted: false, current: false, lineIndex: 1 });
-    board2.set(2, { guess: '', submitted: false, current: false, lineIndex: 2 });
-    board2.set(3, { guess: '', submitted: false, current: false, lineIndex: 3 });
-    board2.set(4, { guess: '', submitted: false, current: false, lineIndex: 4 });
-    board2.set(5, { guess: '', submitted: false, current: false, lineIndex: 5 });
-    this.board$ = new BehaviorSubject(board2);
-  }
+  // setBoard() {
+  //   const board2 = new Map();
+  //   board2.set(0, { guess: '', submitted: false, current: true, lineIndex: 0 });
+  //   board2.set(1, { guess: '', submitted: false, current: false, lineIndex: 1 });
+  //   board2.set(2, { guess: '', submitted: false, current: false, lineIndex: 2 });
+  //   board2.set(3, { guess: '', submitted: false, current: false, lineIndex: 3 });
+  //   board2.set(4, { guess: '', submitted: false, current: false, lineIndex: 4 });
+  //   board2.set(5, { guess: '', submitted: false, current: false, lineIndex: 5 });
+  //   this.board$ = new BehaviorSubject(board2);
+  // }
   ngOnDestroy(): void {
     this.destroy$?.next();
     this.destroy$?.unsubscribe();
   }
   private _event(): void {
     this._localStrgeServ.clear$.pipe(takeUntil(this.destroy$)).subscribe(() => {
-      this.setBoard();
+      // this.setBoard();
       this.success$.next(false);
     });
   }
@@ -56,38 +58,44 @@ export class GameService {
   }
 
   addCurrentGuessLetter(letter: string): void {
-    if (this.hasCurrentGuessNotEnoughLetter()) {
-      let boardGame: BoardGame = new BoardGame(0);
-      Object.assign(boardGame, this.boardGame$.value);
-      boardGame?.updateLetter(this.currentLine$?.value, letter);
-      this.boardGame$.next(boardGame);
-
-      console.warn(this.boardGame$?.value);
-      const board2 = this.board$?.value;
-      const board2CurrentLine = board2.get(this.currentLine$?.value);
-      if (!!board2CurrentLine) {
-        board2CurrentLine.guess = board2CurrentLine.guess + letter;
-        board2.set(this.currentLine$?.value, board2CurrentLine);
-        this.board$.next(board2);
-      }
+    // if (this.hasCurrentGuessNotEnoughLetter()) {
+    let boardGame: BoardGame = new BoardGame(0);
+    Object.assign(boardGame, this.boardGame$.value);
+    // boardGame?.addLetter(letter);
+    const boardLine = boardGame?.getCurrentBoardLine();
+    if (!boardLine?.isBoardLineFull()) {
+      boardLine?.addLetter(letter);
     }
+    this.boardGame$.next(boardGame);
+
+    //   console.warn(this.boardGame$?.value);
+    //   const board2 = this.board$?.value;
+    //   const board2CurrentLine = board2.get(this.currentLine$?.value);
+    //   if (!!board2CurrentLine) {
+    //     board2CurrentLine.guess = board2CurrentLine.guess + letter;
+    //     board2.set(this.currentLine$?.value, board2CurrentLine);
+    //     this.board$.next(board2);
+    //   }
+    // }
   }
 
   removeLastGuessLetter(): void {
     let boardGame: BoardGame = new BoardGame(0);
     Object.assign(boardGame, this.boardGame$.value);
-    boardGame?.updateLetter(this.currentLine$?.value, '');
+    // boardGame?.removeLetter();
+    const boardLine = boardGame.getCurrentBoardLine();
+    boardLine?.removeLetter();
     this.boardGame$.next(boardGame);
 
-    const board2 = this.board$?.value;
-    const board2CurrentLine = board2.get(this.currentLine$?.value);
-    if (!!board2CurrentLine) {
-      const guess = board2CurrentLine.guess.split('');
-      guess.pop();
-      board2CurrentLine.guess = guess.join('');
-      board2.set(this.currentLine$?.value, board2CurrentLine);
-      this.board$.next(board2);
-    }
+    // const board2 = this.board$?.value;
+    // const board2CurrentLine = board2.get(this.currentLine$?.value);
+    // if (!!board2CurrentLine) {
+    //   const guess = board2CurrentLine.guess.split('');
+    //   guess.pop();
+    //   board2CurrentLine.guess = guess.join('');
+    //   board2.set(this.currentLine$?.value, board2CurrentLine);
+    //   this.board$.next(board2);
+    // }
   }
 
   getLetterState(
@@ -105,38 +113,56 @@ export class GameService {
   }
 
   submitGuess(): void {
-    const board2 = this.board$?.value;
-    const board2CurrentLineIndex = this.currentLine$?.value;
-    const board2CurrentLine = board2.get(board2CurrentLineIndex);
-    if (!board2CurrentLine) {
+    // const board2 = this.board$?.value;
+    // const board2CurrentLineIndex = this.currentLine$?.value;
+    // const board2CurrentLine = board2.get(board2CurrentLineIndex);
+
+    let boardGame: BoardGame = new BoardGame(0);
+    Object.assign(boardGame, this.boardGame$.value);
+    let boardLine = boardGame?.getCurrentBoardLine();
+    if (!boardLine) {
       return;
     }
-    const currentGuess = board2CurrentLine.guess;
-    if (this.hasCurrentGuessNotEnoughLetter()) {
+    // const currentGuess = board2CurrentLine.guess;
+    if (!boardLine.isBoardLineFull()) {
+      this.openSnackBar('Pas assez de lettres', 'alert');
       return;
     }
+    const currentGuess = boardLine.text;
     const words = wordsJSON;
     if (!words.words.includes(currentGuess)) {
       this.showUnkownNameAlert(currentGuess);
       return;
     }
 
+    boardLine.boardBoxes.forEach((boardBox, index) => {
+      if (boardBox.letter === this.wordle$.value[index]) {
+        boardBox.setBackground('right');
+      } else if (this.wordle$.value?.includes(boardBox.letter)) {
+        boardBox.setBackground('partial');
+      } else {
+        boardBox.setBackground('unused');
+      }
+    });
+
     if (currentGuess === this.wordle$.value) {
       this.openSnackBar('Bravo !', 'success');
       this.success$.next(true);
     }
 
-    board2CurrentLine.current = false;
-    board2CurrentLine.submitted = true;
-    board2.set(board2CurrentLineIndex, board2CurrentLine);
-    const board2NextLine = board2.get(board2CurrentLineIndex + 1);
-    if (!!board2NextLine) {
-      board2NextLine.current = true;
-      board2.set(this.currentLine$?.value + 1, board2NextLine);
-    }
-    this.board$.next(board2);
+    // board2CurrentLine.current = false;
+    // board2CurrentLine.submitted = true;
+    // board2.set(board2CurrentLineIndex, board2CurrentLine);
+    // const board2NextLine = board2.get(board2CurrentLineIndex + 1);
+    // if (!!board2NextLine) {
+    //   board2NextLine.current = true;
+    //   board2.set(this.currentLine$?.value + 1, board2NextLine);
+    // }
+    // this.board$.next(board2);
 
-    this.currentLine$.next(this.currentLine$?.value + 1);
+    // this.currentLine$.next(this.currentLine$?.value + 1);
+    boardGame?.incrementCurrentActiveBoardLine();
+    this.boardGame$.next(boardGame);
   }
 
   showUnkownNameAlert(currentGuess: string): void {

@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { GameService } from '@core/services/game.service';
-import { Observable, Subject, takeUntil } from 'rxjs';
-import { BoardGame } from '../../../models/board-game';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'main-page',
@@ -11,11 +10,10 @@ import { BoardGame } from '../../../models/board-game';
 })
 export class MainPageComponent implements OnInit, OnDestroy {
   _destroy$: Subject<void> = new Subject();
-  boardGame$: Observable<BoardGame | null> = new Observable();
   constructor(private _gameService: GameService, private _cdr: ChangeDetectorRef) {}
   ngOnInit(): void {
-    this.boardGame$ = this._gameService.boardGame$.asObservable().pipe(takeUntil(this._destroy$));
-    this._gameService.initGame();
+    // this.boardGame$ = this._gameService.boardGame$.asObservable().pipe(takeUntil(this._destroy$));
+    // this._gameService.initGame();
   }
 
   ngOnDestroy(): void {

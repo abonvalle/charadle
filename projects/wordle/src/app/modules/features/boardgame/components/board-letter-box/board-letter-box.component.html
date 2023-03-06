@@ -1,4 +1,5 @@
-<div *ngIf="boardBox" class="border-2 rounded-md text-white flex justify-center items-center uppercase mx-[0.5vw]"
-  [ngStyle]="getBoxStyle()" [ngClass]="boardBox.isActive ? 'border-cyan-500 ' :'border-secondary '">
+<div
+  class="border-2 rounded-md text-white flex justify-center items-center uppercase mx-[0.5vw] max-w-[64px] max-h-[64px]"
+  [ngStyle]="getBoxStyle()" [ngClass]="classes">
   {{ boardBox.letter }}
 </div>

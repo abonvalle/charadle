@@ -1,6 +1,6 @@
 <div class="flex flex-row items-center justify-center">
-  <ng-container *ngFor="let boardBox of boardLine.boardBoxes | keyvalue; trackBy: trackByFn">
-    <board-letter-box *ngIf="boardBox.value" [boardBox]="boardBox.value | immutable"></board-letter-box>
+  <ng-container *ngFor="let boardBox of boardBoxes | keyvalue; trackBy: trackByFn">
+    <board-letter-box [boardBox]="boardBox.value | immutable"></board-letter-box>
   </ng-container>
 </div>
 <!-- <div *ngFor="let letter of (letters$ | async) | strToArr;let letterindex = index"

@@ -1,7 +1,5 @@
 <div class="flex flex-col justify-between h-full">
   <topbar></topbar>
-  <ng-container *ngIf="boardGame$ | async ;let boardGame">
-    <boardgame [boardGame]="boardGame"></boardgame>
-  </ng-container>
+  <boardgame></boardgame>
   <app-keyboard (letterClick)="onLetterClick($event)"></app-keyboard>
 </div>
