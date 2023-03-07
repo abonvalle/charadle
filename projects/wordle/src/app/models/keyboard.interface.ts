@@ -1,5 +1,5 @@
+import { keyboardKeyBackground } from './keyboard-key-background-letter';
+
 export interface keyboard {
-  1: string[];
-  2: string[];
-  3: string[];
+  [rowIndex: number]: { letter: string; state: keyboardKeyBackground; classes: string }[];
 }

@@ -1,9 +1,10 @@
-<div class="flex flex-col justify-center items-center p-1">
+<div class="flex flex-col justify-center items-center p-1 bg-primary">
   <ng-container *ngFor="let row of (keyboard$ |async) | keyvalue">
     <div class="flex flex-row justify-center items-center w-full">
-      <ng-container *ngFor="let letter of row.value">
+      <ng-container *ngFor="let key of row.value">
         <!--  [backgroundClass]="''" -->
-        <app-keyboard-key [letter]="letter" (letterClick)="enterLetter($event)"></app-keyboard-key>
+        <app-keyboard-key [letter]="key.letter" [backgroundClass]="key.classes"
+          (letterClick)="enterLetter($event)"></app-keyboard-key>
       </ng-container>
     </div>
   </ng-container>

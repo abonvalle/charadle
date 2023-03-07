@@ -39,9 +39,10 @@ export class BoardLine {
       case 6:
         return 14;
       case 7:
+        return 12;
       case 8:
       case 9:
-        return 12;
+        return 11;
       case 10:
         return 8;
       case 11:

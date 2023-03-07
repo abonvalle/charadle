@@ -3,8 +3,9 @@ import { MatSnackBar, MatSnackBarRef, TextOnlySnackBar } from '@angular/material
 import * as charactersJSON from '@assets/characters.json';
 import * as wordlesJSON from '@assets/w1-3.json';
 import * as wordsJSON from '@assets/words.json';
-import { BoardGame, letterState } from 'projects/wordle/src/app/models';
+import { BoardGame, keyboardKeyBackground, letterState } from 'projects/wordle/src/app/models';
 import { BehaviorSubject, first, Subject, takeUntil, timer } from 'rxjs';
+import { KeyboardService } from './keyboard.service';
 import { LocalStorageService } from './local-storage.service';
 
 @Injectable({ providedIn: 'root' })
@@ -17,7 +18,11 @@ export class GameService {
   currentLine$: BehaviorSubject<number>;
   success$: BehaviorSubject<boolean>;
   destroy$: Subject<void>;
-  constructor(private _snackBar: MatSnackBar, private _localStrgeServ: LocalStorageService) {
+  constructor(
+    private _snackBar: MatSnackBar,
+    private _localStrgeServ: LocalStorageService,
+    private _keyboardServ: KeyboardService
+  ) {
     this.success$ = new BehaviorSubject<boolean>(false);
     this.board$ = new BehaviorSubject(new Map());
     this.currentLine$ = new BehaviorSubject<number>(0);
@@ -136,13 +141,16 @@ export class GameService {
     }
 
     boardLine.boardBoxes.forEach((boardBox, index) => {
+      let state: keyboardKeyBackground;
       if (boardBox.letter === this.wordle$.value[index]) {
-        boardBox.setBackground('right');
+        state = 'right';
       } else if (this.wordle$.value?.includes(boardBox.letter)) {
-        boardBox.setBackground('partial');
+        state = 'partial';
       } else {
-        boardBox.setBackground('unused');
+        state = 'unused';
       }
+      boardBox.setBackground(state);
+      this._keyboardServ.setKeyBg(boardBox.letter, state);
     });
 
     if (currentGuess === this.wordle$.value) {
