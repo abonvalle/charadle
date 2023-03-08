@@ -1,0 +1,109 @@
+import { keyboardAzerty } from './keyboard-azerty';
+import { keyboardConfig } from './keyboard-config.interface';
+import { keyboardKeyBackground } from './keyboard-key-background-letter';
+import { keyboardQwerty } from './keyboard-qwerty';
+import { keyboardType } from './keyboard-types';
+import { key, keyboard } from './keyboard.interface';
+
+export class Keyboard {
+  keyboard: keyboard;
+  config: keyboardType = 'AZERTY';
+
+  constructor(config: keyboardType) {
+    this.keyboard = this._setKeyboard(config);
+  }
+  private _getKbConfig(config: keyboardType): keyboardConfig {
+    let kbConfig;
+    switch (config) {
+      case 'QWERTY':
+        kbConfig = keyboardQwerty;
+        break;
+      case 'AZERTY':
+      default:
+        kbConfig = keyboardAzerty;
+    }
+    return kbConfig;
+  }
+  private _setKeyboard(config: keyboardType, oldKeyboard?: Keyboard): keyboard {
+    const kbConfig = this._getKbConfig(config);
+    const keyboard: keyboard = {
+      1: [],
+      2: [],
+      3: []
+    };
+
+    for (let row in kbConfig) {
+      const rowIndex = parseInt(row);
+
+      if (!isNaN(rowIndex)) {
+        const letters = kbConfig[rowIndex];
+
+        letters?.forEach((letter) => {
+          let state: keyboardKeyBackground = 'none';
+          let classes = '';
+          if (oldKeyboard && oldKeyboard.getKey) {
+            console.warn(oldKeyboard);
+            console.warn(oldKeyboard.getKey);
+            const oldKey = oldKeyboard?.getKey(letter);
+            state = oldKey?.state ?? 'none';
+            classes = oldKey?.classes ?? '';
+          }
+          keyboard[rowIndex]?.push({
+            letter,
+            state,
+            classes
+          });
+        });
+      }
+    }
+    return keyboard;
+  }
+  updateConfig(config: keyboardType): void {
+    this._setKeyboard(config, Object.assign({}, this));
+  }
+  // setKeyboardConfig(): void {
+  //   let keyboard;
+  //   switch (this._apiServ.getKeyboardType()) {
+  //     case 'QWERTY':
+  //       keyboard = keyboardQwerty;
+  //       break;
+  //     case 'AZERTY':
+  //     default:
+  //       keyboard = keyboardAzerty;
+  //   }
+  //   this.keyboard$.next(new Keyboard(keyboard));
+  // }
+  getKey(letter: string): key | undefined {
+    for (let row in this.keyboard) {
+      const rowIndex = parseInt(row);
+
+      if (!isNaN(rowIndex)) {
+        const letters = this.keyboard[rowIndex];
+        return letters?.find((l) => l.letter === letter);
+      }
+    }
+    return undefined;
+  }
+  setKeyState(key: string, state: keyboardKeyBackground): void {
+    for (let row in this.keyboard) {
+      const rowIndex = parseInt(row);
+      if (!isNaN(rowIndex)) {
+        let letters = this.keyboard[rowIndex];
+        if (!letters) {
+          return;
+        }
+        letters.map((letter) => {
+          if (letter.letter !== key || letter.state === 'right' || letter.state === 'unused') {
+            return;
+          }
+          if (letter.state === 'partial' && state !== 'right') {
+            console.warn('here');
+            return;
+          }
+          letter.state = state;
+          letter.classes = `bg-${state}/80`;
+        });
+      }
+    }
+  }
+}

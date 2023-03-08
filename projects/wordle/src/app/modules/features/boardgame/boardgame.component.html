@@ -8,14 +8,15 @@
     </div>
   </div>
 </div> -->
-<div class="flex flex-col justify-center gap-2 h-full">
-  <!-- <ng-container *ngIf="boardLines$ | async;let boardLines"> -->
-  <ng-container *ngFor="let boardLine of boardLines$ | async; trackBy: trackByFn">
-    <board-line [boardBoxes]="boardLine.boardBoxes" [text]="boardLine.text"
-      [isCurrent]="boardLine.isActive"></board-line>
-    <!-- </ng-container> -->
-  </ng-container>
-  <!-- <div *ngFor="let line of (gameService.board$ | async) | keyvalue;let lineIndex = index" class="flex justify-center">
+<div class="flex flex-col justify-center gap-2 overflow-auto h-boardgame">
+  <div class="flex flex-col justify-center gap-2 h-full">
+    <!-- <ng-container *ngIf="boardLines$ | async;let boardLines"> -->
+    <ng-container *ngFor="let boardLine of boardLines$ | async; trackBy: trackByFn">
+      <board-line [boardBoxes]="boardLine.boardBoxes" [text]="boardLine.text"
+        [isCurrent]="boardLine.isActive"></board-line>
+      <!-- </ng-container> -->
+    </ng-container>
+    <!-- <div *ngFor="let line of (gameService.board$ | async) | keyvalue;let lineIndex = index" class="flex justify-center">
     <div *ngFor="let letter of (gameService.wordle$ | async) | strToArr;let letterindex = index"
       class="border-2 rounded-md text-white flex justify-center items-center uppercase"
       [ngClass]="(isCursor(line.value,letterindex) ? 'border-cyan-500 ' :'border-secondary ') + (line.value.submitted ? getLetterStateClass(line.value,letterindex):'')"
@@ -23,4 +24,5 @@
       {{ line.value.guess[letterindex] ?? ''}}
     </div>
   </div> -->
+  </div>
 </div>

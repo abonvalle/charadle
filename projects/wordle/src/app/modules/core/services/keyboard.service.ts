@@ -1,30 +1,28 @@
 import { Injectable } from '@angular/core';
 import { APIService } from '@core/services/api.service';
 import { BehaviorSubject } from 'rxjs';
-import { Keyboard, keyboardAzerty, keyboardKeyBackground, keyboardQwerty, keyboardType } from '../../../models';
+import { Keyboard, keyboardKeyBackground, keyboardType } from '../../../models';
 
 @Injectable({ providedIn: 'root' })
 export class KeyboardService {
-  keyboard$: BehaviorSubject<Keyboard> = new BehaviorSubject(new Keyboard(keyboardAzerty));
+  keyboard$: BehaviorSubject<Keyboard> = new BehaviorSubject(new Keyboard('AZERTY'));
   constructor(private _apiServ: APIService) {}
 
   setKeyboard(): void {
-    let keyboard;
-    switch (this._apiServ.getKeyboardType()) {
-      case 'QWERTY':
-        keyboard = keyboardQwerty;
-        break;
-      case 'AZERTY':
-      default:
-        keyboard = keyboardAzerty;
+    // this.keyboard$.value?.updateConfig(this._apiServ.getKeyboardType());
+    const kb = this.keyboard$.value;
+    if (!kb) {
+      return;
     }
-    this.keyboard$.next(new Keyboard(keyboard));
+    kb.updateConfig(this._apiServ.getKeyboardType());
+    this.keyboard$.next(kb);
   }
   updateKeyboard(kbType: keyboardType): void {
     this._apiServ.setKeyboardType(kbType);
     this.setKeyboard();
   }
   setKeyBg(key: string, bg: keyboardKeyBackground): void {
+    // this.keyboard$.value?.setKeyState(key, bg);
     const kb = this.keyboard$.value;
     if (!kb) {
       return;

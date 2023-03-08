@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { GameService } from '@core/services/game.service';
 import { Subject } from 'rxjs';
 
@@ -23,5 +23,11 @@ export class MainPageComponent implements OnInit, OnDestroy {
   onLetterClick(letter: string) {
     this._gameService.enterLetter(letter);
     this._cdr.detectChanges();
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  onkeydown(event: KeyboardEvent) {
+    let key = event.key === 'Backspace' ? 'delete' : event.key === 'Enter' ? 'enter' : event.key;
+    this.onLetterClick(key);
   }
 }

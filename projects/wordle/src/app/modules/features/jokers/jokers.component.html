@@ -1,0 +1,11 @@
+<div class="flex items-center justify-center my-2 gap-1">
+  <joker-button *ngIf="jokerService.joker1$ | async;let joker1" [joker]="joker1" (click)="useJoker1()">
+    <i class="icon icon-format-paint"></i>
+  </joker-button>
+  <joker-button *ngIf="jokerService.joker2$ | async;let joker2" [joker]="joker2" (click)="useJoker2()">
+    <i class="icon icon-format-color-text"></i>
+  </joker-button>
+  <joker-button *ngIf="jokerService.joker3$ | async;let joker3" [joker]="joker3" (click)="useJoker3()">
+    <i class="icon icon-tv"></i>
+  </joker-button>
+</div>

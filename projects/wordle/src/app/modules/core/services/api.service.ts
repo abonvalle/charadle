@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { defaultSettings } from '../../../models/default-settings';
-import { keyboardType } from '../../../models/keyboard-types';
+import { keyboardType } from '../../../models/keyboard';
 import { localStorageKeys } from '../../../models/local-storage-keys.enum';
 import { settings } from '../../../models/settings.interface';
 import { LocalStorageService } from './local-storage.service';

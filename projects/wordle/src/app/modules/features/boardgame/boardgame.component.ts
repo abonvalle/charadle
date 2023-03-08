@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { GameService } from '@core/services/game.service';
 import { Subject, takeUntil } from 'rxjs';
-import { BoardLine } from '../../../models/board-line';
+import { BoardLine } from '../../../models/boardgame';
 
 @Component({
   selector: 'boardgame',

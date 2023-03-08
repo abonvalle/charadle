@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { JokerService } from '@core/services/joker.service';
 import { BehaviorSubject, map, Observable, Subject, takeUntil } from 'rxjs';
-import { keyboard } from '../../models/keyboard.interface';
+import { keyboard } from '../../models/keyboard';
 import { KeyboardService } from '../../modules/core/services/keyboard.service';
 import { KeyboardKeyComponent } from './components/keyboard-key/keyboard-key.component';
 
