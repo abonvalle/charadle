@@ -18,7 +18,6 @@ export class Joker {
   }
   get progress(): number {
     const rawProgress = (this.useCount ?? 0) / (this.maxUse ?? 1);
-    console.warn(rawProgress);
     return Math.floor(rawProgress * 10) * 10;
   }
   get soldOut(): boolean {

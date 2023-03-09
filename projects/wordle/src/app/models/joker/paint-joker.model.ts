@@ -7,24 +7,35 @@ export interface paintJokerArgs {
 }
 export class PaintJoker extends Joker {
   letters: string[];
-  constructor(args: paintJokerArgs) {
+  constructor(args?: paintJokerArgs) {
     super(args);
-    //todo : set jokers on construct to avoid long random func on joker use
-    this.letters = args?.letters ?? [];
+    this.letters = args?.letters ?? this._setLetters(args?.wordle ?? '');
+    console.warn(this.letters);
   }
-  use(wordle: string): string | null {
-    if (!this.incrementUse()) {
+  _setLetters(wordle: string): string[] {
+    return this._shuffle(wordle.split(''));
+  }
+  _shuffle(array: string[]): string[] {
+    let currentIndex = array.length,
+      randomIndex;
+
+    // While there remain elements to shuffle.
+    while (currentIndex != 0) {
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [array[randomIndex] ?? '', array[currentIndex] ?? ''];
+    }
+
+    return array;
+  }
+  use(): string | null {
+    console.warn(this.letters);
+    if (this.soldOut) {
       return null;
     }
-    let letter: string;
-    do {
-      letter = this.getRandomLetterFrom(wordle);
-    } while (this.letters.includes(letter));
-    this.letters.push(letter);
-    return letter;
-  }
-  getRandomLetterFrom(text: string): string {
-    const randInd = Math.floor(Math.random() * text.length);
-    return text[randInd] ?? '';
+    return this.letters.shift() ?? null;
   }
 }

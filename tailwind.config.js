@@ -56,7 +56,6 @@ module.exports = {
       title: 'Roboto'
     },
     extend: {
-      height: { boardgame: 'calc(100% - 300px)' },
       colors: {
         primary: '#003261', //blue
         secondary: '#005e8c', //lighter blue

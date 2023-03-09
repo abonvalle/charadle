@@ -79,31 +79,55 @@ export class Keyboard {
 
       if (!isNaN(rowIndex)) {
         const letters = this.keyboard[rowIndex];
-        return letters?.find((l) => l.letter === letter);
+        let key = letters?.find((l) => l.letter === letter);
+        if (key) {
+          return key;
+        }
       }
     }
     return undefined;
   }
-  setKeyState(key: string, state: keyboardKeyBackground): void {
-    for (let row in this.keyboard) {
-      const rowIndex = parseInt(row);
-      if (!isNaN(rowIndex)) {
-        let letters = this.keyboard[rowIndex];
-        if (!letters) {
-          return;
-        }
-        letters.map((letter) => {
-          if (letter.letter !== key || letter.state === 'right' || letter.state === 'unused') {
-            return;
-          }
-          if (letter.state === 'partial' && state !== 'right') {
-            console.warn('here');
-            return;
-          }
-          letter.state = state;
-          letter.classes = `bg-${state}/80`;
-        });
-      }
+  setKeyState(letter: string, state: keyboardKeyBackground): void {
+    // for (let row in this.keyboard) {
+    //   const rowIndex = parseInt(row);
+    //   if (!isNaN(rowIndex)) {
+    //     let letters = this.keyboard[rowIndex];
+    //     if (!letters) {
+    //       return;
+    //     }
+    //     letters.map((letter) => {
+    //       if (letter.letter !== key || letter.state === 'right' || letter.state === 'unused') {
+    //         return;
+    //       }
+    //       if (letter.state === 'partial' && state !== 'right') {
+    //         console.warn('here');
+    //         return;
+    //       }
+    //       letter.state = state;
+    //       letter.classes = `bg-${state}/80`;
+    //     });
+    //   }
+    // }
+    const key = this.getKey(letter);
+    if (!key) {
+      console.error(letter, 'key not found');
+      return;
     }
+    if (key.letter !== letter || key.state === 'right' || key.state === 'unused') {
+      return;
+    }
+    if (key.state === 'partial' && state !== 'right') {
+      return;
+    }
+    key.state = state;
+    key.classes = `bg-${state}/80`;
+  }
+  hasLetterStates(letter: string, states: keyboardKeyBackground[]): boolean {
+    const key = this.getKey(letter);
+    if (!key) {
+      return false;
+    }
+    console.warn(key.state);
+    return states.includes(key.state);
   }
 }

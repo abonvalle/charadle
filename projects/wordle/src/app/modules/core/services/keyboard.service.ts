@@ -30,4 +30,11 @@ export class KeyboardService {
     kb.setKeyState(key, bg);
     this.keyboard$.next(kb);
   }
+  hasLetterStates(key: string, states: keyboardKeyBackground[]): boolean {
+    const kb = this.keyboard$.value;
+    if (!kb) {
+      return false;
+    }
+    return kb.hasLetterStates(key, states);
+  }
 }
