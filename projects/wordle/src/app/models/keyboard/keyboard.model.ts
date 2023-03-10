@@ -9,10 +9,10 @@ export class Keyboard {
   keyboard: keyboard;
   config: keyboardType = 'AZERTY';
 
-  constructor(config: keyboardType) {
-    this.keyboard = this._setKeyboard(config);
+  constructor(config: keyboardType | null, oldKeyboard?: keyboard) {
+    this.keyboard = this._setKeyboard(config, oldKeyboard);
   }
-  private _getKbConfig(config: keyboardType): keyboardConfig {
+  private _getKbConfig(config: keyboardType | null): keyboardConfig {
     let kbConfig;
     switch (config) {
       case 'QWERTY':
@@ -24,7 +24,7 @@ export class Keyboard {
     }
     return kbConfig;
   }
-  private _setKeyboard(config: keyboardType, oldKeyboard?: Keyboard): keyboard {
+  private _setKeyboard(config: keyboardType | null, oldKeyboard?: keyboard): keyboard {
     const kbConfig = this._getKbConfig(config);
     const keyboard: keyboard = {
       1: [],
@@ -41,10 +41,8 @@ export class Keyboard {
         letters?.forEach((letter) => {
           let state: keyboardKeyBackground = 'none';
           let classes = '';
-          if (oldKeyboard && oldKeyboard.getKey) {
-            console.warn(oldKeyboard);
-            console.warn(oldKeyboard.getKey);
-            const oldKey = oldKeyboard?.getKey(letter);
+          if (oldKeyboard) {
+            const oldKey = this.getKey(letter, oldKeyboard);
             state = oldKey?.state ?? 'none';
             classes = oldKey?.classes ?? '';
           }
@@ -59,7 +57,7 @@ export class Keyboard {
     return keyboard;
   }
   updateConfig(config: keyboardType): void {
-    this._setKeyboard(config, Object.assign({}, this));
+    this._setKeyboard(config, this.keyboard);
   }
   // setKeyboardConfig(): void {
   //   let keyboard;
@@ -73,12 +71,13 @@ export class Keyboard {
   //   }
   //   this.keyboard$.next(new Keyboard(keyboard));
   // }
-  getKey(letter: string): key | undefined {
-    for (let row in this.keyboard) {
+  getKey(letter: string, kb?: keyboard): key | undefined {
+    let keyboard = kb ?? this.keyboard;
+    for (let row in keyboard) {
       const rowIndex = parseInt(row);
 
       if (!isNaN(rowIndex)) {
-        const letters = this.keyboard[rowIndex];
+        const letters = keyboard[rowIndex];
         let key = letters?.find((l) => l.letter === letter);
         if (key) {
           return key;

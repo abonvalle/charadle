@@ -4,20 +4,33 @@ export class BoardGame {
   boardLines: Map<number, BoardLine>;
   currentActiveBoardLine: number;
   boxCount: number;
-  constructor(boxCount: number) {
+  constructor(boxCount: number, currentActiveBoardLine?: number, oldBoardlines?: Map<number, BoardLine>) {
     this.boxCount = boxCount;
-    this.boardLines = this._setBoardLines(boxCount);
-    this.currentActiveBoardLine = 0;
+    this.boardLines = this._setBoardLines(boxCount, oldBoardlines);
+    this.currentActiveBoardLine = currentActiveBoardLine ?? 0;
   }
-  private _setBoardLines(boxCount: number): Map<number, BoardLine> {
+  private _setBoardLines(boxCount: number, oldBoardlines?: Map<number, BoardLine>): Map<number, BoardLine> {
     const boardLines = new Map();
-    for (let i = 0; i < 6; i++) {
-      boardLines.set(i, new BoardLine(i, boxCount, i === 0));
+    for (let index = 0; index < 6; index++) {
+      let bl;
+      if (oldBoardlines) {
+        bl = oldBoardlines.get(index);
+      }
+      boardLines.set(
+        index,
+        new BoardLine({
+          index,
+          boxCount,
+          isActive: bl?.isActive ?? index === 0,
+          text: bl?.text,
+          oldBoardBoxes: bl?.boardBoxes
+        })
+      );
     }
     return boardLines;
   }
   addBoardLine(): void {
-    this.boardLines.set(this.boardLines.size, new BoardLine(this.boardLines.size, this.boxCount));
+    this.boardLines.set(this.boardLines.size, new BoardLine({ index: this.boardLines.size, boxCount: this.boxCount }));
   }
   // updateBoardLine(index:number,letter:string): void {
   //   // const boardLine = this.boardLines.get(index)

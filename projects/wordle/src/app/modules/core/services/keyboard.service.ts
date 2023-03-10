@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { APIService } from '@core/services/api.service';
 import { BehaviorSubject } from 'rxjs';
-import { Keyboard, keyboardKeyBackground, keyboardType } from '../../../models';
+import { key, Keyboard, keyboardKeyBackground, keyboardType } from '../../../models';
 
 @Injectable({ providedIn: 'root' })
 export class KeyboardService {
@@ -10,16 +10,15 @@ export class KeyboardService {
 
   setKeyboard(): void {
     // this.keyboard$.value?.updateConfig(this._apiServ.getKeyboardType());
-    const kb = this.keyboard$.value;
-    if (!kb) {
-      return;
-    }
-    kb.updateConfig(this._apiServ.getKeyboardType());
+    const kb = this._apiServ.getKeyboard();
     this.keyboard$.next(kb);
+    this._apiServ.setKeyboard(kb);
   }
-  updateKeyboard(kbType: keyboardType): void {
-    this._apiServ.setKeyboardType(kbType);
-    this.setKeyboard();
+  updateKeyboardType(kbType: keyboardType): void {
+    const kb = this.keyboard$.value;
+    kb.config = kbType;
+    this.keyboard$.next(kb);
+    this._apiServ.setKeyboard(kb);
   }
   setKeyBg(key: string, bg: keyboardKeyBackground): void {
     // this.keyboard$.value?.setKeyState(key, bg);
@@ -29,6 +28,7 @@ export class KeyboardService {
     }
     kb.setKeyState(key, bg);
     this.keyboard$.next(kb);
+    this._apiServ.setKeyboard(kb);
   }
   hasLetterStates(key: string, states: keyboardKeyBackground[]): boolean {
     const kb = this.keyboard$.value;
@@ -36,5 +36,8 @@ export class KeyboardService {
       return false;
     }
     return kb.hasLetterStates(key, states);
+  }
+  getKey(letter: string): key | undefined {
+    return this.keyboard$.value.getKey(letter);
   }
 }

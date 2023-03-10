@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { APIService } from '@core/services/api.service';
 import { GameService } from '@core/services/game.service';
 import { Subject, takeUntil } from 'rxjs';
 import { BoardLine } from '../../../models/boardgame';
@@ -12,7 +13,7 @@ import { BoardLine } from '../../../models/boardgame';
 export class BoardgameComponent implements OnInit, OnDestroy {
   boardLines$: Subject<BoardLine[]> = new Subject();
   _destroy$: Subject<void> = new Subject();
-  constructor(private _gameService: GameService, private _cdr: ChangeDetectorRef) {}
+  constructor(private _gameService: GameService, private _cdr: ChangeDetectorRef, private _apiServ: APIService) {}
   ngOnInit(): void {
     this._gameService.initGame();
     const boardGame = this._gameService.boardGame$?.value;
@@ -25,6 +26,7 @@ export class BoardgameComponent implements OnInit, OnDestroy {
       .subscribe((boardGame) => {
         const boardLines = Array.from(boardGame?.boardLines.values() ?? []);
         this.boardLines$.next(boardLines);
+        boardGame && this._apiServ.setBoardgame(boardGame);
         this._cdr.detectChanges();
         console.warn(boardGame);
       });

@@ -10,7 +10,6 @@ export class PaintJoker extends Joker {
   constructor(args?: paintJokerArgs) {
     super(args);
     this.letters = args?.letters ?? this._setLetters(args?.wordle ?? '');
-    console.warn(this.letters);
   }
   _setLetters(wordle: string): string[] {
     return this._shuffle(wordle.split(''));
@@ -32,7 +31,6 @@ export class PaintJoker extends Joker {
     return array;
   }
   use(): string | null {
-    console.warn(this.letters);
     if (this.soldOut) {
       return null;
     }

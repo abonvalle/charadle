@@ -21,11 +21,6 @@ export class LocalStorageService {
   OLDsetItem(key: string, value: any): void {
     localStorage.setItem(key, JSON.stringify(value));
   }
-  /**@deprecated */
-  clear(): void {
-    localStorage.clear();
-    this.clear$.next();
-  }
   create(key: string, value: string): void {
     localStorage.setItem(this._getVersionedKey(key), value);
   }

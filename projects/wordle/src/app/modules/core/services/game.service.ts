@@ -5,6 +5,7 @@ import * as wordlesJSON from '@assets/w1-3.json';
 import * as wordsJSON from '@assets/words.json';
 import { BoardGame, keyboardKeyBackground, letterState } from 'projects/wordle/src/app/models';
 import { BehaviorSubject, first, Subject, takeUntil, timer } from 'rxjs';
+import { APIService } from './api.service';
 import { JokerService } from './joker.service';
 import { KeyboardService } from './keyboard.service';
 import { LocalStorageService } from './local-storage.service';
@@ -23,7 +24,8 @@ export class GameService {
     private _snackBar: MatSnackBar,
     private _localStrgeServ: LocalStorageService,
     private _keyboardServ: KeyboardService,
-    private _jokerService: JokerService
+    private _jokerService: JokerService,
+    private _apiServ: APIService
   ) {
     this.success$ = new BehaviorSubject<boolean>(false);
     this.board$ = new BehaviorSubject(new Map());
@@ -37,7 +39,8 @@ export class GameService {
   initGame(): void {
     this.setWordle();
     this._jokerService.initJokers(this.wordle$.value);
-    this.boardGame$.next(new BoardGame(this.wordle$?.value?.length ?? 0));
+    const fetchedBG = this._apiServ.getBoardgame(this.wordle$.value);
+    this.boardGame$.next(fetchedBG);
   }
   // setBoard() {
   //   const board2 = new Map();

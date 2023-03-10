@@ -1,30 +1,49 @@
 import { BoardBox } from './board-box';
-
+export interface boardLineArgs {
+  index: number;
+  boxCount: number;
+  isActive?: boolean;
+  text?: string;
+  oldBoardBoxes?: Map<number, BoardBox>;
+}
 export class BoardLine {
   index: number;
   isActive: boolean;
   boxCount: number;
   boardBoxes: Map<number, BoardBox>;
   text: string;
-  constructor(index: number, boxCount: number, isActive?: boolean, text?: string) {
-    this.index = index;
-    this.isActive = isActive ?? false;
-    this.boxCount = boxCount;
-    this.text = text ?? '';
-    this.boardBoxes = this._setBoardBoxes(boxCount, text);
+  constructor(args: boardLineArgs) {
+    this.index = args.index;
+    this.isActive = args.isActive ?? false;
+    this.boxCount = args.boxCount;
+    this.text = args.text ?? '';
+    this.boardBoxes = this._setBoardBoxes(args);
   }
-  private _setBoardBoxes(boxCount: number, text?: string): Map<number, BoardBox> {
+  private _setBoardBoxes(args: boardLineArgs): Map<number, BoardBox> {
     const boardLines = new Map();
     let isBoxActivePassed = false;
-    for (let i = 0; i < boxCount; i++) {
+    for (let i = 0; i < args.boxCount; i++) {
+      let bb;
+      if (args.oldBoardBoxes) {
+        bb = args.oldBoardBoxes.get(i);
+      }
       let isBoxActive = false;
-      const letters = text?.split('') ?? [];
+      const letters = args.text?.split('') ?? [];
       const letter = letters[i];
       if (!isBoxActivePassed && !letters[i] && this.isActive) {
         isBoxActivePassed = true;
         isBoxActive = true;
       }
-      boardLines.set(i, new BoardBox(i, this._getBoxSize(boxCount), letter, isBoxActive));
+      boardLines.set(
+        i,
+        new BoardBox({
+          index: i,
+          boxSize: this._getBoxSize(args.boxCount),
+          letter,
+          isActive: isBoxActive,
+          background: bb?.background
+        })
+      );
     }
     return boardLines;
   }

@@ -14,7 +14,6 @@ export class PlaceLetterJoker extends Joker {
   constructor(args?: placeLetterJokerArgs) {
     super(args);
     this.letters = args?.letters ?? this._setLetters(args?.wordle ?? '');
-    console.warn(this.letters);
   }
   _setLetters(wordle: string): placeLetterJokerLetter[] {
     return this._shuffle(wordle.split(''));
@@ -42,7 +41,6 @@ export class PlaceLetterJoker extends Joker {
     return newArray;
   }
   use(): placeLetterJokerLetter | null {
-    console.warn(this.letters);
     if (this.soldOut) {
       return null;
     }

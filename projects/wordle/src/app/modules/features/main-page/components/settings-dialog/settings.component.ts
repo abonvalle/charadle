@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { LocalStorageService } from '@core/services/local-storage.service';
+import { APIService } from '@core/services/api.service';
 import { SettingsService } from '@core/services/settings.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { SettingsService } from '@core/services/settings.service';
 })
 export class SettingsDialogComponent {
   form: FormGroup;
-  constructor(public settingsServ: SettingsService, private _localStrgServ: LocalStorageService) {
+  constructor(public settingsServ: SettingsService, private _apiServ: APIService) {
     this.form = new FormGroup({});
     this._init();
   }
@@ -23,7 +23,7 @@ export class SettingsDialogComponent {
     this.settingsServ.saveStorageSettings(this.form.value);
   }
   deleteAllData(): void {
-    this._localStrgServ.clear();
+    this._apiServ.deleteAll();
     this.resetForm();
   }
   resetForm(): void {

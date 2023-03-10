@@ -1,15 +1,22 @@
+export interface boardBoxArgs {
+  index: number;
+  letter?: string;
+  background?: string;
+  isActive?: boolean;
+  boxSize: number;
+}
 export class BoardBox {
   index: number;
   letter: string;
   background: string;
   isActive: boolean;
   boxSize: number;
-  constructor(index: number, boxSize: number, text?: string, isActive?: boolean) {
-    this.index = index;
-    this.boxSize = boxSize;
-    this.letter = text ?? '';
-    this.background = '';
-    this.isActive = isActive ?? false;
+  constructor(args: boardBoxArgs) {
+    this.index = args.index;
+    this.boxSize = args.boxSize;
+    this.letter = args.letter ?? '';
+    this.background = args.background ?? '';
+    this.isActive = args.isActive ?? false;
   }
   updateLetter(letter: string): void {
     this.letter = letter;
