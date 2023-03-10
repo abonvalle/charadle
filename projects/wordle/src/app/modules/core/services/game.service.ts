@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Clipboard } from '@angular/cdk/clipboard';
+import { Injectable, OnDestroy } from '@angular/core';
 import { MatSnackBar, MatSnackBarRef, TextOnlySnackBar } from '@angular/material/snack-bar';
-import * as charactersJSON from '@assets/characters.json';
 import * as wordlesJSON from '@assets/w1-3.json';
 import * as wordsJSON from '@assets/words.json';
 import { BoardGame, keyboardKeyBackground, letterState } from 'projects/wordle/src/app/models';
@@ -11,67 +11,46 @@ import { KeyboardService } from './keyboard.service';
 import { LocalStorageService } from './local-storage.service';
 
 @Injectable({ providedIn: 'root' })
-export class GameService {
+export class GameService implements OnDestroy {
   wordle$: BehaviorSubject<string> = new BehaviorSubject('');
   /**@deprecated */
   board$: BehaviorSubject<Map<number, { guess: string; submitted: boolean; current: boolean; lineIndex: number }>>;
   boardGame$: BehaviorSubject<BoardGame | null> = new BehaviorSubject<BoardGame | null>(null);
-  /**@deprecated */
-  currentLine$: BehaviorSubject<number>;
   success$: BehaviorSubject<boolean>;
-  destroy$: Subject<void>;
+  destroy$: Subject<void> = new Subject();
   constructor(
     private _snackBar: MatSnackBar,
     private _localStrgeServ: LocalStorageService,
     private _keyboardServ: KeyboardService,
     private _jokerService: JokerService,
-    private _apiServ: APIService
+    private _apiServ: APIService,
+    private _clipboard: Clipboard
   ) {
     this.success$ = new BehaviorSubject<boolean>(false);
     this.board$ = new BehaviorSubject(new Map());
-    this.currentLine$ = new BehaviorSubject<number>(0);
-    this.destroy$ = new Subject();
-    console.warn(charactersJSON);
-    console.warn(wordsJSON);
     this._event();
-    // this.setBoard();
   }
-  initGame(): void {
-    this.setWordle();
-    this._jokerService.initJokers(this.wordle$.value);
-    const fetchedBG = this._apiServ.getBoardgame(this.wordle$.value);
-    this.boardGame$.next(fetchedBG);
-  }
-  // setBoard() {
-  //   const board2 = new Map();
-  //   board2.set(0, { guess: '', submitted: false, current: true, lineIndex: 0 });
-  //   board2.set(1, { guess: '', submitted: false, current: false, lineIndex: 1 });
-  //   board2.set(2, { guess: '', submitted: false, current: false, lineIndex: 2 });
-  //   board2.set(3, { guess: '', submitted: false, current: false, lineIndex: 3 });
-  //   board2.set(4, { guess: '', submitted: false, current: false, lineIndex: 4 });
-  //   board2.set(5, { guess: '', submitted: false, current: false, lineIndex: 5 });
-  //   this.board$ = new BehaviorSubject(board2);
-  // }
   ngOnDestroy(): void {
     this.destroy$?.next();
     this.destroy$?.unsubscribe();
   }
+  initGame(): void {
+    const date = this.setWordle();
+    this._jokerService.initJokers(this.wordle$.value);
+    const initBG = this._apiServ.getBoardgame(this.wordle$.value, date.toLocaleDateString());
+    this.boardGame$.next(initBG);
+  }
+
   private _event(): void {
     this._localStrgeServ.clear$.pipe(takeUntil(this.destroy$)).subscribe(() => {
-      // this.setBoard();
+      this.initGame();
       this.success$.next(false);
     });
-  }
-  hasCurrentGuessNotEnoughLetter(): boolean {
-    const board2 = this.board$?.value;
-    const board2CurrentLine = board2.get(this.currentLine$?.value);
-    return !!board2CurrentLine && this.wordle$.value?.length > board2CurrentLine.guess?.length;
   }
 
   addCurrentGuessLetter(letter: string): void {
     // if (this.hasCurrentGuessNotEnoughLetter()) {
-    let boardGame: BoardGame = new BoardGame(0);
-    Object.assign(boardGame, this.boardGame$.value);
+    let boardGame = this.boardGame$.value;
     // boardGame?.addLetter(letter);
     const boardLine = boardGame?.getCurrentBoardLine();
     if (!boardLine?.isBoardLineFull()) {
@@ -91,10 +70,9 @@ export class GameService {
   }
 
   removeLastGuessLetter(): void {
-    let boardGame: BoardGame = new BoardGame(0);
-    Object.assign(boardGame, this.boardGame$.value);
+    let boardGame = this.boardGame$.value;
     // boardGame?.removeLetter();
-    const boardLine = boardGame.getCurrentBoardLine();
+    const boardLine = boardGame?.getCurrentBoardLine();
     boardLine?.removeLetter();
     this.boardGame$.next(boardGame);
 
@@ -128,8 +106,7 @@ export class GameService {
     // const board2CurrentLineIndex = this.currentLine$?.value;
     // const board2CurrentLine = board2.get(board2CurrentLineIndex);
 
-    let boardGame: BoardGame = new BoardGame(0);
-    Object.assign(boardGame, this.boardGame$.value);
+    let boardGame = this.boardGame$.value;
     let boardLine = boardGame?.getCurrentBoardLine();
     if (!boardLine) {
       return;
@@ -204,7 +181,7 @@ export class GameService {
     this.openSnackBar('Prénom en cours de vérification, merci !');
     return;
   }
-  setWordle() {
+  setWordle(): Date {
     let date = new Date();
     let numerodujour = date.getDate();
     let numerodumois = date.getMonth() + 1;
@@ -213,6 +190,7 @@ export class GameService {
     const ind =
       12 * (numerodujour - 1) + numerodumois + (Math.pow(numerodujour, 2) + 1 * numerodujour) / 2 + 868 * numeroannee;
     this.wordle$.next(wordles.words[ind - 1] ?? '');
+    return date;
   }
   isDifficult() {
     return false;
@@ -229,5 +207,44 @@ export class GameService {
     }
 
     this.addCurrentGuessLetter(letter);
+  }
+  shareScore(): void {
+    /**Wordle Séries edition #23 */
+    /** 🟧⬛⬛🟧⬛⬛ */
+    /** 🟧⬛⬛⬛⬛🟩 */
+    /** 🟧⬛⬛🟩🟩🟩 */
+    /**🎯x20 - ✍️x5 | 🚫🃏 => 🖌️x3, 🔤x3, 🎥x1 */
+    /**https://wordle-series.abvdev.fr */
+    const joker1Count = this._jokerService.joker1$.value.useCount;
+    const joker2Count = this._jokerService.joker2$.value.useCount;
+    const joker3Count = this._jokerService.joker3$.value.useCount;
+    const hasUsedJoker = joker1Count !== 0 || joker2Count !== 0 || joker3Count !== 0;
+    const nbTries = this.boardGame$.value?.currentActiveBoardLine;
+    const tries = this.boardGame$.value?.getTries();
+    const worldeDate = this.boardGame$.value?.wordleDate;
+    const text = [`Wordle Séries edition #${worldeDate} `];
+    tries?.forEach((aTry) => {
+      text.push('      ' + aTry);
+    });
+    if (hasUsedJoker) {
+      text.push(`✍️x${nbTries} | 🃏 => 🖌️x${joker1Count}, 🔤x${joker2Count}, 🎥x${joker3Count}`);
+    } else {
+      text.push(`✍️x${nbTries} | 🚫🃏`);
+    }
+    text.push('https://wordle-series.abvdev.fr');
+
+    this._copyLongText(text.join('\n'))
+      ? this.openSnackBar('Copié 👌', 'success')
+      : this._snackBar.open('Impossible de copier le résultat 🤷', 'error');
+  }
+  private _copyLongText(text: string): boolean {
+    const pending = this._clipboard.beginCopy(text);
+    let remainingAttempts = 3;
+    let result;
+    do {
+      result = pending.copy();
+    } while (!result || --remainingAttempts);
+    pending.destroy();
+    return !!result;
   }
 }

@@ -96,4 +96,21 @@ export class BoardLine {
   isBoardLineFull(): boolean {
     return (this.text?.length ?? 0) === this.boxCount;
   }
+  getTry(): string {
+    const res: string[] = [];
+    this.boardBoxes.forEach((bb) => {
+      switch (bb.background) {
+        case 'partial':
+          res.push('🟧');
+          break;
+        case 'right':
+          res.push('🟩');
+          break;
+        case 'unused':
+          res.push('⬛');
+          break;
+      }
+    });
+    return res.join('');
+  }
 }

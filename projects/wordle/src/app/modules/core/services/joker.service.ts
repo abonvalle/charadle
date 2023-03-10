@@ -7,8 +7,11 @@ import { KeyboardService } from './keyboard.service';
 @Injectable({ providedIn: 'root' })
 export class JokerService {
   wordle$: BehaviorSubject<string> = new BehaviorSubject('');
+  /**🃏x0 => 🖌️x3 */
   joker1$: BehaviorSubject<PaintJoker> = new BehaviorSubject(new PaintJoker());
+  /**🔤x3 */
   joker2$: BehaviorSubject<PlaceLetterJoker> = new BehaviorSubject(new PlaceLetterJoker());
+  /**🎥x1 */
   joker3$: BehaviorSubject<SerieJoker> = new BehaviorSubject(new SerieJoker());
   constructor(private _keyboardService: KeyboardService, private _apiServ: APIService) {}
   initJokers(wordle: string) {

@@ -11,12 +11,17 @@ import { LocalStorageService } from './local-storage.service';
 export class APIService {
   constructor(private _localStorage: LocalStorageService) {}
   /** GameBoard  */
-  getBoardgame(wordle: string): BoardGame {
+  getBoardgame(wordle: string, wordleDate: string): BoardGame {
     const strBg = this._localStorage.read(localStorageKeys.boardgame);
     const boardgame = strBg ? (JSON.parse(strBg, this._reviver) as BoardGame) : null;
     return boardgame
-      ? new BoardGame(boardgame.boxCount, boardgame.currentActiveBoardLine, boardgame.boardLines)
-      : new BoardGame(wordle.length);
+      ? new BoardGame({
+          boxCount: boardgame.boxCount,
+          currentActiveBoardLine: boardgame.currentActiveBoardLine,
+          boardLines: boardgame.boardLines,
+          wordleDate
+        })
+      : new BoardGame({ boxCount: wordle.length, wordleDate });
   }
   setBoardgame(gb: BoardGame): void {
     this._localStorage.update(localStorageKeys.boardgame, JSON.stringify(gb, this._replacer));

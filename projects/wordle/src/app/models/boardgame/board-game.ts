@@ -1,13 +1,20 @@
 import { BoardLine } from './board-line';
-
+export interface boardGameArgs {
+  boardLines?: Map<number, BoardLine>;
+  currentActiveBoardLine?: number;
+  boxCount: number;
+  wordleDate: string;
+}
 export class BoardGame {
   boardLines: Map<number, BoardLine>;
   currentActiveBoardLine: number;
   boxCount: number;
-  constructor(boxCount: number, currentActiveBoardLine?: number, oldBoardlines?: Map<number, BoardLine>) {
-    this.boxCount = boxCount;
-    this.boardLines = this._setBoardLines(boxCount, oldBoardlines);
-    this.currentActiveBoardLine = currentActiveBoardLine ?? 0;
+  wordleDate: string;
+  constructor(args: boardGameArgs) {
+    this.boxCount = args.boxCount;
+    this.boardLines = this._setBoardLines(args.boxCount, args.boardLines);
+    this.currentActiveBoardLine = args.currentActiveBoardLine ?? 0;
+    this.wordleDate = args.wordleDate;
   }
   private _setBoardLines(boxCount: number, oldBoardlines?: Map<number, BoardLine>): Map<number, BoardLine> {
     const boardLines = new Map();
@@ -80,5 +87,14 @@ export class BoardGame {
   // }
   getCurrentBoardLine(): BoardLine | undefined {
     return this.boardLines.get(this.currentActiveBoardLine);
+  }
+
+  getTries(): string[] {
+    const res: string[] = [];
+    this.boardLines.forEach((bl) => {
+      const bltry = bl.getTry();
+      bltry.length && res.push(bltry);
+    });
+    return res;
   }
 }
