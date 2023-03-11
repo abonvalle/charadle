@@ -1,84 +1,34 @@
 import { Injectable } from '@angular/core';
 import { BoardGame } from '../../../models/boardgame';
 import { defaultSettings } from '../../../models/default-settings';
-import { PaintJoker, PlaceLetterJoker, SerieJoker } from '../../../models/joker';
 import { Keyboard } from '../../../models/keyboard';
 import { localStorageKeys } from '../../../models/local-storage-keys.enum';
 import { settings } from '../../../models/settings.interface';
+import { Wordle } from '../../../models/wordle.model';
 import { LocalStorageService } from './local-storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class APIService {
   constructor(private _localStorage: LocalStorageService) {}
   /** GameBoard  */
-  getBoardgame(wordle: string, wordleDate: string): BoardGame {
+  getBoardgame(wordle: Wordle): BoardGame {
     const strBg = this._localStorage.read(localStorageKeys.boardgame);
     const boardgame = strBg ? (JSON.parse(strBg, this._reviver) as BoardGame) : null;
-    return boardgame
+    return boardgame && boardgame.wordle.date === wordle.date
       ? new BoardGame({
-          boxCount: boardgame.boxCount,
           currentActiveBoardLine: boardgame.currentActiveBoardLine,
           boardLines: boardgame.boardLines,
-          wordleDate
+          wordle,
+          jokers: boardgame.jokers,
+          success: boardgame.success
         })
-      : new BoardGame({ boxCount: wordle.length, wordleDate });
+      : new BoardGame({ wordle });
   }
   setBoardgame(gb: BoardGame): void {
     this._localStorage.update(localStorageKeys.boardgame, JSON.stringify(gb, this._replacer));
   }
   deleteBoardgame(): void {
     this._localStorage.delete(localStorageKeys.boardgame);
-  }
-
-  /** PaintJoker  */
-  getPaintJoker(wordle: string): PaintJoker {
-    const strPaintJoker = this._localStorage.read(localStorageKeys.paintJoker);
-    const paintJoker = strPaintJoker ? JSON.parse(strPaintJoker) : null;
-    return new PaintJoker({
-      wordle: paintJoker?.wordle ?? wordle,
-      useCount: paintJoker?.useCount,
-      maxUse: paintJoker?.maxUse,
-      letters: paintJoker?.letters
-    });
-  }
-  setPaintJoker(joker: PaintJoker): void {
-    this._localStorage.update(localStorageKeys.paintJoker, JSON.stringify(joker));
-  }
-  deletePaintJoker(): void {
-    this._localStorage.delete(localStorageKeys.paintJoker);
-  }
-  /** PlaceLetterJoker  */
-  getPlaceLetterJoker(wordle: string): PlaceLetterJoker {
-    const strPlaceLetterJoker = this._localStorage.read(localStorageKeys.placeLetterJoker);
-    const placeLetterJoker = strPlaceLetterJoker ? JSON.parse(strPlaceLetterJoker) : null;
-    return new PlaceLetterJoker({
-      wordle: placeLetterJoker?.wordle ?? wordle,
-      useCount: placeLetterJoker?.useCount,
-      maxUse: placeLetterJoker?.maxUse,
-      letters: placeLetterJoker?.letters
-    });
-  }
-  setPlaceLetterJoker(joker: PlaceLetterJoker): void {
-    this._localStorage.update(localStorageKeys.placeLetterJoker, JSON.stringify(joker));
-  }
-  deletePlaceLetterJoker(): void {
-    this._localStorage.delete(localStorageKeys.placeLetterJoker);
-  }
-
-  /** SerieJoker  */
-  getSerieJoker(): SerieJoker {
-    const strSerieJoker = this._localStorage.read(localStorageKeys.serieJoker);
-    const serieJoker = strSerieJoker ? JSON.parse(strSerieJoker) : null;
-    return new SerieJoker({
-      useCount: serieJoker?.useCount,
-      serieName: serieJoker?.serieName
-    });
-  }
-  setSerieJoker(joker: SerieJoker): void {
-    this._localStorage.update(localStorageKeys.serieJoker, JSON.stringify(joker));
-  }
-  deleteSerieJoker(): void {
-    this._localStorage.delete(localStorageKeys.serieJoker);
   }
 
   /** Keyboard  */
@@ -111,9 +61,6 @@ export class APIService {
   deleteAll(): void {
     this.deleteBoardgame();
     this.deleteKeyboard();
-    this.deletePaintJoker();
-    this.deletePlaceLetterJoker();
-    this.deleteSerieJoker();
     this.deleteSettings();
   }
 

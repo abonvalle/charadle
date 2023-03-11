@@ -1,6 +1,6 @@
 import { Joker } from './joker.model';
 export interface paintJokerArgs {
-  wordle: string;
+  wordle?: string;
   maxUse?: number;
   useCount?: number;
   letters?: string[];

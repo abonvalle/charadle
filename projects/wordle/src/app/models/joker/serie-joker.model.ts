@@ -9,5 +9,10 @@ export class SerieJoker extends Joker {
     super({ ...args, maxUse: 1 });
     this.serieName = args?.serieName ?? '';
   }
-  use(): void {}
+  use(): string | null {
+    if (this.soldOut) {
+      return null;
+    }
+    return this.serieName;
+  }
 }

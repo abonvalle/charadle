@@ -12,7 +12,7 @@ import { Subject } from 'rxjs';
 export class MainPageComponent implements OnInit, OnDestroy {
   _destroy$: Subject<void> = new Subject();
   constructor(
-    private _gameService: GameService,
+    public gameService: GameService,
     private _cdr: ChangeDetectorRef,
     private _keyboardServ: KeyboardService
   ) {}
@@ -26,7 +26,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     this._destroy$?.unsubscribe();
   }
   onLetterClick(letter: string) {
-    this._gameService.enterLetter(letter);
+    this.gameService.enterLetter(letter);
     this._cdr.detectChanges();
   }
 

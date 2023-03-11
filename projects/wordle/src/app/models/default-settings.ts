@@ -2,5 +2,6 @@ import { settings } from './settings.interface';
 
 export const defaultSettings: settings = {
   playerName: '',
-  colorBlindMode: false
+  colorBlindMode: false,
+  firstTime: false
 };

@@ -1,20 +1,30 @@
+import { PaintJoker, PlaceLetterJoker, SerieJoker } from '../joker';
+import { Wordle } from '../wordle.model';
 import { BoardLine } from './board-line';
+interface boardgameJokers {
+  paintJoker: PaintJoker;
+  placeLetterJoker: PlaceLetterJoker;
+  serieJoker: SerieJoker;
+}
 export interface boardGameArgs {
   boardLines?: Map<number, BoardLine>;
   currentActiveBoardLine?: number;
-  boxCount: number;
-  wordleDate: string;
+  wordle: Wordle;
+  jokers?: boardgameJokers;
+  success?: boolean;
 }
 export class BoardGame {
   boardLines: Map<number, BoardLine>;
   currentActiveBoardLine: number;
-  boxCount: number;
-  wordleDate: string;
+  wordle: Wordle;
+  jokers: boardgameJokers;
+  success?: boolean;
   constructor(args: boardGameArgs) {
-    this.boxCount = args.boxCount;
-    this.boardLines = this._setBoardLines(args.boxCount, args.boardLines);
     this.currentActiveBoardLine = args.currentActiveBoardLine ?? 0;
-    this.wordleDate = args.wordleDate;
+    this.jokers = args.jokers ? this._setJokers(args.jokers) : this._initJokers(args.wordle);
+    this.wordle = args.wordle;
+    this.success = args.success ?? false;
+    this.boardLines = this._setBoardLines(args.wordle.length, args.boardLines);
   }
   private _setBoardLines(boxCount: number, oldBoardlines?: Map<number, BoardLine>): Map<number, BoardLine> {
     const boardLines = new Map();
@@ -36,40 +46,36 @@ export class BoardGame {
     }
     return boardLines;
   }
-  addBoardLine(): void {
-    this.boardLines.set(this.boardLines.size, new BoardLine({ index: this.boardLines.size, boxCount: this.boxCount }));
+  private _setJokers(jokers: boardgameJokers): boardgameJokers {
+    const paintJoker = new PaintJoker({
+      letters: jokers.paintJoker.letters,
+      useCount: jokers.paintJoker.useCount,
+      maxUse: jokers.paintJoker.maxUse
+    });
+    const placeLetterJoker = new PlaceLetterJoker({
+      letters: jokers.placeLetterJoker.letters,
+      useCount: jokers.placeLetterJoker.useCount,
+      maxUse: jokers.placeLetterJoker.maxUse
+    });
+    const serieJoker = new SerieJoker({
+      serieName: jokers.serieJoker.serieName,
+      useCount: jokers.serieJoker.useCount
+    });
+    return { paintJoker, placeLetterJoker, serieJoker };
   }
-  // updateBoardLine(index:number,letter:string): void {
-  //   // const boardLine = this.boardLines.get(index)
-  //   // const boardBox = boardLine?.boardBoxes.get(index)
-  //   // boardLine?.boardBoxes.get(index)
-  //   // letter
-  //   this.boardLines.set(this.boardLines.size, new BoardLine(this.boardLines.size, this.boxCount));
-  // }
-  // updateLetter(lineIndex: number, letter: string): void {
-  //   const boardLine = this.boardLines.get(lineIndex);
-  //   if (letter === '') {
-  //     boardLine?.removeLetter();
-  //     return;
-  //   }
-  //   if ((boardLine?.text?.length ?? 0) < this.boxCount) {
-  //     boardLine?.addLetter(letter);
-  //   }
-  // const boardBox = boardLine?.boardBoxes.get(boxIndex);
-  // boardBox?.updateLetter(letter);
-  // this.boardLines.set(this.boardLines.size, new BoardLine(this.boardLines.size, this.boxCount));
-  // }
-  // addLetter(letter: string): void {
-  //   if (!this.isBoardLineFull()) {
-  //     const boardLine = this.getCurrentBoardLine();
-  //     boardLine?.addLetter(letter);
-  //   }
-  // }
-  // removeLetter(): void {
-  //   const boardLine = this.getCurrentBoardLine();
-  //   boardLine?.removeLetter();
-  //   return;
-  // }
+  private _initJokers(wordle: Wordle): boardgameJokers {
+    const paintJoker = new PaintJoker({ wordle: wordle.text });
+    const placeLetterJoker = new PlaceLetterJoker({ wordle: wordle.text });
+    const serieJoker = new SerieJoker({ serieName: wordle.serie });
+    return { paintJoker, placeLetterJoker, serieJoker };
+  }
+  addBoardLine(): void {
+    this.boardLines.set(
+      this.boardLines.size,
+      new BoardLine({ index: this.boardLines.size, boxCount: this.wordle.length })
+    );
+  }
+
   incrementCurrentActiveBoardLine(): void {
     const boardLine = this.getCurrentBoardLine();
     boardLine?.setActive(false);
@@ -77,14 +83,7 @@ export class BoardGame {
     const nextBoardLine = this.getCurrentBoardLine();
     nextBoardLine?.setActive(true);
   }
-  // isBoardLineFull(): boolean {
-  //   const boardLine = this.getCurrentBoardLine();
-  //   return (boardLine?.text?.length ?? 0) === this.boxCount;
-  // }
-  // getCurrentGuess(): string {
-  //   const boardLine = this.getCurrentBoardLine();
-  //   return boardLine?.text ?? '';
-  // }
+
   getCurrentBoardLine(): BoardLine | undefined {
     return this.boardLines.get(this.currentActiveBoardLine);
   }

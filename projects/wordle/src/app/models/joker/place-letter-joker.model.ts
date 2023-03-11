@@ -4,7 +4,7 @@ export interface placeLetterJokerLetter {
   index: number;
 }
 export interface placeLetterJokerArgs {
-  wordle: string;
+  wordle?: string;
   maxUse?: number;
   useCount?: number;
   letters?: placeLetterJokerLetter[];

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { JokerService } from '@core/services/joker.service';
+import { GameService } from '@core/services/game.service';
 
 @Component({
   selector: 'jokers',
@@ -8,15 +8,24 @@ import { JokerService } from '@core/services/joker.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JokersComponent {
-  constructor(public jokerService: JokerService) {}
+  constructor(public gameService: GameService) {}
+  // get paintJoker() {
+  //   return this.gameService.boardGame$.value?.jokers.paintJoker;
+  // }
+  // get placeLetterJoker() {
+  //   return this.gameService.boardGame$.value?.jokers.placeLetterJoker;
+  // }
+  // get serieJoker() {
+  //   return this.gameService.boardGame$.value?.jokers.serieJoker;
+  // }
 
   useJoker1(): void {
-    this.jokerService.useJoker1();
+    this.gameService.useJoker1();
   }
   useJoker2(): void {
-    this.jokerService.useJoker2();
+    this.gameService.useJoker2();
   }
   useJoker3(): void {
-    this.jokerService.useJoker3();
+    this.gameService.useJoker3();
   }
 }
