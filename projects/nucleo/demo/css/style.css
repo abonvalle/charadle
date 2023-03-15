@@ -247,3 +247,23 @@ icons
   content: "\ea13";
 }
 
+.icon-clipboard::before {
+  content: "\ea14";
+}
+
+.icon-content_copy::before {
+  content: "\ea15";
+}
+
+.icon-keyboard_arrow_up::before {
+  content: "\ea16";
+}
+
+.icon-keyboard_arrow_down::before {
+  content: "\ea17";
+}
+
+.icon-shuffle::before {
+  content: "\ea18";
+}
+
