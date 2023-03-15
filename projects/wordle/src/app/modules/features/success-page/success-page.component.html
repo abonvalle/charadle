@@ -1,0 +1,68 @@
+<ng-container *ngIf="(gameService.boardGame$ | async) ;let boardGame">
+  <!-- <mat-accordion> -->
+  <!-- <mat-expansion-panel [expanded]="panelOpenState" class="bg-background-alt border-primary border-t-2 text-white"
+      hideToggle #expPanel (opened)="openPanel()" (closed)="closePanel()"> -->
+  <!-- <mat-expansion-panel-header> -->
+  <!-- <mat-panel-description class="text-white">
+          <ng-container *ngIf="panelOpenState;else openTpl">
+            Voir les essais
+            <i class="ml-2 icon icon-keyboard_arrow_down text-lg"></i>
+          </ng-container>
+          <ng-template #openTpl>
+            Voir le résultat
+            <i class="ml-2 icon icon-keyboard_arrow_up text-lg"></i>
+          </ng-template>
+        </mat-panel-description>
+      </mat-expansion-panel-header> -->
+  <!-- <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Self aware panel
+      </mat-panel-title>
+      <mat-panel-description>
+        Currently I am {{panelOpenState ? 'open' : 'closed'}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <p>I'm visible because I am open</p>
+  </mat-expansion-panel> -->
+
+  <div class="flex flex-col justify-center items-center text-white pt-4 bg-background-alt h-full overflow-y-auto">
+    <h1 class="mb-4 text-2xl">Bravo, vous avez trouvé !</h1>
+    <div class="flex flex-col justify-center items-center py-8">
+      <p class="text-2xl capitalize">
+        {{boardGame?.wordle?.text}}
+      </p>
+      <div *ngIf="boardGame?.success" class="flex justify-center items-center">
+        <img class="max-w-[200px] max-h-[200px]" [src]="'/assets/images/characters/'+boardGame?.wordle?.text+'.webp'">
+      </div>
+      <p class="text-lg">
+        de
+      </p>
+      <p class="text-2xl">
+        {{boardGame?.jokers?.serieJoker?.serieName}}
+      </p>
+    </div>
+    <div class="text-center">
+      <p>{{boardGame.currentActiveBoardLine}}/6 essais</p>
+      <p>{{jokerData}}</p>
+    </div>
+    <div class="my-4">
+      <div *ngFor="let tryLine of tries">
+        {{tryLine}}
+      </div>
+      <p class="underline text-center">Voir les essais</p>
+    </div>
+    <div class="py-8 flex flex-col items-center justify-center">
+      <p class="text-lg mt-4">Partagez votre score :</p>
+      <div class="flex gap-6 mt-2">
+        <i class="icon icon-share-2 text-white text-lg"></i>
+        <i class="icon icon-clipboard text-white text-lg"></i>
+      </div>
+    </div>
+
+    <p class="mt-4">Prochain nom dans : {{timeLeftStr}}</p>
+  </div>
+  <!-- </mat-expansion-panel>
+  </mat-accordion> -->
+</ng-container>

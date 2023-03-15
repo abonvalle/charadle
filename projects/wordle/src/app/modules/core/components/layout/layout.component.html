@@ -1,3 +1,14 @@
-<div class="flex flex-col h-full bg-background" (touchstart)="platformService.enableTouchStart()">
-  <router-outlet></router-outlet>
+<div class="overflow-hidden h-full" [ngClass]="(themeService.theme$ | async)?.bgClass"
+  (touchstart)="platformService.enableTouchStart()">
+  <div class="overflow-hidden h-full relative z-10">
+    <topbar></topbar>
+    <div class="h-full-w-topbar">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <div
+    class="h-full w-full top-0 left-0 bg-wordcloud opacity-10 bg-contain absolute z-0 pointer-events-none overflow-hidden">
+  </div>
+
+  <!-- <img src="/assets/images/background/wordcloud.svg" alt=""> -->
 </div>

@@ -2,7 +2,7 @@
 module.exports = {
   mode: 'jit',
   content: ['./projects/wordle/src/**/*.{html,ts}'],
-  safelist: ['border-cyan-500',
+  safelist: ['h-full', 'border-cyan-500',
     'bg-right/80',
     'bg-partial/80',
     'bg-unused/80',
@@ -56,16 +56,20 @@ module.exports = {
       title: 'Roboto'
     },
     extend: {
+      height: {
+        'full-w-topbar': 'calc(100% - 64px)'
+      },
+      backgroundImage: {
+        'wordcloud': "url('/assets/images/background/wordcloud.svg')",
+      },
       colors: {
         primary: '#003261', //blue
         secondary: '#005e8c', //lighter blue
-        background: '#120a33',//dark violet
+        background: '#151515',//dark violet
         complementary: '#f9f871',
         black: '#121213', //BLACK
         gray: '#636363', //GRAY
         keyboard: '#8c8c8c', //LIGHT GRAY
-        'right-alt': '#092c48', //dark blue
-        'partial-alt': '#ece821', //yellow
         right: '#1db963', //green
         partial: '#f28600', //orange
         unused: '#3a3a3c',
@@ -79,8 +83,6 @@ module.exports = {
         '21%': { transform: 'scale(.9) rotateY(90deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: 'transparent', opacity: '1' },
         '50%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#1db963', 'border-color': '#1db963', color: '#f7f7f7', opacity: '1' },
         '100%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#1db963', 'border-color': '#1db963', color: '#f7f7f7', opacity: '1' },
-        // '90%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#1db963', 'border-color': '#1db963', color: '#f7f7f7', opacity: '1' },
-        // '100%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#1db963', 'border-color': '#1db963', color: '#f7f7f7', opacity: '0.6' },
       },
       'flip-partial': {
         '0%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: '#f7f7f7', opacity: '1' },
@@ -88,26 +90,6 @@ module.exports = {
         '21%': { transform: 'scale(.9) rotateY(90deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: 'transparent', opacity: '1' },
         '50%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#f28600', 'border-color': '#f28600', color: '#f7f7f7', opacity: '1' },
         '100%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#f28600', 'border-color': '#f28600', color: '#f7f7f7', opacity: '1' },
-        // '90%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#f28600', 'border-color': '#f28600', color: '#f7f7f7', opacity: '1' },
-        // '100%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#f28600', 'border-color': '#f28600', color: '#f7f7f7', opacity: '0.6' },
-      },
-      'flip-right-alt': {
-        '0%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: '#f7f7f7', opacity: '1' },
-        '20%': { transform: 'scale(.9) rotateY(90deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: '#f7f7f7', opacity: '1' },
-        '21%': { transform: 'scale(.9) rotateY(90deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: 'transparent', opacity: '1' },
-        '50%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#092c48', 'border-color': '#092c48', color: '#f7f7f7', opacity: '1' },
-        '100%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#092c48', 'border-color': '#092c48', color: '#f7f7f7', opacity: '1' },
-        // '90%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#092c48', 'border-color': '#092c48', color: '#f7f7f7', opacity: '1' },
-        // '100%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#092c48', 'border-color': '#092c48', color: '#f7f7f7', opacity: '0.6' },
-      },
-      'flip-partial-alt': {
-        '0%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: '#f7f7f7', opacity: '1' },
-        '20%': { transform: 'scale(.9) rotateY(90deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: '#f7f7f7', opacity: '1' },
-        '21%': { transform: 'scale(.9) rotateY(90deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: 'transparent', opacity: '1' },
-        '50%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#ece821', 'border-color': '#ece821', color: '#f7f7f7', opacity: '1' },
-        '100%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#ece821', 'border-color': '#ece821', color: '#f7f7f7', opacity: '1' },
-        // '90%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#ece821', 'border-color': '#ece821', color: '#f7f7f7', opacity: '1' },
-        // '100%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#ece821', 'border-color': '#ece821', color: '#f7f7f7', opacity: '0.6' },
       },
       'flip-unused': {
         '0%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: '#f7f7f7', opacity: '1' },
@@ -115,15 +97,11 @@ module.exports = {
         '21%': { transform: 'scale(.9) rotateY(90deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: 'transparent', opacity: '1' },
         '50%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#3a3a3c', 'border-color': '#3a3a3c', color: '#f7f7f7', opacity: '1' },
         '100%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#3a3a3c', 'border-color': '#3a3a3c', color: '#f7f7f7', opacity: '1' },
-        // '90%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#3a3a3c', 'border-color': '#3a3a3c', color: '#f7f7f7', opacity: '1' },
-        // '100%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#3a3a3c', 'border-color': '#3a3a3c', color: '#f7f7f7', opacity: '0.6' },
       }
     },
     animation: {
       'flip-right': 'flip-right 0.8s ease-in-out',
       'flip-partial': 'flip-partial 0.8s ease-in-out',
-      'flip-right-alt': 'flip-right-alt 0.8s ease-in-out',
-      'flip-partial-alt': 'flip-partial-alt 0.8s ease-in-out',
       'flip-unused': 'flip-unused 0.8s ease-in-out',
     },
     screens: {

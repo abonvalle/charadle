@@ -14,7 +14,7 @@ import { KeyboardKeyComponent } from './components/keyboard-key/keyboard-key.com
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class KeyboardComponent implements OnInit, OnDestroy {
-  @Input() extraClass: string[] = [];
+  @Input() bgClass: string = 'bg-primary';
   @Output() letterClick: EventEmitter<string> = new EventEmitter();
   private _destroy$: Subject<void> = new Subject();
   letterFeedback$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);

@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { GameService } from '@core/services/game.service';
 import { KeyboardService } from '@core/services/keyboard.service';
+import { ShareService } from '@core/services/share.service';
+import { ThemeService } from '@core/services/theme.service';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -12,6 +14,8 @@ import { Subject } from 'rxjs';
 export class MainPageComponent implements OnInit, OnDestroy {
   _destroy$: Subject<void> = new Subject();
   constructor(
+    public themeService: ThemeService,
+    public shareService: ShareService,
     public gameService: GameService,
     private _cdr: ChangeDetectorRef,
     private _keyboardServ: KeyboardService

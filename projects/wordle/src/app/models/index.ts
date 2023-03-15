@@ -4,3 +4,6 @@ export * from './joker';
 export * from './keyboard';
 export * from './local-storage-keys.enum';
 export * from './settings.interface';
+export * from './theme.interface';
+export * from './theme.model';
+export * from './themes';

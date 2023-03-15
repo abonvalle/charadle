@@ -1,8 +1,9 @@
-import { Clipboard } from '@angular/cdk/clipboard';
 import { Injectable, OnDestroy } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import * as charactersInfosJSON from '@assets/characters.json';
 import * as wordlesJSON from '@assets/w1-3.json';
 import * as wordsJSON from '@assets/words.json';
+import { SuccessDialogComponent } from '@features/main-page/components/success-dialog/success-dialog.component';
 import { BoardGame, keyboardKeyBackground } from 'projects/wordle/src/app/models';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { Wordle } from '../../../models/wordle.model';
@@ -22,7 +23,7 @@ export class GameService implements OnDestroy {
     private _keyboardServ: KeyboardService,
     private _jokerService: JokerService,
     private _apiServ: APIService,
-    private _clipboard: Clipboard
+    private _dialog: MatDialog
   ) {
     this._event();
   }
@@ -92,6 +93,7 @@ export class GameService implements OnDestroy {
     if (currentGuess === boardGame?.wordle.text) {
       this._snackbarService.openSnackBar('Bravo !', 'success');
       boardGame.success = true;
+      this._dialog.open(SuccessDialogComponent);
     }
 
     boardGame?.incrementCurrentActiveBoardLine();
@@ -126,46 +128,6 @@ export class GameService implements OnDestroy {
     }
 
     this.addCurrentGuessLetter(letter);
-  }
-  shareScore(): void {
-    /**Wordle Séries edition #23 */
-    /** 🟧⬛⬛🟧⬛⬛ */
-    /** 🟧⬛⬛⬛⬛🟩 */
-    /** 🟧⬛⬛🟩🟩🟩 */
-    /**🎯x20 - ✍️x5 | 🚫🃏 => 🖌️x3, 🔤x3, 🎥x1 */
-    /**https://wordle-series.abvdev.fr */
-    const bg = this.boardGame$.value;
-    const joker1Count = bg?.jokers.paintJoker.useCount;
-    const joker2Count = bg?.jokers.placeLetterJoker.useCount;
-    const joker3Count = bg?.jokers.serieJoker.useCount;
-    const hasUsedJoker = joker1Count !== 0 || joker2Count !== 0 || joker3Count !== 0;
-    const nbTries = bg?.currentActiveBoardLine;
-    const tries = bg?.getTries();
-    const worldeDate = bg?.wordle.date;
-    const text = [`Wordle Séries edition #${worldeDate} `];
-    tries?.forEach((aTry) => {
-      text.push('      ' + aTry);
-    });
-    if (hasUsedJoker) {
-      text.push(`✍️x${nbTries} | 🃏 => 🖌️x${joker1Count}, 🔤x${joker2Count}, 🎥x${joker3Count}`);
-    } else {
-      text.push(`✍️x${nbTries} | 🚫🃏`);
-    }
-    text.push('https://wordle-series.abvdev.fr');
-
-    this._copyLongText(text.join('\n'))
-      ? this._snackbarService.openSnackBar('Copié 👌', 'success')
-      : this._snackbarService.openSnackBar('Impossible de copier le résultat 🤷', 'alert');
-  }
-  private _copyLongText(text: string): boolean {
-    const pending = this._clipboard.beginCopy(text);
-    let remainingAttempts = 3;
-    let result;
-    do {
-      result = pending.copy();
-    } while (!result || --remainingAttempts);
-    pending.destroy();
-    return !!result;
   }
 
   useJoker1(): void {

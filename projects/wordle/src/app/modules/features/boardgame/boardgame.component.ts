@@ -15,7 +15,6 @@ export class BoardgameComponent implements OnInit, OnDestroy {
   _destroy$: Subject<void> = new Subject();
   constructor(private _gameService: GameService, private _cdr: ChangeDetectorRef, private _apiServ: APIService) {}
   ngOnInit(): void {
-    this._gameService.initBoardGame();
     const boardGame = this._gameService.boardGame$?.value;
     const boardLines = Array.from(boardGame?.boardLines.values() ?? []);
     this.boardLines$.next(boardLines);

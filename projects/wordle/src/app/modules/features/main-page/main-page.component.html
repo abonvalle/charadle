@@ -1,15 +1,14 @@
-<div class="flex flex-col justify-between h-full">
-  <topbar></topbar>
-  <boardgame></boardgame>
+<div class="flex flex-col h-full">
   <ng-container *ngIf="(gameService.boardGame$ | async) ;let boardGame">
-    <div *ngIf="boardGame?.success" class="flex justify-center items-center mb-[-30px]">
-      <img class="max-w-[200px] max-h-[200px]" [src]="'/assets/images/characters/'+boardGame?.wordle?.text+'.webp'">
-    </div>
-    <p *ngIf="boardGame?.jokers?.serieJoker?.useCount === 1 || boardGame?.success"
+    <boardgame></boardgame>
+    <p *ngIf="boardGame?.jokers?.serieJoker?.useCount === 1 && !boardGame?.success"
       class="text-white text-center text-2xl">
       {{boardGame?.jokers?.serieJoker?.serieName}}
     </p>
+    <jokers></jokers>
+    <ng-container *ngIf="!boardGame.success">
+      <app-keyboard (letterClick)="onLetterClick($event)"
+        [bgClass]="(themeService.theme$ | async)?.kbClass ?? 'bg-primary'"></app-keyboard>
+    </ng-container>
   </ng-container>
-  <jokers></jokers>
-  <app-keyboard (letterClick)="onLetterClick($event)"></app-keyboard>
 </div>

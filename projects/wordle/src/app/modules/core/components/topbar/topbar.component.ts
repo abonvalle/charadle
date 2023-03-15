@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { GameService } from '@core/services/game.service';
+import { MatDialog } from '@angular/material/dialog';
 import { LocalStorageService } from '@core/services/local-storage.service';
+import { ThemeService } from '@core/services/theme.service';
+import { theme, themes } from '@models/*';
 import { Subject } from 'rxjs';
-import { HelpDialogComponent } from '../help-dialog/help-dialog.component';
-import { SettingsDialogComponent } from '../settings-dialog/settings.component';
+import { HelpDialogComponent } from '../../../features/main-page/components/help-dialog/help-dialog.component';
+import { SettingsDialogComponent } from '../../../features/main-page/components/settings-dialog/settings.component';
 
 @Component({
   selector: 'topbar',
@@ -12,8 +13,9 @@ import { SettingsDialogComponent } from '../settings-dialog/settings.component';
 })
 export class TopbarComponent implements OnInit, OnDestroy {
   destroy$: Subject<void>;
+  colorsList: theme[] = themes;
 
-  constructor(private _dialog: MatDialog, private _localStrg: LocalStorageService, private _gameService: GameService) {
+  constructor(public themeService: ThemeService, private _dialog: MatDialog, private _localStrg: LocalStorageService) {
     this.destroy$ = new Subject();
   }
 
@@ -38,13 +40,16 @@ export class TopbarComponent implements OnInit, OnDestroy {
     this.destroy$?.next();
     this.destroy$?.unsubscribe();
   }
-  openHelp(): MatDialogRef<HelpDialogComponent> {
-    return this._dialog.open(HelpDialogComponent);
+  openHelp(): void {
+    this._dialog.open(HelpDialogComponent);
   }
-  openSettings() {
+  openSettings(): void {
     this._dialog.open(SettingsDialogComponent);
   }
-  share(): void {
-    this._gameService.shareScore();
+  changeColor(color: theme): void {
+    this.themeService.updateTheme(color);
+  }
+  isCurrentColor(color: theme): boolean {
+    return this.themeService.theme$.value.name === color.name;
   }
 }

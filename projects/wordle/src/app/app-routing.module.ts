@@ -10,6 +10,10 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: () => import('@features/main-page/main-page.module').then((m) => m.MainPageModule)
+      },
+      {
+        path: 'success',
+        loadChildren: () => import('@features/success-page/success-page.module').then((m) => m.SuccessPageModule)
       }
     ]
   },

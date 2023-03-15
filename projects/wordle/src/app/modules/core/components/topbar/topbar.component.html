@@ -1,0 +1,73 @@
+<div class="flex flex-row justify-between py-2 h-[64px]">
+  <div class="flex items-center ">
+    <button (click)="openSettings()" [ngClass]="(themeService.newtheme$ | async)?.buttonClass"
+      class="w-10 h-10 rounded-lg ml-2 flex justify-center items-center cursor-pointer hover:bg-background-alt/75 border-b-2">
+      <i class="icon icon-settings text-white"></i>
+    </button>
+    <button (click)="openHelp()" [ngClass]="(themeService.newtheme$ | async)?.buttonClass"
+      class="w-10 h-10 rounded-lg ml-2 flex justify-center items-center cursor-pointer hover:bg-background-alt/75 border-b-2">
+      <i class="icon icon-help-circle text-white"></i>
+    </button>
+  </div>
+  <div class="flex flex-col items-end">
+    <h1 class="text-white font-title text-4xl font-bold whitespace-nowrap text-center">
+      Wordle</h1>
+    <h2 class="text-complementary text-center text-sm mt-[-5px]">
+      Séries edition
+    </h2>
+  </div>
+  <div class="flex items-center justify-end w-[84px]">
+    <button [matMenuTriggerFor]="colorPicker">
+      <span
+        class="w-8 h-8 border-2 from-[#16A085] via-[#61045F] to-[#1FA2FF] block rounded-lg shadow-sm bg-gradient-to-tl"
+        [ngClass]="(themeService.theme$ | async)?.borderActive">
+      </span>
+    </button>
+    <mat-menu #colorPicker="matMenu">
+      <div class="flex flex-col gap-4 px-4 py-2">
+        <div class="grid grid-cols-3 gap-4">
+          <ng-container *ngFor="let color of colorsList">
+            <div class="text-sm font-extralight font-body text-center flex flex-col items-center justify-center">
+              <button (click)="changeColor(color)">
+                <span [ngClass]="color.bgClass"
+                  class="w-12 h-12 flex items-center justify-center rounded-lg shadow-sm bg-gradient-to-tl">
+                  <i *ngIf="isCurrentColor(color)" class="icon icon-check text-white text-3xl font-bold"></i>
+                </span>
+              </button>
+              {{color.name}}
+            </div>
+          </ng-container>
+        </div>
+        <div class="flex justify-center items-center">
+          <div class="text-sm font-extralight font-body text-center flex flex-col items-center justify-center">
+            <button>
+              <span
+                class="w-12 h-12  rounded-lg shadow-sm bg-gradient-to-tl from-[#16A085] via-[#61045F] to-[#1FA2FF] flex items-center justify-center">
+                <i class="icon icon-shuffle text-white"></i>
+              </span>
+            </button>
+            Au hasard
+          </div>
+        </div>
+      </div>
+    </mat-menu>
+
+    <button [matMenuTriggerFor]="menu">
+      <i class="icon icon-more-vertical text-white text-xl h-12 w-12 p-3"></i>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item class="flex flex-row justify-start items-center">
+        <i class="icon icon-calendar pr-2"></i>
+        <span>Archives</span>
+      </button>
+      <button (click)="openHelp()" mat-menu-item class="flex flex-row justify-start items-center">
+        <i class="icon icon-help-circle pr-2"></i>
+        <span>Comment jouer ?</span>
+      </button>
+      <button (click)="openSettings()" mat-menu-item class="flex flex-row justify-start items-center">
+        <i class="icon icon-settings pr-2"></i>
+        <span>Paramètres</span>
+      </button>
+    </mat-menu>
+  </div>
+</div>
