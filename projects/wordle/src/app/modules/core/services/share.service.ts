@@ -18,12 +18,11 @@ export class ShareService {
   /**https://wordle-series.abvdev.fr */
   shareScore(): void {
     const shareData = this.generateShareData();
-
-    if (navigator.canShare && navigator.canShare(shareData)) {
-      this._navShare(shareData);
-    } else {
-      this._copyFallback(shareData.text ?? '');
-    }
+    // if (navigator.canShare && navigator.canShare(shareData)) {
+    //   this._navShare(shareData);
+    // } else {
+    this._copyFallback(shareData.text ?? '');
+    // }
   }
   generateShareData(): ShareData {
     const bg = this._gameService.boardGame$.value;
@@ -52,7 +51,7 @@ export class ShareService {
       return `0x🃏`;
     }
   }
-  private _navShare(shareData: ShareData): void {
+  _navShare(shareData: ShareData): void {
     if (!navigator.share) {
       this._copyFallback(shareData.text ?? '');
       return;

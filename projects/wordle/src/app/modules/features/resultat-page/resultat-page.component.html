@@ -32,8 +32,9 @@
     <div class="py-6 flex flex-col items-center justify-center">
       <p class="text-lg mt-2 text-shadow-sm shadow-black">Partagez votre score :</p>
       <div class="flex gap-6 mt-2">
-        <i class="icon icon-share-2 text-white text-3xl text-shadow-sm shadow-black"></i>
-        <i class="icon icon-clipboard text-white text-3xl text-shadow-sm shadow-black"></i>
+        <!-- <i class="icon icon-share-2 text-white text-3xl text-shadow-sm shadow-black"></i> -->
+        <i class="icon icon-clipboard text-white text-3xl text-shadow-sm shadow-black"
+          (click)="shareService.shareScore()"></i>
       </div>
     </div>
     <p class="mb-4 text-shadow-sm shadow-black">Prochain nom dans : {{timeLeftStr}}</p>

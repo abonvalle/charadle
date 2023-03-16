@@ -20,6 +20,7 @@ export class APIService {
           boardLines: boardgame.boardLines,
           wordle,
           jokers: boardgame.jokers,
+          end: boardgame.end,
           success: boardgame.success
         })
       : new BoardGame({ wordle });

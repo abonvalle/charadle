@@ -3,7 +3,7 @@ import { APIService } from '@core/services/api.service';
 import { GameService } from '@core/services/game.service';
 import { ThemeService } from '@core/services/theme.service';
 import { Subject, takeUntil } from 'rxjs';
-import { BoardBox, BoardLine } from '../../../models/boardgame';
+import { BoardBox, BoardGame, BoardLine } from '../../../models/boardgame';
 
 @Component({
   selector: 'boardgame',
@@ -31,27 +31,27 @@ export class BoardgameComponent implements OnInit, OnDestroy {
       .subscribe((boardGame) => {
         const boardLines = Array.from(boardGame?.boardLines.values() ?? []);
         boardLines.forEach((bl) => {
-          bl.boardBoxes.forEach((bb) => (bb = this._setBGClass(bl, bb)));
+          bl.boardBoxes.forEach((bb) => (bb = this._setBGClass(boardGame, bl, bb)));
         });
         this.boardLines$.next(boardLines);
         boardGame && this._apiServ.setBoardgame(boardGame);
         this._cdr.detectChanges();
-        console.warn(boardGame);
       });
   }
-  private _setBGClass(boardLine: BoardLine, boardBox: BoardBox): BoardBox {
+  private _setBGClass(boardGame: BoardGame | null, boardLine: BoardLine, boardBox: BoardBox): BoardBox {
     const classes = [];
     classes.push(
       boardBox.isActive
         ? this._themeService.newtheme$.value.activeBoardBox
         : this._themeService.newtheme$.value.boardBox
     );
-    boardBox.isActive && classes.push('active after:animate-pulse-fast');
-    boardLine.isActive &&
-      boardBox.letter === '' &&
-      boardBox.before &&
-      classes.push(`before:content-['${boardBox.before}'] before:opacity-50 before:absolute`);
-
+    if (!boardGame?.end) {
+      boardBox.isActive && classes.push('active after:animate-pulse-fast');
+      boardLine.isActive &&
+        boardBox.letter === '' &&
+        boardBox.before &&
+        classes.push(`before:content-['${boardBox.before}'] before:opacity-50 before:absolute`);
+    }
     if (boardBox.background !== 'none') {
       classes.push(
         `animate-[flip-${boardBox.background}_1.5s_ease-in-out_${Math.floor(boardBox.index * 0.3 * 10) / 10}s_forwards]`
