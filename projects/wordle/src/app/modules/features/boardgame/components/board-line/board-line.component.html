@@ -1,5 +1,5 @@
 <div class="flex flex-row items-center justify-center">
-  <ng-container *ngFor="let boardBox of boardBoxes | keyvalue; trackBy: trackByFn">
-    <board-letter-box [boardBox]="boardBox.value | immutable"></board-letter-box>
+  <ng-container *ngFor="let boardBox of boardBoxes; trackBy: trackByFn">
+    <board-letter-box [boardBox]="boardBox | immutable"></board-letter-box>
   </ng-container>
 </div>

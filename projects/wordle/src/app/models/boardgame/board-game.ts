@@ -12,6 +12,7 @@ export interface boardGameArgs {
   wordle: Wordle;
   jokers?: boardgameJokers;
   success?: boolean;
+  end?: boolean;
 }
 export class BoardGame {
   boardLines: Map<number, BoardLine>;
@@ -19,11 +20,13 @@ export class BoardGame {
   wordle: Wordle;
   jokers: boardgameJokers;
   success?: boolean;
+  end?: boolean;
   constructor(args: boardGameArgs) {
     this.currentActiveBoardLine = args.currentActiveBoardLine ?? 0;
     this.jokers = args.jokers ? this._setJokers(args.jokers) : this._initJokers(args.wordle);
     this.wordle = args.wordle;
     this.success = args.success ?? false;
+    this.end = args.end ?? false;
     this.boardLines = this._setBoardLines(args.wordle.length, args.boardLines);
   }
   private _setBoardLines(boxCount: number, oldBoardlines?: Map<number, BoardLine>): Map<number, BoardLine> {
@@ -81,6 +84,9 @@ export class BoardGame {
     boardLine?.setActive(false);
     this.currentActiveBoardLine++;
     const nextBoardLine = this.getCurrentBoardLine();
+    if (!nextBoardLine) {
+      this.end = true;
+    }
     nextBoardLine?.setActive(true);
   }
 

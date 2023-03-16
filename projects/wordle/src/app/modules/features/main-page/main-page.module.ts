@@ -3,7 +3,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ShareService } from '@core/services/share.service';
 import { BoardgameModule } from '@features/boardgame/boardgame.module';
 import { JokersModule } from '@features/jokers/jokers.module';
-import { SuccessPageModule } from '@features/success-page/success-page.module';
+import { ResultatPageModule } from '@features/resultat-page/resultat-page.module';
 import { SharedModule } from '@modules/shared/shared.module';
 import { KeyboardComponent } from '../../../standalone-components/keyboard/keyboard.component';
 
@@ -19,7 +19,7 @@ import { MainPageComponent } from './main-page.component';
     KeyboardComponent,
     BoardgameModule,
     JokersModule,
-    SuccessPageModule
+    ResultatPageModule
   ]
 })
 export class MainPageModule {}

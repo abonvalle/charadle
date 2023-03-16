@@ -1,11 +1,13 @@
 <ng-container *ngIf="(gameService.boardGame$ | async) ;let boardGame">
   <div class="flex flex-col justify-center items-center text-white pt-4 bg-background-alt h-full overflow-y-auto">
-    <h1 class="mb-2 text-2xl text-shadow-sm shadow-black">Bravo, vous avez trouvé !</h1>
+    <h1 class="mb-2 text-2xl text-shadow-sm shadow-black">
+      {{boardGame?.success? 'Bravo, vous avez trouvé !':'Dommage, vous deviez trouver :'}}
+    </h1>
     <div class="flex flex-col justify-center items-center py-6">
       <p class="text-2xl capitalize text-shadow-sm shadow-black">
         {{boardGame?.wordle?.text}}
       </p>
-      <div *ngIf="boardGame?.success" class="flex justify-center items-center">
+      <div class="flex justify-center items-center">
         <img class="max-w-[200px] max-h-[200px]" [src]="'/assets/images/characters/'+boardGame?.wordle?.text+'.webp'">
       </div>
       <p class="text-lg text-shadow-sm shadow-black">

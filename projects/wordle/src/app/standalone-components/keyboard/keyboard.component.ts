@@ -1,6 +1,5 @@
 import { CommonModule, KeyValue } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { JokerService } from '@core/services/joker.service';
 import { BehaviorSubject, map, Observable, Subject, takeUntil } from 'rxjs';
 import { key, keyboard } from '../../models/keyboard';
 import { KeyboardService } from '../../modules/core/services/keyboard.service';
@@ -22,10 +21,8 @@ export class KeyboardComponent implements OnInit, OnDestroy {
     takeUntil(this._destroy$),
     map((kb) => kb.keyboard)
   );
-  constructor(private _keyboardService: KeyboardService, public jokerService: JokerService) {}
-  ngOnInit(): void {
-    this._keyboardService.setKeyboard();
-  }
+  constructor(private _keyboardService: KeyboardService) {}
+  ngOnInit(): void {}
   ngOnDestroy(): void {
     this._destroy$?.next();
     this._destroy$?.unsubscribe();

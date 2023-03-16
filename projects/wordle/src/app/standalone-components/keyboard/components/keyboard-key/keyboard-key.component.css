@@ -4,7 +4,7 @@ div.accessibility_partial::after {
   position: absolute;
   top: -5px;
   left: -5px;
-  font-size: 25px;
+  font-size: 12px;
 }
 div.accessibility_right::after {
   font: normal normal normal 1em/1 "Nucleo";
@@ -12,10 +12,5 @@ div.accessibility_right::after {
   position: absolute;
   top: -5px;
   left: -5px;
-  font-size: 25px;
-}
-div.active::after {
-  content: "_";
-  font-size: 25px;
-  margin-top: 5px;
+  font-size: 12px;
 }

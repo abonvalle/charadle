@@ -2,6 +2,7 @@ export enum localStorageKeys {
   firstVisit = 'Zmlyc3RWaXNpdA==',
   settings = 'c2V0dGluZ3M=',
   keyboard = 'a2V5Ym9hcmQ=',
+  tries = 'dHJpZXM=',
   keyboardType = 'a2V5Ym9hcmRUeXBl',
   boardgame = 'Ym9hcmRnYW1l',
   paintJoker = 'cGFpbnRKb2tlcg==',

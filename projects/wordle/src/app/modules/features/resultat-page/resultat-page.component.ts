@@ -3,12 +3,12 @@ import { GameService } from '@core/services/game.service';
 import { ShareService } from '@core/services/share.service';
 
 @Component({
-  selector: 'success-page',
-  templateUrl: 'success-page.component.html',
+  selector: 'resultat-page',
+  templateUrl: 'resultat-page.component.html',
   styles: [':host{overflow:hidden;height:100%}'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SuccessPageComponent implements OnInit, OnDestroy {
+export class ResultatPageComponent implements OnInit, OnDestroy {
   panelOpenState = true;
   tries: string[] = [];
   jokerData: string = '';

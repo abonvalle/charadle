@@ -7,12 +7,12 @@
     </p>
 
     <jokers></jokers>
-    <ng-container *ngIf="!boardGame.success;else successPageLinkTpl">
+    <ng-container *ngIf="!boardGame.end;else resultatPageLinkTpl">
       <app-keyboard (letterClick)="onLetterClick($event)"
         [bgClass]="(themeService.theme$ | async)?.kbClass ?? 'bg-primary'"></app-keyboard>
     </ng-container>
-    <ng-template #successPageLinkTpl>
-      <a [routerLink]="'/success'" class="m-12">
+    <ng-template #resultatPageLinkTpl>
+      <a [routerLink]="'/resultat'" class="m-12">
         <p class="underline text-center text-white text-shadow-sm shadow-black">Voir le résultat</p>
       </a>
     </ng-template>

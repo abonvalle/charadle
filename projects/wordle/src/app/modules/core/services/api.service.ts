@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BoardGame } from '../../../models/boardgame';
 import { defaultSettings } from '../../../models/default-settings';
-import { Keyboard } from '../../../models/keyboard';
+import { Keyboard, keyboardType } from '../../../models/keyboard';
 import { localStorageKeys } from '../../../models/local-storage-keys.enum';
 import { settings } from '../../../models/settings.interface';
 import { Wordle } from '../../../models/wordle.model';
@@ -33,12 +33,11 @@ export class APIService {
 
   /** Keyboard  */
   getKeyboard(): Keyboard {
-    const strKb = this._localStorage.read(localStorageKeys.keyboard);
-    const keyboard = strKb ? (JSON.parse(strKb) as Keyboard) : null;
-    return keyboard ? new Keyboard(keyboard.config, keyboard.keyboard) : new Keyboard('AZERTY');
+    const strKb = this._localStorage.read(localStorageKeys.keyboard) as keyboardType;
+    return new Keyboard(strKb ?? 'AZERTY');
   }
-  setKeyboard(kb: Keyboard): void {
-    this._localStorage.update(localStorageKeys.keyboard, JSON.stringify(kb));
+  setKeyboard(kb: keyboardType): void {
+    this._localStorage.update(localStorageKeys.keyboard, kb);
   }
   deleteKeyboard(): void {
     this._localStorage.delete(localStorageKeys.keyboard);
@@ -55,6 +54,18 @@ export class APIService {
   }
   deleteSettings(): void {
     this._localStorage.delete(localStorageKeys.settings);
+  }
+
+  /** Tries  */
+  getTries(): string[] {
+    const tries = this._localStorage.read(localStorageKeys.tries);
+    return tries ? JSON.parse(atob(tries)) : [];
+  }
+  setTries(tries: string[]): void {
+    this._localStorage.update(localStorageKeys.tries, btoa(JSON.stringify(tries)));
+  }
+  deleteTries(): void {
+    this._localStorage.delete(localStorageKeys.tries);
   }
 
   /** Delete all */

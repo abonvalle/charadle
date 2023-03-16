@@ -1,6 +1,7 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { inject, NgModule } from '@angular/core';
+import { Route, RouterModule, Routes, UrlSegment } from '@angular/router';
 import { LayoutComponent } from '@core/components/layout/layout.component';
+import { GameService } from '@core/services/game.service';
 
 const routes: Routes = [
   {
@@ -12,8 +13,9 @@ const routes: Routes = [
         loadChildren: () => import('@features/main-page/main-page.module').then((m) => m.MainPageModule)
       },
       {
-        path: 'success',
-        loadChildren: () => import('@features/success-page/success-page.module').then((m) => m.SuccessPageModule)
+        path: 'resultat',
+        canMatch: [(_route: Route, _segments: UrlSegment[]) => inject(GameService).boardGame$.value?.end ?? false],
+        loadChildren: () => import('@features/resultat-page/resultat-page.module').then((m) => m.ResultatPageModule)
       }
     ]
   },

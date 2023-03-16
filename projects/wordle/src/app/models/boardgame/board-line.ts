@@ -40,6 +40,7 @@ export class BoardLine {
           index: i,
           boxSize: this._getBoxSize(args.boxCount),
           letter,
+          before: bb?.before,
           isActive: isBoxActive,
           background: bb?.background
         })

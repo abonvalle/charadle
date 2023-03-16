@@ -3,11 +3,10 @@ import { Router } from '@angular/router';
 import * as charactersInfosJSON from '@assets/characters.json';
 import * as wordlesJSON from '@assets/w1-3.json';
 import * as wordsJSON from '@assets/words.json';
-import { BoardGame, keyboardKeyBackground } from 'projects/wordle/src/app/models';
+import { BoardGame, keyboardKeyBackground, placeLetterJokerLetter } from 'projects/wordle/src/app/models';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { Wordle } from '../../../models/wordle.model';
 import { APIService } from './api.service';
-import { JokerService } from './joker.service';
 import { KeyboardService } from './keyboard.service';
 import { LocalStorageService } from './local-storage.service';
 import { SnackbarService } from './snackbar.service';
@@ -17,10 +16,9 @@ export class GameService implements OnDestroy {
   boardGame$: BehaviorSubject<BoardGame | null> = new BehaviorSubject<BoardGame | null>(null);
   destroy$: Subject<void> = new Subject();
   constructor(
-    private _localStrgeServ: LocalStorageService,
+    private _localStrgServ: LocalStorageService,
     private _snackbarService: SnackbarService,
     private _keyboardServ: KeyboardService,
-    private _jokerService: JokerService,
     private _apiServ: APIService,
     private _router: Router
   ) {
@@ -32,16 +30,17 @@ export class GameService implements OnDestroy {
   }
   initBoardGame(): void {
     const wordle = this.setWordle();
-    this._jokerService.initJokers(wordle.text);
     const initBG = this._apiServ.getBoardgame(wordle);
+    console.warn(initBG);
     this.boardGame$.next(initBG);
-    if (initBG.success) {
-      this._router.navigate(['/success']);
+    this._keyboardServ.initKeyBoard(initBG);
+    if (initBG.end) {
+      this._router.navigate(['/resultat']);
     }
   }
 
   private _event(): void {
-    this._localStrgeServ.clear$.pipe(takeUntil(this.destroy$)).subscribe(() => {
+    this._localStrgServ.clear$.pipe(takeUntil(this.destroy$)).subscribe(() => {
       this.initBoardGame();
     });
   }
@@ -95,11 +94,14 @@ export class GameService implements OnDestroy {
     if (currentGuess === boardGame?.wordle.text) {
       this._snackbarService.openSnackBar('Bravo !', 'success');
       boardGame.success = true;
-      this._router.navigate(['/success']);
+      boardGame.end = true;
       // this._dialog.open(SuccessDialogComponent);
     }
 
     boardGame?.incrementCurrentActiveBoardLine();
+    if (boardGame?.end) {
+      this._router.navigate(['/resultat']);
+    }
     this.boardGame$.next(boardGame);
   }
 
@@ -156,7 +158,7 @@ export class GameService implements OnDestroy {
   useJoker2(): void {
     const bg = this.boardGame$.value;
     const jok = bg?.jokers.placeLetterJoker;
-    let letter;
+    let letter: placeLetterJokerLetter | null;
     if (!jok || bg?.success) {
       return;
     }
@@ -170,6 +172,13 @@ export class GameService implements OnDestroy {
     }
     jok.incrementUse();
     this._keyboardServ.setKeyBg(letter?.letter, 'right');
+    bg.boardLines.forEach((bl) => {
+      bl.boardBoxes.forEach((bb) => {
+        if (bb.index === letter?.index) {
+          bb.before = letter?.letter;
+        }
+      });
+    });
     this.boardGame$.next(bg);
   }
 
