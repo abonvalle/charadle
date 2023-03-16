@@ -27,7 +27,6 @@ export class SettingsDialogComponent {
     this.resetForm();
   }
   resetForm(): void {
-    // this.form.get('playerName')?.setValue('');
     this.form.get('colorBlindMode')?.setValue('');
     this.form.markAsPristine();
     this.form.markAsUntouched();

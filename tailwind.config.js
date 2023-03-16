@@ -1,4 +1,5 @@
 // @ts-nocheck
+const plugin = require('tailwindcss/plugin')
 module.exports = {
   mode: 'jit',
   content: ['./projects/wordle/src/**/*.{html,ts}'],
@@ -75,34 +76,39 @@ module.exports = {
         unused: '#3a3a3c',
         white: '#f7f7f7', //white
       },
-    },
-    keyframes: {
-      'flip-right': {
-        '0%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: '#f7f7f7', opacity: '1' },
-        '20%': { transform: 'scale(.9) rotateY(90deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: '#f7f7f7', opacity: '1' },
-        '21%': { transform: 'scale(.9) rotateY(90deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: 'transparent', opacity: '1' },
-        '50%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#1db963', 'border-color': '#1db963', color: '#f7f7f7', opacity: '1' },
-        '100%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#1db963', 'border-color': '#1db963', color: '#f7f7f7', opacity: '1' },
+      textShadow: {
+        sm: '0 1px 2px var(--tw-shadow-color)',
+        DEFAULT: '0 2px 4px var(--tw-shadow-color)',
+        lg: '0 8px 16px var(--tw-shadow-color)',
       },
-      'flip-partial': {
-        '0%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: '#f7f7f7', opacity: '1' },
-        '20%': { transform: 'scale(.9) rotateY(90deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: '#f7f7f7', opacity: '1' },
-        '21%': { transform: 'scale(.9) rotateY(90deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: 'transparent', opacity: '1' },
-        '50%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#f28600', 'border-color': '#f28600', color: '#f7f7f7', opacity: '1' },
-        '100%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#f28600', 'border-color': '#f28600', color: '#f7f7f7', opacity: '1' },
+      keyframes: {
+        'flip-right': {
+          '0%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: '#f7f7f7', opacity: '1' },
+          '20%': { transform: 'scale(.9) rotateY(90deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: '#f7f7f7', opacity: '1' },
+          '21%': { transform: 'scale(.9) rotateY(90deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: 'transparent', opacity: '1' },
+          '50%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#1db963', 'border-color': '#1db963', color: '#f7f7f7', opacity: '1' },
+          '100%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#1db963', 'border-color': '#1db963', color: '#f7f7f7', opacity: '1' },
+        },
+        'flip-partial': {
+          '0%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: '#f7f7f7', opacity: '1' },
+          '20%': { transform: 'scale(.9) rotateY(90deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: '#f7f7f7', opacity: '1' },
+          '21%': { transform: 'scale(.9) rotateY(90deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: 'transparent', opacity: '1' },
+          '50%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#f28600', 'border-color': '#f28600', color: '#f7f7f7', opacity: '1' },
+          '100%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#f28600', 'border-color': '#f28600', color: '#f7f7f7', opacity: '1' },
+        },
+        'flip-unused': {
+          '0%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: '#f7f7f7', opacity: '1' },
+          '20%': { transform: 'scale(.9) rotateY(90deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: '#f7f7f7', opacity: '1' },
+          '21%': { transform: 'scale(.9) rotateY(90deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: 'transparent', opacity: '1' },
+          '50%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#3a3a3c', 'border-color': '#3a3a3c', color: '#f7f7f7', opacity: '1' },
+          '100%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#3a3a3c', 'border-color': '#3a3a3c', color: '#f7f7f7', opacity: '1' },
+        }
       },
-      'flip-unused': {
-        '0%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: '#f7f7f7', opacity: '1' },
-        '20%': { transform: 'scale(.9) rotateY(90deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: '#f7f7f7', opacity: '1' },
-        '21%': { transform: 'scale(.9) rotateY(90deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: 'transparent', opacity: '1' },
-        '50%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#3a3a3c', 'border-color': '#3a3a3c', color: '#f7f7f7', opacity: '1' },
-        '100%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#3a3a3c', 'border-color': '#3a3a3c', color: '#f7f7f7', opacity: '1' },
-      }
-    },
-    animation: {
-      'flip-right': 'flip-right 0.8s ease-in-out',
-      'flip-partial': 'flip-partial 0.8s ease-in-out',
-      'flip-unused': 'flip-unused 0.8s ease-in-out',
+      animation: {
+        'flip-right': 'flip-right 0.8s ease-in-out',
+        'flip-partial': 'flip-partial 0.8s ease-in-out',
+        'flip-unused': 'flip-unused 0.8s ease-in-out',
+      },
     },
     screens: {
       //All devices
@@ -138,6 +144,16 @@ module.exports = {
     function ({ addVariant }) {
       addVariant('child', '& > *');
       addVariant('child-hover', '& > *:hover');
-    }
+    },
+    plugin(function ({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          'text-shadow': (value) => ({
+            textShadow: value,
+          }),
+        },
+        { values: theme('textShadow') }
+      )
+    }),
   ]
 };

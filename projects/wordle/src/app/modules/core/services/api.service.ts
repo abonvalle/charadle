@@ -59,9 +59,7 @@ export class APIService {
 
   /** Delete all */
   deleteAll(): void {
-    this.deleteBoardgame();
-    this.deleteKeyboard();
-    this.deleteSettings();
+    this._localStorage.clearStorage();
   }
 
   /** Utils */

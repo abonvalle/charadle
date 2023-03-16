@@ -1,7 +1,7 @@
 <div class="flex flex-col justify-center items-center p-1" [ngClass]="bgClass">
-  <ng-container *ngFor="let row of (keyboard$ |async) | keyvalue">
+  <ng-container *ngFor="let row of (keyboard$ |async) | keyvalue;trackBy:trackByRowFn">
     <div class="flex flex-row justify-center items-center w-full">
-      <ng-container *ngFor="let key of row.value">
+      <ng-container *ngFor="let key of row.value;trackBy:trackByKeyFn">
         <!--  [backgroundClass]="''" -->
         <app-keyboard-key [letter]="key.letter" [backgroundClass]="key.classes"
           (letterClick)="enterLetter($event)"></app-keyboard-key>

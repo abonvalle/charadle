@@ -19,7 +19,7 @@ export class SuccessPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.tries = this.gameService.boardGame$.value?.getTries() ?? [];
     this.jokerData = this.shareService.getSharingJokersData();
-    // this.startTimer();
+    this.startTimer();
   }
   ngOnDestroy(): void {
     this.pauseTimer();
@@ -65,5 +65,8 @@ export class SuccessPageComponent implements OnInit, OnDestroy {
 
   pauseTimer() {
     this.interval && clearInterval(this.interval);
+  }
+  trackByFn(index: number, _item: string) {
+    return index;
   }
 }

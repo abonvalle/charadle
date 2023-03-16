@@ -2,13 +2,19 @@
   <ng-container *ngIf="(gameService.boardGame$ | async) ;let boardGame">
     <boardgame></boardgame>
     <p *ngIf="boardGame?.jokers?.serieJoker?.useCount === 1 && !boardGame?.success"
-      class="text-white text-center text-2xl">
+      class="text-white text-center text-2xl text-shadow-sm shadow-black">
       {{boardGame?.jokers?.serieJoker?.serieName}}
     </p>
+
     <jokers></jokers>
-    <ng-container *ngIf="!boardGame.success">
+    <ng-container *ngIf="!boardGame.success;else successPageLinkTpl">
       <app-keyboard (letterClick)="onLetterClick($event)"
         [bgClass]="(themeService.theme$ | async)?.kbClass ?? 'bg-primary'"></app-keyboard>
     </ng-container>
+    <ng-template #successPageLinkTpl>
+      <a [routerLink]="'/success'" class="m-12">
+        <p class="underline text-center text-white text-shadow-sm shadow-black">Voir le résultat</p>
+      </a>
+    </ng-template>
   </ng-container>
 </div>

@@ -10,9 +10,9 @@
     </button>
   </div>
   <div class="flex flex-col items-end">
-    <h1 class="text-white font-title text-4xl font-bold whitespace-nowrap text-center">
+    <h1 class="text-white font-title text-4xl font-bold whitespace-nowrap text-center text-shadow-sm shadow-black">
       Wordle</h1>
-    <h2 class="text-complementary text-center text-sm mt-[-5px]">
+    <h2 class="text-complementary text-center text-sm mt-[-5px] text-shadow-sm shadow-black">
       Séries edition
     </h2>
   </div>
@@ -26,7 +26,7 @@
     <mat-menu #colorPicker="matMenu">
       <div class="flex flex-col gap-4 px-4 py-2">
         <div class="grid grid-cols-3 gap-4">
-          <ng-container *ngFor="let color of colorsList">
+          <ng-container *ngFor="let color of colorsList;trackBy:trackByFn">
             <div class="text-sm font-extralight font-body text-center flex flex-col items-center justify-center">
               <button (click)="changeColor(color)">
                 <span [ngClass]="color.bgClass"
@@ -63,6 +63,10 @@
       <button (click)="openHelp()" mat-menu-item class="flex flex-row justify-start items-center">
         <i class="icon icon-help-circle pr-2"></i>
         <span>Comment jouer ?</span>
+      </button>
+      <button [matMenuTriggerFor]="colorPicker" mat-menu-item class="flex flex-row justify-start items-center">
+        <i class="icon icon-format-paint pr-2"></i>
+        <span>Modifier thème</span>
       </button>
       <button (click)="openSettings()" mat-menu-item class="flex flex-row justify-start items-center">
         <i class="icon icon-settings pr-2"></i>

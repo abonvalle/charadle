@@ -1,5 +1,5 @@
 export interface settings {
-  playerName: string;
+  themeGuid: string;
   colorBlindMode: boolean;
   firstTime: boolean;
 }

@@ -1,4 +1,5 @@
 export interface theme {
+  id: string;
   name: string;
   borderActive: string;
   border: string;

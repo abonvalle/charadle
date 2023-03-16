@@ -1,0 +1,16 @@
+div.accessibility_partial::after {
+  font: normal normal normal 1em/1 "Nucleo";
+  content: "\ea19";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  font-size: 25px;
+}
+div.accessibility_right::after {
+  font: normal normal normal 1em/1 "Nucleo";
+  content: "\ea1a";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  font-size: 25px;
+}

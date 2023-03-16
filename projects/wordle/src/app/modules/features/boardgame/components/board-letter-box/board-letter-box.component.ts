@@ -15,6 +15,7 @@ import { Subject, takeUntil } from 'rxjs';
 @Component({
   selector: 'board-letter-box',
   templateUrl: 'board-letter-box.component.html',
+  styleUrls: ['board-letter-box.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BoardLetterBoxComponent implements OnInit, OnChanges, OnDestroy {
@@ -23,13 +24,13 @@ export class BoardLetterBoxComponent implements OnInit, OnChanges, OnDestroy {
   _destroy: Subject<void> = new Subject();
   constructor(private _cdr: ChangeDetectorRef, private _themeService: ThemeService) {}
   ngOnInit(): void {
-    this.classes = this.getBGClass();
+    this._setBGClass();
+
     this._themeService.theme$
       .asObservable()
       .pipe(takeUntil(this._destroy))
       .subscribe((_theme) => {
-        this.classes = this.getBGClass();
-        this._cdr.detectChanges();
+        this._setBGClass();
       });
   }
   ngOnChanges(changes: SimpleChanges): void {
@@ -37,9 +38,7 @@ export class BoardLetterBoxComponent implements OnInit, OnChanges, OnDestroy {
       return;
     }
     if (changes['boardBox']) {
-      console.warn('sqf');
-      this.classes = this.getBGClass();
-      this._cdr.detectChanges();
+      this._setBGClass();
     }
   }
   ngOnDestroy(): void {
@@ -55,11 +54,12 @@ export class BoardLetterBoxComponent implements OnInit, OnChanges, OnDestroy {
       'font-size': this.boardBox.boxSize / 1.8 + 'vw'
     };
   }
-  getBGClass(): string {
+  private _setBGClass(): void {
     const classes = [];
     classes.push(
       this.boardBox.isActive ? this._themeService.theme$.value.borderActive : this._themeService.theme$.value.border
     );
+
     if (this.boardBox.background !== 'none') {
       classes.push(
         `animate-[flip-${this.boardBox.background}_1.5s_ease-in-out_${
@@ -69,6 +69,12 @@ export class BoardLetterBoxComponent implements OnInit, OnChanges, OnDestroy {
     } else {
       classes.push(this._themeService.theme$.value.boardLetterBg);
     }
-    return classes.join(' ');
+
+    //daltonien
+    if (true) {
+      classes.push(`accessibility_${this.boardBox.background}`);
+    }
+    this.classes = classes.join(' ');
+    this._cdr.detectChanges();
   }
 }

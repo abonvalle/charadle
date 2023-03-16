@@ -1,9 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import * as charactersInfosJSON from '@assets/characters.json';
 import * as wordlesJSON from '@assets/w1-3.json';
 import * as wordsJSON from '@assets/words.json';
-import { SuccessDialogComponent } from '@features/main-page/components/success-dialog/success-dialog.component';
 import { BoardGame, keyboardKeyBackground } from 'projects/wordle/src/app/models';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { Wordle } from '../../../models/wordle.model';
@@ -23,7 +22,7 @@ export class GameService implements OnDestroy {
     private _keyboardServ: KeyboardService,
     private _jokerService: JokerService,
     private _apiServ: APIService,
-    private _dialog: MatDialog
+    private _router: Router
   ) {
     this._event();
   }
@@ -36,6 +35,9 @@ export class GameService implements OnDestroy {
     this._jokerService.initJokers(wordle.text);
     const initBG = this._apiServ.getBoardgame(wordle);
     this.boardGame$.next(initBG);
+    if (initBG.success) {
+      this._router.navigate(['/success']);
+    }
   }
 
   private _event(): void {
@@ -93,7 +95,8 @@ export class GameService implements OnDestroy {
     if (currentGuess === boardGame?.wordle.text) {
       this._snackbarService.openSnackBar('Bravo !', 'success');
       boardGame.success = true;
-      this._dialog.open(SuccessDialogComponent);
+      this._router.navigate(['/success']);
+      // this._dialog.open(SuccessDialogComponent);
     }
 
     boardGame?.incrementCurrentActiveBoardLine();
@@ -177,7 +180,7 @@ export class GameService implements OnDestroy {
       return;
     }
     const serie = jok.use();
-    if (serie) {
+    if (!serie) {
       this._snackbarService.openSnackBar(jok.soldOut ? 'Joker épuisé' : '');
       return;
     }
