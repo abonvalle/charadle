@@ -1,10 +1,10 @@
 export interface theme {
   id: string;
+  active?: boolean;
   name: string;
-  borderActive: string;
-  border: string;
-  boardLetterBg: string;
-  fontColor: string;
-  bgClass: string;
-  kbClass: string;
+  gradient: string[];
+  primary: string;
+  secondary: string;
+  tertiary: string;
+  darkMode: boolean;
 }

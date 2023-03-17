@@ -1,5 +1,5 @@
-<div class="overflow-hidden h-full" [ngClass]="(themeService.theme$ | async)?.bgClass"
-  (touchstart)="platformService.enableTouchStart()">
+<div class="overflow-hidden h-full bg-gradient-to-tl from-gradient-start via-gradient-middle to-gradient-end"
+  [ngClass]="themeId$ | async" (touchstart)="platformService.enableTouchStart()">
   <div class="overflow-hidden h-full relative z-10">
     <topbar></topbar>
     <div class="h-full-w-topbar">

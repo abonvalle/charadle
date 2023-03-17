@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PlatformService } from '@core/services/platform.service';
-import { ThemeService } from '@core/services/theme.service';
 import { BehaviorSubject } from 'rxjs';
 import { specialLetters } from '../../models/sepcial-letters';
 
@@ -22,7 +21,7 @@ export class KeyboardKeyComponent implements OnInit {
   isSpecial: boolean = false;
   letterIcon: string = '';
 
-  constructor(public themeService: ThemeService, private _platformServ: PlatformService) {}
+  constructor(private _platformServ: PlatformService) {}
   ngOnInit() {
     this.isSpecial = Object.keys(specialLetters).includes(this.letter);
     if (this.isSpecial) {

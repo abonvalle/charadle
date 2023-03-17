@@ -1,5 +1,5 @@
 import { CommonModule, KeyValue } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { BehaviorSubject, map, Observable, Subject, takeUntil } from 'rxjs';
 import { key, keyboard } from '../../models/keyboard';
 import { KeyboardService } from '../../modules/core/services/keyboard.service';
@@ -13,7 +13,6 @@ import { KeyboardKeyComponent } from './components/keyboard-key/keyboard-key.com
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class KeyboardComponent implements OnInit, OnDestroy {
-  @Input() bgClass: string = 'bg-primary';
   @Output() letterClick: EventEmitter<string> = new EventEmitter();
   private _destroy$: Subject<void> = new Subject();
   letterFeedback$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);

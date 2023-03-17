@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ThemeService } from '@core/services/theme.service';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Joker } from '../../models/joker/joker.model';
 
 @Component({
@@ -17,20 +16,13 @@ export class JokerButtonComponent implements OnInit, OnDestroy {
   @Input() joker!: Joker;
   classes: string = '';
   _destroy: Subject<void> = new Subject();
-  constructor(public themeService: ThemeService, private _cdr: ChangeDetectorRef) {}
+  constructor(private _cdr: ChangeDetectorRef) {}
   ngOnInit() {
     this._setClasses();
-    this.themeService.theme$
-      .asObservable()
-      .pipe(takeUntil(this._destroy))
-      .subscribe((_theme) => {
-        this._setClasses();
-      });
   }
   ngOnDestroy(): void {}
   private _setClasses() {
     const classes = [];
-    classes.push(this.themeService.theme$.value.kbClass);
     classes.push(
       this.joker.soldOut ? `opacity-60 text-secondary active:bg-complementary/80` : `text-white active:bg-primary`
     );

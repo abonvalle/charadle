@@ -1,9 +1,11 @@
 // @ts-nocheck
 const plugin = require('tailwindcss/plugin')
+const { getCustomThemesConfigs, defaultThemeConfig, getThemesIds } = require('./themes.js')
+
 module.exports = {
   mode: 'jit',
   content: ['./projects/wordle/src/**/*.{html,ts}'],
-  safelist: ['h-full', 'border-cyan-500',
+  safelist: [...getThemesIds(), 'h-full', 'border-cyan-500',
     'bg-right/80',
     'bg-partial/80',
     'bg-unused/80',
@@ -88,10 +90,11 @@ module.exports = {
       },
       backgroundImage: {
         'wordcloud': "url('/assets/images/background/wordcloud.svg')",
+        'wordcloud-dark': "url('/assets/images/background/wordcloud-dark.svg')",
       },
       colors: {
-        primary: '#003261', //blue
-        secondary: '#005e8c', //lighter blue
+        // primary: '#003261', //blue
+        // secondary: '#005e8c', //lighter blue
         background: '#151515',//dark violet
         complementary: '#f9f871',
         black: '#121213', //BLACK
@@ -109,25 +112,25 @@ module.exports = {
       },
       keyframes: {
         'flip-right': {
-          '0%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: '#f7f7f7', opacity: '1' },
-          '20%': { transform: 'scale(.9) rotateY(90deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: '#f7f7f7', opacity: '1' },
-          '21%': { transform: 'scale(.9) rotateY(90deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: 'transparent', opacity: '1' },
-          '50%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#1db963', 'border-color': '#1db963', color: '#f7f7f7', opacity: '1' },
-          '100%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#1db963', 'border-color': '#1db963', color: '#f7f7f7', opacity: '1' },
+          '0%': { transform: 'rotateY(0deg)', 'background-color': 'revert-layer', 'border-color': 'revert-layer' },
+          '20%': { transform: 'rotateY(90deg)', 'background-color': 'revert-layer', 'border-color': 'revert-layer' },
+          '21%': { transform: 'rotateY(90deg)', 'background-color': '#1db963', 'border-color': '#0e994c' },
+          '50%': { transform: 'rotateY(0deg)', 'background-color': '#1db963', 'border-color': '#0e994c' },
+          '100%': { transform: 'initial', 'background-color': '#1db963', 'border-color': '#0e994c' },
         },
         'flip-partial': {
-          '0%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: '#f7f7f7', opacity: '1' },
-          '20%': { transform: 'scale(.9) rotateY(90deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: '#f7f7f7', opacity: '1' },
-          '21%': { transform: 'scale(.9) rotateY(90deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: 'transparent', opacity: '1' },
-          '50%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#f28600', 'border-color': '#f28600', color: '#f7f7f7', opacity: '1' },
-          '100%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#f28600', 'border-color': '#f28600', color: '#f7f7f7', opacity: '1' },
+          '0%': { transform: 'rotateY(0deg)', 'background-color': 'revert-layer', 'border-color': 'revert-layer' },
+          '20%': { transform: 'rotateY(90deg)', 'background-color': 'revert-layer', 'border-color': 'revert-layer' },
+          '21%': { transform: 'rotateY(90deg)', 'background-color': '#f28600', 'border-color': '#c96f00' },
+          '50%': { transform: 'rotateY(0deg)', 'background-color': '#f28600', 'border-color': '#c96f00' },
+          '100%': { transform: 'initial', 'background-color': '#f28600', 'border-color': '#c96f00' },
         },
         'flip-unused': {
-          '0%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: '#f7f7f7', opacity: '1' },
-          '20%': { transform: 'scale(.9) rotateY(90deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: '#f7f7f7', opacity: '1' },
-          '21%': { transform: 'scale(.9) rotateY(90deg)', 'background-color': 'transparent', 'border-color': '#005e8c', color: 'transparent', opacity: '1' },
-          '50%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#3a3a3c', 'border-color': '#3a3a3c', color: '#f7f7f7', opacity: '1' },
-          '100%': { transform: 'scale(.9) rotateY(0deg)', 'background-color': '#3a3a3c', 'border-color': '#3a3a3c', color: '#f7f7f7', opacity: '1' },
+          '0%': { transform: 'rotateY(0deg)', 'background-color': 'revert-layer', 'border-color': 'revert-layer' },
+          '20%': { transform: 'rotateY(90deg)', 'background-color': 'revert-layer', 'border-color': 'revert-layer' },
+          '21%': { transform: 'rotateY(90deg)', 'background-color': '#3a3a3c', 'border-color': '#272728' },
+          '50%': { transform: 'rotateY(0deg)', 'background-color': '#3a3a3c', 'border-color': '#272728' },
+          '100%': { transform: 'initial', 'background-color': '#3a3a3c', 'border-color': '#272728' },
         }
       },
       animation: {
@@ -168,6 +171,10 @@ module.exports = {
     }
   },
   plugins: [
+    require('tailwindcss-themer')({
+      defaultTheme: defaultThemeConfig,
+      themes: getCustomThemesConfigs()
+    }),
     function ({ addVariant }) {
       addVariant('child', '& > *');
       addVariant('child-hover', '& > *:hover');

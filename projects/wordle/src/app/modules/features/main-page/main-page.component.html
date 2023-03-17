@@ -8,8 +8,7 @@
 
     <jokers></jokers>
     <ng-container *ngIf="!boardGame.end;else resultatPageLinkTpl">
-      <app-keyboard (letterClick)="onLetterClick($event)"
-        [bgClass]="(themeService.theme$ | async)?.kbClass ?? 'bg-primary'"></app-keyboard>
+      <app-keyboard (letterClick)="onLetterClick($event)"></app-keyboard>
     </ng-container>
     <ng-template #resultatPageLinkTpl>
       <a [routerLink]="'/resultat'" class="m-12">
