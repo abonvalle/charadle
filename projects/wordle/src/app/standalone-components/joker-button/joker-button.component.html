@@ -1,12 +1,12 @@
 <div
-  class="pie-wrapper md:w-28 md:h-28 xs:w-24 xs:h-24 all:w-16 all:h-16 max-w-[74px] max-h-[74px] rounded-full bg-primary border-2 border-secondary"
+  class="pie-wrapper md:w-28 md:h-28 xs:w-24 xs:h-24 all:w-16 all:h-16 max-w-[74px] max-h-[74px] rounded-full bg-primary border-2 border-primary-darker"
   [ngClass]="'progress-'+joker.progress">
   <button [ngClass]="classes"
-    class="text-lg rounded-full shadow-md flex justify-center items-center m-1 md:w-24 md:h-24 xs:w-20 xs:h-20 all:w-14 all:h-14 max-w-[64px] max-h-[64px] z-20 relative select-none ">
+    class="text-lg rounded-full text-font shadow-md flex justify-center items-center m-1 md:w-24 md:h-24 xs:w-20 xs:h-20 all:w-14 all:h-14 max-w-[64px] max-h-[64px] z-20 relative select-none">
     <ng-content></ng-content>
   </button>
   <div class="pie z-30">
-    <div class="left-side half-circle"></div>
-    <div class="right-side half-circle"></div>
+    <div class="left-side half-circle border-primary-darkest"></div>
+    <div class="right-side half-circle border-primary-darkest"></div>
   </div>
 </div>

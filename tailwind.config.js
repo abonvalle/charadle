@@ -84,19 +84,21 @@ module.exports = {
       body: 'Poppins',
       title: 'Roboto'
     },
+    // filter: {
+    //   complementary: 'brightness(0.5) sepia(1) hue-rotate(-30deg) saturate(2)'
+    // },
     extend: {
       height: {
         'full-w-topbar': 'calc(100% - 64px)'
       },
       backgroundImage: {
         'wordcloud': "url('/assets/images/background/wordcloud.svg')",
-        'wordcloud-dark': "url('/assets/images/background/wordcloud-dark.svg')",
       },
       colors: {
         // primary: '#003261', //blue
         // secondary: '#005e8c', //lighter blue
         background: '#151515',//dark violet
-        complementary: '#f9f871',
+        // complementary: '#f9f871',
         black: '#121213', //BLACK
         gray: '#636363', //GRAY
         keyboard: '#8c8c8c', //LIGHT GRAY

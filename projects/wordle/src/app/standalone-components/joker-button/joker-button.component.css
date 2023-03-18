@@ -36,7 +36,8 @@
   box-sizing: border-box;
   height: 100%;
   width: 100%;
-  border: 5px solid #f9f871;
+  border-width: 5px;
+  border-style: solid;
   border-radius: 50%;
   clip: rect(0, 30px, 60px, 0);
   left: 0;

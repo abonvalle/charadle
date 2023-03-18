@@ -23,9 +23,7 @@ export class JokerButtonComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {}
   private _setClasses() {
     const classes = [];
-    classes.push(
-      this.joker.soldOut ? `opacity-60 text-secondary active:bg-complementary/80` : `text-white active:bg-primary`
-    );
+    classes.push(this.joker.soldOut ? `opacity-60 active:bg-complementary/80` : `active:bg-primary`);
     this.classes = classes.join(' ');
     this._cdr.detectChanges();
   }

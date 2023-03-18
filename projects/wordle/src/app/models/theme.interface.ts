@@ -6,5 +6,5 @@ export interface theme {
   primary: string;
   secondary: string;
   tertiary: string;
-  darkMode: boolean;
+  bgOpacity: number;
 }

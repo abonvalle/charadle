@@ -1,25 +1,25 @@
 <div class="flex flex-row justify-between py-2 h-[64px]">
   <div class="flex items-center ">
     <button (click)="openSettings()"
-      class="w-10 h-10 rounded-lg ml-2 flex justify-center items-center cursor-pointer hover:bg-background-alt/75 border-b-2 bg-primary border-secondary">
+      class="w-10 h-10 rounded-lg ml-2 flex justify-center items-center cursor-pointer hover:bg-background-alt/75 border-b-2 bg-tertiary border-tertiary-darker">
       <i class="icon icon-settings text-font"></i>
     </button>
     <button (click)="openHelp()"
-      class="w-10 h-10 rounded-lg ml-2 flex justify-center items-center cursor-pointer hover:bg-background-alt/75 border-b-2 bg-primary border-secondary">
+      class="w-10 h-10 rounded-lg ml-2 flex justify-center items-center cursor-pointer hover:bg-background-alt/75 border-b-2 bg-tertiary border-tertiary-darker">
       <i class="icon icon-help-circle text-font"></i>
     </button>
   </div>
   <div class="flex flex-col items-end">
     <h1 class="text-white font-title text-4xl font-bold whitespace-nowrap text-center text-shadow-sm shadow-black">
       Wordle</h1>
-    <h2 class="text-complementary text-center text-sm mt-[-5px] text-shadow-sm shadow-black">
+    <h2 class="text-yellow-400 text-center text-sm mt-[-5px] text-shadow-sm shadow-black">
       Séries edition
     </h2>
   </div>
   <div class="flex items-center justify-end w-[84px]">
     <button [matMenuTriggerFor]="colorPicker">
       <span
-        class="w-8 h-8 border-2 from-[#16A085] via-[#61045F] to-[#1FA2FF] block rounded-lg shadow-sm bg-gradient-to-tl">
+        class="w-8 h-8 border-2 border-tertiary-darker from-[#16A085] via-[#61045F] to-[#1FA2FF] block rounded-lg shadow-sm bg-gradient-to-tl">
       </span>
     </button>
     <mat-menu #colorPicker="matMenu">
@@ -41,7 +41,7 @@
           <div class="text-sm font-extralight font-body text-center flex flex-col items-center justify-center">
             <button>
               <span
-                class="w-12 h-12  rounded-lg shadow-sm bg-gradient-to-tl from-[#16A085] via-[#61045F] to-[#1FA2FF] flex items-center justify-center">
+                class="w-12 h-12 rounded-lg shadow-sm bg-gradient-to-tl from-[#16A085] via-[#61045F] to-[#1FA2FF] flex items-center justify-center">
                 <i class="icon icon-shuffle text-white"></i>
               </span>
             </button>
