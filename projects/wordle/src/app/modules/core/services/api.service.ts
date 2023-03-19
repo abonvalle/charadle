@@ -57,6 +57,17 @@ export class APIService {
     this._localStorage.delete(localStorageKeys.settings);
   }
 
+  /** Theme */
+  getTheme(): string {
+    return this._localStorage.read(localStorageKeys.theme) as string;
+  }
+  setTheme(theme: string): void {
+    this._localStorage.update(localStorageKeys.theme, theme);
+  }
+  deleteTheme(): void {
+    this._localStorage.delete(localStorageKeys.theme);
+  }
+
   /** Tries  */
   getTries(): string[] {
     const tries = this._localStorage.read(localStorageKeys.tries);

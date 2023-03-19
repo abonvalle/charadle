@@ -1,6 +1,7 @@
 export enum localStorageKeys {
   firstVisit = 'Zmlyc3RWaXNpdA==',
   settings = 'c2V0dGluZ3M=',
+  theme = 'VGhlbWU==',
   keyboard = 'a2V5Ym9hcmQ=',
   tries = 'dHJpZXM=',
   keyboardType = 'a2V5Ym9hcmRUeXBl',

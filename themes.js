@@ -1,5 +1,4 @@
 // @ts-nocheck
-
 // theme : {
 //    id: 'bf44bfc2-ce1a-4113-ac69-753ba202a0ff', -> Identifiant unique
 //    name: 'Classique', -> Nom affiché
@@ -182,10 +181,10 @@ function getThemeConfigFromTheme(theme, defaultTheme = false) {
   const font = fontDark;
   const opacity = { dynamic: bgOpacity }
   const gradientColorsCount = gradient.length;
-  const primaryObj = { DEFAULT: primary, darker: brightColor(primary, -20), darkest: brightColor(primary, -40), lighter: brightColor(primary, 20), lightest: brightColor(primary, 40) }
-  const secondaryObj = { DEFAULT: secondary, darker: brightColor(secondary, -20), darkest: brightColor(secondary, -40), lighter: brightColor(secondary, 20), lightest: brightColor(secondary, 40) }
-  const tertiaryObj = { DEFAULT: tertiary, darker: brightColor(tertiary, -20), darkest: brightColor(tertiary, -40), lighter: brightColor(tertiary, 20), lightest: brightColor(tertiary, 40) }
-  const complementary = { DEFAULT: getComplementaryColor(primary), darker: brightColor(getComplementaryColor(primary), -20), lighter: brightColor(getComplementaryColor(primary), 20) }
+  const primaryObj = getGradientColor(primary);
+  const secondaryObj = getGradientColor(secondary);
+  const tertiaryObj = getGradientColor(tertiary);
+  const complementary = getGradientColor(getComplementaryColor(primary))
   const gradientColors = {
     'gradient-start': gradient[0] ?? '',
     ...(gradientColorsCount > 2
@@ -199,11 +198,77 @@ function getThemeConfigFromTheme(theme, defaultTheme = false) {
     }
   }
 }
-function brightColor(hex, percent) {
-  let R = parseInt(hex.substring(1, 3), 16);
-  let G = parseInt(hex.substring(3, 5), 16);
-  let B = parseInt(hex.substring(5, 7), 16);
-  if (R == 0) R = 32; if (G == 0) G = 32; if (B == 0) B = 32;
+//Version 4.0
+const pSBC = (p, c0, c1, l) => {
+  let r, g, b, P, f, t, h, i = parseInt,
+    m = Math.round,
+    a = typeof (c1) == "string";
+  if (typeof (p) != "number" || p < -1 || p > 1 || typeof (c0) != "string" || (c0[0] != 'r' && c0[0] != '#') || (c1 && !a)) return null;
+  const pSBCr = (d) => {
+    let n = d.length,
+      x = {};
+    if (n > 9) {
+      [r, g, b, a] = d = d.split(","), n = d.length;
+      if (n < 3 || n > 4) return null;
+      x.r = i(r[3] == "a" ? r.slice(5) : r.slice(4)), x.g = i(g), x.b = i(b), x.a = a ? parseFloat(a) : -1
+    } else {
+      if (n == 8 || n == 6 || n < 4) return null;
+      if (n < 6) d = "#" + d[1] + d[1] + d[2] + d[2] + d[3] + d[3] + (n > 4 ? d[4] + d[4] : "");
+      d = i(d.slice(1), 16);
+      if (n == 9 || n == 5) x.r = d >> 24 & 255, x.g = d >> 16 & 255, x.b = d >> 8 & 255, x.a = m((d & 255) / 0.255) / 1000;
+      else x.r = d >> 16, x.g = d >> 8 & 255, x.b = d & 255, x.a = -1
+    }
+    return x
+  };
+  h = c0.length > 9, h = a ? c1.length > 9 ? true : c1 == "c" ? !h : false : h, f = pSBCr(c0), P = p < 0, t = c1 && c1 != "c" ? pSBCr(c1) : P ? {
+    r: 0,
+    g: 0,
+    b: 0,
+    a: -1
+  } : {
+    r: 255,
+    g: 255,
+    b: 255,
+    a: -1
+  }, p = P ? p * -1 : p, P = 1 - p;
+  if (!f || !t) return null;
+  if (l) r = m(P * f.r + p * t.r), g = m(P * f.g + p * t.g), b = m(P * f.b + p * t.b);
+  else r = m((P * f.r ** 2 + p * t.r ** 2) ** 0.5), g = m((P * f.g ** 2 + p * t.g ** 2) ** 0.5), b = m((P * f.b ** 2 + p * t.b ** 2) ** 0.5);
+  a = f.a, t = t.a, f = a >= 0 || t >= 0, a = f ? a < 0 ? t : t < 0 ? a : a * P + t * p : 0;
+  if (h) return "rgb" + (f ? "a(" : "(") + r + "," + g + "," + b + (f ? "," + m(a * 1000) / 1000 : "") + ")";
+  else return "#" + (4294967296 + r * 16777216 + g * 65536 + b * 256 + (f ? m(a * 255) : 0)).toString(16).slice(1, f ? undefined : -2)
+
+}
+function getGradientColor(hexColor) {
+  const gradient = { DEFAULT: hexColor }
+  for (let i = 1; i <= 9; i++) {
+    const shade = parseFloat(((5 - i) * 0.1).toFixed(1))
+    gradient[i * 100] = pSBC(shade, hexColor, false, true)
+  }
+  return gradient
+}
+function formatColor(hexColor) {
+  if (hexColor.length === 4) {
+    // Ajouter des zéros à gauche pour obtenir 7 caractères
+    hexColor = '#' + hexColor.slice(1).split('').map(function (c) {
+      return c + c;
+    }).join('');
+  } else if (hexColor.length === 7) {
+    // Renvoyer la couleur telle quelle
+    hexColor = hexColor;
+  } else {
+    // Renvoyer une erreur pour les couleurs qui ne font pas 4 ou 7 caractères
+    throw new Error('La couleur doit faire 4 ou 7 caractères.');
+  }
+  return hexColor;
+}
+
+function brightColor(hexColor, percent) {
+  hexColor = formatColor(hexColor);
+  let R = parseInt(hexColor.substring(1, 3), 16);
+  let G = parseInt(hexColor.substring(3, 5), 16);
+  let B = parseInt(hexColor.substring(5, 7), 16);
+
   R = parseInt(R * (100 + percent) / 100);
   G = parseInt(G * (100 + percent) / 100);
   B = parseInt(B * (100 + percent) / 100);
@@ -223,10 +288,13 @@ function brightColor(hex, percent) {
   return "#" + RR + GG + BB;
 }
 
-function getMiddleColor(color1, color2) {
+function getMiddleColor(hexColor1, hexColor2) {
+  hexColor1 = formatColor(hexColor1);
+  hexColor2 = formatColor(hexColor2);
+
   // Convertir les couleurs hexadécimales en valeurs RGB
-  let rgb1 = hexToRgb(color1);
-  let rgb2 = hexToRgb(color2);
+  let rgb1 = hexToRgb(hexColor1);
+  let rgb2 = hexToRgb(hexColor2);
 
   // Calculer la couleur intermédiaire
   let middleRgb = {
@@ -242,6 +310,8 @@ function getMiddleColor(color1, color2) {
 }
 
 function hexToRgb(hexColor) {
+  hexColor = formatColor(hexColor);
+
   // Supprimer le "#" si présent
   hexColor = hexColor.replace("#", "");
 
@@ -254,6 +324,7 @@ function hexToRgb(hexColor) {
 }
 
 function rgbToHex(rgbColor) {
+
   // Convertir les valeurs RGB en format hexadécimal
   let r = rgbColor.r.toString(16).padStart(2, "0");
   let g = rgbColor.g.toString(16).padStart(2, "0");
@@ -262,6 +333,8 @@ function rgbToHex(rgbColor) {
   return "#" + r + g + b;
 }
 function getComplementaryColor(hexColor) {
+  hexColor = formatColor(hexColor);
+
   // Vérifiez si la couleur est au format hexadécimal
   if (!/^#([0-9a-f]{3}){1,2}$/i.test(hexColor)) {
     throw new Error('Invalid hex color');

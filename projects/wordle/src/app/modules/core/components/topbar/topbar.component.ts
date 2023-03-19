@@ -15,7 +15,7 @@ import { SettingsDialogComponent } from '../settings-dialog/settings.component';
 export class TopbarComponent implements OnInit, OnDestroy {
   _destroy$: Subject<void> = new Subject();
   themeList = this._themeServ.themeList;
-  currentThemeId$ = this._themeServ.activeThemeId$;
+  currentThemeId$ = this._themeServ.selectedThemeId$;
 
   constructor(
     private _dialog: MatDialog,

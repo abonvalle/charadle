@@ -1,4 +1,4 @@
-<div class="flex flex-col justify-center items-center p-1 bg-primary border-t-2 border-primary-darker">
+<div class="flex flex-col justify-center items-center p-1 bg-primary border-t-2 border-primary-600">
   <ng-container *ngFor="let row of (keyboard$ |async) | keyvalue;trackBy:trackByRowFn">
     <div class="flex flex-row justify-center items-center w-full">
       <ng-container *ngFor="let key of row.value;trackBy:trackByKeyFn">
