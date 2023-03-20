@@ -1,6 +1,6 @@
 export interface theme {
   id: string;
-  active?: boolean;
+  default?: boolean;
   name: string;
   gradient: string[];
   primary: string;

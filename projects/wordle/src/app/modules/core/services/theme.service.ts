@@ -1,13 +1,16 @@
 import { Injectable, OnDestroy } from '@angular/core';
+import themes from '@assets/jsons/themes.json';
 import { BehaviorSubject } from 'rxjs';
-import { defaultTheme, getThemesIds, themes } from 'themes';
 import { theme } from '../../../models/theme.interface';
 import { APIService } from './api.service';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeService implements OnDestroy {
-  themeList: theme[] = [defaultTheme, ...themes];
-  selectedThemeId$: BehaviorSubject<string> = new BehaviorSubject(this._APIServ.getTheme() ?? defaultTheme.id);
+  themeList: theme[] = themes.themes;
+  defaultTheme: theme | undefined = this.themeList.find((t) => t.default);
+  selectedThemeId$: BehaviorSubject<string> = new BehaviorSubject(
+    this._APIServ.getTheme() ?? this.defaultTheme?.id ?? ''
+  );
   activeThemeId$: BehaviorSubject<string> = new BehaviorSubject(
     this.selectedThemeId$.value === 'random' ? this.getRandomThemeId() : this.selectedThemeId$.value
   );
@@ -29,8 +32,7 @@ export class ThemeService implements OnDestroy {
     });
   }
   getRandomThemeId(): string {
-    const themes = getThemesIds();
-    const index = Math.floor(Math.random() * themes.length + 1);
-    return themes[index] ?? defaultTheme.id;
+    const index = Math.floor(Math.random() * this.themeList.length + 1);
+    return this.themeList[index]?.id ?? this.defaultTheme?.id ?? '';
   }
 }
