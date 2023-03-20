@@ -38,8 +38,7 @@
     "exactOptionalPropertyTypes": false,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
-    "useDefineForClassFields": false,
-    "esModuleInterop": true
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
