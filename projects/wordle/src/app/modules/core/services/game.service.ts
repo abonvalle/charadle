@@ -116,8 +116,7 @@ export class GameService implements OnDestroy {
     const text = wordles.words[ind - 1] ?? '';
     const charactersInfos = charactersInfosJSON;
     const serie = charactersInfos[text as keyof typeof charactersInfos]?.from ?? '';
-    return new Wordle({ date: date.toLocaleDateString('fr-FR'), text: 'aaaaazzz', serie });
-    // return new Wordle({ date: date.toLocaleDateString('fr-FR'), text, serie });
+    return new Wordle({ date: date.toLocaleDateString('fr-FR'), text, serie });
   }
   enterLetter(letter: string): void {
     if (this.boardGame$.value?.success) {

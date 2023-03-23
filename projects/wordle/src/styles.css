@@ -52,22 +52,27 @@ body {
 .letter-row-2 .letter-box,
 .letter-row-3 .letter-box,
 .letter-row-4 .letter-box,
-.letter-row-5 .letter-box,
-.letter-row-6 .letter-box {
+.letter-row-5 .letter-box {
   height: 5.4rem;
   width: 5.4rem;
   font-size: 3.3rem;
 }
 
+.letter-row-6 .letter-box {
+  height: 5rem;
+  width: 5rem;
+  font-size: 3rem;
+}
+
 .letter-row-7 .letter-box {
-  height: 5.4rem;
-  width: 5.4rem;
+  height: 5rem;
+  width: 5rem;
   font-size: 3.3rem;
 }
 
 .letter-row-8 .letter-box {
-  height: 4.8rem;
-  width: 4.8rem;
+  height: 4.6rem;
+  width: 4.6rem;
   font-size: 3rem;
 }
 
@@ -91,9 +96,15 @@ body {
 }
 
 @media (max-width: 600px) {
-  .letter-row-8 .letter-box {
+  .letter-row-7 .letter-box {
     height: 4.5rem;
     width: 4.5rem;
+    font-size: 3.3rem;
+  }
+
+  .letter-row-8 .letter-box {
+    height: 4.2rem;
+    width: 4.2rem;
     font-size: 3rem;
   }
 
@@ -118,10 +129,22 @@ body {
 }
 
 @media (max-width: 550px) {
-  .letter-row-8 .letter-box {
-    height: 4.2rem;
-    width: 4.2rem;
+  .letter-row-6 .letter-box {
+    height: 4.6rem;
+    width: 4.6rem;
     font-size: 3rem;
+  }
+
+  .letter-row-7 .letter-box {
+    height: 4rem;
+    width: 4rem;
+    font-size: 3rem;
+  }
+
+  .letter-row-8 .letter-box {
+    height: 3.8rem;
+    width: 3.8rem;
+    font-size: 2.8rem;
   }
 
   .letter-row-9 .letter-box {
@@ -146,16 +169,15 @@ body {
 
 @media (max-width: 500px) {
   .letter-row-7 .letter-box {
-    height: 5.1rem;
-    width: 5.1rem;
-    font-size: 3rem;
-    margin: 4.5px;
+    height: 3.8rem;
+    width: 3.8rem;
+    font-size: 2.8rem;
   }
 
   .letter-row-8 .letter-box {
-    height: 3.9rem;
-    width: 3.9rem;
-    font-size: 2.7rem;
+    height: 3.3rem;
+    width: 3.3rem;
+    font-size: 2.3rem;
   }
 
   .letter-row-9 .letter-box {
@@ -185,24 +207,28 @@ body {
   .letter-row-2 .letter-box,
   .letter-row-3 .letter-box,
   .letter-row-4 .letter-box,
-  .letter-row-5 .letter-box,
-  .letter-row-6 .letter-box {
+  .letter-row-5 .letter-box {
     height: 5.1rem;
     width: 5.1rem;
     font-size: 3rem;
     margin: 3px;
   }
 
+  .letter-row-6 .letter-box {
+    height: 4rem;
+    width: 4rem;
+    font-size: 3rem;
+  }
+
   .letter-row-7 .letter-box {
-    height: 4.5rem;
-    width: 4.5rem;
-    font-size: 2.7rem;
-    margin: 3px;
+    height: 3.4rem;
+    width: 3.4rem;
+    font-size: 2.4rem;
   }
 
   .letter-row-8 .letter-box {
-    height: 3.6rem;
-    width: 3.6rem;
+    height: 3rem;
+    width: 3rem;
     font-size: 1.8rem;
     margin: 2px;
   }
@@ -232,28 +258,40 @@ body {
 
 @media (max-width: 400px) {
   .letter-row-2 .letter-box,
-  .letter-row-3 .letter-box,
-  .letter-row-4 .letter-box,
-  .letter-row-5 .letter-box,
-  .letter-row-6 .letter-box {
-    height: 4.5rem;
-    width: 4.5rem;
+  .letter-row-3 .letter-box {
+    height: 4.8rem;
+    width: 4.8rem;
     font-size: 2.7rem;
     margin: 3px;
   }
 
+  .letter-row-4 .letter-box,
+  .letter-row-5 .letter-box {
+    height: 4.4rem;
+    width: 4.4rem;
+    font-size: 2.7rem;
+    margin: 3px;
+  }
+
+  .letter-row-6 .letter-box {
+    height: 3.6rem;
+    width: 3.6rem;
+    font-size: 2.6rem;
+    margin: 2px;
+  }
+
   .letter-row-7 .letter-box {
-    height: 3.9rem;
-    width: 3.9rem;
-    font-size: 2.4rem;
+    height: 3rem;
+    width: 3rem;
+    font-size: 2rem;
     margin: 2px;
   }
 
   .letter-row-8 .letter-box {
-    height: 3.2rem;
-    width: 3.2rem;
+    height: 2.8rem;
+    width: 2.8rem;
     font-size: 1.8rem;
-    margin: 3px;
+    margin: 2px;
   }
 
   .letter-row-9 .letter-box {
@@ -281,27 +319,45 @@ body {
 
 @media (max-width: 350px) {
   .letter-row-2 .letter-box,
-  .letter-row-3 .letter-box,
-  .letter-row-4 .letter-box,
-  .letter-row-5 .letter-box,
-  .letter-row-6 .letter-box {
-    height: 3.9rem;
-    width: 3.9rem;
+  .letter-row-3 .letter-box {
+    height: 4.5rem;
+    width: 4.5rem;
+    font-size: 2.7rem;
+    margin: 3px;
+  }
+
+  .letter-row-4 .letter-box {
+    height: 4rem;
+    width: 4rem;
     font-size: 2.4rem;
     margin: 2px;
   }
 
+  .letter-row-5 .letter-box {
+    height: 3.8rem;
+    width: 3.8rem;
+    font-size: 2.4rem;
+    margin: 2px;
+  }
+
+  .letter-row-6 .letter-box {
+    height: 3rem;
+    width: 3rem;
+    font-size: 2rem;
+    margin: 1px;
+  }
+
   .letter-row-7 .letter-box {
-    height: 3.6rem;
-    width: 3.6rem;
-    font-size: 1.8rem;
+    height: 2.6rem;
+    width: 2.6rem;
+    font-size: 1.6rem;
     margin: 2px;
   }
 
   .letter-row-8 .letter-box {
-    height: 3rem;
-    width: 3rem;
-    font-size: 1.8rem;
+    height: 2.4rem;
+    width: 2.4rem;
+    font-size: 1.4rem;
     margin: 2px;
   }
 
