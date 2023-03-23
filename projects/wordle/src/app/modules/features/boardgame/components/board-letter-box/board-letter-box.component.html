@@ -1,5 +1,6 @@
 <div
-  class="border-2 border-secondary-700 bg-secondary rounded-md text-font flex justify-center items-center uppercase mx-[0.5vw] max-w-[64px] max-h-[64px] all:text-3xl xs:text-4xl md:text-5xl"
-  [ngStyle]="{width : boardBox.boxSize + 'vw',height : boardBox.boxSize + 'vw'}" [ngClass]="boardBox.classes.join(' ')">
+  class="border-2 border-secondary-700 bg-secondary rounded-md text-font flex justify-center items-center uppercase letter-box"
+  [ngClass]="boardBox.classes.join(' ')">
+  <!-- [ngStyle]="{width : boardBox.boxSize + 'vw',height : boardBox.boxSize + 'vw'}" -->
   {{ boardBox.letter }}
 </div>
