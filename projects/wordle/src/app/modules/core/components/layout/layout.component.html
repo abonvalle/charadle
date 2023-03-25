@@ -1,12 +1,17 @@
-<div class="overflow-hidden h-full bg-gradient-to-tl from-gradient-start via-gradient-middle to-gradient-end"
+<div
+  class="flex justify-center overflow-hidden h-full bg-gradient-to-tl from-gradient-start via-gradient-middle to-gradient-end"
   [ngClass]="themeId$ | async" (touchstart)="platformService.enableTouchStart()">
-  <div class="overflow-hidden h-full relative z-10">
+  <div class="overflow-hidden h-full w-full max-w-[850px] relative z-10">
     <topbar></topbar>
     <div class="h-full-w-topbar">
       <router-outlet></router-outlet>
     </div>
   </div>
+  <!-- <div class="h-full w-full top-0 left-0 absolute z-0 pointer-events-none overflow-hidden flex justify-center">
+    <div class="h-full w-full max-w-[850px] bg-wordcloud opacity-dynamic bg-cover overflow-hidden">
+    </div>
+  </div> -->
   <div
-    class="h-full w-full top-0 left-0 bg-wordcloud opacity-dynamic bg-cover absolute z-0 pointer-events-none overflow-hidden">
+    class="h-full w-full top-0 left-0 bg-wordcloud opacity-dynamic bg-[length:350px_350px] bg-repeat absolute z-0 pointer-events-none overflow-hidden">
   </div>
 </div>
