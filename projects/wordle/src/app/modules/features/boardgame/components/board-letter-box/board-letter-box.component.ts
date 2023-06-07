@@ -5,6 +5,7 @@ import { BoardBox } from '@models/*';
   selector: 'board-letter-box',
   templateUrl: 'board-letter-box.component.html',
   styleUrls: ['board-letter-box.component.css'],
+  // styles: [':host{flex-basis: 16.666667%;}'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BoardLetterBoxComponent {

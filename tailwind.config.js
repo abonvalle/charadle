@@ -89,7 +89,8 @@ module.exports = {
     // },
     extend: {
       height: {
-        'full-w-topbar': 'calc(100% - 64px)'
+        'full-w-topbar': 'calc(100% - 64px)',
+        'screen-wo-border': 'calc(100vw - 2px)'
       },
       backgroundImage: {
         'wordcloud': "url('/assets/images/background/wordcloud.svg')",

@@ -7,7 +7,7 @@ import { BoardBox, BoardGame, BoardLine } from '../../../models/boardgame';
 @Component({
   selector: 'boardgame',
   templateUrl: 'boardgame.component.html',
-  styles: [':host{flex-grow:1}'],
+  styles: [':host{flex-grow:1;overflow:auto}'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BoardgameComponent implements OnInit, OnDestroy {
@@ -40,11 +40,11 @@ export class BoardgameComponent implements OnInit, OnDestroy {
     //     : this._themeService.newtheme$.value.boardBox
     // );
     if (!boardGame?.end) {
-      boardBox.isActive && classes.push('active after:animate-pulse-fast');
+      boardBox.isActive && classes.push('active after:animate-pulse-fast after:absolute');
       boardLine.isActive &&
         boardBox.letter === '' &&
         boardBox.before &&
-        classes.push(`before:content-['${boardBox.before}'] before:opacity-50 before:absolute`);
+        classes.push(`before:content-['${boardBox.before}'] before:opacity-50 before:relative`);
     }
     if (boardBox.background !== 'none') {
       classes.push(

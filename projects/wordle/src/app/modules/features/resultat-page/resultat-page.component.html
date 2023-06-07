@@ -22,7 +22,7 @@
       <p>{{jokerData}}</p>
     </div>
     <div class="my-4">
-      <div *ngFor="let tryLine of tries;trackBy:trackByFn">
+      <div *ngFor="let tryLine of tries;trackBy:trackByFn" class="text-center">
         {{tryLine}}
       </div>
       <a [routerLink]="'/'">

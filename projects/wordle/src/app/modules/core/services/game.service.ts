@@ -92,10 +92,8 @@ export class GameService implements OnDestroy {
     });
 
     if (currentGuess === boardGame?.wordle.text) {
-      this._snackbarService.openSnackBar('Bravo !', 'success');
       boardGame.success = true;
       boardGame.end = true;
-      // this._dialog.open(SuccessDialogComponent);
     }
 
     boardGame?.incrementCurrentActiveBoardLine();
