@@ -98,7 +98,9 @@ export class GameService implements OnDestroy {
 
     boardGame?.incrementCurrentActiveBoardLine();
     if (boardGame?.end) {
-      this._router.navigate(['/resultat']);
+      setTimeout(() => {
+        this._router.navigate(['/resultat']);
+      }, boardGame?.wordle.text.length * 375);
     }
     this.boardGame$.next(boardGame);
   }
