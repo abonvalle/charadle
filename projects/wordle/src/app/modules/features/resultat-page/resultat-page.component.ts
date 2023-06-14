@@ -14,7 +14,9 @@ export class ResultatPageComponent implements OnInit, OnDestroy {
   jokerData: string = '';
   timeLeftStr: string = '--h--';
   interval: any = null;
-
+  get gifPath(): string {
+    return `assets/gifs/${this.gameService.boardGame$.value?.success ? 'success' : 'lose'}.gif`;
+  }
   constructor(public shareService: ShareService, public gameService: GameService, private _cdr: ChangeDetectorRef) {}
   ngOnInit(): void {
     this.tries = this.gameService.boardGame$.value?.getTries() ?? [];

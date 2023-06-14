@@ -1,4 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { HelpDialogComponent } from '@core/components/help-dialog/help-dialog.component';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { settings } from '../../../models/settings.interface';
 import { APIService } from './api.service';
@@ -9,7 +11,7 @@ export class SettingsService implements OnDestroy {
   colorBlindMode$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   firstTime$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   destroy$: Subject<void> = new Subject();
-  constructor(private _localStrgeServ: LocalStorageService, private _APIServ: APIService) {}
+  constructor(private _localStrgeServ: LocalStorageService, private _APIServ: APIService, private _dialog: MatDialog) {}
   initSettings(): void {
     this._getStorageSettings();
     this._event();
@@ -27,7 +29,8 @@ export class SettingsService implements OnDestroy {
   private _getStorageSettings(): void {
     const settings = this._APIServ.getSettings();
     this.colorBlindMode$.next(settings?.colorBlindMode ?? false);
-    this.firstTime$.next(settings?.firstTime ?? true);
+    settings?.firstTime && this._dialog.open(HelpDialogComponent);
+    this.firstTime$.next(false);
     this._setStorageSettings();
   }
   private _setStorageSettings(): void {

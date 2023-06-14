@@ -1,33 +1,33 @@
 <ng-container *ngIf="(gameService.boardGame$ | async) ;let boardGame">
-  <div class="flex flex-col justify-center items-center text-white pt-4 bg-background-alt h-full overflow-y-auto">
-    <h1 class="mb-2 text-2xl text-shadow-sm shadow-black">
-      {{boardGame?.success? 'Bravo, vous avez trouvé !':'Dommage, vous deviez trouver :'}}
+  <div class="flex flex-col justify-center items-center text-white bg-background-alt h-full overflow-y-auto">
+    <h1 class="text-2xl text-shadow-sm shadow-black">
+      {{boardGame?.success? 'Bravo !':'Si proche...'}}
     </h1>
-    <div class="flex flex-col justify-center items-center py-6">
-      <p class="text-2xl capitalize text-shadow-sm shadow-black">
-        {{boardGame?.wordle?.text}}
-      </p>
-      <div class="flex justify-center items-center">
-        <img class="max-w-[200px] max-h-[200px]" [src]="'/assets/images/characters/'+boardGame?.wordle?.text+'.webp'">
-      </div>
-      <p class="text-lg text-shadow-sm shadow-black">
-        de
-      </p>
-      <p class="text-2xl text-shadow-sm shadow-black">
-        {{boardGame?.jokers?.serieJoker?.serieName}}
-      </p>
-    </div>
-    <div class="text-center text-shadow-sm shadow-black">
+    <img [src]="gifPath" alt="success" class="border-2 border-white h-[170px]">
+
+    <div class="text-center text-shadow-sm shadow-black mt-4">
       <p>{{boardGame.currentActiveBoardLine}}/6 essais</p>
       <p>{{jokerData}}</p>
     </div>
-    <div class="my-4">
+    <div class="mt-4">
       <div *ngFor="let tryLine of tries;trackBy:trackByFn" class="text-center">
         {{tryLine}}
       </div>
       <a [routerLink]="'/'">
         <p class="underline text-center text-shadow-sm shadow-black">Voir les essais</p>
       </a>
+    </div>
+    <div class="flex flex-col justify-center items-center py-6">
+      <p class="text-2xl capitalize text-shadow-sm shadow-black">
+        {{boardGame?.wordle?.text}}
+      </p>
+      <div class="flex justify-center items-center">
+        <img class="max-w-[200px] max-h-[200px] border-2 border-white"
+          [src]="'/assets/images/characters/'+boardGame?.wordle?.text+'.webp'">
+      </div>
+      <p class="text-2xl text-shadow-sm shadow-black">
+        {{boardGame?.jokers?.serieJoker?.serieName}}
+      </p>
     </div>
     <div class="py-6 flex flex-col items-center justify-center">
       <p class="text-lg mt-2 text-shadow-sm shadow-black">Partagez votre score :</p>

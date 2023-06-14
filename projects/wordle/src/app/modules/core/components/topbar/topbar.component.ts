@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { SettingsService } from '@core/services/settings.service';
 import { ThemeService } from '@core/services/theme.service';
 import { theme } from '@models/*';
 import { Subject, takeUntil } from 'rxjs';
@@ -17,18 +16,9 @@ export class TopbarComponent implements OnInit, OnDestroy {
   themeList = this._themeServ.themeList;
   currentThemeId$ = this._themeServ.selectedThemeId$;
 
-  constructor(
-    private _dialog: MatDialog,
-    private _settingsServ: SettingsService,
-    private _themeServ: ThemeService,
-    private _cdr: ChangeDetectorRef
-  ) {}
+  constructor(private _dialog: MatDialog, private _themeServ: ThemeService, private _cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    if (this._settingsServ.firstTime$.value) {
-      this.openHelp();
-      this._settingsServ.setFirstTime(false);
-    }
     this.currentThemeId$.pipe(takeUntil(this._destroy$)).subscribe(() => {
       this._cdr.detectChanges();
     });
