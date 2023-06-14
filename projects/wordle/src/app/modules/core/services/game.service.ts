@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import * as charactersInfosJSON from '@assets/jsons/characters.json';
 import * as wordlesJSON from '@assets/jsons/w1-3.json';
 import * as wordsJSON from '@assets/jsons/words.json';
-import { BoardGame, keyboardKeyBackground, placeLetterJokerLetter } from 'projects/wordle/src/app/models';
+import { BoardGame, keyboardKeyBackground } from 'projects/wordle/src/app/models';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { Wordle } from '../../../models/wordle.model';
 import { APIService } from './api.service';
@@ -133,67 +133,5 @@ export class GameService implements OnDestroy {
     }
 
     this.addCurrentGuessLetter(letter);
-  }
-
-  useJoker1(): void {
-    const bg = this.boardGame$.value;
-    const jok = bg?.jokers.paintJoker;
-    let letter;
-    if (!jok || bg?.success) {
-      return;
-    }
-    do {
-      letter = jok.use();
-      console.warn(letter, this._keyboardServ.hasLetterStates(letter ?? '', ['partial', 'right']));
-    } while (letter != null && this._keyboardServ.hasLetterStates(letter, ['partial', 'right']));
-    if (!letter) {
-      this._snackbarService.openSnackBar(jok.soldOut ? 'Joker épuisé' : 'Toutes les lettres sont découvertes', 'alert');
-      return;
-    }
-    jok.incrementUse();
-    this._keyboardServ.setKeyBg(letter, 'partial');
-    this.boardGame$.next(bg);
-  }
-
-  useJoker2(): void {
-    const bg = this.boardGame$.value;
-    const jok = bg?.jokers.placeLetterJoker;
-    let letter: placeLetterJokerLetter | null;
-    if (!jok || bg?.success) {
-      return;
-    }
-    do {
-      letter = jok.use();
-      console.warn(letter, this._keyboardServ.hasLetterStates(letter?.letter ?? '', ['right']));
-    } while (letter != null && this._keyboardServ.hasLetterStates(letter?.letter, ['right']));
-    if (!letter) {
-      this._snackbarService.openSnackBar(jok.soldOut ? 'Joker épuisé' : 'Toutes les lettres sont placées', 'alert');
-      return;
-    }
-    jok.incrementUse();
-    this._keyboardServ.setKeyBg(letter?.letter, 'right');
-    bg.boardLines.forEach((bl) => {
-      bl.boardBoxes.forEach((bb) => {
-        if (bb.index === letter?.index) {
-          bb.before = letter?.letter;
-        }
-      });
-    });
-    this.boardGame$.next(bg);
-  }
-
-  useJoker3(): void {
-    const bg = this.boardGame$.value;
-    const jok = bg?.jokers.serieJoker;
-    if (!jok || bg?.success) {
-      return;
-    }
-    const serie = jok.use();
-    if (!serie) {
-      this._snackbarService.openSnackBar(jok.soldOut ? 'Joker épuisé' : '');
-      return;
-    }
-    jok.incrementUse();
-    this.boardGame$.next(bg);
   }
 }

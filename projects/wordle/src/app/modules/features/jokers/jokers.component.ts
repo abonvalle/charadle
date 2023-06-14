@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { GameService } from '@core/services/game.service';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { JokersService } from '@core/services/jokers.service';
+import { Subject } from 'rxjs';
+import { Joker, jokersIcons } from '../../../models/joker';
 
 @Component({
   selector: 'jokers',
@@ -7,25 +9,17 @@ import { GameService } from '@core/services/game.service';
   templateUrl: 'jokers.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class JokersComponent {
-  constructor(public gameService: GameService) {}
-  // get paintJoker() {
-  //   return this.gameService.boardGame$.value?.jokers.paintJoker;
-  // }
-  // get placeLetterJoker() {
-  //   return this.gameService.boardGame$.value?.jokers.placeLetterJoker;
-  // }
-  // get serieJoker() {
-  //   return this.gameService.boardGame$.value?.jokers.serieJoker;
-  // }
+export class JokersComponent implements OnInit {
+  jokers$: Subject<Joker[]> = new Subject();
+  constructor(private _jokersService: JokersService) {}
 
-  useJoker1(): void {
-    this.gameService.useJoker1();
+  ngOnInit(): void {
+    this.jokers$ = this._jokersService.jokers$;
   }
-  useJoker2(): void {
-    this.gameService.useJoker2();
+  useJoker(joker: Joker): void {
+    this._jokersService.useJoker(joker);
   }
-  useJoker3(): void {
-    this.gameService.useJoker3();
+  getJokerIcon(jokerName: string): string {
+    return jokersIcons[jokerName as keyof typeof jokersIcons];
   }
 }

@@ -10,6 +10,7 @@ export interface boardGameArgs {
   boardLines?: Map<number, BoardLine>;
   currentActiveBoardLine?: number;
   wordle: Wordle;
+  /**@deprecated */
   jokers?: boardgameJokers;
   success?: boolean;
   end?: boolean;
@@ -18,6 +19,7 @@ export class BoardGame {
   boardLines: Map<number, BoardLine>;
   currentActiveBoardLine: number;
   wordle: Wordle;
+  /**@deprecated */
   jokers: boardgameJokers;
   success?: boolean;
   end?: boolean;
@@ -49,6 +51,7 @@ export class BoardGame {
     }
     return boardLines;
   }
+  /**@deprecated */
   private _setJokers(jokers: boardgameJokers): boardgameJokers {
     const paintJoker = new PaintJoker({
       letters: jokers.paintJoker.letters,

@@ -1,5 +1,8 @@
 <div class="flex items-center justify-center my-2 gap-1">
-  <joker-button *ngIf="(gameService.boardGame$ | async)?.jokers?.paintJoker; let paintJoker" [joker]="paintJoker"
+  <joker-button *ngFor="let joker of jokers$ | async" [joker]="joker" (click)="useJoker(joker)">
+    <i class="icon" [ngClass]="getJokerIcon(joker.name)"></i>
+  </joker-button>
+  <!-- <joker-button *ngIf="(gameService.boardGame$ | async)?.jokers?.paintJoker; let paintJoker" [joker]="paintJoker"
     (click)="useJoker1()">
     <i class="icon icon-format-paint"></i>
   </joker-button>
@@ -10,5 +13,5 @@
   <joker-button *ngIf="(gameService.boardGame$ | async)?.jokers?.serieJoker; let serieJoker" [joker]="serieJoker"
     (click)="useJoker3()">
     <i class="icon icon-tv"></i>
-  </joker-button>
+  </joker-button> -->
 </div>

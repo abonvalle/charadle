@@ -1,11 +1,14 @@
 export interface jokerArgs {
+  name?: string;
   maxUse?: number;
   useCount?: number;
 }
 export class Joker {
+  name: string;
   maxUse: number;
   useCount: number;
   constructor(args?: jokerArgs) {
+    this.name = args?.name ?? '';
     this.maxUse = args?.maxUse ?? 3;
     this.useCount = args?.useCount ?? 0;
   }
