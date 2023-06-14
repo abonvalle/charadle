@@ -73,7 +73,7 @@ export class GameService implements OnDestroy {
     }
     const currentGuess = boardLine.text;
     const words = wordsJSON;
-    if (!words.words.includes(currentGuess)) {
+    if (!words.includes(currentGuess)) {
       this._snackbarService.showUnkownNameAlert(currentGuess);
       return;
     }
@@ -113,7 +113,7 @@ export class GameService implements OnDestroy {
     const wordles = wordlesJSON;
     const ind =
       12 * (numerodujour - 1) + numerodumois + (Math.pow(numerodujour, 2) + 1 * numerodujour) / 2 + 868 * numeroannee;
-    const text = wordles.words[ind - 1] ?? '';
+    const text = wordles[ind - 1] ?? '';
     const charactersInfos = charactersInfosJSON;
     const serie = charactersInfos[text as keyof typeof charactersInfos]?.from ?? '';
     return new Wordle({ date: date.toLocaleDateString('fr-FR'), text, serie });
