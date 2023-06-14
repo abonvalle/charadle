@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Signaler prénom existant</h2>
+<mat-dialog-content class="">
+  <p class="font-body text-zinc-700 tracking-normal">Alors d'après toi, <b>{{data.name}}</b> serait un prénom valide ?
+  </p>
+  <div class="flex flex-col justify-center items-center">
+    <img src="assets/gifs/suspicious.gif" alt="suspicious" class="py-8">
+    <ng-hcaptcha (verify)="onVerify($event)" (expired)="onExpired()" (error)="onError()"> </ng-hcaptcha>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Non je bluff...</button>
+  <button mat-button (click)="reportName()" [disabled]="form.invalid">Oui ça existe !</button>
+</mat-dialog-actions>

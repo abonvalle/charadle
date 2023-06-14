@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarRef, TextOnlySnackBar } from '@angular/material/snack-bar';
+import { NameReportDialogComponent } from '@core/components/name-report-dialog/name-report-dialog.component';
 import { first, takeUntil, timer } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class SnackbarService {
-  constructor(private _snackBar: MatSnackBar) {}
+  constructor(private _snackBar: MatSnackBar, private _dialog: MatDialog) {}
   showUnkownNameAlert(currentGuess: string): void {
     let snackBarRef = this.openSnackBar('Prénom inconnu', 'alert', 'Signaler comme existant');
     snackBarRef
       .onAction()
       .pipe(first(), takeUntil(timer(4000)))
       .subscribe(() => {
-        this.tagNameAsValid(currentGuess);
+        this._dialog.open(NameReportDialogComponent, { data: { name: currentGuess } });
       });
   }
 
@@ -25,8 +27,7 @@ export class SnackbarService {
       panelClass
     });
   }
-  tagNameAsValid(name: string) {
-    console.warn('tag as valid ', name);
+  nameReported() {
     this.openSnackBar('Prénom en cours de vérification, merci !');
     return;
   }
