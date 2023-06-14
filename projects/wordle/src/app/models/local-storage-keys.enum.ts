@@ -8,5 +8,6 @@ export enum localStorageKeys {
   boardgame = 'Ym9hcmRnYW1l',
   paintJoker = 'cGFpbnRKb2tlcg==',
   placeLetterJoker = 'cGxhY2VMZXR0ZXJKb2tlcg==',
-  serieJoker = 'c2VyaWVKb2tlcg=='
+  serieJoker = 'c2VyaWVKb2tlcg==',
+  version = 'c2VyaWVKb2tlcg==z'
 }
