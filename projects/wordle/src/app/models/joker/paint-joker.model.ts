@@ -1,5 +1,6 @@
 import { Joker } from './joker.model';
 export interface paintJokerArgs {
+  name?: string;
   wordle?: string;
   maxUse?: number;
   useCount?: number;
@@ -9,6 +10,8 @@ export class PaintJoker extends Joker {
   letters: string[];
   constructor(args?: paintJokerArgs) {
     super(args);
+    this.name = 'paintLetter';
+    this.maxUse = args?.maxUse ?? 3;
     this.letters = args?.letters ?? this._setLetters(args?.wordle ?? '');
   }
   _setLetters(wordle: string): string[] {

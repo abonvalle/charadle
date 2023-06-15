@@ -4,6 +4,7 @@ export interface placeLetterJokerLetter {
   index: number;
 }
 export interface placeLetterJokerArgs {
+  name?: string;
   wordle?: string;
   maxUse?: number;
   useCount?: number;
@@ -13,6 +14,8 @@ export class PlaceLetterJoker extends Joker {
   letters: placeLetterJokerLetter[];
   constructor(args?: placeLetterJokerArgs) {
     super(args);
+    this.name = 'placeLetter';
+    this.maxUse = args?.maxUse ?? 3;
     this.letters = args?.letters ?? this._setLetters(args?.wordle ?? '');
   }
   _setLetters(wordle: string): placeLetterJokerLetter[] {

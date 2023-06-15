@@ -107,7 +107,7 @@ export class GameService implements OnDestroy {
 
   setWordle(): Wordle {
     let date = new Date();
-    let numerodujour = date.getDate();
+    let numerodujour = date.getDate() + 2; //! remove +2 for build prod
     let numerodumois = date.getMonth() + 1;
     let numeroannee = date.getFullYear() - 2022;
     const wordles = wordlesJSON;
@@ -116,7 +116,7 @@ export class GameService implements OnDestroy {
     const text = wordles[ind - 1] ?? '';
     const charactersInfos = charactersInfosJSON;
     const serie = charactersInfos[text as keyof typeof charactersInfos]?.from ?? '';
-    return new Wordle({ date: date.toLocaleDateString('fr-FR'), text, serie });
+    return new Wordle({ date: date.toLocaleDateString('fr-FR'), text: text + 'e', serie }); //! remove +'eee' for build prod
   }
   enterLetter(letter: string): void {
     if (this.boardGame$.value?.success) {

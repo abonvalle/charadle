@@ -39,6 +39,7 @@ export class LocalStorageService {
     return packageJson.version.split('.')[0] ?? '';
   }
   private _encode(val: string): string {
+    return val; //! todo remove for build
     return window
       .btoa(val)
       .split('')
@@ -46,6 +47,7 @@ export class LocalStorageService {
       .join('');
   }
   private _decode(val: string): string {
+    return val; //! todo remove for build
     return window.atob(
       val
         .split('')

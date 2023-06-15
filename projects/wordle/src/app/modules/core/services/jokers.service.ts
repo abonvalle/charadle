@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 import { Joker, placeLetterJokerLetter } from '../../../models/joker';
 import { GameService } from './game.service';
 import { KeyboardService } from './keyboard.service';
@@ -11,11 +11,23 @@ export class JokersService {
     private _gameService: GameService,
     private _keyboardServ: KeyboardService,
     private _snackbarService: SnackbarService
-  ) {}
-  useJoker(joker: Joker): void {
-    console.warn(joker);
+  ) {
+    this._gameService.boardGame$.pipe(map((bg) => Object.values(bg?.jokers ?? []))).subscribe(this.jokers$);
   }
-  useJoker1(): void {
+  useJoker(joker: Joker): void {
+    switch (joker.name) {
+      case 'paintLetter':
+        this._usePaintLetterJoker();
+        break;
+      case 'placeLetter':
+        this._usePlaceLetterJoker();
+        break;
+      case 'serie':
+        this._useSerieJoker();
+        break;
+    }
+  }
+  private _usePaintLetterJoker(): void {
     const bg = this._gameService.boardGame$.value;
     const jok = bg?.jokers.paintJoker;
     let letter;
@@ -35,7 +47,7 @@ export class JokersService {
     this._gameService.boardGame$.next(bg);
   }
 
-  useJoker2(): void {
+  private _usePlaceLetterJoker(): void {
     const bg = this._gameService.boardGame$.value;
     const jok = bg?.jokers.placeLetterJoker;
     let letter: placeLetterJokerLetter | null;
@@ -62,7 +74,7 @@ export class JokersService {
     this._gameService.boardGame$.next(bg);
   }
 
-  useJoker3(): void {
+  private _useSerieJoker(): void {
     const bg = this._gameService.boardGame$.value;
     const jok = bg?.jokers.serieJoker;
     if (!jok || bg?.success) {
