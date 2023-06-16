@@ -1,0 +1,1104 @@
+{
+  "rachel": {
+    "from": "Friends"
+  },
+  "monica": {
+    "from": "Friends"
+  },
+  "phoebe": {
+    "from": "Friends"
+  },
+  "joey": {
+    "from": "Friends"
+  },
+  "chandler": {
+    "from": "Friends"
+  },
+  "ross": {
+    "from": "Friends"
+  },
+  "jake": {
+    "from": "Brooklyn nine-nine"
+  },
+  "rosa": {
+    "from": "Brooklyn nine-nine"
+  },
+  "terry": {
+    "from": "Brooklyn nine-nine"
+  },
+  "amy": {
+    "from": "Brooklyn nine-nine"
+  },
+  "charles": {
+    "from": "Brooklyn nine-nine"
+  },
+  "gina": {
+    "from": "Brooklyn nine-nine"
+  },
+  "ray": {
+    "from": "Brooklyn nine-nine"
+  },
+  "eddard": {
+    "from": "Game of thrones"
+  },
+  "robert": {
+    "from": "Game of thrones"
+  },
+  "jaime": {
+    "from": "Game of thrones"
+  },
+  "catelyn": {
+    "from": "Game of thrones"
+  },
+  "cersei": {
+    "from": "Game of thrones"
+  },
+  "daenerys": {
+    "from": "Game of thrones"
+  },
+  "jorah": {
+    "from": "Game of thrones"
+  },
+  "jon": {
+    "from": "Game of thrones"
+  },
+  "sansa": {
+    "from": "Game of thrones"
+  },
+  "arya": {
+    "from": "Game of thrones"
+  },
+  "robb": {
+    "from": "Game of thrones"
+  },
+  "theon": {
+    "from": "Game of thrones"
+  },
+  "brandon": {
+    "from": "Game of thrones"
+  },
+  "joffrey": {
+    "from": "Game of thrones"
+  },
+  "sandor": {
+    "from": "Game of thrones"
+  },
+  "drogo": {
+    "from": "Game of thrones"
+  },
+  "petyr": {
+    "from": "Game of thrones"
+  },
+  "davos": {
+    "from": "Game of thrones"
+  },
+  "samwell": {
+    "from": "Game of thrones"
+  },
+  "stannis": {
+    "from": "Game of thrones"
+  },
+  "melisandre": {
+    "from": "Game of thrones"
+  },
+  "varys": {
+    "from": "Game of thrones"
+  },
+  "margaery": {
+    "from": "Game of thrones"
+  },
+  "tywin": {
+    "from": "Game of thrones"
+  },
+  "gendry": {
+    "from": "Game of thrones"
+  },
+  "tormund": {
+    "from": "Game of thrones"
+  },
+  "brienne": {
+    "from": "Game of thrones"
+  },
+  "ramsay": {
+    "from": "Game of thrones"
+  },
+  "viserys": {
+    "from": "House of the dragon"
+  },
+  "daemon": {
+    "from": "House of the dragon"
+  },
+  "alicent": {
+    "from": "House of the dragon"
+  },
+  "rhaenyra": {
+    "from": "House of the dragon"
+  },
+  "rhaenys": {
+    "from": "House of the dragon"
+  },
+  "aegon": {
+    "from": "House of the dragon"
+  },
+  "aemond": {
+    "from": "House of the dragon"
+  },
+  "vaemond": {
+    "from": "House of the dragon"
+  },
+  "lucerys": {
+    "from": "House of the dragon"
+  },
+  "laenor": {
+    "from": "House of the dragon"
+  },
+  "michael": {
+    "from": "The office"
+  },
+  "dwight": {
+    "from": "The office"
+  },
+  "jim": {
+    "from": "The office"
+  },
+  "pam": {
+    "from": "The office"
+  },
+  "ryan": {
+    "from": "The office"
+  },
+  "andrew": {
+    "from": "The office"
+  },
+  "stanley": {
+    "from": "The office"
+  },
+  "kevin": {
+    "from": "The office"
+  },
+  "phyllis": {
+    "from": "The office"
+  },
+  "meredith": {
+    "from": "The office"
+  },
+  "kelly": {
+    "from": "The office"
+  },
+  "creed": {
+    "from": "The office"
+  },
+  "toby": {
+    "from": "The office"
+  },
+  "erin": {
+    "from": "The office"
+  },
+  "holly": {
+    "from": "The office"
+  },
+  "karen": {
+    "from": "The office"
+  },
+  "roy": {
+    "from": "The office"
+  },
+  "david": {
+    "from": "The office"
+  },
+  "jan": {
+    "from": "The office"
+  },
+  "oscar": {
+    "from": "The office"
+  },
+  "darryl": {
+    "from": "The office"
+  },
+  "otis": {
+    "from": "Sex education"
+  },
+  "eric": {
+    "from": "Sex education"
+  },
+  "adam": {
+    "from": "Sex education"
+  },
+  "jackson": {
+    "from": "Sex education"
+  },
+  "ruby": {
+    "from": "Sex education"
+  },
+  "aimee": {
+    "from": "Sex education"
+  },
+  "anwar": {
+    "from": "Sex education"
+  },
+  "jakob": {
+    "from": "Sex education"
+  },
+  "hope": {
+    "from": "Sex education"
+  },
+  "maeve": {
+    "from": "Sex education"
+  },
+  "olivia": {
+    "from": "Sex education"
+  },
+  "ola": {
+    "from": "Sex education"
+  },
+  "walter": {
+    "from": "Breaking bad"
+  },
+  "jesse": {
+    "from": "Breaking bad"
+  },
+  "skyler": {
+    "from": "Breaking bad"
+  },
+  "hank": {
+    "from": "Breaking bad"
+  },
+  "chuck": {
+    "from": "Better Call Saul"
+  },
+  "marie": {
+    "from": "Breaking bad"
+  },
+  "saul": {
+    "from": "Breaking bad"
+  },
+  "kimberly": {
+    "from": "Breaking bad"
+  },
+  "todd": {
+    "from": "Breaking bad"
+  },
+  "tuco": {
+    "from": "Breaking bad"
+  },
+  "hector": {
+    "from": "Breaking bad"
+  },
+  "thomas": {
+    "from": "Peaky Blinders"
+  },
+  "polly": {
+    "from": "Peaky Blinders"
+  },
+  "arthur": {
+    "from": "Peaky Blinders"
+  },
+  "ada": {
+    "from": "Peaky Blinders"
+  },
+  "john": {
+    "from": "Peaky Blinders"
+  },
+  "grace": {
+    "from": "Peaky Blinders"
+  },
+  "lizzie": {
+    "from": "Peaky Blinders"
+  },
+  "finn": {
+    "from": "Peaky Blinders"
+  },
+  "esme": {
+    "from": "Peaky Blinders"
+  },
+  "linda": {
+    "from": "Peaky Blinders"
+  },
+  "charlie": {
+    "from": "Peaky Blinders"
+  },
+  "johnny": {
+    "from": "Peaky Blinders"
+  },
+  "curly": {
+    "from": "Peaky Blinders"
+  },
+  "jeremiah": {
+    "from": "Peaky Blinders"
+  },
+  "alfie": {
+    "from": "Peaky Blinders"
+  },
+  "mycroft": {
+    "from": "Sherlock"
+  },
+  "molly": {
+    "from": "Sherlock"
+  },
+  "james": {
+    "from": "Sherlock"
+  },
+  "mary": {
+    "from": "Sherlock"
+  },
+  "sally": {
+    "from": "Sherlock"
+  },
+  "sarah": {
+    "from": "Sherlock"
+  },
+  "irene": {
+    "from": "Sherlock"
+  },
+  "beth": {
+    "from": "The queen's gambit"
+  },
+  "jolene": {
+    "from": "The queen's gambit"
+  },
+  "helen": {
+    "from": "The queen's gambit"
+  },
+  "alice": {
+    "from": "The queen's gambit"
+  },
+  "alma": {
+    "from": "The queen's gambit"
+  },
+  "harry": {
+    "from": "The queen's gambit"
+  },
+  "allston": {
+    "from": "The queen's gambit"
+  },
+  "cleo": {
+    "from": "The queen's gambit"
+  },
+  "benny": {
+    "from": "The queen's gambit"
+  },
+  "vasily": {
+    "from": "The queen's gambit"
+  },
+  "joyce": {
+    "from": "Stranger things"
+  },
+  "mike": {
+    "from": "Stranger things"
+  },
+  "jane": {
+    "from": "Stranger things"
+  },
+  "dustin": {
+    "from": "Stranger things"
+  },
+  "lucas": {
+    "from": "Stranger things"
+  },
+  "erica": {
+    "from": "Stranger things"
+  },
+  "nancy": {
+    "from": "Stranger things"
+  },
+  "jonathan": {
+    "from": "Stranger things"
+  },
+  "will": {
+    "from": "Stranger things"
+  },
+  "maxine": {
+    "from": "Stranger things"
+  },
+  "steve": {
+    "from": "Stranger things"
+  },
+  "samuel": {
+    "from": "Stranger things"
+  },
+  "murray": {
+    "from": "Stranger things"
+  },
+  "henry": {
+    "from": "Stranger things"
+  },
+  "billy": {
+    "from": "Stranger things"
+  },
+  "bob": {
+    "from": "Stranger things"
+  },
+  "martin": {
+    "from": "Stranger things"
+  },
+  "dmitri": {
+    "from": "Stranger things"
+  },
+  "argyle": {
+    "from": "Stranger things"
+  },
+  "eddie": {
+    "from": "Stranger things"
+  },
+  "ragnar": {
+    "from": "Vikings"
+  },
+  "lagertha": {
+    "from": "Vikings"
+  },
+  "rollo": {
+    "from": "Vikings"
+  },
+  "floki": {
+    "from": "Vikings"
+  },
+  "siggy": {
+    "from": "Vikings"
+  },
+  "kalf": {
+    "from": "Vikings"
+  },
+  "ivar": {
+    "from": "Vikings"
+  },
+  "sigurd": {
+    "from": "Vikings"
+  },
+  "ubbe": {
+    "from": "Vikings"
+  },
+  "erik": {
+    "from": "Vikings"
+  },
+  "holden": {
+    "from": "Mindhunter"
+  },
+  "bill": {
+    "from": "Mindhunter"
+  },
+  "wendy": {
+    "from": "Mindhunter"
+  },
+  "debbie": {
+    "from": "Mindhunter"
+  },
+  "kay": {
+    "from": "Mindhunter"
+  },
+  "brian": {
+    "from": "Mindhunter"
+  },
+  "gregg": {
+    "from": "Mindhunter"
+  },
+  "dexter": {
+    "from": "Dexter"
+  },
+  "debra": {
+    "from": "Dexter"
+  },
+  "rita": {
+    "from": "Dexter"
+  },
+  "maria": {
+    "from": "Dexter"
+  },
+  "angelo": {
+    "from": "Dexter"
+  },
+  "vince": {
+    "from": "Dexter"
+  },
+  "pablo": {
+    "from": "Narcos"
+  },
+  "jose": {
+    "from": "Narcos"
+  },
+  "javier": {
+    "from": "Narcos"
+  },
+  "cesar": {
+    "from": "Narcos"
+  },
+  "eduardo": {
+    "from": "Narcos"
+  },
+  "horacio": {
+    "from": "Narcos"
+  },
+  "judy": {
+    "from": "Narcos"
+  },
+  "tata": {
+    "from": "Narcos"
+  },
+  "elisa": {
+    "from": "Narcos"
+  },
+  "valeria": {
+    "from": "Narcos"
+  },
+  "fabio": {
+    "from": "Narcos"
+  },
+  "gustavo": {
+    "from": "Narcos"
+  },
+  "juan": {
+    "from": "Narcos"
+  },
+  "guillaume": {
+    "from": "Le bureau des légendes"
+  },
+  "henri": {
+    "from": "Le bureau des légendes"
+  },
+  "laurene": {
+    "from": "Le bureau des légendes"
+  },
+  "marina": {
+    "from": "Le bureau des légendes"
+  },
+  "marie-jeanne": {
+    "from": "Le bureau des légendes"
+  },
+  "jean-jacques": {
+    "from": "Le bureau des légendes"
+  },
+  "raymond": {
+    "from": "Le bureau des légendes"
+  },
+  "nadia": {
+    "from": "Le bureau des légendes"
+  },
+  "marc": {
+    "from": "Le bureau des légendes"
+  },
+  "daisy": {
+    "from": "Le bureau des légendes"
+  },
+  "prune": {
+    "from": "Le bureau des légendes"
+  },
+  "sylvain": {
+    "from": "Le bureau des légendes"
+  },
+  "daryl": {
+    "from": "The walking dead"
+  },
+  "carol": {
+    "from": "The walking dead"
+  },
+  "maggie": {
+    "from": "The walking dead"
+  },
+  "rosita": {
+    "from": "The walking dead"
+  },
+  "eugene": {
+    "from": "The walking dead"
+  },
+  "gabriel": {
+    "from": "The walking dead"
+  },
+  "aaron": {
+    "from": "The walking dead"
+  },
+  "negan": {
+    "from": "The walking dead"
+  },
+  "ezekiel": {
+    "from": "The walking dead"
+  },
+  "jacqui": {
+    "from": "The walking dead"
+  },
+  "judith": {
+    "from": "The walking dead"
+  },
+  "andrea": {
+    "from": "The walking dead"
+  },
+  "carl": {
+    "from": "The walking dead"
+  },
+  "connie": {
+    "from": "The walking dead"
+  },
+  "sophia": {
+    "from": "The walking dead"
+  },
+  "dale": {
+    "from": "The walking dead"
+  },
+  "shane": {
+    "from": "The walking dead"
+  },
+  "lori": {
+    "from": "The walking dead"
+  },
+  "merle": {
+    "from": "The walking dead"
+  },
+  "hershel": {
+    "from": "The walking dead"
+  },
+  "philip": {
+    "from": "The walking dead"
+  },
+  "glenn": {
+    "from": "The walking dead"
+  },
+  "rick": {
+    "from": "The walking dead"
+  },
+  "michonne": {
+    "from": "The walking dead"
+  },
+  "dolores": {
+    "from": "Westworld"
+  },
+  "bernard": {
+    "from": "Westworld"
+  },
+  "charlotte": {
+    "from": "Westworld"
+  },
+  "ashley": {
+    "from": "Westworld"
+  },
+  "clementine": {
+    "from": "Westworld"
+  },
+  "theodore": {
+    "from": "Westworld"
+  },
+  "william": {
+    "from": "Westworld"
+  },
+  "logan": {
+    "from": "Westworld"
+  },
+  "elliot": {
+    "from": "Mr. Robot"
+  },
+  "edward": {
+    "from": "Mr. Robot"
+  },
+  "darlene": {
+    "from": "Mr. Robot"
+  },
+  "angela": {
+    "from": "Mr. Robot"
+  },
+  "tyrell": {
+    "from": "Mr. Robot"
+  },
+  "phillip": {
+    "from": "Mr. Robot"
+  },
+  "joanna": {
+    "from": "Mr. Robot"
+  },
+  "dominique": {
+    "from": "Mr. Robot"
+  },
+  "zhang": {
+    "from": "Mr. Robot"
+  },
+  "irving": {
+    "from": "Mr. Robot"
+  },
+  "krista": {
+    "from": "Mr. Robot"
+  },
+  "shayla": {
+    "from": "Mr. Robot"
+  },
+  "leon": {
+    "from": "Mr. Robot"
+  },
+  "shama": {
+    "from": "Mr. Robot"
+  },
+  "sunil": {
+    "from": "Mr. Robot"
+  },
+  "gideon": {
+    "from": "Mr. Robot"
+  },
+  "gi-hun": {
+    "from": "Squid game",
+    "difficulty": 3
+  },
+  "sang-woo": {
+    "from": "Squid game",
+    "difficulty": 3
+  },
+  "il-nam": {
+    "from": "Squid game",
+    "difficulty": 3
+  },
+  "sae-byeok": {
+    "from": "Squid game",
+    "difficulty": 3
+  },
+  "deok-su": {
+    "from": "Squid game",
+    "difficulty": 3
+  },
+  "ali": {
+    "from": "Squid game",
+    "difficulty": 3
+  },
+  "mi-nyeo": {
+    "from": "Squid game",
+    "difficulty": 3
+  },
+  "vivien": {
+    "from": "American horror story"
+  },
+  "benjamin": {
+    "from": "American horror story"
+  },
+  "violet": {
+    "from": "American horror story"
+  },
+  "tate": {
+    "from": "American horror story"
+  },
+  "larry": {
+    "from": "American horror story"
+  },
+  "constance": {
+    "from": "American horror story"
+  },
+  "ted": {
+    "from": "How I met your mother"
+  },
+  "marshall": {
+    "from": "How I met your mother"
+  },
+  "lily": {
+    "from": "How I met your mother"
+  },
+  "barney": {
+    "from": "How I met your mother"
+  },
+  "robin": {
+    "from": "How I met your mother"
+  },
+  "tracy": {
+    "from": "How I met your mother"
+  },
+  "norma": {
+    "from": "Bates motel"
+  },
+  "norman": {
+    "from": "Bates motel"
+  },
+  "dylan": {
+    "from": "Bates motel"
+  },
+  "emma": {
+    "from": "Bates motel"
+  },
+  "bradley": {
+    "from": "Bates motel"
+  },
+  "alex": {
+    "from": "Bates motel"
+  },
+  "caleb": {
+    "from": "Bates motel"
+  },
+  "leonard": {
+    "from": "The big bang theory"
+  },
+  "sheldon": {
+    "from": "The big bang theory"
+  },
+  "penny": {
+    "from": "The big bang theory"
+  },
+  "howard": {
+    "from": "The big bang theory"
+  },
+  "rajesh": {
+    "from": "The big bang theory"
+  },
+  "stuart": {
+    "from": "The big bang theory"
+  },
+  "malcolm": {
+    "from": "Malcolm"
+  },
+  "lois": {
+    "from": "Malcolm"
+  },
+  "hal": {
+    "from": "Malcolm"
+  },
+  "francis": {
+    "from": "Malcolm"
+  },
+  "reese": {
+    "from": "Malcolm"
+  },
+  "dewey": {
+    "from": "Malcolm"
+  },
+  "jamie": {
+    "from": "Malcolm"
+  },
+  "stevie": {
+    "from": "Malcolm"
+  },
+  "eleanor": {
+    "from": "The good place"
+  },
+  "tahani": {
+    "from": "The good place"
+  },
+  "chidi": {
+    "from": "The good place"
+  },
+  "jason": {
+    "from": "The good place"
+  },
+  "janet": {
+    "from": "The good place"
+  },
+  "joe": {
+    "from": "You"
+  },
+  "love": {
+    "from": "You"
+  },
+  "marienne": {
+    "from": "You"
+  },
+  "peach": {
+    "from": "You"
+  },
+  "guinevere": {
+    "from": "You"
+  },
+  "candace": {
+    "from": "You"
+  },
+  "delilah": {
+    "from": "You"
+  },
+  "cary": {
+    "from": "You"
+  },
+  "piper": {
+    "from": "Orange is the new black"
+  },
+  "galina": {
+    "from": "Orange is the new black"
+  },
+  "claudette": {
+    "from": "Orange is the new black"
+  },
+  "sam": {
+    "from": "Orange is the new black"
+  },
+  "suzanne": {
+    "from": "Orange is the new black"
+  },
+  "tasha": {
+    "from": "Orange is the new black"
+  },
+  "nicky": {
+    "from": "Orange is the new black"
+  },
+  "tiffany": {
+    "from": "Orange is the new black"
+  },
+  "gloria": {
+    "from": "Orange is the new black"
+  },
+  "cindy": {
+    "from": "Orange is the new black"
+  },
+  "blanca": {
+    "from": "Orange is the new black"
+  },
+  "junior": {
+    "from": "Ma famille d'abord"
+  },
+  "claire": {
+    "from": "Ma famille d'abord"
+  },
+  "kady": {
+    "from": "Ma famille d'abord"
+  },
+  "franklin": {
+    "from": "Ma famille d'abord"
+  },
+  "june": {
+    "from": "The handmaid's tale"
+  },
+  "serena": {
+    "from": "The handmaid's tale"
+  },
+  "janine": {
+    "from": "The handmaid's tale"
+  },
+  "moira": {
+    "from": "The handmaid's tale"
+  },
+  "luke": {
+    "from": "The handmaid's tale"
+  },
+  "nick": {
+    "from": "The handmaid's tale"
+  },
+  "fred": {
+    "from": "The handmaid's tale"
+  },
+  "emily": {
+    "from": "The handmaid's tale"
+  },
+  "leslie": {
+    "from": "Parks and recreation"
+  },
+  "ann": {
+    "from": "Parks and recreation"
+  },
+  "mark": {
+    "from": "Parks and recreation"
+  },
+  "tom": {
+    "from": "Parks and recreation"
+  },
+  "ron": {
+    "from": "Parks and recreation"
+  },
+  "april": {
+    "from": "Parks and recreation"
+  },
+  "andy": {
+    "from": "Parks and recreation"
+  },
+  "ben": {
+    "from": "Parks and recreation"
+  },
+  "chris": {
+    "from": "Parks and recreation"
+  },
+  "craig": {
+    "from": "Parks and recreation"
+  },
+  "sergio": {
+    "from": "La casa de papel"
+  },
+  "silene": {
+    "from": "La casa de papel"
+  },
+  "raquel": {
+    "from": "La casa de papel"
+  },
+  "andres": {
+    "from": "La casa de papel"
+  },
+  "agata": {
+    "from": "La casa de papel"
+  },
+  "anibal": {
+    "from": "La casa de papel"
+  },
+  "daniel": {
+    "from": "La casa de papel"
+  },
+  "agustin": {
+    "from": "La casa de papel"
+  },
+  "mirko": {
+    "from": "La casa de papel"
+  },
+  "alison": {
+    "from": "La casa de papel"
+  },
+  "arturo": {
+    "from": "La casa de papel"
+  },
+  "santiago": {
+    "from": "La casa de papel"
+  },
+  "alicia": {
+    "from": "La casa de papel"
+  },
+  "jakov": {
+    "from": "La casa de papel"
+  },
+  "christian": {
+    "from": "Elite"
+  },
+  "fernando": {
+    "from": "Elite"
+  },
+  "leopoldo": {
+    "from": "Elite"
+  },
+  "carla": {
+    "from": "Elite"
+  },
+  "lucrecia": {
+    "from": "Elite"
+  },
+  "lidia": {
+    "from": "Las chicas del cable"
+  },
+  "francisco": {
+    "from": "Las chicas del cable"
+  },
+  "carlota": {
+    "from": "Las chicas del cable"
+  },
+  "carlos": {
+    "from": "Las chicas del cable"
+  },
+  "sara": {
+    "from": "Las chicas del cable"
+  },
+  "sofia": {
+    "from": "Las chicas del cable"
+  },
+  "felipe": {
+    "from": "Las chicas del cable"
+  },
+  "geralt": {
+    "from": "The Witcher"
+  },
+  "yennefer": {
+    "from": "The Witcher"
+  },
+  "ciri": {
+    "from": "The Witcher"
+  },
+  "cahir": {
+    "from": "The Witcher"
+  },
+  "tissaia": {
+    "from": "The Witcher"
+  },
+  "fringilla": {
+    "from": "The Witcher"
+  },
+  "triss": {
+    "from": "The Witcher"
+  },
+  "jaskier": {
+    "from": "The Witcher"
+  },
+  "vesemir": {
+    "from": "The Witcher"
+  },
+  "francesca": {
+    "from": "The Witcher"
+  }
+}

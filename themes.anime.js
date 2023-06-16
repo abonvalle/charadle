@@ -1,5 +1,5 @@
 // @ts-nocheck
-const { themes, font } = require('./projects/wordle/src/assets/serie/jsons/themes.json')
+const { themes, font } = require('./projects/wordle/src/assets/anime/jsons/themes.json')
 // theme : {
 //    id: 'bf44bfc2-ce1a-4113-ac69-753ba202a0ff', -> Identifiant unique
 //    name: 'Classique', -> Nom affiché

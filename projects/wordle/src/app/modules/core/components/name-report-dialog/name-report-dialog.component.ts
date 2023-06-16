@@ -51,7 +51,7 @@ export class NameReportDialogComponent {
 
     // Make the AJAX request
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', '/assets/php/reportName.php', true);
+    xhr.open('POST', '/php/reportName.php', true);
 
     // Set the Referer header
     // xhr.setRequestHeader('Referer', 'https://testargi.abvdev.fr');

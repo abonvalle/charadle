@@ -20,7 +20,12 @@
             "tsConfig": "projects/wordle/src/tsconfig.app.json",
             "assets": [
               "projects/wordle/src/favicon.ico",
-              "projects/wordle/src/assets"
+              "projects/wordle/src/php",
+              {
+                "glob": "**/*",
+                "input": "projects/wordle/src/assets/assets-serie",
+                "output": "/assets/"
+              }
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
@@ -50,6 +55,44 @@
               ],
               "outputHashing": "all"
             },
+            "production-anime": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "assets": [
+                "projects/wordle/src/favicon.ico",
+                "projects/wordle/src/php",
+                {
+                  "glob": "**/*",
+                  "input": "projects/wordle/src/assets/assets-anime",
+                  "output": "/assets/"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/wordle/src/environments/environment.ts",
+                  "with": "projects/wordle/src/environments/environment.prod.anime.ts"
+                },
+                {
+                  "replace": "themes.js",
+                  "with": "themes.anime.js"
+                },
+                {
+                  "replace": "tsconfig.json",
+                  "with": "tsconfig.anime.json"
+                }
+              ],
+              "outputHashing": "all"
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -57,6 +100,37 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
+            },
+            "development-anime": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "assets": [
+                "projects/wordle/src/favicon.ico",
+                "projects/wordle/src/php",
+                {
+                  "glob": "**/*",
+                  "input": "projects/wordle/src/assets/assets-anime",
+                  "output": "/assets/"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/wordle/src/environments/environment.ts",
+                  "with": "projects/wordle/src/environments/environment.anime.ts"
+                },
+                {
+                  "replace": "themes.js",
+                  "with": "themes.anime.js"
+                },
+                {
+                  "replace": "tsconfig.json",
+                  "with": "tsconfig.anime.json"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -64,6 +138,12 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
+            "production-anime": {
+              "browserTarget": "wordle:build:production-anime"
+            },
+            "development-anime": {
+              "browserTarget": "wordle:build:development-anime"
+            },
             "production": {
               "browserTarget": "wordle:build:production"
             },
@@ -88,7 +168,8 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "projects/wordle/src/favicon.ico",
-              "projects/wordle/src/assets"
+              "projects/wordle/src/php",
+              "projects/wordle/src/assets/assets-serie"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
