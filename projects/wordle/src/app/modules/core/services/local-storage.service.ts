@@ -38,7 +38,7 @@ export class LocalStorageService {
     return v.join('.') ?? '';
   }
   private _encode(val: string): string {
-    return val; //! todo remove for build
+    // return val;
     return window
       .btoa(val)
       .split('')
@@ -46,7 +46,7 @@ export class LocalStorageService {
       .join('');
   }
   private _decode(val: string): string {
-    return val; //! todo remove for build
+    // return val;
     return window.atob(
       val
         .split('')
