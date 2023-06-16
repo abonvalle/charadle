@@ -1,39 +1,25 @@
 import { Joker } from './joker.model';
 export interface paintJokerArgs {
-  wordle?: string;
+  name?: string;
   maxUse?: number;
-  useCount?: number;
-  letters?: string[];
+  uses?: string[];
+  difficulty?: number;
 }
 export class PaintJoker extends Joker {
-  letters: string[];
+  uses: string[];
+  override get useCount(): number {
+    return this.uses.length;
+  }
   constructor(args?: paintJokerArgs) {
     super(args);
-    this.letters = args?.letters ?? this._setLetters(args?.wordle ?? '');
+    this.name = 'paintLetter';
+    this.uses = args?.uses ?? [];
   }
-  _setLetters(wordle: string): string[] {
-    return this._shuffle(wordle.split(''));
-  }
-  _shuffle(array: string[]): string[] {
-    let currentIndex = array.length,
-      randomIndex;
-
-    // While there remain elements to shuffle.
-    while (currentIndex != 0) {
-      // Pick a remaining element.
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-
-      // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [array[randomIndex] ?? '', array[currentIndex] ?? ''];
-    }
-
-    return array;
-  }
-  use(): string | null {
+  use(letter: string): boolean {
     if (this.soldOut) {
-      return null;
+      return false;
     }
-    return this.letters.shift() ?? null;
+    this.uses.push(letter);
+    return true;
   }
 }

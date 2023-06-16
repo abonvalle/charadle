@@ -1,5 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { GameService } from '@core/services/game.service';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { APIService } from '@core/services/api.service';
+import { JokersService } from '@core/services/jokers.service';
+import { Subject, filter, map, takeUntil } from 'rxjs';
+import { Joker, jokersIcons } from '../../../models/joker';
 
 @Component({
   selector: 'jokers',
@@ -7,25 +10,34 @@ import { GameService } from '@core/services/game.service';
   templateUrl: 'jokers.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class JokersComponent {
-  constructor(public gameService: GameService) {}
-  // get paintJoker() {
-  //   return this.gameService.boardGame$.value?.jokers.paintJoker;
-  // }
-  // get placeLetterJoker() {
-  //   return this.gameService.boardGame$.value?.jokers.placeLetterJoker;
-  // }
-  // get serieJoker() {
-  //   return this.gameService.boardGame$.value?.jokers.serieJoker;
-  // }
+export class JokersComponent implements OnInit, OnDestroy {
+  jokers$: Subject<Joker[]> = new Subject();
+  _destroy$: Subject<void> = new Subject();
+  constructor(private _jokersService: JokersService, private _cdr: ChangeDetectorRef, private _apiServ: APIService) {}
 
-  useJoker1(): void {
-    this.gameService.useJoker1();
+  ngOnInit(): void {
+    this.jokers$ = this._jokersService.jokers$.pipe(
+      takeUntil(this._destroy$),
+      filter((jks) => jks !== null),
+      map((jks) => Object.values(jks!))
+    ) as Subject<Joker[]>;
+
+    this._jokersService.jokers$
+      .asObservable()
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((joks) => {
+        joks && this._apiServ.setJokers(joks);
+        this._cdr.detectChanges();
+      });
   }
-  useJoker2(): void {
-    this.gameService.useJoker2();
+  ngOnDestroy(): void {
+    this._destroy$?.next();
+    this._destroy$?.unsubscribe();
   }
-  useJoker3(): void {
-    this.gameService.useJoker3();
+  useJoker(joker: Joker): void {
+    this._jokersService.useJoker(joker);
+  }
+  getJokerIcon(jokerName: string): string {
+    return jokersIcons[jokerName as keyof typeof jokersIcons];
   }
 }

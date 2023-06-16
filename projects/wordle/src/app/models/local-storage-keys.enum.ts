@@ -9,5 +9,6 @@ export enum localStorageKeys {
   paintJoker = 'cGFpbnRKb2tlcg==',
   placeLetterJoker = 'cGxhY2VMZXR0ZXJKb2tlcg==',
   serieJoker = 'c2VyaWVKb2tlcg==',
-  version = 'c2VyaWVKb2tlcg==z'
+  version = 'c2VyaWVKb2tlcg==z',
+  jokers = 'c2VyaWVKb2tlcg==qzdqz'
 }

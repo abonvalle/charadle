@@ -11,34 +11,34 @@ export class LocalStorageService {
   read(key: string): string | null {
     if (!this.isVersionCtrl) {
       if (!this._checkVersion()) {
-        localStorage.clear();
-        this.update(localStorageKeys.version, this._getMajorVersion());
+        this.clearStorage();
+        this.update(localStorageKeys.version, this._getMajorMinorVersion());
         this.isVersionCtrl = true;
         return null;
       }
       this.isVersionCtrl = true;
     }
 
-    const res = localStorage.getItem(this._getVersionedKey(key));
+    const res = localStorage.getItem(key);
     return res ? this._decode(res) : null;
   }
   update(key: string, value: string): void {
-    localStorage.setItem(this._getVersionedKey(key), this._encode(value));
+    localStorage.setItem(key, this._encode(value));
   }
   delete(key: string): void {
-    localStorage.removeItem(this._getVersionedKey(key));
+    localStorage.removeItem(key);
   }
   clearStorage(): void {
     this.clear$.next();
     localStorage.clear();
   }
-  private _getVersionedKey(key: string): string {
-    return `${key}?v=${this._getMajorVersion()}`;
-  }
-  private _getMajorVersion(): string {
-    return packageJson.version.split('.')[0] ?? '';
+  private _getMajorMinorVersion(): string {
+    const v = packageJson.version.split('.');
+    v.pop();
+    return v.join('.') ?? '';
   }
   private _encode(val: string): string {
+    return val; //! todo remove for build
     return window
       .btoa(val)
       .split('')
@@ -46,6 +46,7 @@ export class LocalStorageService {
       .join('');
   }
   private _decode(val: string): string {
+    return val; //! todo remove for build
     return window.atob(
       val
         .split('')
@@ -60,10 +61,10 @@ export class LocalStorageService {
     return String.fromCharCode(c.charCodeAt(0) - 2);
   }
   private _checkVersion(): boolean {
-    const res = localStorage.getItem(this._getVersionedKey(localStorageKeys.version));
+    const res = localStorage.getItem(localStorageKeys.version);
     if (!res) {
       return false;
     }
-    return this._decode(res) === this._getMajorVersion();
+    return this._decode(res).split('.')[0] === this._getMajorMinorVersion().split('.')[0];
   }
 }

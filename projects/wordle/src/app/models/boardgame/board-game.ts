@@ -1,7 +1,7 @@
 import { PaintJoker, PlaceLetterJoker, SerieJoker } from '../joker';
 import { Wordle } from '../wordle.model';
 import { BoardLine } from './board-line';
-interface boardgameJokers {
+export interface boardgameJokers {
   paintJoker: PaintJoker;
   placeLetterJoker: PlaceLetterJoker;
   serieJoker: SerieJoker;
@@ -10,7 +10,6 @@ export interface boardGameArgs {
   boardLines?: Map<number, BoardLine>;
   currentActiveBoardLine?: number;
   wordle: Wordle;
-  jokers?: boardgameJokers;
   success?: boolean;
   end?: boolean;
 }
@@ -18,12 +17,10 @@ export class BoardGame {
   boardLines: Map<number, BoardLine>;
   currentActiveBoardLine: number;
   wordle: Wordle;
-  jokers: boardgameJokers;
   success?: boolean;
   end?: boolean;
   constructor(args: boardGameArgs) {
     this.currentActiveBoardLine = args.currentActiveBoardLine ?? 0;
-    this.jokers = args.jokers ? this._setJokers(args.jokers) : this._initJokers(args.wordle);
     this.wordle = args.wordle;
     this.success = args.success ?? false;
     this.end = args.end ?? false;
@@ -49,29 +46,7 @@ export class BoardGame {
     }
     return boardLines;
   }
-  private _setJokers(jokers: boardgameJokers): boardgameJokers {
-    const paintJoker = new PaintJoker({
-      letters: jokers.paintJoker.letters,
-      useCount: jokers.paintJoker.useCount,
-      maxUse: jokers.paintJoker.maxUse
-    });
-    const placeLetterJoker = new PlaceLetterJoker({
-      letters: jokers.placeLetterJoker.letters,
-      useCount: jokers.placeLetterJoker.useCount,
-      maxUse: jokers.placeLetterJoker.maxUse
-    });
-    const serieJoker = new SerieJoker({
-      serieName: jokers.serieJoker.serieName,
-      useCount: jokers.serieJoker.useCount
-    });
-    return { paintJoker, placeLetterJoker, serieJoker };
-  }
-  private _initJokers(wordle: Wordle): boardgameJokers {
-    const paintJoker = new PaintJoker({ wordle: wordle.text });
-    const placeLetterJoker = new PlaceLetterJoker({ wordle: wordle.text });
-    const serieJoker = new SerieJoker({ serieName: wordle.serie });
-    return { paintJoker, placeLetterJoker, serieJoker };
-  }
+
   addBoardLine(): void {
     this.boardLines.set(
       this.boardLines.size,

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BoardGame } from '../../../models/boardgame';
+import { BoardGame, boardgameJokers } from '../../../models/boardgame';
 import { defaultSettings } from '../../../models/default-settings';
+import { PaintJoker, PlaceLetterJoker, SerieJoker } from '../../../models/joker';
 import { Keyboard, keyboardType } from '../../../models/keyboard';
 import { localStorageKeys } from '../../../models/local-storage-keys.enum';
 import { settings } from '../../../models/settings.interface';
@@ -19,7 +20,6 @@ export class APIService {
           currentActiveBoardLine: boardgame.currentActiveBoardLine,
           boardLines: boardgame.boardLines,
           wordle,
-          jokers: boardgame.jokers,
           end: boardgame.end,
           success: boardgame.success
         })
@@ -30,6 +30,33 @@ export class APIService {
   }
   deleteBoardgame(): void {
     this._localStorage.delete(localStorageKeys.boardgame);
+  }
+
+  /** Jokers  */
+  getJokers(wordle: Wordle): boardgameJokers {
+    const difficulty = wordle.difficulty;
+    const strJk = this._localStorage.read(localStorageKeys.jokers);
+    const jokers = strJk ? (JSON.parse(strJk) as boardgameJokers) : null;
+    return jokers
+      ? {
+          paintJoker: new PaintJoker({ difficulty, uses: jokers.paintJoker.uses }),
+          placeLetterJoker: new PlaceLetterJoker({
+            difficulty,
+            uses: jokers.placeLetterJoker.uses
+          }),
+          serieJoker: new SerieJoker({ uses: jokers.serieJoker.uses })
+        }
+      : {
+          paintJoker: new PaintJoker({ difficulty }),
+          placeLetterJoker: new PlaceLetterJoker({ difficulty }),
+          serieJoker: new SerieJoker()
+        };
+  }
+  setJokers(jokers: boardgameJokers): void {
+    this._localStorage.update(localStorageKeys.jokers, JSON.stringify(jokers));
+  }
+  deleteJokers(): void {
+    this._localStorage.delete(localStorageKeys.jokers);
   }
 
   /** Keyboard  */

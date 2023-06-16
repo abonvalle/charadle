@@ -1,12 +1,14 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Injectable } from '@angular/core';
 import { GameService } from './game.service';
+import { JokersService } from './jokers.service';
 import { SnackbarService } from './snackbar.service';
 
 @Injectable({ providedIn: 'root' })
 export class ShareService {
   constructor(
     private _gameService: GameService,
+    private _jokersService: JokersService,
     private _snackbarService: SnackbarService,
     private _clipboard: Clipboard
   ) {}
@@ -40,10 +42,10 @@ export class ShareService {
     };
   }
   getSharingJokersData(): string {
-    const bg = this._gameService.boardGame$.value;
-    const joker1Count = bg?.jokers.paintJoker.useCount;
-    const joker2Count = bg?.jokers.placeLetterJoker.useCount;
-    const joker3Count = bg?.jokers.serieJoker.useCount;
+    const joks = this._jokersService.jokers$.value;
+    const joker1Count = joks?.paintJoker.useCount;
+    const joker2Count = joks?.placeLetterJoker.useCount;
+    const joker3Count = joks?.serieJoker.useCount;
     const hasUsedJoker = joker1Count !== 0 || joker2Count !== 0 || joker3Count !== 0;
     if (hasUsedJoker) {
       return `🖌️x${joker1Count}, 🔤x${joker2Count}, 🎥x${joker3Count}`;
