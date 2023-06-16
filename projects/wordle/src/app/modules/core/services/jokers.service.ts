@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
-import { Joker, placeLetterJokerLetter } from '../../../models/joker';
+import { Joker } from '../../../models/joker';
 import { GameService } from './game.service';
 import { KeyboardService } from './keyboard.service';
 import { SnackbarService } from './snackbar.service';
@@ -30,48 +30,56 @@ export class JokersService {
   private _usePaintLetterJoker(): void {
     const bg = this._gameService.boardGame$.value;
     const jok = bg?.jokers.paintJoker;
-    let letter;
     if (!jok || bg?.success) {
       return;
     }
-    do {
-      letter = jok.use();
-      console.warn(letter, this._keyboardServ.hasLetterStates(letter ?? '', ['partial', 'right']));
-    } while (letter != null && this._keyboardServ.hasLetterStates(letter, ['partial', 'right']));
-    if (!letter) {
-      this._snackbarService.openSnackBar(jok.soldOut ? 'Joker épuisé' : 'Toutes les lettres sont découvertes', 'alert');
+    if (jok.soldOut) {
+      this._snackbarService.openSnackBar('Joker épuisé');
       return;
     }
-    jok.incrementUse();
-    this._keyboardServ.setKeyBg(letter, 'partial');
-    this._gameService.boardGame$.next(bg);
+    const letters = this._shuffle(bg.wordle.text);
+    for (let letter of letters) {
+      if (this._keyboardServ.hasLetterStates(letter.letter, ['partial', 'right'])) {
+        continue;
+      }
+      jok.use(letter.letter);
+      this._keyboardServ.setKeyBg(letter.letter, 'partial');
+      this._gameService.boardGame$.next(bg);
+      return;
+    }
+    this._snackbarService.openSnackBar('Toutes les lettres sont découvertes', 'alert');
+    return;
   }
 
   private _usePlaceLetterJoker(): void {
     const bg = this._gameService.boardGame$.value;
     const jok = bg?.jokers.placeLetterJoker;
-    let letter: placeLetterJokerLetter | null;
     if (!jok || bg?.success) {
       return;
     }
-    do {
-      letter = jok.use();
-      console.warn(letter, this._keyboardServ.hasLetterStates(letter?.letter ?? '', ['right']));
-    } while (letter != null && this._keyboardServ.hasLetterStates(letter?.letter, ['right']));
-    if (!letter) {
-      this._snackbarService.openSnackBar(jok.soldOut ? 'Joker épuisé' : 'Toutes les lettres sont placées', 'alert');
+    if (jok.soldOut) {
+      this._snackbarService.openSnackBar('Joker épuisé');
       return;
     }
-    jok.incrementUse();
-    this._keyboardServ.setKeyBg(letter?.letter, 'right');
-    bg.boardLines.forEach((bl) => {
-      bl.boardBoxes.forEach((bb) => {
-        if (bb.index === letter?.index) {
-          bb.before = letter?.letter;
-        }
+    const letters = this._shuffle(bg.wordle.text);
+    for (let letter of letters) {
+      if (this._keyboardServ.hasLetterStates(letter.letter, ['right'])) {
+        continue;
+      }
+      jok.use(letter);
+      this._keyboardServ.setKeyBg(letter.letter, 'right');
+      bg.boardLines.forEach((bl) => {
+        bl.boardBoxes.forEach((bb) => {
+          if (bb.index === letter?.index) {
+            bb.before = letter?.letter;
+          }
+        });
       });
-    });
-    this._gameService.boardGame$.next(bg);
+      this._gameService.boardGame$.next(bg);
+      return;
+    }
+    this._snackbarService.openSnackBar('Toutes les lettres sont découvertes', 'alert');
+    return;
   }
 
   private _useSerieJoker(): void {
@@ -80,12 +88,34 @@ export class JokersService {
     if (!jok || bg?.success) {
       return;
     }
-    const serie = jok.use();
-    if (!serie) {
-      this._snackbarService.openSnackBar(jok.soldOut ? 'Joker épuisé' : '');
+    if (!jok.use()) {
+      this._snackbarService.openSnackBar('Joker épuisé');
       return;
     }
-    jok.incrementUse();
     this._gameService.boardGame$.next(bg);
+  }
+
+  private _shuffle(text: string): { letter: string; index: number }[] {
+    const arr = text.split('');
+    let currentIndex = arr.length,
+      randomIndex;
+
+    // Create a new array of objects with the letter and index properties
+    const newArray = arr.map((letter, index) => ({ letter, index }));
+
+    // While there remain elements to shuffle.
+    while (currentIndex != 0) {
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element.
+      [newArray[currentIndex], newArray[randomIndex]] = [
+        newArray[randomIndex] ?? { letter: '', index: -1 },
+        newArray[currentIndex] ?? { letter: '', index: -1 }
+      ];
+    }
+
+    return newArray;
   }
 }

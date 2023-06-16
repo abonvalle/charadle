@@ -1,8 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import * as charactersInfosJSON from '@assets/jsons/characters.json';
-import * as wordlesJSON from '@assets/jsons/w1-3.json';
-import * as wordsJSON from '@assets/jsons/words.json';
+import wordlesJSON from '@assets/jsons/w1-3.json';
+import wordsJSON from '@assets/jsons/words.json';
 import { BoardGame, keyboardKeyBackground } from 'projects/wordle/src/app/models';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { Wordle } from '../../../models/wordle.model';
@@ -107,7 +107,7 @@ export class GameService implements OnDestroy {
 
   setWordle(): Wordle {
     let date = new Date();
-    let numerodujour = date.getDate() + 2; //! remove +2 for build prod
+    let numerodujour = date.getDate();
     let numerodumois = date.getMonth() + 1;
     let numeroannee = date.getFullYear() - 2022;
     const wordles = wordlesJSON;
@@ -116,7 +116,7 @@ export class GameService implements OnDestroy {
     const text = wordles[ind - 1] ?? '';
     const charactersInfos = charactersInfosJSON;
     const serie = charactersInfos[text as keyof typeof charactersInfos]?.from ?? '';
-    return new Wordle({ date: date.toLocaleDateString('fr-FR'), text: text + 'e', serie }); //! remove +'eee' for build prod
+    return new Wordle({ date: date.toLocaleDateString('fr-FR'), text: text, serie });
   }
   enterLetter(letter: string): void {
     if (this.boardGame$.value?.success) {

@@ -1,9 +1,9 @@
 <div class="flex flex-col h-full">
   <ng-container *ngIf="(gameService.boardGame$ | async) ;let boardGame">
     <boardgame></boardgame>
-    <p *ngIf="boardGame?.jokers?.serieJoker?.useCount === 1 && !boardGame?.success"
+    <p *ngIf="boardGame?.jokers?.serieJoker?.soldOut && !boardGame?.success"
       class="text-white text-center text-2xl text-shadow-sm shadow-black">
-      {{boardGame?.jokers?.serieJoker?.serieName}}
+      {{boardGame?.wordle?.serie}}
     </p>
 
     <jokers></jokers>

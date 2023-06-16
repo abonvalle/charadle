@@ -51,26 +51,29 @@ export class BoardGame {
   }
   private _setJokers(jokers: boardgameJokers): boardgameJokers {
     const paintJoker = new PaintJoker({
-      letters: jokers.paintJoker.letters,
-      useCount: jokers.paintJoker.useCount,
-      maxUse: jokers.paintJoker.maxUse
+      // letters: jokers.paintJoker.letters,
+      // useCount: jokers.paintJoker.useCount,
+      maxUse: jokers.paintJoker.maxUse,
+      uses: jokers.paintJoker.uses
     });
     const placeLetterJoker = new PlaceLetterJoker({
-      letters: jokers.placeLetterJoker.letters,
-      useCount: jokers.placeLetterJoker.useCount,
-      maxUse: jokers.placeLetterJoker.maxUse
+      // letters: jokers.placeLetterJoker.letters,
+      // useCount: jokers.placeLetterJoker.useCount,
+      maxUse: jokers.placeLetterJoker.maxUse,
+      uses: jokers.placeLetterJoker.uses
     });
     const serieJoker = new SerieJoker({
-      serieName: jokers.serieJoker.serieName,
-      useCount: jokers.serieJoker.useCount
+      // serieName: jokers.serieJoker.serieName,
+      uses: jokers.serieJoker.uses
+      // useCount: jokers.serieJoker.useCount
     });
     return { paintJoker, placeLetterJoker, serieJoker };
   }
   private _initJokers(wordle: Wordle): boardgameJokers {
     const maxUse = this._getMaxUse(wordle.text);
-    const paintJoker = new PaintJoker({ wordle: wordle.text, maxUse });
-    const placeLetterJoker = new PlaceLetterJoker({ wordle: wordle.text, maxUse });
-    const serieJoker = new SerieJoker({ serieName: wordle.serie });
+    const paintJoker = new PaintJoker({ maxUse });
+    const placeLetterJoker = new PlaceLetterJoker({ maxUse });
+    const serieJoker = new SerieJoker();
     return { paintJoker, placeLetterJoker, serieJoker };
   }
   private _getMaxUse(wordle: string): number {

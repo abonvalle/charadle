@@ -10,6 +10,9 @@ export class KeyboardService {
   initKeyBoard(bg: BoardGame): void {
     const kb = this._apiServ.getKeyboard();
     bg.boardLines.forEach((bl) => {
+      if (bl.isActive) {
+        return;
+      }
       bl.text.split('').forEach((letter, index) => {
         let state: keyboardKeyBackground = 'none';
         if (bg.wordle.text.includes(letter)) {
@@ -20,6 +23,14 @@ export class KeyboardService {
         kb.setKeyState(letter, state);
       });
     });
+    for (let i = 0; i < bg.jokers.paintJoker.useCount; i++) {
+      // const letter = bg.jokers.paintJoker.letters[i] ?? '';
+      // kb.setKeyState(letter, 'partial');
+    }
+    for (let i = 0; i < bg.jokers.placeLetterJoker.useCount; i++) {
+      // const letter = bg.jokers.placeLetterJoker.letters[i]?.letter ?? '';
+      // kb.setKeyState(letter, 'right');
+    }
     this.keyboard$.next(kb);
   }
   setKeyboard(): void {

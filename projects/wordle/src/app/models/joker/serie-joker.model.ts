@@ -1,20 +1,23 @@
 import { Joker } from './joker.model';
 export interface serieJokerArgs {
   name?: string;
-  useCount?: number;
-  serieName?: string;
+  uses?: number;
 }
 export class SerieJoker extends Joker {
-  serieName: string;
+  uses: number;
+  override get useCount(): number {
+    return this.uses;
+  }
   constructor(args?: serieJokerArgs) {
     super({ ...args, maxUse: 1 });
     this.name = 'serie';
-    this.serieName = args?.serieName ?? '';
+    this.uses = args?.uses ?? 0;
   }
-  use(): string | null {
+  use(): boolean {
     if (this.soldOut) {
-      return null;
+      return false;
     }
-    return this.serieName;
+    this.uses++;
+    return true;
   }
 }
