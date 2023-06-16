@@ -54,10 +54,8 @@ export class BoardgameComponent implements OnInit, OnDestroy {
       // classes.push(this._themeService.theme$.value.boardLetterBg);
     }
 
-    //daltonien
-    // if (true) {
-    //   classes.push(`accessibility_${this.boardBox.background}`);
-    // }
+    //colorblind
+    classes.push(`accessibility-${boardBox.background}`);
     boardBox.classes = classes;
     return boardBox;
   }

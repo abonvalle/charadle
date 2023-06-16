@@ -1,5 +1,5 @@
 <div class="w-full overflow-hidden h-full bg-gradient-to-tl from-gradient-start via-gradient-middle to-gradient-end"
-  [ngClass]="themeId$ | async" (touchstart)="platformService.enableTouchStart()">
+  [ngClass]="classes$ | async" (touchstart)="platformService.enableTouchStart()">
   <div class="h-full flex justify-center">
     <div
       class="z-10 overflow-hidden h-full w-full max-w-[850px] relative outline outline-2 outline-primary-900 bg-gradient-to-tl from-gradient-start via-gradient-middle to-gradient-end">
@@ -15,18 +15,4 @@
     </div>
   </div>
 
-
-  <!-- <div
-    class="h-full w-full top-0 left-0 z-10 absolutepointer-events-none">
-  </div> -->
-  <!-- <div class=" flex flex-row">
-      <div class="h-full w-full bg-wordcloud bg-[length:350px_350px] bg-repeat opacity-dynamic">
-      </div>
-      <div class="flex-grow h-full w-full max-w-[850px] bg-wordcloud bg-[length:350px_350px] bg-repeat opacity-dynamic">
-      </div>
-      <div class="h-full w-full bg-wordcloud bg-[length:350px_350px] bg-repeat opacity-dynamic">
-      </div>
-      <div class="h-full w-full absolute top-0 left-0 bg-wordcloud bg-[length:350px_350px] bg-repeat opacity-dynamic">
-      </div>
-    </div> -->
 </div>

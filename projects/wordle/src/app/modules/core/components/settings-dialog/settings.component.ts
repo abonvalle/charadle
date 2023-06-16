@@ -15,10 +15,7 @@ export class SettingsDialogComponent {
   }
   private _init(): void {
     // this.form.addControl('playerName', new FormControl(this.settingsServ.playerName$?.value));
-    this.form.addControl(
-      'colorBlindMode',
-      new FormControl({ value: this.settingsServ.colorBlindMode$?.value, disabled: true })
-    );
+    this.form.addControl('colorBlindMode', new FormControl(this.settingsServ.colorBlindMode$?.value));
   }
 
   save(): void {

@@ -8,7 +8,6 @@ import { specialLetters } from '../../models/sepcial-letters';
   standalone: true,
   selector: 'app-keyboard-key',
   templateUrl: './keyboard-key.component.html',
-  styleUrls: ['./keyboard-key.component.css'],
   styles: [':host{display:contents}'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule]

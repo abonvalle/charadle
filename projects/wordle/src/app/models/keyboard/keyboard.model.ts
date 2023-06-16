@@ -119,7 +119,7 @@ export class Keyboard {
       return;
     }
     key.state = state;
-    key.classes = `bg-${state}/80`;
+    key.classes = `bg-${state}/80 accessibility-${state}`;
   }
   hasLetterStates(letter: string, states: keyboardKeyBackground[]): boolean {
     const key = this.getKey(letter);
