@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import * as charactersInfosJSON from '@assets/jsons/characters.json';
 import wordlesJSON from '@assets/jsons/w1-3.json';
 import wordsJSON from '@assets/jsons/words.json';
-import { BoardGame, keyboardKeyBackground } from 'projects/wordle/src/app/models';
+import { BoardGame, keyboardKeyBackground, placeLetterJokerLetter } from 'projects/wordle/src/app/models';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { Wordle } from '../../../models/wordle.model';
 import { APIService } from './api.service';
