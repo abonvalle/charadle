@@ -729,25 +729,32 @@
     "from": "Mr. Robot"
   },
   "gi-hun": {
-    "from": "Squid game"
+    "from": "Squid game",
+    "difficulty": 3
   },
   "sang-woo": {
-    "from": "Squid game"
+    "from": "Squid game",
+    "difficulty": 3
   },
   "il-nam": {
-    "from": "Squid game"
+    "from": "Squid game",
+    "difficulty": 3
   },
   "sae-byeok": {
-    "from": "Squid game"
+    "from": "Squid game",
+    "difficulty": 3
   },
   "deok-su": {
-    "from": "Squid game"
+    "from": "Squid game",
+    "difficulty": 3
   },
   "ali": {
-    "from": "Squid game"
+    "from": "Squid game",
+    "difficulty": 3
   },
   "mi-nyeo": {
-    "from": "Squid game"
+    "from": "Squid game",
+    "difficulty": 3
   },
   "vivien": {
     "from": "American horror story"

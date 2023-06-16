@@ -1,7 +1,7 @@
 export interface jokerArgs {
   name?: string;
-  maxUse?: number;
   useCount?: number;
+  difficulty?: number;
 }
 export class Joker {
   name: string;
@@ -18,6 +18,17 @@ export class Joker {
   }
   constructor(args?: jokerArgs) {
     this.name = args?.name ?? '';
-    this.maxUse = args?.maxUse ?? 3;
+    this.maxUse = this._getMaxUses(args?.difficulty ?? 1);
+  }
+  _getMaxUses(difficulty: number): number {
+    switch (difficulty) {
+      case 2:
+        return 4;
+      case 3:
+        return 5;
+      case 1:
+      default:
+        return 3;
+    }
   }
 }

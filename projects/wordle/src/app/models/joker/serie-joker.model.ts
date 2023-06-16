@@ -9,9 +9,10 @@ export class SerieJoker extends Joker {
     return this.uses;
   }
   constructor(args?: serieJokerArgs) {
-    super({ ...args, maxUse: 1 });
+    super({ ...args });
     this.name = 'serie';
     this.uses = args?.uses ?? 0;
+    this.maxUse = 1;
   }
   use(): boolean {
     if (this.soldOut) {

@@ -7,6 +7,7 @@ import { BoardGame, keyboardKeyBackground } from 'projects/wordle/src/app/models
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { Wordle } from '../../../models/wordle.model';
 import { APIService } from './api.service';
+import { JokersService } from './jokers.service';
 import { KeyboardService } from './keyboard.service';
 import { LocalStorageService } from './local-storage.service';
 import { SnackbarService } from './snackbar.service';
@@ -19,6 +20,7 @@ export class GameService implements OnDestroy {
     private _localStrgServ: LocalStorageService,
     private _snackbarService: SnackbarService,
     private _keyboardServ: KeyboardService,
+    private _jokersServ: JokersService,
     private _apiServ: APIService,
     private _router: Router
   ) {
@@ -31,9 +33,11 @@ export class GameService implements OnDestroy {
   initBoardGame(): void {
     const wordle = this.setWordle();
     const initBG = this._apiServ.getBoardgame(wordle);
+    const initJokers = this._apiServ.getJokers(wordle);
     console.warn(initBG);
     this.boardGame$.next(initBG);
-    this._keyboardServ.initKeyBoard(initBG);
+    this._jokersServ.initJokers(wordle, initJokers);
+    this._keyboardServ.initKeyBoard(initBG, initJokers);
     if (initBG.end) {
       this._router.navigate(['/resultat']);
     }
@@ -42,6 +46,19 @@ export class GameService implements OnDestroy {
   private _event(): void {
     this._localStrgServ.clear$.pipe(takeUntil(this.destroy$)).subscribe(() => {
       this.initBoardGame();
+    });
+    this._jokersServ.jokers$.pipe(takeUntil(this.destroy$)).subscribe((joks) => {
+      const bg = this.boardGame$.value;
+      joks?.placeLetterJoker.uses.forEach((letter) => {
+        bg?.boardLines.forEach((bl) => {
+          bl.boardBoxes.forEach((bb) => {
+            if (bb.index === letter?.index) {
+              bb.before = letter?.letter;
+            }
+          });
+        });
+      });
+      this.boardGame$.next(bg);
     });
   }
 
@@ -114,9 +131,12 @@ export class GameService implements OnDestroy {
     const ind =
       12 * (numerodujour - 1) + numerodumois + (Math.pow(numerodujour, 2) + 1 * numerodujour) / 2 + 868 * numeroannee;
     const text = wordles[ind - 1] ?? '';
-    const charactersInfos = charactersInfosJSON;
-    const serie = charactersInfos[text as keyof typeof charactersInfos]?.from ?? '';
-    return new Wordle({ date: date.toLocaleDateString('fr-FR'), text: text, serie });
+    const charactersInfos = charactersInfosJSON as {
+      [key: string]: { from: string; difficulty?: number };
+    };
+    const serie = charactersInfos[text]?.from ?? '';
+    const difficulty = charactersInfos[text]?.difficulty;
+    return new Wordle({ date: date.toLocaleDateString('fr-FR'), text: text, serie, difficulty });
   }
   enterLetter(letter: string): void {
     if (this.boardGame$.value?.success) {

@@ -7,6 +7,7 @@ export interface placeLetterJokerArgs {
   name?: string;
   maxUse?: number;
   uses?: placeLetterJokerLetter[];
+  difficulty?: number;
 }
 export class PlaceLetterJoker extends Joker {
   uses: placeLetterJokerLetter[];
@@ -16,7 +17,6 @@ export class PlaceLetterJoker extends Joker {
   constructor(args?: placeLetterJokerArgs) {
     super(args);
     this.name = 'placeLetter';
-    this.maxUse = args?.maxUse ?? 3;
     this.uses = args?.uses ?? [];
   }
   use(letter: placeLetterJokerLetter): boolean {

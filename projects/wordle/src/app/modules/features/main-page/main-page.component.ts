@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { GameService } from '@core/services/game.service';
+import { JokersService } from '@core/services/jokers.service';
 import { KeyboardService } from '@core/services/keyboard.service';
 import { ShareService } from '@core/services/share.service';
-import { Subject } from 'rxjs';
+import { Subject, filter, map, takeUntil } from 'rxjs';
+import { SerieJoker } from '../../../models/joker';
 
 @Component({
   selector: 'main-page',
@@ -11,16 +13,23 @@ import { Subject } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainPageComponent implements OnInit, OnDestroy {
-  _destroy$: Subject<void> = new Subject();
+  serieJoker$: Subject<SerieJoker> = new Subject();
+  private _destroy$: Subject<void> = new Subject();
   constructor(
     public shareService: ShareService,
     public gameService: GameService,
+    private _jokersService: JokersService,
     private _cdr: ChangeDetectorRef,
     private _keyboardServ: KeyboardService
   ) {}
   ngOnInit(): void {
     // this.boardGame$ = this._gameService.boardGame$.asObservable().pipe(takeUntil(this._destroy$));
     // this._gameService.initGame();
+    this.serieJoker$ = this._jokersService.jokers$.pipe(
+      takeUntil(this._destroy$),
+      filter((jks) => jks !== null && !!jks?.serieJoker),
+      map((jks) => jks?.serieJoker)
+    ) as Subject<SerieJoker>;
   }
 
   ngOnDestroy(): void {

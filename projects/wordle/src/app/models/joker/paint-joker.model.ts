@@ -3,6 +3,7 @@ export interface paintJokerArgs {
   name?: string;
   maxUse?: number;
   uses?: string[];
+  difficulty?: number;
 }
 export class PaintJoker extends Joker {
   uses: string[];
@@ -12,7 +13,6 @@ export class PaintJoker extends Joker {
   constructor(args?: paintJokerArgs) {
     super(args);
     this.name = 'paintLetter';
-    this.maxUse = args?.maxUse ?? 3;
     this.uses = args?.uses ?? [];
   }
   use(letter: string): boolean {

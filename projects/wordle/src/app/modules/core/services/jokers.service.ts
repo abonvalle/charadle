@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { boardgameJokers } from '../../../models/boardgame';
 import { Joker } from '../../../models/joker';
-import { GameService } from './game.service';
+import { Wordle } from '../../../models/wordle.model';
 import { KeyboardService } from './keyboard.service';
 import { SnackbarService } from './snackbar.service';
 @Injectable({ providedIn: 'root' })
 export class JokersService {
-  jokers$: BehaviorSubject<Joker[] | []> = new BehaviorSubject<Joker[] | []>([]);
-  constructor(
-    private _gameService: GameService,
-    private _keyboardServ: KeyboardService,
-    private _snackbarService: SnackbarService
-  ) {
-    this._gameService.boardGame$.pipe(map((bg) => Object.values(bg?.jokers ?? []))).subscribe(this.jokers$);
+  jokers$: BehaviorSubject<boardgameJokers | null> = new BehaviorSubject<boardgameJokers | null>(null);
+  private _wordle: Wordle | null = null;
+  constructor(private _keyboardServ: KeyboardService, private _snackbarService: SnackbarService) {}
+  initJokers(wordle: Wordle, initJokers: boardgameJokers) {
+    this.jokers$.next(initJokers);
+    this._wordle = wordle;
+    console.warn(this._wordle);
   }
   useJoker(joker: Joker): void {
     switch (joker.name) {
@@ -28,23 +29,23 @@ export class JokersService {
     }
   }
   private _usePaintLetterJoker(): void {
-    const bg = this._gameService.boardGame$.value;
-    const jok = bg?.jokers.paintJoker;
-    if (!jok || bg?.success) {
+    const joks = this.jokers$.value;
+    const jok = joks?.paintJoker;
+    if (!jok) {
       return;
     }
     if (jok.soldOut) {
       this._snackbarService.openSnackBar('Joker épuisé');
       return;
     }
-    const letters = this._shuffle(bg.wordle.text);
+    const letters = this._shuffle(this._wordle?.text ?? '');
     for (let letter of letters) {
       if (this._keyboardServ.hasLetterStates(letter.letter, ['partial', 'right'])) {
         continue;
       }
       jok.use(letter.letter);
       this._keyboardServ.setKeyBg(letter.letter, 'partial');
-      this._gameService.boardGame$.next(bg);
+      this.jokers$.next(joks);
       return;
     }
     this._snackbarService.openSnackBar('Toutes les lettres sont découvertes', 'alert');
@@ -52,30 +53,23 @@ export class JokersService {
   }
 
   private _usePlaceLetterJoker(): void {
-    const bg = this._gameService.boardGame$.value;
-    const jok = bg?.jokers.placeLetterJoker;
-    if (!jok || bg?.success) {
+    const joks = this.jokers$.value;
+    const jok = joks?.placeLetterJoker;
+    if (!jok) {
       return;
     }
     if (jok.soldOut) {
       this._snackbarService.openSnackBar('Joker épuisé');
       return;
     }
-    const letters = this._shuffle(bg.wordle.text);
+    const letters = this._shuffle(this._wordle?.text ?? '');
     for (let letter of letters) {
       if (this._keyboardServ.hasLetterStates(letter.letter, ['right'])) {
         continue;
       }
       jok.use(letter);
       this._keyboardServ.setKeyBg(letter.letter, 'right');
-      bg.boardLines.forEach((bl) => {
-        bl.boardBoxes.forEach((bb) => {
-          if (bb.index === letter?.index) {
-            bb.before = letter?.letter;
-          }
-        });
-      });
-      this._gameService.boardGame$.next(bg);
+      this.jokers$.next(joks);
       return;
     }
     this._snackbarService.openSnackBar('Toutes les lettres sont découvertes', 'alert');
@@ -83,16 +77,16 @@ export class JokersService {
   }
 
   private _useSerieJoker(): void {
-    const bg = this._gameService.boardGame$.value;
-    const jok = bg?.jokers.serieJoker;
-    if (!jok || bg?.success) {
+    const joks = this.jokers$.value;
+    const jok = joks?.serieJoker;
+    if (!jok) {
       return;
     }
     if (!jok.use()) {
       this._snackbarService.openSnackBar('Joker épuisé');
       return;
     }
-    this._gameService.boardGame$.next(bg);
+    this.jokers$.next(joks);
   }
 
   private _shuffle(text: string): { letter: string; index: number }[] {
