@@ -10,8 +10,6 @@ export interface boardGameArgs {
   boardLines?: Map<number, BoardLine>;
   currentActiveBoardLine?: number;
   wordle: Wordle;
-  // /**@deprecated */
-  // jokers?: boardgameJokers;
   success?: boolean;
   end?: boolean;
 }
@@ -19,13 +17,10 @@ export class BoardGame {
   boardLines: Map<number, BoardLine>;
   currentActiveBoardLine: number;
   wordle: Wordle;
-  // /**@deprecated */
-  // jokers: boardgameJokers;
   success?: boolean;
   end?: boolean;
   constructor(args: boardGameArgs) {
     this.currentActiveBoardLine = args.currentActiveBoardLine ?? 0;
-    // this.jokers = args.jokers ? this._setJokers(args.jokers) : this._initJokers(args.wordle);
     this.wordle = args.wordle;
     this.success = args.success ?? false;
     this.end = args.end ?? false;
@@ -51,42 +46,6 @@ export class BoardGame {
     }
     return boardLines;
   }
-  // private _setJokers(jokers: boardgameJokers): boardgameJokers {
-  //   const paintJoker = new PaintJoker({
-  //     // letters: jokers.paintJoker.letters,
-  //     // useCount: jokers.paintJoker.useCount,
-  //     maxUse: jokers.paintJoker.maxUse,
-  //     uses: jokers.paintJoker.uses
-  //   });
-  //   const placeLetterJoker = new PlaceLetterJoker({
-  //     // letters: jokers.placeLetterJoker.letters,
-  //     // useCount: jokers.placeLetterJoker.useCount,
-  //     maxUse: jokers.placeLetterJoker.maxUse,
-  //     uses: jokers.placeLetterJoker.uses
-  //   });
-  //   const serieJoker = new SerieJoker({
-  //     // serieName: jokers.serieJoker.serieName,
-  //     uses: jokers.serieJoker.uses
-  //     // useCount: jokers.serieJoker.useCount
-  //   });
-  //   return { paintJoker, placeLetterJoker, serieJoker };
-  // }
-  // private _initJokers(wordle: Wordle): boardgameJokers {
-  //   const maxUse = this._getMaxUse(wordle.text);
-  //   const paintJoker = new PaintJoker({ maxUse });
-  //   const placeLetterJoker = new PlaceLetterJoker({ maxUse });
-  //   const serieJoker = new SerieJoker();
-  //   return { paintJoker, placeLetterJoker, serieJoker };
-  // }
-  // private _getMaxUse(wordle: string): number {
-  //   if (wordle.length < 6) {
-  //     return 3;
-  //   } else if (wordle.length < 9) {
-  //     return 4;
-  //   } else {
-  //     return 5;
-  //   }
-  // }
 
   addBoardLine(): void {
     this.boardLines.set(
