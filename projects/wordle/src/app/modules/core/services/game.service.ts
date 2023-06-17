@@ -132,11 +132,13 @@ export class GameService implements OnDestroy {
       12 * (numerodujour - 1) + numerodumois + (Math.pow(numerodujour, 2) + 1 * numerodujour) / 2 + 868 * numeroannee;
     const text = wordles[ind - 1] ?? '';
     const charactersInfos = charactersInfosJSON as {
-      [key: string]: { from: string; difficulty?: number };
+      [key: string]: { from: string; imgPath: string; fullname: string; difficulty?: number };
     };
     const serie = charactersInfos[text]?.from ?? '';
     const difficulty = charactersInfos[text]?.difficulty;
-    return new Wordle({ date: date.toLocaleDateString('fr-FR'), text: text, serie, difficulty });
+    const imgPath = charactersInfos[text]?.imgPath ?? '';
+    const fullname = charactersInfos[text]?.fullname ?? text;
+    return new Wordle({ date: date.toLocaleDateString('fr-FR'), text, serie, difficulty, imgPath, fullname });
   }
   enterLetter(letter: string): void {
     if (this.boardGame$.value?.success) {

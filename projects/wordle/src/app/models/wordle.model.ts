@@ -2,17 +2,23 @@ export interface wordleArgs {
   date: string;
   text: string;
   serie: string;
+  imgPath: string;
+  fullname: string;
   difficulty?: number;
 }
 export class Wordle {
   date: string;
   text: string;
   serie: string;
+  imgPath: string;
+  fullname: string;
   difficulty: number;
   constructor(args: wordleArgs) {
     this.date = args.date;
     this.text = args.text;
     this.serie = args.serie;
+    this.imgPath = args.imgPath;
+    this.fullname = args.fullname;
     this.difficulty = args.difficulty ?? this._getDifficulty(args.text);
   }
   get length(): number {

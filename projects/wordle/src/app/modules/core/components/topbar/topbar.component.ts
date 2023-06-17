@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { environment } from '@config/environment';
 import { ThemeService } from '@core/services/theme.service';
 import { theme } from '@models/*';
 import { Subject, takeUntil } from 'rxjs';
@@ -15,6 +16,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
   _destroy$: Subject<void> = new Subject();
   themeList = this._themeServ.themeList;
   currentThemeId$ = this._themeServ.selectedThemeId$;
+  version: string = environment.version.label;
 
   constructor(private _dialog: MatDialog, private _themeServ: ThemeService, private _cdr: ChangeDetectorRef) {}
 

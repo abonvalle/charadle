@@ -6,7 +6,7 @@
       {{boardGame?.wordle?.serie}}
     </p>
 
-    <jokers></jokers>
+    <jokers *ngIf="!boardGame?.success"></jokers>
     <ng-container *ngIf="!boardGame.end;else resultatPageLinkTpl">
       <app-keyboard (letterClick)="onLetterClick($event)"></app-keyboard>
     </ng-container>

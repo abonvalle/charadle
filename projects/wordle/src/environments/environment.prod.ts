@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  version: 'serie'
+  version: { code: 'serie', label: 'Séries' }
 };

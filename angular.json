@@ -23,7 +23,7 @@
               "projects/wordle/src/php",
               {
                 "glob": "**/*",
-                "input": "projects/wordle/src/assets/assets-serie",
+                "input": "projects/wordle/src/assets/serie",
                 "output": "/assets/"
               }
             ],
@@ -73,7 +73,7 @@
                 "projects/wordle/src/php",
                 {
                   "glob": "**/*",
-                  "input": "projects/wordle/src/assets/assets-anime",
+                  "input": "projects/wordle/src/assets/anime",
                   "output": "/assets/"
                 }
               ],
@@ -113,7 +113,7 @@
                 "projects/wordle/src/php",
                 {
                   "glob": "**/*",
-                  "input": "projects/wordle/src/assets/assets-anime",
+                  "input": "projects/wordle/src/assets/anime",
                   "output": "/assets/"
                 }
               ],
