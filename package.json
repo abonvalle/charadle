@@ -3,12 +3,14 @@
   "version": "1.1.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "start-anime": "ng serve --configuration development-anime",
-    "build": "ng build",
-    "build-anime": "ng build --configuration production-anime",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "start": "ng serve wordle",
+    "start-anime": "ng serve wordle --configuration development-anime",
+    "build": "ng build wordle",
+    "build-anime": "ng build wordle --configuration production-anime",
+    "start-editor": "ng serve wordle-editor",
+    "build-editor": "ng build wordle-editor",
+    "watch": "ng build wordle --watch --configuration development",
+    "test": "ng test wordle"
   },
   "private": true,
   "dependencies": {

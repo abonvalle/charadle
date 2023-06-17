@@ -169,7 +169,118 @@
             "assets": [
               "projects/wordle/src/favicon.ico",
               "projects/wordle/src/php",
-              "projects/wordle/src/assets/assets-serie"
+              "projects/wordle/src/assets/serie"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "projects/wordle/src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    },
+    "wordle-editor": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/wordle-editor",
+      "sourceRoot": "projects/wordle-editor/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/wordle-editor",
+            "index": "projects/wordle-editor/src/index.html",
+            "main": "projects/wordle-editor/src/main.ts",
+            "polyfills": "projects/wordle-editor/src/polyfills.ts",
+            "tsConfig": "projects/wordle-editor/src/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/wordle/src/assets/serie",
+                "output": "/assets/"
+              }
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "projects/wordle/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/wordle-editor/src/environments/environment.ts",
+                  "with": "projects/wordle-editor/src/environments/environment.prod.ts"
+                },
+                {
+                  "replace": "tsconfig.json",
+                  "with": "tsconfig.editor.json"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "tsconfig.json",
+                  "with": "tsconfig.editor.json"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "wordle-editor:build:production"
+            },
+            "development": {
+              "browserTarget": "wordle-editor:build:development"
+            }
+          },
+          "defaultConfiguration": "development",
+          "options": {
+            "port": 4201
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "wordle-editor:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/wordle-editor/src/test.ts",
+            "polyfills": "projects/wordle-editor/src/polyfills.ts",
+            "tsConfig": "projects/wordle-editor/src/tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "assets": [
+              "projects/wordle/src/assets/serie"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",

@@ -1,65 +1,25 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import * as charactersInfosJSON from '@assets/jsons/characters.json';
-import wordlesJSON from '@assets/jsons/w1-3.json';
-import wordsJSON from '@assets/jsons/words.json';
-import { BoardGame, keyboardKeyBackground } from 'projects/wordle/src/app/models';
-import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
+import * as charactersInfosJSON from '@assets-series/jsons/characters.json';
+import wordlesJSON from '@assets-series/jsons/w1-3.json';
+import wordsJSON from '@assets-series/jsons/words.json';
+import { BoardGame, keyboardKeyBackground } from '@models/*';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { Wordle } from '../../../models/wordle.model';
-import { APIService } from './api.service';
-import { JokersService } from './jokers.service';
-import { KeyboardService } from './keyboard.service';
-import { LocalStorageService } from './local-storage.service';
 import { SnackbarService } from './snackbar.service';
 
 @Injectable({ providedIn: 'root' })
 export class GameService implements OnDestroy {
   boardGame$: BehaviorSubject<BoardGame | null> = new BehaviorSubject<BoardGame | null>(null);
   destroy$: Subject<void> = new Subject();
-  constructor(
-    private _localStrgServ: LocalStorageService,
-    private _snackbarService: SnackbarService,
-    private _keyboardServ: KeyboardService,
-    private _jokersServ: JokersService,
-    private _apiServ: APIService,
-    private _router: Router
-  ) {
-    this._event();
-  }
+  constructor(private _snackbarService: SnackbarService, private _router: Router) {}
   ngOnDestroy(): void {
     this.destroy$?.next();
     this.destroy$?.unsubscribe();
   }
   initBoardGame(): void {
     const wordle = this.setWordle();
-    const initBG = this._apiServ.getBoardgame(wordle);
-    const initJokers = this._apiServ.getJokers(wordle);
-    console.warn(initBG);
-    this.boardGame$.next(initBG);
-    this._jokersServ.initJokers(wordle, initJokers);
-    this._keyboardServ.initKeyBoard(initBG, initJokers);
-    if (initBG.end) {
-      this._router.navigate(['/resultat']);
-    }
-  }
-
-  private _event(): void {
-    this._localStrgServ.clear$.pipe(takeUntil(this.destroy$)).subscribe(() => {
-      this.initBoardGame();
-    });
-    this._jokersServ.jokers$.pipe(takeUntil(this.destroy$)).subscribe((joks) => {
-      const bg = this.boardGame$.value;
-      joks?.placeLetterJoker.uses.forEach((letter) => {
-        bg?.boardLines.forEach((bl) => {
-          bl.boardBoxes.forEach((bb) => {
-            if (bb.index === letter?.index) {
-              bb.before = letter?.letter;
-            }
-          });
-        });
-      });
-      this.boardGame$.next(bg);
-    });
+    console.warn(wordle);
   }
 
   addCurrentGuessLetter(letter: string): void {
@@ -91,7 +51,6 @@ export class GameService implements OnDestroy {
     const currentGuess = boardLine.text;
     const words = wordsJSON;
     if (!words.includes(currentGuess)) {
-      this._snackbarService.showUnkownNameAlert(currentGuess);
       return;
     }
 
@@ -105,7 +64,6 @@ export class GameService implements OnDestroy {
         state = 'unused';
       }
       boardBox.setBackground(state);
-      this._keyboardServ.setKeyBg(boardBox.letter, state);
     });
 
     if (currentGuess === boardGame?.wordle.text) {
