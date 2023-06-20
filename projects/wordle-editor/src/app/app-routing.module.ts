@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LayoutComponent } from '@core/components/layout/layout.component';
+import { LayoutComponent } from '@editor-core/components/layout/layout.component';
 
 const routes: Routes = [
   {
@@ -9,7 +9,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () => import('@features/main-page/main-page.module').then((m) => m.MainPageModule)
+        loadChildren: () => import('@editor-features/main-page/main-page.module').then((m) => m.MainPageModule)
       }
     ]
   },

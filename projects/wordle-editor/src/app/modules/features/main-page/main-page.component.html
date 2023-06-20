@@ -1,10 +1,74 @@
-<div class="flex flex-col h-full">
-  <ng-container *ngIf="(gameService.boardGame$ | async) ;let boardGame">
-    <boardgame></boardgame>
-    <p *ngIf="(serieJoker$ | async)?.soldOut && !boardGame?.success"
-      class="text-white text-center text-2xl text-shadow-sm shadow-black">
-      {{boardGame?.wordle?.serie}}
-    </p>
+<div class="flex flex-col h-full justify-center items-center gap-6">
+  <div>
+    <mat-form-field>
+      <mat-label>Version</mat-label>
+      <select matNativeControl required [(ngModel)]="version" (change)="onEditionChange()">
+        <option value="serie">serie</option>
+        <option value="anime">anime</option>
+      </select>
+    </mat-form-field>
+  </div>
+  <!-- <div class="h-full flex flex-col items-center"> -->
+  <form [formGroup]="daybydayForm" class="h-full flex flex-col items-center">
+    <div class="flex flex-row w-full justify-center items-start gap-6">
+      <div class="w-80 ">
+        <mat-form-field class="w-full">
+          <mat-label>Search</mat-label>
+          <input matInput placeholder="Ex. Glenn" value="" formControlName="search">
+        </mat-form-field>
+        <mat-card class="mb-5">
+          <mat-calendar #matCalendar [minDate]="minDate" [maxDate]="maxDate" [(selected)]="selectedDate"
+            [dateClass]="dateClass" (selectedChange)="onDateChange($event)"></mat-calendar>
+        </mat-card>
+        <!-- <p class="text-white">Wordle : {{selected}}</p> -->
 
-  </ng-container>
+        <mat-form-field class="w-full">
+          <mat-label>Wordle</mat-label>
+          <input matInput placeholder="Ex. Glenn" value="" formControlName="wordle">
+        </mat-form-field>
+        <mat-form-field class="w-full">
+          <mat-label>Fullname</mat-label>
+          <input matInput placeholder="Ex. Glenn" value="" formControlName="fullname">
+        </mat-form-field>
+        <mat-form-field class="w-full">
+          <mat-label>Origine</mat-label>
+          <input matInput placeholder="Ex. The walkind dead" value="" formControlName="from">
+        </mat-form-field>
+        <mat-form-field class="w-full">
+          <mat-label>imgPath</mat-label>
+          <input matInput placeholder="Ex. https://imgblabla.com" value="" formControlName="imgPath">
+        </mat-form-field>
+        <mat-form-field class="w-full">
+          <mat-label>Difficulty</mat-label>
+          <input matInput type="number" placeholder="Ex. 1" value="" formControlName="difficulty">
+        </mat-form-field>
+      </div>
+      <div class="flex flex-col w-full">
+        <div class="w-[500px]">
+          <mat-form-field class="w-full">
+            <mat-label>List de noms valides (sans les wordles)</mat-label>
+            <textarea matInput formControlName="validNames"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="w-[500px]">
+          <mat-form-field class="w-full">
+            <mat-label>List des wordles</mat-label>
+            <textarea matInput formControlName="wordles"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="w-[500px]">
+          <mat-form-field class="w-full">
+            <mat-label>Ajout massif</mat-label>
+            <textarea matInput></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+
+    </div>
+    <div class="flex gap-4">
+      <button mat-raised-button color="primary">Générer</button>
+      <button mat-raised-button color="warn">Reset</button>
+    </div>
+  </form>
+  <!-- </div> -->
 </div>

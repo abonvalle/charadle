@@ -226,10 +226,6 @@
                 {
                   "replace": "projects/wordle-editor/src/environments/environment.ts",
                   "with": "projects/wordle-editor/src/environments/environment.prod.ts"
-                },
-                {
-                  "replace": "tsconfig.json",
-                  "with": "tsconfig.editor.json"
                 }
               ],
               "outputHashing": "all"
@@ -240,13 +236,7 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true,
-              "fileReplacements": [
-                {
-                  "replace": "tsconfig.json",
-                  "with": "tsconfig.editor.json"
-                }
-              ]
+              "namedChunks": true
             }
           },
           "defaultConfiguration": "production"

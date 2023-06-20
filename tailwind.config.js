@@ -4,7 +4,7 @@ const { getCustomThemesConfigs, defaultThemeConfig, getThemesIds } = require('./
 
 module.exports = {
   mode: 'jit',
-  content: ['./projects/wordle/src/**/*.{html,ts}'],
+  content: ['./projects/wordle/src/**/*.{html,ts}', './projects/wordle-editor/src/**/*.{html,ts}'],
   safelist: [...getThemesIds(), 'h-full', 'border-cyan-500',
     'bg-right/80',
     'bg-partial/80',

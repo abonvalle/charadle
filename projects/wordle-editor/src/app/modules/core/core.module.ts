@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { SharedModule } from '@modules/shared/shared.module';
-import { NgHcaptchaModule } from 'ng-hcaptcha';
+import { SharedModule } from '@editor-modules/shared/shared.module';
 import { LayoutComponent } from './components/layout/layout.component';
 import { TopbarComponent } from './components/topbar/topbar.component';
 
@@ -20,15 +18,7 @@ const MODULES: any = [LayoutComponent, TopbarComponent];
  */
 @NgModule({
   declarations: [...MODULES],
-  imports: [
-    SharedModule,
-    MatMenuModule,
-    MatDialogModule,
-    MatSlideToggleModule,
-    MatInputModule,
-    MatButtonModule,
-    NgHcaptchaModule
-  ],
+  imports: [SharedModule, MatMenuModule, MatSlideToggleModule, MatInputModule, MatButtonModule],
   exports: []
 })
 export class CoreModule {}
