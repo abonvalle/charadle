@@ -5,7 +5,6 @@ import * as animeCharactersInfosJSON from '@editor-assets-anime/jsons/characters
 import animeWordlesJSON from '@editor-assets-anime/jsons/wordles.json';
 import * as serieCharactersInfosJSON from '@editor-assets-series/jsons/characters.json';
 import serieWordlesJSON from '@editor-assets-series/jsons/wordles.json';
-import { GameService } from '@editor-core/services/game.service';
 import { Wordle } from '@models/wordle.model';
 import * as FileSaver from 'file-saver';
 import * as JSZip from 'jszip';
@@ -34,7 +33,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   get daybydayFormDisable(): boolean {
     return this.daybydayForm.disabled || this.daybydayForm.invalid || this.daybydayForm.pristine;
   }
-  constructor(public gameService: GameService, private _formBuilder: FormBuilder) {}
+  constructor(private _formBuilder: FormBuilder) {}
   ngOnInit(): void {
     this.resetForms();
     this.formSubscribes();
