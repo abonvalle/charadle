@@ -6,9 +6,10 @@ import animeWordlesJSON from '@editor-assets-anime/jsons/w1-3.json';
 import * as serieCharactersInfosJSON from '@editor-assets-series/jsons/characters.json';
 import serieWordlesJSON from '@editor-assets-series/jsons/w1-3.json';
 import { GameService } from '@editor-core/services/game.service';
-import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
-import { Wordle } from '../../../models/wordle.model';
-
+import { Wordle } from '@models/wordle.model';
+import * as FileSaver from 'file-saver';
+import * as JSZip from 'jszip';
+import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 @Component({
   selector: 'main-page',
   styles: [':host{overflow:hidden;height:100%;}'],
@@ -21,21 +22,35 @@ export class MainPageComponent implements OnInit, OnDestroy {
   version: string | null = 'serie';
   charactersJSON: {
     [key: string]: { from: string; imgPath?: string; fullname?: string; difficulty?: number };
-  } = serieCharactersInfosJSON;
-  wordlesJSON: string[] = serieWordlesJSON;
+  } = structuredClone(serieCharactersInfosJSON);
+  wordlesJSON: string[] = structuredClone(serieWordlesJSON);
   minDate: Date = new Date('12/02/2022');
   maxDate: Date = new Date('12/02/2032');
+  form: FormGroup = new FormGroup({});
   daybydayForm: FormGroup = new FormGroup({});
   validNames: string = '';
   everyWordles: { wordle: string; date: Date }[] = [];
   private _destroy$: Subject<void> = new Subject();
+  get daybydayFormDisable(): boolean {
+    return this.daybydayForm.disabled || this.daybydayForm.invalid || this.daybydayForm.pristine;
+  }
   constructor(public gameService: GameService, private _formBuilder: FormBuilder) {}
   ngOnInit(): void {
     this.resetForms();
-    this.daybydayForm
+    this.formSubscribes();
+  }
+
+  ngOnDestroy(): void {
+    this._destroy$?.next();
+    this._destroy$?.unsubscribe();
+  }
+
+  formSubscribes(): void {
+    this.form
       .get('search')
-      ?.valueChanges.pipe(distinctUntilChanged(), debounceTime(250))
+      ?.valueChanges.pipe(takeUntil(this._destroy$), distinctUntilChanged(), debounceTime(250))
       .subscribe((s) => {
+        console.warn('search trigger');
         const res = this.everyWordles.find((w) => w.wordle.includes(s));
         if (!res) {
           this.selectedDate = null;
@@ -47,37 +62,70 @@ export class MainPageComponent implements OnInit, OnDestroy {
           return;
         }
         this.selectedDate = res.date;
+        this.daybydayForm.get('wordle')?.setValue('');
+        this.daybydayForm.get('from')?.setValue('');
+        this.daybydayForm.get('fullname')?.setValue('');
+        this.daybydayForm.get('imgPath')?.setValue('');
+        this.daybydayForm.get('difficulty')?.setValue('');
         this.onDateChange(res.date);
         this.matCalendar?._goToDateInView(res.date, 'month');
       });
   }
+  onUpdateWordle(): void {
+    if (!this.selectedDate) {
+      return;
+    }
+    const ind = this.getDateIndex(this.selectedDate);
+    const originalWordle = this.wordlesJSON[ind] ?? '';
+    const char = this.charactersJSON[originalWordle] ?? { from: '', fullname: '', imgPath: '', difficulty: '' };
+    char.from = this.daybydayForm.get('from')?.value;
+    char.fullname = this.daybydayForm.get('fullname')?.value;
+    char.imgPath = this.daybydayForm.get('imgPath')?.value;
+    char.difficulty = this.daybydayForm.get('difficulty')?.value;
 
-  ngOnDestroy(): void {
-    this._destroy$?.next();
-    this._destroy$?.unsubscribe();
+    const wordleCtrl = this.daybydayForm.get('wordle');
+    if (!wordleCtrl?.pristine) {
+      //Create new charactersJSON with new value
+      Object.defineProperty(this.charactersJSON, wordleCtrl?.value, {
+        value: char
+      });
+
+      //delete old charactersJSON
+      delete this.charactersJSON[originalWordle];
+
+      this.wordlesJSON[ind] = wordleCtrl?.value;
+    }
+    this.daybydayForm.markAsPristine();
+    console.warn(this.wordlesJSON[ind]);
+    console.warn(this.charactersJSON[wordleCtrl?.value]);
   }
-
   onDateChange(event: Date | null): void {
     if (!event) {
       this.daybydayForm.disable();
       return;
     }
     const wordle = this.getWordle(event);
-    this.daybydayForm.enable();
+    // this.daybydayForm.enable();
+    this.daybydayForm.markAsPristine();
+    this.daybydayForm?.enable();
     this.daybydayForm.get('wordle')?.setValue(wordle.text ?? '');
     this.daybydayForm.get('from')?.setValue(wordle.serie ?? '');
     this.daybydayForm.get('fullname')?.setValue(wordle.fullname ?? '');
     this.daybydayForm.get('imgPath')?.setValue(wordle.imgPath ?? '');
     this.daybydayForm.get('difficulty')?.setValue(wordle.difficulty ?? '');
   }
-  getWordle(dateArg?: Date): Wordle {
-    let date = dateArg ? dateArg : new Date();
+  getDateIndex(date: Date): number {
     let numerodujour = date.getDate();
     let numerodumois = date.getMonth() + 1;
     let numeroannee = date.getFullYear() - 2022;
     const ind =
       12 * (numerodujour - 1) + numerodumois + (Math.pow(numerodujour, 2) + 1 * numerodujour) / 2 + 868 * numeroannee;
-    const text = this.wordlesJSON[ind - 1] ?? '';
+    return ind - 1;
+  }
+  getWordle(dateArg?: Date): Wordle {
+    let date = dateArg ? dateArg : new Date();
+    const ind = this.getDateIndex(date);
+    const text = this.wordlesJSON[ind] ?? '';
     const serie = this.charactersJSON[text]?.from ?? '';
     const difficulty = this.charactersJSON[text]?.difficulty;
     const imgPath = this.charactersJSON[text]?.imgPath ?? '';
@@ -92,29 +140,28 @@ export class MainPageComponent implements OnInit, OnDestroy {
   resetForms(): void {
     this.selectedDate = null;
     this.setValidNames();
-    this.daybydayForm = this._formBuilder.group({
+    this.form = this._formBuilder.group({
       search: new FormControl(''),
-      wordle: new FormControl({ value: '', disabled: true }),
-      fullname: new FormControl({ value: '', disabled: true }),
-      from: new FormControl({ value: '', disabled: true }),
-      imgPath: new FormControl({ value: '', disabled: true }),
-      difficulty: new FormControl({ value: '', disabled: true }),
+      daybyday: new FormGroup({
+        wordle: new FormControl({ value: '', disabled: true }),
+        fullname: new FormControl({ value: '', disabled: true }),
+        from: new FormControl({ value: '', disabled: true }),
+        imgPath: new FormControl({ value: '', disabled: true }),
+        difficulty: new FormControl({ value: '', disabled: true })
+      }),
       validNames: new FormControl(this.validNames),
       wordles: new FormControl(this.everyWordles.map((w) => w.wordle).join(', '))
     });
+    this.daybydayForm = this.form.get('daybyday') as FormGroup;
+    console.warn(this.daybydayForm);
   }
   setValidNames(): void {
     const wIndexes: number[] = [];
     this.everyWordles = [];
     for (let d = new Date('12/02/2022'); d <= new Date('12/02/2032'); d.setDate(d.getDate() + 1)) {
-      let numerodujour = d.getDate();
-      let numerodumois = d.getMonth() + 1;
-      let numeroannee = d.getFullYear() - 2022;
-      const ind =
-        12 * (numerodujour - 1) + numerodumois + (Math.pow(numerodujour, 2) + 1 * numerodujour) / 2 + 868 * numeroannee;
-      wIndexes.push(ind - 1);
-      this.wordlesJSON[ind - 1] &&
-        this.everyWordles.push({ wordle: this.wordlesJSON[ind - 1] ?? '', date: new Date(d) });
+      const ind = this.getDateIndex(d);
+      wIndexes.push(ind);
+      this.wordlesJSON[ind] && this.everyWordles.push({ wordle: this.wordlesJSON[ind] ?? '', date: new Date(d) });
     }
     this.validNames = this.wordlesJSON.filter((_, wI) => !wIndexes.includes(wI)).join(', ');
   }
@@ -134,4 +181,17 @@ export class MainPageComponent implements OnInit, OnDestroy {
     }
     return '';
   };
+  generateJSON(): void {
+    const jszip = new JSZip();
+    jszip.file('w1-3.json', JSON.stringify(this.wordlesJSON));
+    jszip.file('characters.json', JSON.stringify(this.charactersJSON));
+
+    jszip.generateAsync({ type: 'blob' }).then((content) => {
+      try {
+        FileSaver.saveAs(content, 'wordles-jsons.zip');
+      } catch (e) {
+        console.log(e);
+      }
+    });
+  }
 }

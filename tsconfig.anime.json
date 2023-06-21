@@ -11,11 +11,11 @@
       "@modules/*": ["projects/wordle/src/app/modules/*"],
       "@shared/*": ["projects/wordle/src/app/modules/shared/*"],
       "@assets/*": ["projects/wordle/src/assets/anime/*"],
+      "jszip": ["../node_modules/jszip/dist/jszip.min.js"],
       /*editor paths*/
       "@editor-config/*": ["projects/wordle-editor/src/environments/*"],
       "@editor-core/*": ["projects/wordle-editor/src/app/modules/core/*"],
       "@editor-features/*": ["projects/wordle-editor/src/app/modules/features/*"],
-      "@editor-models/*": ["projects/wordle-editor/src/app/models"],
       "@editor-modules/*": ["projects/wordle-editor/src/app/modules/*"],
       "@editor-shared/*": ["projects/wordle-editor/src/app/modules/shared/*"],
       "@editor-assets-series/*": ["projects/wordle/src/assets/serie/*"],

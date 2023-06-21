@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 import * as charactersInfosJSON from '@editor-assets-series/jsons/characters.json';
 import wordlesJSON from '@editor-assets-series/jsons/w1-3.json';
 import wordsJSON from '@editor-assets-series/jsons/words.json';
-import { BoardGame, keyboardKeyBackground } from '@editor-models/*';
+import { BoardGame, keyboardKeyBackground } from '@models/*';
+import { Wordle } from '@models/wordle.model';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { Wordle } from '../../../models/wordle.model';
 import { SnackbarService } from './snackbar.service';
 
 @Injectable({ providedIn: 'root' })

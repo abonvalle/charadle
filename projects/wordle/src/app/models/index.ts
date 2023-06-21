@@ -5,3 +5,4 @@ export * from './keyboard';
 export * from './local-storage-keys.enum';
 export * from './settings.interface';
 export * from './theme.interface';
+export * from './wordle.model';
