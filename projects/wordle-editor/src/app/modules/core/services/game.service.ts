@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import * as charactersInfosJSON from '@editor-assets-series/jsons/characters.json';
-import wordlesJSON from '@editor-assets-series/jsons/w1-3.json';
+import wordlesJSON from '@editor-assets-series/jsons/wordles.json';
 import wordsJSON from '@editor-assets-series/jsons/words.json';
 import { BoardGame, keyboardKeyBackground } from '@models/*';
 import { Wordle } from '@models/wordle.model';

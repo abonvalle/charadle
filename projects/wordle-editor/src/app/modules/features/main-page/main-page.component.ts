@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatCalendar, MatCalendarCellClassFunction } from '@angular/material/datepicker';
 import * as animeCharactersInfosJSON from '@editor-assets-anime/jsons/characters.json';
-import animeWordlesJSON from '@editor-assets-anime/jsons/w1-3.json';
+import animeWordlesJSON from '@editor-assets-anime/jsons/wordles.json';
 import * as serieCharactersInfosJSON from '@editor-assets-series/jsons/characters.json';
-import serieWordlesJSON from '@editor-assets-series/jsons/w1-3.json';
+import serieWordlesJSON from '@editor-assets-series/jsons/wordles.json';
 import { GameService } from '@editor-core/services/game.service';
 import { Wordle } from '@models/wordle.model';
 import * as FileSaver from 'file-saver';
@@ -183,7 +183,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   };
   generateJSON(): void {
     const jszip = new JSZip();
-    jszip.file('w1-3.json', JSON.stringify(this.wordlesJSON));
+    jszip.file('wordles.json', JSON.stringify(this.wordlesJSON));
     jszip.file('characters.json', JSON.stringify(this.charactersJSON));
 
     jszip.generateAsync({ type: 'blob' }).then((content) => {
