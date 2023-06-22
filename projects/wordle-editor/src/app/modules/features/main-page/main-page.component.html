@@ -1,5 +1,5 @@
 <div class="flex flex-col h-full justify-center items-center gap-6">
-  <div>
+  <div class="flex flex-row justify-center items-center gap-4">
     <mat-form-field>
       <mat-label>Version</mat-label>
       <select matNativeControl required [(ngModel)]="version" (change)="onEditionChange()">
@@ -7,11 +7,13 @@
         <option value="anime">anime</option>
       </select>
     </mat-form-field>
+    <button mat-raised-button color="primary" (click)="generateJSON()">Générer</button>
   </div>
   <!-- <div class="h-full flex flex-col items-center"> -->
-  <form [formGroup]="form" class="h-full flex flex-col items-center">
+  <form [formGroup]="form" class="h-full flex flex-col items-center gap-4">
     <div class="flex flex-row w-full justify-center items-start gap-6">
       <div class="w-80 flex flex-col justify-center">
+        <h2 class="text-white text-2xl mb-4">Day by day updates</h2>
         <mat-form-field class="w-full">
           <mat-label>Search</mat-label>
           <input matInput placeholder="Ex. Glenn" value="" formControlName="search">
@@ -24,7 +26,7 @@
         <div [formGroup]="daybydayForm" class="w-80 flex flex-col justify-center">
           <mat-form-field class="w-full">
             <mat-label>Wordle</mat-label>
-            <input matInput placeholder="Ex. Glenn" value="" formControlName="wordle">
+            <input matInput placeholder="Ex. Glenn" value="" formControlName="wordle" lowercase>
           </mat-form-field>
           <mat-form-field class="w-full">
             <mat-label>Fullname</mat-label>
@@ -47,32 +49,31 @@
 
         </div>
       </div>
-      <div class="flex flex-col w-full">
+      <form [formGroup]="bulkForm" class="flex flex-col w-full">
+        <h2 class="text-white text-2xl mb-4">Bulk updates</h2>
         <div class="w-[500px]">
           <mat-form-field class="w-full">
-            <mat-label>List de noms valides (sans les wordles)</mat-label>
+            <mat-label>Valid names list (w/o wordles)</mat-label>
             <textarea matInput formControlName="validNames"></textarea>
           </mat-form-field>
         </div>
         <div class="w-[500px]">
           <mat-form-field class="w-full">
-            <mat-label>List des wordles</mat-label>
+            <mat-label>Wordles list</mat-label>
             <textarea matInput formControlName="wordles"></textarea>
           </mat-form-field>
         </div>
         <div class="w-[500px]">
           <mat-form-field class="w-full">
-            <mat-label>Ajout massif</mat-label>
+            <mat-label>Bulk add</mat-label>
             <textarea matInput></textarea>
           </mat-form-field>
         </div>
-      </div>
+        <button mat-raised-button color="primary" [disabled]="bulkFormDisable" (click)="onBulkUpdate()">Update</button>
+      </form>
 
     </div>
-    <div class="flex gap-4">
-      <button mat-raised-button color="primary" (click)="generateJSON()">Générer</button>
-      <!-- <button mat-raised-button color="warn" (click)="reset">Reset</button> -->
-    </div>
+
   </form>
   <!-- </div> -->
 </div>

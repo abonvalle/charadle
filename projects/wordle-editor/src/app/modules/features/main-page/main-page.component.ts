@@ -24,19 +24,24 @@ export class MainPageComponent implements OnInit, OnDestroy {
   } = structuredClone(serieCharactersInfosJSON);
   wordlesJSON: string[] = structuredClone(serieWordlesJSON);
   minDate: Date = new Date('12/02/2022');
-  maxDate: Date = new Date('12/02/2032');
+  maxDate: Date = new Date('12/02/2024');
   form: FormGroup = new FormGroup({});
   daybydayForm: FormGroup = new FormGroup({});
+  bulkForm: FormGroup = new FormGroup({});
   validNames: string = '';
-  everyWordles: { wordle: string; date: Date }[] = [];
+  everyWordles: { wordle: string; date: Date; index: number }[] = [];
   private _destroy$: Subject<void> = new Subject();
   get daybydayFormDisable(): boolean {
     return this.daybydayForm.disabled || this.daybydayForm.invalid || this.daybydayForm.pristine;
+  }
+  get bulkFormDisable(): boolean {
+    return this.bulkForm.disabled || this.bulkForm.invalid || this.bulkForm.pristine;
   }
   constructor(private _formBuilder: FormBuilder) {}
   ngOnInit(): void {
     this.resetForms();
     this.formSubscribes();
+    delete this.charactersJSON['default'];
   }
 
   ngOnDestroy(): void {
@@ -76,18 +81,19 @@ export class MainPageComponent implements OnInit, OnDestroy {
     }
     const ind = this.getDateIndex(this.selectedDate);
     const originalWordle = this.wordlesJSON[ind] ?? '';
-    const char = this.charactersJSON[originalWordle] ?? { from: '', fullname: '', imgPath: '', difficulty: '' };
+    const char = this.charactersJSON[originalWordle] ?? { from: '', imgPath: '' };
     char.from = this.daybydayForm.get('from')?.value;
     char.fullname = this.daybydayForm.get('fullname')?.value;
     char.imgPath = this.daybydayForm.get('imgPath')?.value;
     char.difficulty = this.daybydayForm.get('difficulty')?.value;
 
     const wordleCtrl = this.daybydayForm.get('wordle');
-    if (!wordleCtrl?.pristine) {
+    if (!wordleCtrl?.pristine && wordleCtrl?.value !== originalWordle) {
       //Create new charactersJSON with new value
-      Object.defineProperty(this.charactersJSON, wordleCtrl?.value, {
-        value: char
-      });
+      // Object.defineProperty(this.charactersJSON, wordleCtrl?.value, {
+      //   value: char
+      // });
+      this.charactersJSON[wordleCtrl?.value] = char;
 
       //delete old charactersJSON
       delete this.charactersJSON[originalWordle];
@@ -96,7 +102,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     }
     this.daybydayForm.markAsPristine();
     console.warn(this.wordlesJSON[ind]);
-    console.warn(this.charactersJSON[wordleCtrl?.value]);
+    console.warn(this.charactersJSON);
   }
   onDateChange(event: Date | null): void {
     if (!event) {
@@ -132,13 +138,14 @@ export class MainPageComponent implements OnInit, OnDestroy {
     return new Wordle({ date: date.toLocaleDateString('fr-FR'), text, serie, difficulty, imgPath, fullname });
   }
   onEditionChange(): void {
-    this.charactersJSON = this.version === 'serie' ? serieCharactersInfosJSON : animeCharactersInfosJSON;
-    this.wordlesJSON = this.version === 'serie' ? serieWordlesJSON : animeWordlesJSON;
+    this.charactersJSON =
+      this.version === 'serie' ? structuredClone(serieCharactersInfosJSON) : structuredClone(animeCharactersInfosJSON);
+    this.wordlesJSON = this.version === 'serie' ? structuredClone(serieWordlesJSON) : structuredClone(animeWordlesJSON);
     this.resetForms();
   }
   resetForms(): void {
     this.selectedDate = null;
-    this.setValidNames();
+    this.setBulksInfos();
     this.form = this._formBuilder.group({
       search: new FormControl(''),
       daybyday: new FormGroup({
@@ -148,21 +155,35 @@ export class MainPageComponent implements OnInit, OnDestroy {
         imgPath: new FormControl({ value: '', disabled: true }),
         difficulty: new FormControl({ value: '', disabled: true })
       }),
-      validNames: new FormControl(this.validNames),
-      wordles: new FormControl(this.everyWordles.map((w) => w.wordle).join(', '))
+      bulk: new FormGroup({
+        validNames: new FormControl(this.validNames),
+        wordles: new FormControl(
+          this.everyWordles
+            .sort((wA, wB) => wA.index - wB.index)
+            .map((w) => w.wordle)
+            .join(', ')
+        )
+      })
     });
     this.daybydayForm = this.form.get('daybyday') as FormGroup;
+    this.bulkForm = this.form.get('bulk') as FormGroup;
     console.warn(this.daybydayForm);
   }
-  setValidNames(): void {
+  setBulksInfos(): void {
     const wIndexes: number[] = [];
     this.everyWordles = [];
-    for (let d = new Date('12/02/2022'); d <= new Date('12/02/2032'); d.setDate(d.getDate() + 1)) {
+    for (let d = structuredClone(this.minDate); d <= structuredClone(this.maxDate); d.setDate(d.getDate() + 1)) {
       const ind = this.getDateIndex(d);
       wIndexes.push(ind);
-      this.wordlesJSON[ind] && this.everyWordles.push({ wordle: this.wordlesJSON[ind] ?? '', date: new Date(d) });
+      this.everyWordles.push({
+        index: ind,
+        wordle:
+          this.wordlesJSON[ind] ?? `${d.getFullYear()}${d.toLocaleString('default', { month: 'short' })}${d.getDate()}`,
+        date: d
+      });
     }
     this.validNames = this.wordlesJSON.filter((_, wI) => !wIndexes.includes(wI)).join(', ');
+    console.warn(this.everyWordles);
   }
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
     // Only highligh dates inside the month view.
@@ -172,7 +193,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
         return '!bg-red-500';
       }
 
-      if (w.fullname === '' || w.fullname === w.text || w.imgPath === '' || w.serie === '') {
+      if (w.imgPath === '' || w.serie === '') {
         return '!bg-orange-500';
       } else {
         return '!bg-green-500';
@@ -192,5 +213,37 @@ export class MainPageComponent implements OnInit, OnDestroy {
         console.log(e);
       }
     });
+  }
+  onBulkUpdate(): void {
+    const validNamesCtrl = this.bulkForm.get('validNames');
+    const wordlesCtrl = this.bulkForm.get('wordles');
+    console.warn(validNamesCtrl, wordlesCtrl);
+    const validNamesValues = validNamesCtrl?.value.split(', ') as string[];
+    const wordlesValues = wordlesCtrl?.value.split(', ') as string[];
+    console.warn(validNamesValues, wordlesValues);
+    const loops = validNamesValues.length + wordlesValues.length;
+    for (let i = 0; i <= loops; i++) {
+      if (this.everyWordles.find((w) => w.index === i)) {
+        //worlde
+        const oldWordle = this.everyWordles.find((w) => w.index === i)?.wordle;
+        const newWordle = wordlesValues.shift()?.toLowerCase();
+        if (!oldWordle || !newWordle) {
+          console.error(`Wordle error - newWordle : ${newWordle}, index : ${i}`);
+          return;
+        }
+
+        const char = this.charactersJSON[oldWordle ?? ''] ?? { from: '', imgPath: '' };
+        //Create new charactersJSON with new value
+        this.charactersJSON[newWordle ?? ''] = char;
+
+        //delete old charactersJSON
+        delete this.charactersJSON[oldWordle ?? ''];
+
+        this.wordlesJSON[i] = newWordle ?? '';
+      } else {
+        //not wordle
+        this.wordlesJSON[i] = validNamesValues.shift()?.toLowerCase() ?? 'XXX';
+      }
+    }
   }
 }
