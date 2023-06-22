@@ -11,7 +11,7 @@ export class LocalStorageService {
   read(key: string): string | null {
     if (!this.isVersionCtrl) {
       if (!this._checkVersion()) {
-        this.clearStorage();
+        localStorage.clear();
         this.update(localStorageKeys.version, this._getMajorMinorVersion());
         this.isVersionCtrl = true;
         return null;
