@@ -8,6 +8,9 @@
       </select>
     </mat-form-field>
     <button mat-raised-button color="primary" (click)="generateJSON()">Générer</button>
+    <button mat-raised-button color="accent" (click)="exportCSV()">Export CSV</button>
+    <button mat-raised-button color="warn" (click)="fileInpt.click()">Import CSV</button>
+    <input #fileInpt type="file" class="hidden" (change)="importCSV($event)">
   </div>
   <!-- <div class="h-full flex flex-col items-center"> -->
   <form [formGroup]="form" class="h-full flex flex-col items-center gap-4">

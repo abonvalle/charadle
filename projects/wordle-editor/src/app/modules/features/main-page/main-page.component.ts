@@ -5,6 +5,7 @@ import * as animeCharactersInfosJSON from '@editor-assets-anime/jsons/characters
 import animeWordlesJSON from '@editor-assets-anime/jsons/wordles.json';
 import * as serieCharactersInfosJSON from '@editor-assets-series/jsons/characters.json';
 import serieWordlesJSON from '@editor-assets-series/jsons/wordles.json';
+import { CSVService } from '@editor-core/services/csv.service';
 import { Wordle } from '@models/wordle.model';
 import * as FileSaver from 'file-saver';
 import * as JSZip from 'jszip';
@@ -37,7 +38,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   get bulkFormDisable(): boolean {
     return this.bulkForm.disabled || this.bulkForm.invalid || this.bulkForm.pristine;
   }
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(private _formBuilder: FormBuilder, private _csvServ: CSVService) {}
   ngOnInit(): void {
     this.resetForms();
     this.formSubscribes();
@@ -245,5 +246,38 @@ export class MainPageComponent implements OnInit, OnDestroy {
         this.wordlesJSON[i] = validNamesValues.shift()?.toLowerCase() ?? 'XXX';
       }
     }
+  }
+  exportCSV(): void {
+    this._csvServ.exportCsv(this.charactersJSON, this.wordlesJSON, this.minDate, this.maxDate);
+  }
+  importCSV(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    const files = target.files as FileList;
+    const file = files[0];
+    if (!file) {
+      return;
+    }
+    let fileReader = new FileReader();
+    fileReader.onload = (_) => {
+      console.log(fileReader.result);
+      if (typeof fileReader.result !== 'string') {
+        return;
+      }
+      const { characters = null, wordles = null } = this._csvServ.importCSV(fileReader.result);
+      if (characters !== null) {
+        this.charactersJSON = characters as {
+          [key: string]: {
+            from: string;
+            imgPath?: string | undefined;
+            fullname?: string | undefined;
+            difficulty?: number | undefined;
+          };
+        };
+      }
+      if (wordles !== null) {
+        this.wordlesJSON = wordles as string[];
+      }
+    };
+    fileReader.readAsText(file);
   }
 }
