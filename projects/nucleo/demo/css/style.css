@@ -275,3 +275,7 @@ icons
   content: "\ea1b";
 }
 
+.icon-shuffle-1::before {
+  content: "\ea1c";
+}
+
