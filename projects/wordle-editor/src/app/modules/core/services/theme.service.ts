@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import themes from '@editor-assets-series/jsons/themes.json';
 import { theme } from '@models/theme.interface';
+import { AssetsService } from './assets.service';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
-  themeList: theme[] = themes.themes;
+  themeList: theme[] = this._assetsServ.themes.themes;
   defaultTheme: theme | undefined = this.themeList.find((t) => t.default);
-  constructor() {}
+  constructor(private _assetsServ: AssetsService) {}
 }

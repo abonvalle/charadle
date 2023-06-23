@@ -1,5 +1,6 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Injectable } from '@angular/core';
+import { environment } from '@config/environment';
 import { GameService } from './game.service';
 import { JokersService } from './jokers.service';
 import { SnackbarService } from './snackbar.service';
@@ -31,12 +32,12 @@ export class ShareService {
     const nbTries = bg?.success ? bg?.currentActiveBoardLine : '💀';
     const tries = bg?.getTries();
     const worldeDate = bg?.wordle.date;
-    const text = [`Wordle Series edition #${worldeDate} ✍️${nbTries}/6`];
+    const text = [`Wordle ${environment.version.label} #${worldeDate} ✍️${nbTries}/6`];
     tries?.forEach((aTry) => {
       text.push(aTry);
     });
     text.push(this.getSharingJokersData());
-    text.push('https://wordle-series.abvdev.fr');
+    text.push(environment.version.link);
     return {
       text: text.join('\n')
     };

@@ -1,12 +1,12 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import themes from '@assets/jsons/themes.json';
 import { BehaviorSubject } from 'rxjs';
 import { theme } from '../../../models/theme.interface';
 import { APIService } from './api.service';
+import { AssetsService } from './assets.service';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeService implements OnDestroy {
-  themeList: theme[] = themes.themes;
+  themeList: theme[] = this._assetsServ.themes.themes;
   defaultTheme: theme | undefined = this.themeList.find((t) => t.default);
   selectedThemeId$: BehaviorSubject<string> = new BehaviorSubject(
     this._APIServ.getTheme() ?? this.defaultTheme?.id ?? ''
@@ -14,7 +14,7 @@ export class ThemeService implements OnDestroy {
   activeThemeId$: BehaviorSubject<string> = new BehaviorSubject(
     this.selectedThemeId$.value === 'random' ? this.getRandomThemeId() : this.selectedThemeId$.value
   );
-  constructor(private _APIServ: APIService) {
+  constructor(private _APIServ: APIService, private _assetsServ: AssetsService) {
     this._event();
   }
   ngOnDestroy(): void {

@@ -1,12 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import * as charactersInfosJSON from '@assets/jsons/characters.json';
-import wordlesJSON from '@assets/jsons/wordles.json';
-import wordsJSON from '@assets/jsons/words.json';
 import { BoardGame, keyboardKeyBackground } from 'projects/wordle/src/app/models';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { Wordle } from '../../../models/wordle.model';
 import { APIService } from './api.service';
+import { AssetsService } from './assets.service';
 import { JokersService } from './jokers.service';
 import { KeyboardService } from './keyboard.service';
 import { LocalStorageService } from './local-storage.service';
@@ -22,7 +20,8 @@ export class GameService implements OnDestroy {
     private _keyboardServ: KeyboardService,
     private _jokersServ: JokersService,
     private _apiServ: APIService,
-    private _router: Router
+    private _router: Router,
+    private _assetsServ: AssetsService
   ) {
     this._event();
   }
@@ -89,7 +88,7 @@ export class GameService implements OnDestroy {
       return;
     }
     const currentGuess = boardLine.text;
-    const words = wordsJSON;
+    const words = this._assetsServ.wordsJSON;
     if (!words.includes(currentGuess)) {
       this._snackbarService.showUnkownNameAlert(currentGuess);
       return;
@@ -127,11 +126,11 @@ export class GameService implements OnDestroy {
     let numerodujour = date.getDate();
     let numerodumois = date.getMonth() + 1;
     let numeroannee = date.getFullYear() - 2022;
-    const wordles = wordlesJSON;
+    const wordles = this._assetsServ.wordlesJSON;
     const ind =
       12 * (numerodujour - 1) + numerodumois + (Math.pow(numerodujour, 2) + 1 * numerodujour) / 2 + 868 * numeroannee;
     const text = wordles[ind - 1] ?? '';
-    const charactersInfos = charactersInfosJSON as {
+    const charactersInfos = this._assetsServ.charactersInfosJSON as {
       [key: string]: { from: string; imgPath?: string; fullname?: string; difficulty?: number }; //todo : remove ? from imgPath & fullname
     };
     const serie = charactersInfos[text]?.from ?? '';

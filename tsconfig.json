@@ -10,16 +10,15 @@
       "@models/*": ["projects/wordle/src/app/models"],
       "@modules/*": ["projects/wordle/src/app/modules/*"],
       "@shared/*": ["projects/wordle/src/app/modules/shared/*"],
-      "@assets/*": ["projects/wordle/src/assets/serie/*"],
       "jszip": ["../node_modules/jszip/dist/jszip.min.js"],
+      "@assets-series/*": ["projects/wordle/src/assets/serie/*"],
+      "@assets-anime/*": ["projects/wordle/src/assets/anime/*"],
       /*editor paths*/
       "@editor-config/*": ["projects/wordle-editor/src/environments/*"],
       "@editor-core/*": ["projects/wordle-editor/src/app/modules/core/*"],
       "@editor-features/*": ["projects/wordle-editor/src/app/modules/features/*"],
       "@editor-modules/*": ["projects/wordle-editor/src/app/modules/*"],
-      "@editor-shared/*": ["projects/wordle-editor/src/app/modules/shared/*"],
-      "@editor-assets-series/*": ["projects/wordle/src/assets/serie/*"],
-      "@editor-assets-anime/*": ["projects/wordle/src/assets/anime/*"]
+      "@editor-shared/*": ["projects/wordle-editor/src/app/modules/shared/*"]
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatCalendar, MatCalendarCellClassFunction } from '@angular/material/datepicker';
-import * as animeCharactersInfosJSON from '@editor-assets-anime/jsons/characters.json';
-import animeWordlesJSON from '@editor-assets-anime/jsons/wordles.json';
-import * as serieCharactersInfosJSON from '@editor-assets-series/jsons/characters.json';
-import serieWordlesJSON from '@editor-assets-series/jsons/wordles.json';
+import * as animeCharactersInfosJSON from '@assets-anime/jsons/characters.json';
+import animeWordlesJSON from '@assets-anime/jsons/wordles.json';
+import * as serieCharactersInfosJSON from '@assets-series/jsons/characters.json';
+import serieWordlesJSON from '@assets-series/jsons/wordles.json';
 import { CSVService } from '@editor-core/services/csv.service';
 import { Wordle } from '@models/wordle.model';
 import * as FileSaver from 'file-saver';

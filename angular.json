@@ -85,10 +85,6 @@
                 {
                   "replace": "themes.js",
                   "with": "themes.anime.js"
-                },
-                {
-                  "replace": "tsconfig.json",
-                  "with": "tsconfig.anime.json"
                 }
               ],
               "outputHashing": "all"
@@ -125,10 +121,6 @@
                 {
                   "replace": "themes.js",
                   "with": "themes.anime.js"
-                },
-                {
-                  "replace": "tsconfig.json",
-                  "with": "tsconfig.anime.json"
                 }
               ]
             }
