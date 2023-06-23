@@ -6,7 +6,7 @@ import { AssetsService } from './assets.service';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeService implements OnDestroy {
-  themeList: theme[] = this._assetsServ.themes.themes;
+  themeList: theme[] = this._assetsServ.themes?.themes ?? [];
   defaultTheme: theme | undefined = this.themeList.find((t) => t.default);
   selectedThemeId$: BehaviorSubject<string> = new BehaviorSubject(
     this._APIServ.getTheme() ?? this.defaultTheme?.id ?? ''

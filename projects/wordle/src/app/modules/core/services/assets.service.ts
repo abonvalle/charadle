@@ -13,9 +13,29 @@ import { environment } from '@config/environment';
 export class AssetsService {
   private _environmentVersion = environment.version.code;
   //Todo handle multiple versions
-  themes = this._environmentVersion === 'serie' ? themesSerie : themesAnime;
-  charactersInfosJSON = this._environmentVersion === 'serie' ? charactersInfosJSONSerie : charactersInfosJSONAnime;
-  wordlesJSON = this._environmentVersion === 'serie' ? wordlesJSONSerie : wordlesJSONAnime;
-  wordsJSON = this._environmentVersion === 'serie' ? wordsJSONSerie : wordsJSONAnime;
-  constructor() {}
+  themes: typeof themesSerie | typeof themesAnime | null = null;
+  charactersInfosJSON: typeof charactersInfosJSONSerie | typeof charactersInfosJSONAnime | null = null;
+  wordlesJSON: typeof wordlesJSONSerie | typeof wordlesJSONAnime | null = null;
+  wordsJSON: typeof wordsJSONSerie | typeof wordsJSONAnime | null = null;
+  constructor() {
+    this._initAssets();
+  }
+  private _initAssets(): void {
+    switch (this._environmentVersion) {
+      case 'anime':
+        this.themes = themesAnime;
+        this.charactersInfosJSON = charactersInfosJSONAnime;
+        this.wordlesJSON = wordlesJSONAnime;
+        this.wordsJSON = wordsJSONAnime;
+        break;
+
+      case 'serie':
+      default:
+        this.themes = themesSerie;
+        this.charactersInfosJSON = charactersInfosJSONSerie;
+        this.wordlesJSON = wordlesJSONSerie;
+        this.wordsJSON = wordsJSONSerie;
+        break;
+    }
+  }
 }

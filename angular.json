@@ -19,7 +19,6 @@
             "polyfills": "projects/wordle/src/polyfills.ts",
             "tsConfig": "projects/wordle/src/tsconfig.app.json",
             "assets": [
-              "projects/wordle/src/favicon.ico",
               "projects/wordle/src/php",
               {
                 "glob": "**/*",
@@ -69,7 +68,6 @@
                 }
               ],
               "assets": [
-                "projects/wordle/src/favicon.ico",
                 "projects/wordle/src/php",
                 {
                   "glob": "**/*",
@@ -105,7 +103,6 @@
               "sourceMap": true,
               "namedChunks": true,
               "assets": [
-                "projects/wordle/src/favicon.ico",
                 "projects/wordle/src/php",
                 {
                   "glob": "**/*",
@@ -159,7 +156,6 @@
             "tsConfig": "projects/wordle/src/tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
-              "projects/wordle/src/favicon.ico",
               "projects/wordle/src/php",
               "projects/wordle/src/assets/serie"
             ],

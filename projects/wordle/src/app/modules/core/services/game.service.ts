@@ -31,6 +31,10 @@ export class GameService implements OnDestroy {
   }
   initBoardGame(): void {
     const wordle = this.setWordle();
+    if (!wordle) {
+      this._snackbarService.openSnackBar('Une erreur est survenue', 'alert');
+      return;
+    }
     const initBG = this._apiServ.getBoardgame(wordle);
     const initJokers = this._apiServ.getJokers(wordle);
     console.warn(initBG);
@@ -89,6 +93,10 @@ export class GameService implements OnDestroy {
     }
     const currentGuess = boardLine.text;
     const words = this._assetsServ.wordsJSON;
+    if (!words) {
+      this._snackbarService.openSnackBar('Une erreur est survenue', 'alert');
+      return;
+    }
     if (!words.includes(currentGuess)) {
       this._snackbarService.showUnkownNameAlert(currentGuess);
       return;
@@ -121,12 +129,15 @@ export class GameService implements OnDestroy {
     this.boardGame$.next(boardGame);
   }
 
-  setWordle(): Wordle {
+  setWordle(): Wordle | null {
     let date = new Date();
     let numerodujour = date.getDate();
     let numerodumois = date.getMonth() + 1;
     let numeroannee = date.getFullYear() - 2022;
     const wordles = this._assetsServ.wordlesJSON;
+    if (!wordles) {
+      return null;
+    }
     const ind =
       12 * (numerodujour - 1) + numerodumois + (Math.pow(numerodujour, 2) + 1 * numerodujour) / 2 + 868 * numeroannee;
     const text = wordles[ind - 1] ?? '';

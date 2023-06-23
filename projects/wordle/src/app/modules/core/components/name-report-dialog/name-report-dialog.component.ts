@@ -66,9 +66,9 @@ export class NameReportDialogComponent {
       } else {
         this._snackbarServ.openSnackBar('Une erreur est survenue', 'alert');
       }
+      this._dialogRef.close();
     };
     console.warn(this.form.value);
     xhr.send(data);
-    this._dialogRef.close();
   }
 }

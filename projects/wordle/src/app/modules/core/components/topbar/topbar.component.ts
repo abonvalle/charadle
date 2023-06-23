@@ -4,6 +4,7 @@ import { environment } from '@config/environment';
 import { ThemeService } from '@core/services/theme.service';
 import { theme } from '@models/*';
 import { Subject, takeUntil } from 'rxjs';
+import { ChangeWordleDialogComponent } from '../change-wordle-dialog/change-wordle-dialog.component';
 import { HelpDialogComponent } from '../help-dialog/help-dialog.component';
 import { SettingsDialogComponent } from '../settings-dialog/settings.component';
 
@@ -39,10 +40,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
     this._themeServ.updateTheme(id);
   }
   changeVersion(): void {
-    //Todo handle multiple versions
-    environment.version.code === 'serie'
-      ? (window.location.href = 'https://wordle-animes.abvdev.fr')
-      : (window.location.href = 'https://wordle-series.abvdev.fr');
+    this._dialog.open(ChangeWordleDialogComponent);
   }
   isCurrentTheme(id: string): boolean {
     return this.currentThemeId$.value === id;
