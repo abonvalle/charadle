@@ -38,6 +38,12 @@ export class TopbarComponent implements OnInit, OnDestroy {
   changeTheme(id: string): void {
     this._themeServ.updateTheme(id);
   }
+  changeVersion(): void {
+    //Todo handle multiple versions
+    environment.version.code === 'serie'
+      ? (window.location.href = 'https://wordle-animes.abvdev.fr')
+      : (window.location.href = 'https://wordle-series.abvdev.fr');
+  }
   isCurrentTheme(id: string): boolean {
     return this.currentThemeId$.value === id;
   }

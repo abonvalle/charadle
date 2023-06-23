@@ -12,6 +12,7 @@ import { environment } from '@config/environment';
 @Injectable({ providedIn: 'root' })
 export class AssetsService {
   private _environmentVersion = environment.version.code;
+  //Todo handle multiple versions
   themes = this._environmentVersion === 'serie' ? themesSerie : themesAnime;
   charactersInfosJSON = this._environmentVersion === 'serie' ? charactersInfosJSONSerie : charactersInfosJSONAnime;
   wordlesJSON = this._environmentVersion === 'serie' ? wordlesJSONSerie : wordlesJSONAnime;
