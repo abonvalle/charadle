@@ -280,4 +280,26 @@ export class MainPageComponent implements OnInit, OnDestroy {
     };
     fileReader.readAsText(file);
   }
+  checkImgPath() {
+    for (let [_, character] of Object.entries(this.charactersJSON)) {
+      character.imgPath = character.imgPath?.split('/revision')[0];
+      // if (this.charactersJSON[charName]) {
+      //   this.charactersJSON[charName].imgPath = character.imgPath;
+      // }
+      if (!character.imgPath) {
+        continue;
+      }
+      // Make the AJAX request
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', character.imgPath, true);
+
+      xhr.onload = () => {
+        if (xhr.status == 200) {
+          // Get the response from the server
+          // Update the result div
+        }
+      };
+      xhr.send();
+    }
+  }
 }

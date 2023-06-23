@@ -167,10 +167,10 @@ Generated using nucleoapp.com
   content: "\ea18";
 }
 
-.icon-droplet::before {
-  content: "\ea19";
-}
-
 .icon-star::before {
   content: "\ea1a";
+}
+
+.icon-handshake::before {
+  content: "\ea1b";
 }
