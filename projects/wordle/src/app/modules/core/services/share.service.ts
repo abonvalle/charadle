@@ -81,7 +81,7 @@ export class ShareService {
     const triesPoints = [0, 3, 9, 15, 24, 35];
     score -= triesPoints[nbTries - 1] ?? 35;
 
-    return score;
+    return Math.round(score);
   }
   _navShare(shareData: ShareData): void {
     if (!navigator.share) {
