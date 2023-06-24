@@ -16,6 +16,7 @@ export class SettingsDialogComponent {
   private _init(): void {
     // this.form.addControl('playerName', new FormControl(this.settingsServ.playerName$?.value));
     this.form.addControl('colorBlindMode', new FormControl(this.settingsServ.colorBlindMode$?.value));
+    this.form.addControl('hideKeyboard', new FormControl(this.settingsServ.hideKeyboard$?.value));
   }
 
   save(): void {
@@ -25,9 +26,11 @@ export class SettingsDialogComponent {
   deleteAllData(): void {
     this._apiServ.deleteAll();
     this.resetForm();
+    window.location = window.location;
   }
   resetForm(): void {
     this.form.get('colorBlindMode')?.setValue('');
+    this.form.get('hideKeyboard')?.setValue('');
     this.form.markAsPristine();
     this.form.markAsUntouched();
   }

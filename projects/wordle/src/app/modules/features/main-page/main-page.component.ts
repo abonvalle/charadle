@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, On
 import { GameService } from '@core/services/game.service';
 import { JokersService } from '@core/services/jokers.service';
 import { KeyboardService } from '@core/services/keyboard.service';
+import { SettingsService } from '@core/services/settings.service';
 import { ShareService } from '@core/services/share.service';
 import { Subject, filter, map, takeUntil } from 'rxjs';
 import { SerieJoker } from '../../../models/joker';
@@ -18,6 +19,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   constructor(
     public shareService: ShareService,
     public gameService: GameService,
+    public settingsService: SettingsService,
     private _jokersService: JokersService,
     private _cdr: ChangeDetectorRef,
     private _keyboardServ: KeyboardService
@@ -43,9 +45,11 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   @HostListener('window:keydown', ['$event'])
   onkeydown(event: KeyboardEvent) {
+    event.stopPropagation();
+    event.preventDefault();
     let key = event.key === 'Backspace' ? 'delete' : event.key === 'Enter' ? 'enter' : event.key;
-    if (this._keyboardServ.getKey(key)) {
-      this.onLetterClick(key);
+    if (this._keyboardServ.getKey(key.toLowerCase())) {
+      this.onLetterClick(key.toLowerCase());
     }
   }
 }
