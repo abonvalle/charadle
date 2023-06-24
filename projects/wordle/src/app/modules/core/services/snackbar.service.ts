@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarRef, TextOnlySnackBar } from '@angular/material/snack-bar';
 import { NameReportDialogComponent } from '@core/components/name-report-dialog/name-report-dialog.component';
-import { first, takeUntil, timer } from 'rxjs';
+import { takeUntil, timer } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class SnackbarService {
@@ -11,7 +11,7 @@ export class SnackbarService {
     let snackBarRef = this.openSnackBar('Prénom inconnu 🤷', 'alert', 'Signaler comme existant');
     snackBarRef
       .onAction()
-      .pipe(first(), takeUntil(timer(4000)))
+      .pipe(takeUntil(timer(4000)))
       .subscribe(() => {
         this._dialog.open(NameReportDialogComponent, { data: { name: currentGuess } });
       });
