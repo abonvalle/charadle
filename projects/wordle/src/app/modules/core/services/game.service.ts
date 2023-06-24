@@ -38,7 +38,7 @@ export class GameService implements OnDestroy {
   initBoardGame(): void {
     const wordle = this.setWordle();
     if (!wordle) {
-      this._snackbarService.openSnackBar('Une erreur est survenue', 'alert');
+      this._snackbarService.openSnackBar('Une erreur est survenue 😧', 'alert');
       return;
     }
     const savedBG = this._apiServ.getBoardgame();
@@ -103,13 +103,13 @@ export class GameService implements OnDestroy {
       return;
     }
     if (!boardLine.isBoardLineFull()) {
-      this._snackbarService.openSnackBar('Pas assez de lettres', 'alert');
+      this._snackbarService.openSnackBar('Pas assez de lettres 🤨', 'alert');
       return;
     }
     const currentGuess = boardLine.text;
     const words = this._assetsServ.wordlesJSON;
     if (!words) {
-      this._snackbarService.openSnackBar('Une erreur est survenue', 'alert');
+      this._snackbarService.openSnackBar('Une erreur est survenue 😧', 'alert');
       return;
     }
     if (!words.includes(currentGuess)) {

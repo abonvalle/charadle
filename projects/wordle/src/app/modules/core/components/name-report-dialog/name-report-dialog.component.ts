@@ -64,7 +64,7 @@ export class NameReportDialogComponent {
         // Update the result div
         this._snackbarServ.nameReported();
       } else {
-        this._snackbarServ.openSnackBar('Une erreur est survenue', 'alert');
+        this._snackbarServ.openSnackBar('Une erreur est survenue 😧', 'alert');
       }
       this._dialogRef.close();
     };

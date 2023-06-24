@@ -8,7 +8,7 @@ import { first, takeUntil, timer } from 'rxjs';
 export class SnackbarService {
   constructor(private _snackBar: MatSnackBar, private _dialog: MatDialog) {}
   showUnkownNameAlert(currentGuess: string): void {
-    let snackBarRef = this.openSnackBar('Prénom inconnu', 'alert', 'Signaler comme existant');
+    let snackBarRef = this.openSnackBar('Prénom inconnu 🤷', 'alert', 'Signaler comme existant');
     snackBarRef
       .onAction()
       .pipe(first(), takeUntil(timer(4000)))
@@ -28,7 +28,7 @@ export class SnackbarService {
     });
   }
   nameReported() {
-    this.openSnackBar('Prénom en cours de vérification, merci !');
+    this.openSnackBar('Prénom en cours de vérification 😽');
     return;
   }
 }

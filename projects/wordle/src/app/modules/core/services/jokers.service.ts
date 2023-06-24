@@ -35,7 +35,7 @@ export class JokersService {
       return;
     }
     if (jok.soldOut) {
-      this._snackbarService.openSnackBar('Joker épuisé');
+      this._snackbarService.openSnackBar('Joker épuisé 🥲');
       return;
     }
     const letters = this._shuffle(this._wordle?.text?.split('#')[0] ?? '');
@@ -48,7 +48,7 @@ export class JokersService {
       this.jokers$.next(joks);
       return;
     }
-    this._snackbarService.openSnackBar('Toutes les lettres sont découvertes', 'alert');
+    this._snackbarService.openSnackBar('Toutes les lettres sont découvertes 🤨', 'alert');
     return;
   }
 
@@ -59,7 +59,7 @@ export class JokersService {
       return;
     }
     if (jok.soldOut) {
-      this._snackbarService.openSnackBar('Joker épuisé');
+      this._snackbarService.openSnackBar('Joker épuisé 🥲');
       return;
     }
     const letters = this._shuffle(this._wordle?.text?.split('#')[0] ?? '');
@@ -72,7 +72,7 @@ export class JokersService {
       this.jokers$.next(joks);
       return;
     }
-    this._snackbarService.openSnackBar('Toutes les lettres sont découvertes', 'alert');
+    this._snackbarService.openSnackBar('Toutes les lettres sont découvertes 🤨', 'alert');
     return;
   }
 
@@ -83,7 +83,7 @@ export class JokersService {
       return;
     }
     if (!jok.use()) {
-      this._snackbarService.openSnackBar('Joker épuisé');
+      this._snackbarService.openSnackBar('Joker épuisé 🥲');
       return;
     }
     this.jokers$.next(joks);
