@@ -13,7 +13,7 @@ use PHPMailer\PHPMailer\SMTP;
 //Create an instance; passing `true` enables exceptions
 $mail = new PHPMailer(true);
 try {
-  $domains = ['https://wordle-series.abvdev.fr', 'https://www.wordle-series.abvdev.fr'];
+  $domains = ['https://wordle-series.abvdev.fr', 'https://www.wordle-series.abvdev.fr', 'https://wordle-animes.abvdev.fr', 'https://www.wordle-animes.abvdev.fr'];
   /**
    * Error codes :
    * E00 = 'unknown',
@@ -94,7 +94,7 @@ try {
     $mail->Port       = 465;                              //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
     //Recipients
-    $mail->setFrom('report@abvdev.fr', 'wordle-series');
+    $mail->setFrom('report@abvdev.fr', 'wordle');
     $mail->addAddress($to);     //Add a recipient
     // $mail->addReplyTo('info@example.com', 'Information');
     $mail->CharSet = "UTF-8";

@@ -46,21 +46,23 @@ body {
   --mdc-snackbar-container-color: #c61c1c;
 }
 
-.accessibility div.accessibility-partial::after {
+.accessibility div.accessibility-unused::after,
+.accessibility div.accessibility-partial::after,
+.accessibility div.accessibility-right::after {
   font: normal normal normal 1em/1 "Nucleo";
-  content: "\ea06";
   position: absolute;
   top: 2px;
   left: 2px;
   font-size: 12px;
 }
+.accessibility div.accessibility-partial::after {
+  content: "\ea06";
+}
 .accessibility div.accessibility-right::after {
-  font: normal normal normal 1em/1 "Nucleo";
   content: "\ea05";
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  font-size: 12px;
+}
+.accessibility div.accessibility-unused::after {
+  content: "\ea13";
 }
 
 @tailwind base;

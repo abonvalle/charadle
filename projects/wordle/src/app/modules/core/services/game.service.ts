@@ -1,6 +1,12 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { BoardGame, keyboardKeyBackground } from 'projects/wordle/src/app/models';
+import {
+  BoardGame,
+  PaintJoker,
+  PlaceLetterJoker,
+  SerieJoker,
+  keyboardKeyBackground
+} from 'projects/wordle/src/app/models';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { Wordle } from '../../../models/wordle.model';
 import { APIService } from './api.service';
@@ -35,8 +41,17 @@ export class GameService implements OnDestroy {
       this._snackbarService.openSnackBar('Une erreur est survenue', 'alert');
       return;
     }
-    const initBG = this._apiServ.getBoardgame(wordle);
-    const initJokers = this._apiServ.getJokers(wordle);
+    const savedBG = this._apiServ.getBoardgame();
+    const initBG = savedBG?.wordle.date !== wordle.date ? new BoardGame({ wordle }) : savedBG;
+    const savedJokers = this._apiServ.getJokers(wordle);
+    const initJokers =
+      savedBG?.wordle.date !== wordle.date || !savedJokers
+        ? {
+            paintJoker: new PaintJoker({ difficulty: wordle.difficulty }),
+            placeLetterJoker: new PlaceLetterJoker({ difficulty: wordle.difficulty }),
+            serieJoker: new SerieJoker()
+          }
+        : savedJokers;
     console.warn(initBG);
     this.boardGame$.next(initBG);
     this._jokersServ.initJokers(wordle, initJokers);
@@ -92,7 +107,7 @@ export class GameService implements OnDestroy {
       return;
     }
     const currentGuess = boardLine.text;
-    const words = this._assetsServ.wordsJSON;
+    const words = this._assetsServ.wordlesJSON;
     if (!words) {
       this._snackbarService.openSnackBar('Une erreur est survenue', 'alert');
       return;
@@ -115,7 +130,7 @@ export class GameService implements OnDestroy {
       this._keyboardServ.setKeyBg(boardBox.letter, state);
     });
 
-    if (currentGuess === boardGame?.wordle.text) {
+    if (currentGuess === boardGame?.wordle.text.split('#')[0]) {
       boardGame.success = true;
       boardGame.end = true;
     }
@@ -124,7 +139,7 @@ export class GameService implements OnDestroy {
     if (boardGame?.end) {
       setTimeout(() => {
         this._router.navigate(['/resultat']);
-      }, boardGame?.wordle.text.length * 375);
+      }, (boardGame?.wordle.text.split('#')[0]?.length ?? 1) * 375);
     }
     this.boardGame$.next(boardGame);
   }

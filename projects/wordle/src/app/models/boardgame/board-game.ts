@@ -24,7 +24,7 @@ export class BoardGame {
     this.wordle = args.wordle;
     this.success = args.success ?? false;
     this.end = args.end ?? false;
-    this.boardLines = this._setBoardLines(args.wordle.length, args.boardLines);
+    this.boardLines = this._setBoardLines(args.wordle.text?.split('#')[0]?.length ?? 0, args.boardLines);
   }
   private _setBoardLines(boxCount: number, oldBoardlines?: Map<number, BoardLine>): Map<number, BoardLine> {
     const boardLines = new Map();

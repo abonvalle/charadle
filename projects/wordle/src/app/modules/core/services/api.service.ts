@@ -12,18 +12,18 @@ import { LocalStorageService } from './local-storage.service';
 export class APIService {
   constructor(private _localStorage: LocalStorageService) {}
   /** GameBoard  */
-  getBoardgame(wordle: Wordle): BoardGame {
+  getBoardgame(): BoardGame | null {
     const strBg = this._localStorage.read(localStorageKeys.boardgame);
     const boardgame = strBg ? (JSON.parse(strBg, this._reviver) as BoardGame) : null;
-    return boardgame && boardgame.wordle.date === wordle.date
+    return boardgame
       ? new BoardGame({
           currentActiveBoardLine: boardgame.currentActiveBoardLine,
           boardLines: boardgame.boardLines,
-          wordle,
+          wordle: boardgame.wordle,
           end: boardgame.end,
           success: boardgame.success
         })
-      : new BoardGame({ wordle });
+      : null;
   }
   setBoardgame(gb: BoardGame): void {
     this._localStorage.update(localStorageKeys.boardgame, JSON.stringify(gb, this._replacer));
@@ -33,7 +33,7 @@ export class APIService {
   }
 
   /** Jokers  */
-  getJokers(wordle: Wordle): boardgameJokers {
+  getJokers(wordle: Wordle): boardgameJokers | null {
     const difficulty = wordle.difficulty;
     const strJk = this._localStorage.read(localStorageKeys.jokers);
     const jokers = strJk ? (JSON.parse(strJk) as boardgameJokers) : null;
@@ -46,11 +46,7 @@ export class APIService {
           }),
           serieJoker: new SerieJoker({ uses: jokers.serieJoker.uses })
         }
-      : {
-          paintJoker: new PaintJoker({ difficulty }),
-          placeLetterJoker: new PlaceLetterJoker({ difficulty }),
-          serieJoker: new SerieJoker()
-        };
+      : null;
   }
   setJokers(jokers: boardgameJokers): void {
     this._localStorage.update(localStorageKeys.jokers, JSON.stringify(jokers));

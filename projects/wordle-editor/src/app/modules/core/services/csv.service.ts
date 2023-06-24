@@ -41,13 +41,19 @@ export class CSVService {
       if (!line) {
         continue;
       }
-      const [_, wordle = '', fullname = undefined, from = '-', imgPath = undefined, difficulty = undefined] = line;
-      wordles.push(wordle);
-      characters[wordle] = {
-        from,
-        imgPath: imgPath === '-' ? undefined : imgPath,
-        fullname: fullname === '-' ? undefined : fullname,
-        difficulty: !difficulty || difficulty === '-' ? undefined : parseInt(difficulty)
+      const [_, wordle = '', fullname = undefined, from = '', imgPath = undefined, difficulty = undefined] = line;
+      if (wordle.trim() === '') {
+        continue;
+      }
+      wordles.push(wordle.trim().toLowerCase());
+      if (from?.trim() === '') {
+        continue;
+      }
+      characters[wordle.trim().toLowerCase()] = {
+        from: from?.trim(),
+        imgPath: imgPath?.trim() === '' ? undefined : imgPath?.trim(),
+        fullname: fullname?.trim() === '' ? undefined : fullname?.trim(),
+        difficulty: !difficulty || difficulty.trim() === '' ? undefined : parseInt(difficulty)
       };
     }
     return { characters, wordles };
@@ -74,7 +80,7 @@ export class CSVService {
       everyWordlesIndex.push({ index: this.getDateIndex(d), date: structuredClone(d) });
     }
 
-    for (let i = 0; i <= wordles.length; i++) {
+    for (let i = 0; i < wordles.length; i++) {
       let line = i + 1 + '';
       if (everyWordlesIndex.find(({ index }) => index === i)) {
         //wordle
@@ -89,16 +95,16 @@ export class CSVService {
           } else {
             const char = characters[wordles[i] ?? ''];
             if (!char || !header) {
-              line += ',-';
+              line += ',';
               continue;
             }
-            line += ',' + this._strRep(char[header as keyof typeof char]) ?? '-';
+            line += ',' + this._strRep(char[header as keyof typeof char]) ?? '';
           }
         }
         str += line + '\r\n';
       } else {
         //not worlde
-        line += ',' + (wordles[i] ?? '-') + ',-,-,-,-,-';
+        line += ',' + (wordles[i] ?? '') + ',,,,,';
         str += line + '\r\n';
       }
     }
@@ -110,7 +116,7 @@ export class CSVService {
       let newData = data.replace(/,/g, ' ');
       return newData;
     } else if (typeof data == 'undefined') {
-      return '-';
+      return '';
     } else if (typeof data == 'number') {
       return data.toString();
     } else {

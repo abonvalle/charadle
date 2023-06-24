@@ -35,9 +35,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   get daybydayFormDisable(): boolean {
     return this.daybydayForm.disabled || this.daybydayForm.invalid || this.daybydayForm.pristine;
   }
-  get bulkFormDisable(): boolean {
-    return this.bulkForm.disabled || this.bulkForm.invalid || this.bulkForm.pristine;
-  }
+
   constructor(private _formBuilder: FormBuilder, private _csvServ: CSVService) {}
   ngOnInit(): void {
     this.resetForms();
@@ -188,6 +186,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
   }
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
     // Only highligh dates inside the month view.
+    if (cellDate < this.minDate || cellDate > this.maxDate) {
+      return '';
+    }
     if (view === 'month') {
       const w = this.getWordle(cellDate);
       if (w.text === '' || w.text === 'XXX') {

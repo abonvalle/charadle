@@ -38,7 +38,7 @@ export class JokersService {
       this._snackbarService.openSnackBar('Joker épuisé');
       return;
     }
-    const letters = this._shuffle(this._wordle?.text ?? '');
+    const letters = this._shuffle(this._wordle?.text?.split('#')[0] ?? '');
     for (let letter of letters) {
       if (this._keyboardServ.hasLetterStates(letter.letter, ['partial', 'right'])) {
         continue;
@@ -62,7 +62,7 @@ export class JokersService {
       this._snackbarService.openSnackBar('Joker épuisé');
       return;
     }
-    const letters = this._shuffle(this._wordle?.text ?? '');
+    const letters = this._shuffle(this._wordle?.text?.split('#')[0] ?? '');
     for (let letter of letters) {
       if (this._keyboardServ.hasLetterStates(letter.letter, ['right'])) {
         continue;

@@ -7,7 +7,7 @@
         <option value="anime">anime</option>
       </select>
     </mat-form-field>
-    <button mat-raised-button color="primary" (click)="generateJSON()">Générer</button>
+    <button mat-raised-button color="primary" (click)="generateJSON()">Générer JSONs</button>
     <button mat-raised-button color="accent" (click)="exportCSV()">Export CSV</button>
     <button mat-raised-button color="warn" (click)="fileInpt.click()">Import CSV</button>
     <input #fileInpt type="file" class="hidden" (change)="importCSV($event)">
@@ -54,26 +54,19 @@
         </div>
       </div>
       <form [formGroup]="bulkForm" class="flex flex-col w-full">
-        <h2 class="text-white text-2xl mb-4">Bulk updates</h2>
+        <h2 class="text-white text-2xl mb-4">Bulk vision</h2>
         <div class="w-[500px]">
           <mat-form-field class="w-full">
             <mat-label>Valid names list (w/o wordles)</mat-label>
-            <textarea matInput formControlName="validNames"></textarea>
+            <textarea matInput formControlName="validNames" readonly></textarea>
           </mat-form-field>
         </div>
         <div class="w-[500px]">
           <mat-form-field class="w-full">
             <mat-label>Wordles list</mat-label>
-            <textarea matInput formControlName="wordles"></textarea>
+            <textarea matInput formControlName="wordles" readonly></textarea>
           </mat-form-field>
         </div>
-        <div class="w-[500px]">
-          <mat-form-field class="w-full">
-            <mat-label>Bulk add</mat-label>
-            <textarea matInput></textarea>
-          </mat-form-field>
-        </div>
-        <button mat-raised-button color="primary" [disabled]="bulkFormDisable" (click)="onBulkUpdate()">Update</button>
       </form>
 
     </div>
