@@ -32,7 +32,8 @@ export class ShareService {
     const nbTries = bg?.success ? bg?.currentActiveBoardLine : '💀';
     const tries = bg?.getTries();
     const worldeDate = bg?.wordle.date;
-    const text = [`Wordle ${environment.version.label} #${worldeDate} ✍️${nbTries}/6`];
+    const score = this.getScore();
+    const text = [`Wordle ${environment.version.label} #${worldeDate} 🎯${score}pts ✍️${nbTries}/6`];
     tries?.forEach((aTry) => {
       text.push(aTry);
     });
@@ -53,6 +54,34 @@ export class ShareService {
     } else {
       return `0x🃏`;
     }
+  }
+  getScore(): number {
+    const bg = this._gameService.boardGame$.value;
+    const nbTries = bg?.success ? bg?.currentActiveBoardLine : 0;
+    const joks = this._jokersService.jokers$.value;
+    if (!bg?.success || !joks) {
+      return 0;
+    }
+    const joker1Count = joks?.paintJoker.useCount;
+    const joker2Count = joks?.placeLetterJoker.useCount;
+    const joker1CountMax = joks?.paintJoker.maxUse;
+    const joker2CountMax = joks?.placeLetterJoker.maxUse;
+    const joker3Count = joks?.serieJoker.useCount;
+    let score = 100;
+
+    //Origin joker = -10pts
+    score -= joker3Count > 0 ? 10 : 0;
+
+    //Paint joker = -19pts / maxUse * useCount
+    score -= (19 / joker1CountMax) * joker1Count;
+
+    //Place joker = -36pts / maxUse * useCount
+    score -= (19 / joker2CountMax) * joker2Count;
+
+    const triesPoints = [0, 3, 9, 15, 24, 35];
+    score -= triesPoints[nbTries - 1] ?? 35;
+
+    return score;
   }
   _navShare(shareData: ShareData): void {
     if (!navigator.share) {
