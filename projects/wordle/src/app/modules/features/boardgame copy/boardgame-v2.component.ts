@@ -5,12 +5,12 @@ import { Subject, takeUntil } from 'rxjs';
 import { BoardBox, BoardGame, BoardLine } from '../../../models/boardgame';
 
 @Component({
-  selector: 'boardgame',
-  templateUrl: 'boardgame.component.html',
+  selector: 'boardgame-v2',
+  templateUrl: 'boardgame-v2.component.html',
   styles: [':host{flex-grow:1;overflow:auto}'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BoardgameComponent implements OnInit, OnDestroy {
+export class BoardgameV2Component implements OnInit, OnDestroy {
   boardLines$: Subject<BoardLine[]> = new Subject();
   _destroy$: Subject<void> = new Subject();
   constructor(private _gameService: GameService, private _cdr: ChangeDetectorRef, private _apiServ: APIService) {}
