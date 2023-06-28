@@ -27,6 +27,9 @@ export class SnackbarService {
       panelClass
     });
   }
+  defaultErrorMsg(): void {
+    this.openSnackBar('Une erreur est survenue 😧', 'alert');
+  }
   nameReported() {
     this.openSnackBar('Prénom en cours de vérification 😽');
     return;

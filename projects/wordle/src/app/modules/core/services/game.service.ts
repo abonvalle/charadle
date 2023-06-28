@@ -1,11 +1,12 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  BoardBox,
   BoardGame,
   PaintJoker,
   PlaceLetterJoker,
   SerieJoker,
-  keyboardKeyBackground
+  letterState
 } from 'projects/wordle/src/app/models';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { Wordle } from '../../../models/wordle.model';
@@ -38,7 +39,7 @@ export class GameService implements OnDestroy {
   initBoardGame(): void {
     const wordle = this.setWordle();
     if (!wordle) {
-      this._snackbarService.openSnackBar('Une erreur est survenue 😧', 'alert');
+      this._snackbarService.defaultErrorMsg();
       return;
     }
     const savedBG = this._apiServ.getBoardgame();
@@ -99,7 +100,8 @@ export class GameService implements OnDestroy {
   submitGuess(): void {
     let boardGame = this.boardGame$.value;
     let boardLine = boardGame?.getCurrentBoardLine();
-    if (!boardLine) {
+    if (!boardGame || !boardLine) {
+      this._snackbarService.defaultErrorMsg();
       return;
     }
     if (!boardLine.isBoardLineFull()) {
@@ -109,37 +111,87 @@ export class GameService implements OnDestroy {
     const currentGuess = boardLine.text;
     const words = this._assetsServ.wordlesJSON;
     if (!words) {
-      this._snackbarService.openSnackBar('Une erreur est survenue 😧', 'alert');
+      this._snackbarService.defaultErrorMsg();
       return;
     }
     if (!words.includes(currentGuess)) {
       this._snackbarService.showUnkownNameAlert(currentGuess);
       return;
     }
+    const wordle = boardGame?.wordle.text?.split('#')[0];
+    if (!wordle) {
+      this._snackbarService.defaultErrorMsg();
+      return;
+    }
 
-    boardLine.boardBoxes.forEach((boardBox, index) => {
-      let state: keyboardKeyBackground;
-      if (boardBox.letter === boardGame?.wordle.text[index]) {
-        state = 'right';
-      } else if (boardGame?.wordle.text?.includes(boardBox.letter)) {
-        state = 'partial';
-      } else {
-        state = 'unused';
+    const wordleLetters: Map<string, number[]> = wordle.split('').reduce((map, letter, index) => {
+      map.set(letter, map.has(letter) ? [...map.get(letter), index] : [index]);
+      return map;
+    }, new Map());
+
+    const guessLetters: Map<string, { index: number; state: letterState; boardBox: BoardBox }[]> = Array.from(
+      boardLine.boardBoxes.values()
+    ).reduce((map: Map<string, { index: number; state: letterState; boardBox: BoardBox }[]>, boardBox, index) => {
+      map.set(
+        boardBox.letter,
+        map.has(boardBox.letter)
+          ? [...(map.get(boardBox.letter) ?? []), { index, state: '', boardBox }]
+          : [{ index, state: '', boardBox }]
+      );
+      return map;
+    }, new Map());
+
+    console.warn(structuredClone(guessLetters));
+    console.warn(structuredClone(wordleLetters));
+    //loop to tag 'unused' & 'right' letters
+    guessLetters.forEach((guessLetter, key) => {
+      if (!wordleLetters.has(key)) {
+        guessLetter.map((l) => (l.state = 'unused'));
+        return;
       }
-      boardBox.setBackground(state);
-      this._keyboardServ.setKeyBg(boardBox.letter, state);
+      guessLetter.forEach((letter) => {
+        const wordleLetterIndexes = wordleLetters.get(key);
+        console.warn(structuredClone(wordleLetterIndexes));
+        const wordleLetterIndex = wordleLetterIndexes?.findIndex((i) => i === letter.index) ?? -1;
+        if (wordleLetterIndexes && wordleLetterIndex > -1) {
+          letter.state = 'right';
+          wordleLetterIndexes?.splice(wordleLetterIndex, 1);
+          console.warn(structuredClone(wordleLetterIndexes));
+          wordleLetters.set(key, wordleLetterIndexes);
+          return;
+        }
+      });
     });
 
-    if (currentGuess === boardGame?.wordle.text.split('#')[0]) {
+    //loop to tag 'partial' or 'unused' letters & to set backgrounds
+    guessLetters.forEach((guessLetter, key) => {
+      guessLetter.forEach((letter) => {
+        if (letter.state === '') {
+          const wordleLetterIndexes = wordleLetters.get(key);
+          if (wordleLetterIndexes?.length ?? 0 > 0) {
+            letter.state = 'partial';
+            wordleLetterIndexes?.pop();
+            wordleLetters.set(key, wordleLetterIndexes ?? []);
+          } else {
+            letter.state = 'unused';
+          }
+        }
+
+        letter.boardBox?.setBackground(letter.state);
+        this._keyboardServ.setKeyBg(key ?? '', letter.state);
+      });
+    });
+
+    if (currentGuess === wordle) {
       boardGame.success = true;
       boardGame.end = true;
     }
 
-    boardGame?.incrementCurrentActiveBoardLine();
-    if (boardGame?.end) {
+    boardGame.incrementCurrentActiveBoardLine();
+    if (boardGame.end) {
       setTimeout(() => {
         this._router.navigate(['/resultat']);
-      }, (boardGame?.wordle.text.split('#')[0]?.length ?? 1) * 375);
+      }, wordle.length * 375);
     }
     this.boardGame$.next(boardGame);
   }
@@ -163,7 +215,14 @@ export class GameService implements OnDestroy {
     const difficulty = charactersInfos[text]?.difficulty;
     const imgPath = charactersInfos[text]?.imgPath ?? '';
     const fullname = charactersInfos[text]?.fullname ?? text;
-    return new Wordle({ date: date.toLocaleDateString('fr-FR'), text, serie, difficulty, imgPath, fullname });
+    return new Wordle({
+      date: date.toLocaleDateString('fr-FR'),
+      text,
+      serie,
+      difficulty,
+      imgPath,
+      fullname
+    });
   }
   enterLetter(letter: string): void {
     if (this.boardGame$.value?.success) {

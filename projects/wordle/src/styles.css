@@ -13,10 +13,11 @@ html {
 }
 html,
 body {
+  height: 100dvh;
   height: 100%;
-}
-body {
+  padding: 0;
   margin: 0;
+  overflow: hidden;
 }
 
 .mat-menu-item {
