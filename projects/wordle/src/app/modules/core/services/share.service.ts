@@ -57,6 +57,7 @@ export class ShareService {
   }
   getScore(): number {
     const bg = this._gameService.boardGame$.value;
+    const difficulty = this._gameService.boardGame$.value?.wordle.difficulty ?? 1;
     const nbTries = bg?.success ? bg?.currentActiveBoardLine : 0;
     const joks = this._jokersService.jokers$.value;
     if (!bg?.success || !joks) {
@@ -69,19 +70,19 @@ export class ShareService {
     const joker3Count = joks?.serieJoker.useCount;
     let score = 100;
 
-    //Origin joker = -10pts
-    score -= joker3Count > 0 ? 10 : 0;
+    //Origin joker = -10,9 or 8pts
+    score -= joker3Count > 0 ? 10 - (difficulty - 1) ?? 10 : 0;
 
     //Paint joker = -19pts / maxUse * useCount
     score -= (19 / joker1CountMax) * joker1Count;
 
     //Place joker = -36pts / maxUse * useCount
-    score -= (19 / joker2CountMax) * joker2Count;
+    score -= (36 / joker2CountMax) * joker2Count;
 
-    const triesPoints = [0, 3, 9, 15, 24, 35];
-    score -= triesPoints[nbTries - 1] ?? 35;
+    //Tries/difficulty
+    score -= (2 - 0.25 * (difficulty - 1)) * Math.pow(nbTries - 0.5, 2);
 
-    return Math.round(score);
+    return Math.round(score > 100 ? 100 : score);
   }
   _navShare(shareData: ShareData): void {
     if (!navigator.share) {
