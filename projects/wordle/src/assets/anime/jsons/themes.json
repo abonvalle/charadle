@@ -4,12 +4,51 @@
   },
   "themes": [
     {
-      "id": "bf44bfc2-ce1a-4113-ac69-753ba202a0ff",
+      "id": "bf44bfc2-ce1a-4113-ac69-753ba202a0fs",
       "default": true,
       "name": "日本",
       "gradient": [
+        "#fffbd5",
+        "#b20a2c"
+      ],
+      "primary": "#0f2027",
+      "secondary": "#1a1a1a",
+      "tertiary": "#5b5b5b",
+      "bgOpacity": 0.8,
+      "background": "url('/assets/images/background/wordcloud-japan-red.svg')"
+    },
+    {
+      "id": "bf44bfc2-ce1a-4113-ac69-753ba202a0js",
+      "name": "Miaka",
+      "gradient": [
+        "#FC354C",
+        "#0ABFBC"
+      ],
+      "primary": "#0f2027",
+      "secondary": "#1a1a1a",
+      "tertiary": "#5b5b5b",
+      "bgOpacity": 0.9,
+      "background": "url('/assets/images/background/wordcloud-japan-2.svg')"
+    },
+    {
+      "id": "bf44bfc2-ce1a-4113-ac69-753ba292a0ff",
+      "name": "Aka",
+      "gradient": [
         "#d33c50",
         "#C91F37"
+      ],
+      "primary": "#0f2027",
+      "secondary": "#1a1a1a",
+      "tertiary": "#5b5b5b",
+      "bgOpacity": 1,
+      "background": "url('/assets/images/background/wordcloud-japan.svg')"
+    },
+    {
+      "id": "bf44bfc2-ce1a-4113-ac69-753ba282a0ff",
+      "name": "Katakana",
+      "gradient": [
+        "#fff",
+        "#ECE9E6"
       ],
       "primary": "#0f2027",
       "secondary": "#1a1a1a",
@@ -27,8 +66,8 @@
       "primary": "#0f2027",
       "secondary": "#1a1a1a",
       "tertiary": "#5b5b5b",
-      "bgOpacity": 0.8,
-      "background": "url('/assets/images/background/wordcloud.svg')"
+      "bgOpacity": 0.5,
+      "background": "url('/assets/images/background/wordcloud-sakura.svg')"
     },
     {
       "id": "7d423921-b5f8-4990-81cf-998200a400ea",
@@ -40,7 +79,8 @@
       "primary": "#0f2027",
       "secondary": "#000",
       "tertiary": "#5b5b5b",
-      "bgOpacity": 0.7
+      "bgOpacity": 0.6,
+      "background": "url('/assets/images/background/wordcloud-shonen.svg')"
     },
     {
       "id": "7d423921-b5f8-4990-81cf-998200a400ed",
@@ -52,7 +92,21 @@
       "primary": "#0f2027",
       "secondary": "#000",
       "tertiary": "#5b5b5b",
-      "bgOpacity": 0.6
+      "bgOpacity": 0.5,
+      "background": "url('/assets/images/background/wordcloud-wave.svg')"
+    },
+    {
+      "id": "7d423921-b5f8-4990-81cf-998200a400es",
+      "name": "Manga",
+      "gradient": [
+        "#232526",
+        "#414345"
+      ],
+      "primary": "#0f2027",
+      "secondary": "#000",
+      "tertiary": "#5b5b5b",
+      "bgOpacity": 0.5,
+      "background": "url('/assets/images/background/wordcloud-manga.svg')"
     }
   ]
 }
