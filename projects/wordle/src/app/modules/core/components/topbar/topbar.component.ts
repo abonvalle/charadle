@@ -4,6 +4,7 @@ import { environment } from '@config/environment';
 import { ThemeService } from '@core/services/theme.service';
 import { theme } from '@models/*';
 import { Subject, takeUntil } from 'rxjs';
+import { AboutDialogComponent } from '../about-dialog/about-dialog.component';
 import { ChangeWordleDialogComponent } from '../change-wordle-dialog/change-wordle-dialog.component';
 import { HelpDialogComponent } from '../help-dialog/help-dialog.component';
 import { SettingsDialogComponent } from '../settings-dialog/settings.component';
@@ -35,6 +36,9 @@ export class TopbarComponent implements OnInit, OnDestroy {
   }
   openSettings(): void {
     this._dialog.open(SettingsDialogComponent);
+  }
+  openAbout(): void {
+    this._dialog.open(AboutDialogComponent);
   }
   changeTheme(id: string): void {
     this._themeServ.updateTheme(id);

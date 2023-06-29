@@ -4,6 +4,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
+      "@packageJSON": ["./package.json"],
       "@config/*": ["projects/wordle/src/environments/*"],
       "@core/*": ["projects/wordle/src/app/modules/core/*"],
       "@features/*": ["projects/wordle/src/app/modules/features/*"],

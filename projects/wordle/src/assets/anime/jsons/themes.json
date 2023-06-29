@@ -1,11 +1,25 @@
 {
-  "font": {
-    "color": "#f4f4f4"
-  },
   "themes": [
     {
-      "id": "bf44bfc2-ce1a-4113-ac69-753ba202a0fs",
+      "id": "7d423921-b5f8-4990-81cf-998200a400es",
       "default": true,
+      "name": "Manga",
+      "gradient": [
+        "#232526",
+        "#414345"
+      ],
+      "primary": "#0f2027",
+      "secondary": "#000",
+      "tertiary": "#5b5b5b",
+      "bgOpacity": 0.5,
+      "background": "url('/assets/images/background/wordcloud-manga.svg')",
+      "copyright": {
+        "text": "test",
+        "url": "test"
+      }
+    },
+    {
+      "id": "bf44bfc2-ce1a-4113-ac69-753ba202a0fs",
       "name": "日本",
       "gradient": [
         "#fffbd5",
@@ -94,19 +108,6 @@
       "tertiary": "#5b5b5b",
       "bgOpacity": 0.5,
       "background": "url('/assets/images/background/wordcloud-wave.svg')"
-    },
-    {
-      "id": "7d423921-b5f8-4990-81cf-998200a400es",
-      "name": "Manga",
-      "gradient": [
-        "#232526",
-        "#414345"
-      ],
-      "primary": "#0f2027",
-      "secondary": "#000",
-      "tertiary": "#5b5b5b",
-      "bgOpacity": 0.5,
-      "background": "url('/assets/images/background/wordcloud-manga.svg')"
     }
   ]
 }

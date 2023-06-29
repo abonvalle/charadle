@@ -7,4 +7,6 @@ export interface theme {
   secondary: string;
   tertiary: string;
   bgOpacity: number;
+  copyright?: { text: string; url: string };
+  font?: string;
 }

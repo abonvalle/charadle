@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import packageJson from '@packageJSON';
 import { Subject } from 'rxjs';
-import packageJson from '../../../../../../../package.json';
 import { localStorageKeys } from '../../../models/local-storage-keys.enum';
 
 @Injectable({ providedIn: 'root' })

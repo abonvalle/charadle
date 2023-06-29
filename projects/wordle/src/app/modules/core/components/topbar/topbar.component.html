@@ -59,6 +59,10 @@
       <i class="icon icon-more-vertical text-white text-xl h-12 w-12 p-3"></i>
     </button>
     <mat-menu #menu="matMenu">
+      <button (click)="openAbout()" mat-menu-item class="flex flex-row justify-start items-center">
+        <i class="icon icon-info pr-2"></i>
+        <span>A propos</span>
+      </button>
       <button mat-menu-item [disabled]="true" class="flex flex-row justify-start items-center">
         <i class="icon icon-calendar pr-2"></i>
         <span>Archives</span>
