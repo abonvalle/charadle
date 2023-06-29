@@ -279,3 +279,7 @@ icons
   content: "\ea1c";
 }
 
+.icon-info::before {
+  content: "\ea1d";
+}
+

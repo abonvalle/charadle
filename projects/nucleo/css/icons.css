@@ -178,3 +178,7 @@ Generated using nucleoapp.com
 .icon-shuffle-1::before {
   content: "\ea1c";
 }
+
+.icon-info::before {
+  content: "\ea1d";
+}
