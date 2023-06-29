@@ -1,4 +1,4 @@
-@import "../../nucleo/css/icons.css";
+@import "./projects/nucleo/css/icons.css";
 
 *,
 *:after,
@@ -62,7 +62,7 @@ body {
   left: 2px;
   font-size: 12px;
 }
-
+@config "./tailwind.config.anime.js";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

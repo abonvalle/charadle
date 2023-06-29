@@ -1,7 +1,7 @@
 // @ts-nocheck
 const plugin = require('tailwindcss/plugin')
 const { getCustomThemesConfigs, getDefaultThemeConfig, getThemesIds } = require('./themes.js')
-const { themes } = require('./projects/wordle/src/assets/serie/jsons/themes.json')
+const { themes } = require('./projects/wordle/src/assets/anime/jsons/themes.json')
 const defaultTheme = themes.find((t) => t.default)
 
 module.exports = {

@@ -1,5 +1,4 @@
 // @ts-nocheck
-const { themes, font } = require('./projects/wordle/src/assets/serie/jsons/themes.json')
 // theme : {
 //    id: 'bf44bfc2-ce1a-4113-ac69-753ba202a0ff', -> Identifiant unique
 //    name: 'Classique', -> Nom affiché
@@ -9,12 +8,12 @@ const { themes, font } = require('./projects/wordle/src/assets/serie/jsons/theme
 //    tertiary: '#5b5b5b', -> Couleur des boutons dans la topbar
 //    bgOpacity : 0.2 -> Opacité du background
 // }
-const defaultTheme = themes.find((t) => t.default)
 
 function getThemeConfigFromTheme(theme, defaultTheme = false) {
-  const { id, primary, secondary, tertiary, bgOpacity, gradient } = theme;
-  const fontColor = font.color;
+  const { id, primary, secondary, tertiary, bgOpacity, gradient, background = "url('/assets/images/background/wordcloud.svg')", font } = theme;
+  const fontColor = font ?? "#f4f4f4";
   const opacity = { dynamic: bgOpacity }
+  const backgroundImage = { wordcloud: background }
   const gradientColorsCount = gradient.length;
   const primaryObj = getGradientColor(primary);
   const secondaryObj = getGradientColor(secondary);
@@ -29,6 +28,7 @@ function getThemeConfigFromTheme(theme, defaultTheme = false) {
 
   return {
     ...(!defaultTheme ? { name: id } : {}), extend: {
+      backgroundImage,
       colors: { primary: primaryObj, secondary: secondaryObj, tertiary: tertiaryObj, complementary, font: fontColor, ...gradientColors }, opacity
     }
   }
@@ -167,10 +167,10 @@ function getComplementaryColor(hexColor) {
 }
 
 module.exports = {
-  defaultThemeConfig: getThemeConfigFromTheme(defaultTheme, true),
-  getCustomThemesConfigs() {
+  getDefaultThemeConfig: (defaultTheme) => getThemeConfigFromTheme(defaultTheme, true),
+  getCustomThemesConfigs(themes) {
     return themes.map((theme) => getThemeConfigFromTheme(theme));
   },
-  getThemesIds() { return themes.map(({ id }) => id) },
+  getThemesIds(themes) { return themes.map(({ id }) => id) },
 };
 

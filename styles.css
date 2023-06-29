@@ -1,0 +1,68 @@
+@import "./projects/nucleo/css/icons.css";
+
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  scroll-behavior: smooth;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+}
+
+.mat-menu-item {
+  display: flex !important;
+}
+
+.mat-mdc-slide-toggle.mat-accent {
+  --mdc-switch-selected-focus-state-layer-color: #003261;
+  --mdc-switch-selected-handle-color: #003261;
+  --mdc-switch-selected-hover-state-layer-color: #003261;
+  --mdc-switch-selected-pressed-state-layer-color: #003261;
+  --mdc-switch-selected-focus-handle-color: #120a33;
+  --mdc-switch-selected-hover-handle-color: #120a33;
+  --mdc-switch-selected-pressed-handle-color: #120a33;
+  --mdc-switch-selected-focus-track-color: #1186bf;
+  --mdc-switch-selected-hover-track-color: #1186bf;
+  --mdc-switch-selected-pressed-track-color: #1186bf;
+  --mdc-switch-selected-track-color: #1186bf;
+}
+.mat-mdc-snack-bar-container {
+  --mat-mdc-snack-bar-button-color: #dfdfdf;
+}
+.mat-mdc-snack-bar-container.success {
+  --mdc-snackbar-container-color: #138a3c;
+}
+.mat-mdc-snack-bar-container.alert {
+  --mdc-snackbar-container-color: #c61c1c;
+}
+
+.accessibility div.accessibility-partial::after {
+  font: normal normal normal 1em/1 "Nucleo";
+  content: "\ea06";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  font-size: 12px;
+}
+.accessibility div.accessibility-right::after {
+  font: normal normal normal 1em/1 "Nucleo";
+  content: "\ea05";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  font-size: 12px;
+}
+@config "./tailwind.config.js";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

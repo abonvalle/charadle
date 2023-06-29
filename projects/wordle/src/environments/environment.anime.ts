@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  version: { code: 'anime', label: 'Animés', link: '' }
+  version: { code: 'anime', label: 'アニメ', link: '' }
 };
 
 /*
