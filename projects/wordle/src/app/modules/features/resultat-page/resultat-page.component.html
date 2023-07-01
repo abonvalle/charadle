@@ -1,46 +1,49 @@
 <ng-container *ngIf="(gameService.boardGame$ | async) ;let boardGame">
-  <div class="flex flex-col justify-center items-center text-white bg-background-alt h-full overflow-y-auto">
-    <h1 class="text-2xl text-shadow-sm shadow-black mb-2">
-      {{boardGame?.success? 'Gagné !':'Si proche...'}}
-    </h1>
-    <img [src]="boardGame?.wordle?.imgPath" [alt]="boardGame?.wordle?.fullname"
-      class="rounded-sm max-w-[200px] max-h-[200px]">
+  <div class="flex flex-col justify-center items-center text-white h-full overflow-y-auto ">
+    <div
+      class="flex flex-col justify-center items-center text-white overflow-y-auto bg-black/60 min-w-[280px] rounded-md">
+      <h1 class="text-2xl text-shadow-sm shadow-black mb-2 pt-2">
+        {{boardGame?.success? 'Gagné !':'Si proche...'}}
+      </h1>
+      <img [src]="boardGame?.wordle?.imgPath" [alt]="boardGame?.wordle?.fullname"
+        class="rounded-sm max-w-[200px] max-h-[200px]">
 
-    <div class="flex flex-col justify-center items-center py-2">
-      <p class="text-2xl capitalize text-shadow-sm shadow-black">
-        {{boardGame?.wordle?.fullname}}
-      </p>
+      <div class="flex flex-col justify-center items-center py-2">
+        <p class="text-2xl capitalize text-shadow-sm shadow-black">
+          {{boardGame?.wordle?.fullname}}
+        </p>
 
-      <p class="text-lg text-shadow-sm shadow-black">
-        de
-      </p>
-      <p class="text-2xl text-shadow-sm shadow-black">
-        {{boardGame?.wordle?.serie}}
-      </p>
-    </div>
-
-    <div class="text-center text-shadow-sm shadow-black mt-6">
-      <p>🎯{{shareService.getScore()}} pts</p>
-      <p>{{boardGame.currentActiveBoardLine}}/6 essais</p>
-      <p>{{jokerData}}</p>
-    </div>
-    <div class="mt-4">
-      <div *ngFor="let tryLine of tries;trackBy:trackByFn" class="text-center text-shadow-sm shadow-black">
-        {{tryLine}}
+        <p class="text-lg text-shadow-sm shadow-black">
+          de
+        </p>
+        <p class="text-2xl text-shadow-sm shadow-black">
+          {{boardGame?.wordle?.serie}}
+        </p>
       </div>
-      <a [routerLink]="'/'">
-        <p class="underline text-center text-shadow-sm shadow-black">Voir les essais</p>
-      </a>
-    </div>
 
-    <div class="py-6 flex flex-col items-center justify-center">
-      <p class="text-lg mt-2 text-shadow-sm shadow-black">Partagez votre score :</p>
-      <div class="flex gap-6 mt-2">
-        <!-- <i class="icon icon-share-2 text-white text-3xl text-shadow-sm shadow-black"></i> -->
-        <i class="icon icon-clipboard text-white text-3xl text-shadow-sm shadow-black"
-          (click)="shareService.shareScore()"></i>
+      <div class="text-center text-shadow-sm shadow-black mt-6">
+        <p>🎯{{shareService.getScore()}} pts</p>
+        <p>{{boardGame.currentActiveBoardLine}}/6 essais</p>
+        <p>{{jokerData}}</p>
       </div>
+      <div class="mt-4">
+        <div *ngFor="let tryLine of tries;trackBy:trackByFn" class="text-center text-shadow-sm shadow-black">
+          {{tryLine}}
+        </div>
+        <a [routerLink]="'/'">
+          <p class="underline text-center text-shadow-sm shadow-black">Voir les essais</p>
+        </a>
+      </div>
+
+      <div class="py-6 flex flex-col items-center justify-center">
+        <p class="text-lg mt-2 text-shadow-sm shadow-black">Partagez votre score :</p>
+        <div class="flex gap-6 mt-2">
+          <!-- <i class="icon icon-share-2 text-white text-3xl text-shadow-sm shadow-black"></i> -->
+          <i class="icon icon-clipboard text-white text-3xl text-shadow-sm shadow-black"
+            (click)="shareService.shareScore()"></i>
+        </div>
+      </div>
+      <p class="mb-4 text-shadow-sm shadow-black">Prochain nom dans : {{timeLeftStr}}</p>
     </div>
-    <p class="mb-4 text-shadow-sm shadow-black">Prochain nom dans : {{timeLeftStr}}</p>
   </div>
 </ng-container>

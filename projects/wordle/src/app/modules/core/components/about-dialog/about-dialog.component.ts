@@ -15,7 +15,8 @@ export class AboutDialogComponent {
     map((thId) => this._themeServ.themeList.find((t) => t.id === thId))
   );
   themeLabel$: Observable<string> = this.currentTheme$.pipe(map((th) => th?.name ?? ''));
-  themeCreditsURL$: Observable<string> = this.currentTheme$.pipe(map((th) => th?.copyright?.url ?? ''));
-  themeCredits$: Observable<string> = this.currentTheme$.pipe(map((th) => th?.copyright?.text ?? ''));
+  themeCredits$: Observable<{ text: string; url: string }[]> = this.currentTheme$.pipe(
+    map((th) => th?.copyright ?? [])
+  );
   constructor(private _themeServ: ThemeService) {}
 }

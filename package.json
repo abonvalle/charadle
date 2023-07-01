@@ -3,8 +3,8 @@
   "version": "1.2.2",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve wordle",
-    "start-anime": "ng serve wordle --configuration development-anime",
+    "start": "ng serve wordle --host 0.0.0.0",
+    "start-anime": "ng serve wordle --configuration development-anime --host 0.0.0.0",
     "build": "ng build wordle",
     "build-anime": "ng build wordle --configuration production-anime",
     "start-editor": "ng serve wordle-editor",

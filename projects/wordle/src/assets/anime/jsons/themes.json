@@ -9,40 +9,35 @@
         "#414345"
       ],
       "primary": "#0f2027",
-      "secondary": "#000",
-      "tertiary": "#5b5b5b",
+      "secondary": "#1a1a1a",
+      "tertiary": "#162b33",
       "bgOpacity": 0.5,
       "background": "url('/assets/images/background/wordcloud-manga.svg')",
-      "copyright": {
-        "text": "test",
-        "url": "test"
-      }
+      "copyright": [
+        {
+          "text": "Image by macrovector - freepik.com",
+          "url": "https://www.freepik.com/free-vector/comic-book-page-template_9588040.htm#page=4&query=manga&position=39&from_view=search&track=sph"
+        }
+      ]
     },
     {
       "id": "bf44bfc2-ce1a-4113-ac69-753ba202a0fs",
-      "name": "日本",
+      "name": "Japan",
       "gradient": [
         "#fffbd5",
         "#b20a2c"
       ],
       "primary": "#0f2027",
       "secondary": "#1a1a1a",
-      "tertiary": "#5b5b5b",
+      "tertiary": "#162b33",
       "bgOpacity": 0.8,
-      "background": "url('/assets/images/background/wordcloud-japan-red.svg')"
-    },
-    {
-      "id": "bf44bfc2-ce1a-4113-ac69-753ba202a0js",
-      "name": "Miaka",
-      "gradient": [
-        "#FC354C",
-        "#0ABFBC"
-      ],
-      "primary": "#0f2027",
-      "secondary": "#1a1a1a",
-      "tertiary": "#5b5b5b",
-      "bgOpacity": 0.9,
-      "background": "url('/assets/images/background/wordcloud-japan-2.svg')"
+      "background": "url('/assets/images/background/wordcloud-japan-red.svg')",
+      "copyright": [
+        {
+          "text": "Image by rawpixel.com - freepik.com",
+          "url": "https://www.freepik.com/free-vector/famous-japanese-cultural-icons_3853664.htm#query=japan&position=21&from_view=search&track=sph"
+        }
+      ]
     },
     {
       "id": "bf44bfc2-ce1a-4113-ac69-753ba292a0ff",
@@ -53,9 +48,38 @@
       ],
       "primary": "#0f2027",
       "secondary": "#1a1a1a",
-      "tertiary": "#5b5b5b",
+      "tertiary": "#162b33",
       "bgOpacity": 1,
-      "background": "url('/assets/images/background/wordcloud-japan.svg')"
+      "background": "url('/assets/images/background/wordcloud-aka.svg')",
+      "copyright": [
+        {
+          "text": "Image by Freepik - freepik.com",
+          "url": "https://www.freepik.com/free-vector/hand-drawn-kitsune-mask-illustration_25712585.htm#query=manga&position=5&from_view=search&track=sph"
+        }
+      ]
+    },
+    {
+      "id": "bf44bfc2-ce1a-4113-ac69-721ba292a0ff",
+      "name": "Koï",
+      "gradient": [
+        "#354f77",
+        "#5e4d8c"
+      ],
+      "primary": "#0f2027",
+      "secondary": "#1a1a1a",
+      "tertiary": "#162b33",
+      "bgOpacity": 1,
+      "background": "url('/assets/images/background/wordcloud-koi.svg')",
+      "copyright": [
+        {
+          "text": "Image by Freepik - freepik.com",
+          "url": "https://www.freepik.com/free-vector/hand-drawn-koi-illustration_30891304.htm#page=3&query=japan&position=30&from_view=search&track=sph"
+        },
+        {
+          "text": "Image by pikisuperstar - freepik.com",
+          "url": "https://www.freepik.com/free-vector/hand-drawn-koi-fish-illustration_30337512.htm#from_view=detail_alsolike"
+        }
+      ]
     },
     {
       "id": "bf44bfc2-ce1a-4113-ac69-753ba282a0ff",
@@ -66,9 +90,15 @@
       ],
       "primary": "#0f2027",
       "secondary": "#1a1a1a",
-      "tertiary": "#5b5b5b",
+      "tertiary": "#162b33",
       "bgOpacity": 0.7,
-      "background": "url('/assets/images/background/wordcloud.svg')"
+      "background": "url('/assets/images/background/wordcloud.svg')",
+      "copyright": [
+        {
+          "text": "Background Japanese font by Fontworks Inc. - Github.com",
+          "url": "https://github.com/fontworks-fonts/RocknRoll"
+        }
+      ]
     },
     {
       "id": "8b008a17-b3e2-408b-a7b6-1944043c2fa0",
@@ -79,9 +109,34 @@
       ],
       "primary": "#0f2027",
       "secondary": "#1a1a1a",
-      "tertiary": "#5b5b5b",
-      "bgOpacity": 0.5,
-      "background": "url('/assets/images/background/wordcloud-sakura.svg')"
+      "tertiary": "#162b33",
+      "bgOpacity": 0.8,
+      "background": "url('/assets/images/background/wordcloud-sakura.svg')",
+      "copyright": [
+        {
+          "text": "Image by Freepik - freepik.com",
+          "url": "https://www.freepik.com/serie/31194640"
+        }
+      ]
+    },
+    {
+      "id": "bf44bfc2-ce1a-4113-ac69-753ba202a0js",
+      "name": "Miaka",
+      "gradient": [
+        "#FC354C",
+        "#0ABFBC"
+      ],
+      "primary": "#0f2027",
+      "secondary": "#1a1a1a",
+      "tertiary": "#162b33",
+      "bgOpacity": 0.7,
+      "background": "url('/assets/images/background/wordcloud-japan-2.svg')",
+      "copyright": [
+        {
+          "text": "Image by callmetak - freepik.com",
+          "url": "https://www.freepik.com/free-vector/new-year-card-vector-template-with-year-rat-icon-variety-japanese-lucky-charms_33779585.htm#page=2&query=japan&position=30&from_view=search&track=sph"
+        }
+      ]
     },
     {
       "id": "7d423921-b5f8-4990-81cf-998200a400ea",
@@ -91,10 +146,16 @@
         "#f45c1c"
       ],
       "primary": "#0f2027",
-      "secondary": "#000",
-      "tertiary": "#5b5b5b",
+      "secondary": "#1a1a1a",
+      "tertiary": "#162b33",
       "bgOpacity": 0.6,
-      "background": "url('/assets/images/background/wordcloud-shonen.svg')"
+      "background": "url('/assets/images/background/wordcloud-shonen.svg')",
+      "copyright": [
+        {
+          "text": "Image by rawpixel.com - freepik.com",
+          "url": "https://www.freepik.com/free-vector/cloud-background-seamless-chinese-oriental-pattern-vector_18705022.htm#page=4&query=manga&position=5&from_view=search&track=sph"
+        }
+      ]
     },
     {
       "id": "7d423921-b5f8-4990-81cf-998200a400ed",
@@ -104,10 +165,16 @@
         "#1F4788"
       ],
       "primary": "#0f2027",
-      "secondary": "#000",
-      "tertiary": "#5b5b5b",
+      "secondary": "#1a1a1a",
+      "tertiary": "#162b33",
       "bgOpacity": 0.5,
-      "background": "url('/assets/images/background/wordcloud-wave.svg')"
+      "background": "url('/assets/images/background/wordcloud-wave.svg')",
+      "copyright": [
+        {
+          "text": "Image by callmetak - freepik.com",
+          "url": "https://www.freepik.com/free-vector/japanese-seamless-vector-vintage-wave-pattern_11289793.htm#page=2&query=japan&position=10&from_view=search&track=sph"
+        }
+      ]
     }
   ]
 }
