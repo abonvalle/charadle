@@ -6,14 +6,12 @@ import { environment } from './environments/environment';
 
 if (environment.production) {
   enableProdMode();
-  if (!window.console) {
-    var console = {
-      log: function (..._: unknown[]) {},
-      warn: function (..._: unknown[]) {},
-      error: function (..._: unknown[]) {},
-      time: function (..._: unknown[]) {},
-      timeEnd: function (..._: unknown[]) {}
-    };
+  if (window) {
+    (window.console.log = function (..._: unknown[]) {}),
+      (window.console.warn = function (..._: unknown[]) {}),
+      (window.console.error = function (..._: unknown[]) {}),
+      (window.console.time = function (..._: unknown[]) {}),
+      (window.console.timeEnd = function (..._: unknown[]) {});
   }
 }
 

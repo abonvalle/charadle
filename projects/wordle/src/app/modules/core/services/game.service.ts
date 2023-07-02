@@ -141,8 +141,6 @@ export class GameService implements OnDestroy {
       return map;
     }, new Map());
 
-    console.warn(structuredClone(guessLetters));
-    console.warn(structuredClone(wordleLetters));
     //loop to tag 'unused' & 'right' letters
     guessLetters.forEach((guessLetter, key) => {
       if (!wordleLetters.has(key)) {
@@ -151,12 +149,10 @@ export class GameService implements OnDestroy {
       }
       guessLetter.forEach((letter) => {
         const wordleLetterIndexes = wordleLetters.get(key);
-        console.warn(structuredClone(wordleLetterIndexes));
         const wordleLetterIndex = wordleLetterIndexes?.findIndex((i) => i === letter.index) ?? -1;
         if (wordleLetterIndexes && wordleLetterIndex > -1) {
           letter.state = 'right';
           wordleLetterIndexes?.splice(wordleLetterIndex, 1);
-          console.warn(structuredClone(wordleLetterIndexes));
           wordleLetters.set(key, wordleLetterIndexes);
           return;
         }
