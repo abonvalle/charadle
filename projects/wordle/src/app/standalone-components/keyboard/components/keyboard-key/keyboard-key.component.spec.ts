@@ -8,9 +8,8 @@ describe('KeyboardKeyComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ KeyboardKeyComponent ]
-    })
-    .compileComponents();
+      imports: [KeyboardKeyComponent]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(KeyboardKeyComponent);
     component = fixture.componentInstance;

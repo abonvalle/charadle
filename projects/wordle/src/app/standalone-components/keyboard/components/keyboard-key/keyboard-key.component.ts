@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PlatformService } from '@core/services/platform.service';
 import { BehaviorSubject } from 'rxjs';
-import { specialLetters } from '../../models/sepcial-letters';
+import { specialLetters } from '../../models/special-letters';
 
 @Component({
   standalone: true,
