@@ -13,12 +13,15 @@ import { Joker } from '../../models/joker/joker.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JokerButtonComponent implements OnInit, OnDestroy {
-  @Input() joker!: Joker;
+  @Input({ required: true }) joker!: Joker;
   classes: string = '';
   _destroy: Subject<void> = new Subject();
   constructor(private _cdr: ChangeDetectorRef) {}
   ngOnInit() {
     this._setClasses();
+    if (!this.joker) {
+      throw new TypeError('Joker should be instancied');
+    }
   }
   ngOnDestroy(): void {}
   private _setClasses() {

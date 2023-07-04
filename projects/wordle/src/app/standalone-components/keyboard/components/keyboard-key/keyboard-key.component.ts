@@ -13,7 +13,7 @@ import { specialLetters } from '../../models/special-letters';
   imports: [CommonModule]
 })
 export class KeyboardKeyComponent implements OnInit {
-  @Input() letter: string = '';
+  @Input({ required: true }) letter!: string;
   @Input() backgroundClass: string = 'bg-secondary';
   @Output() letterClick: EventEmitter<string> = new EventEmitter();
   feedBack$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -22,6 +22,9 @@ export class KeyboardKeyComponent implements OnInit {
 
   constructor(private _platformServ: PlatformService) {}
   ngOnInit() {
+    if (!this.letter) {
+      throw new TypeError('Letter should be instancied');
+    }
     this.isSpecial = Object.keys(specialLetters).includes(this.letter);
     if (this.isSpecial) {
       const specialLetter = Object.entries(specialLetters).find(([letter]) => letter === this.letter);

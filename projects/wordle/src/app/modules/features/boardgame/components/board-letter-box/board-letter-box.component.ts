@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { BoardBox } from '@models/*';
 
 @Component({
@@ -8,7 +8,12 @@ import { BoardBox } from '@models/*';
   // styles: [':host{flex-basis: 16.666667%;}'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BoardLetterBoxComponent {
-  @Input() boardBox!: BoardBox;
+export class BoardLetterBoxComponent implements OnInit {
+  @Input({ required: true }) boardBox!: BoardBox;
   constructor() {}
+  ngOnInit(): void {
+    if (!this.boardBox) {
+      throw new TypeError('boardBox should be instancied');
+    }
+  }
 }
