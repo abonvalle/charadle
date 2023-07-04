@@ -9,14 +9,19 @@ import { Observable, map } from 'rxjs';
   templateUrl: 'about-dialog.component.html'
 })
 export class AboutDialogComponent {
+  readonly contactAddress: string = 'wordle@abvdev.fr';
   label: string = environment.version.label;
   version: string = packageJson.version;
-  currentTheme$: Observable<theme | undefined> = this._themeServ.activeThemeId$.pipe(
-    map((thId) => this._themeServ.themeList.find((t) => t.id === thId))
+  currentTheme$: Observable<theme> = this._themeServ.activeThemeId$.pipe(
+    map((thId) => {
+      const currentTheme = this._themeServ.themeList.find((t) => t.id === thId);
+      if (!currentTheme) {
+        throw new TypeError('currentTheme should be instanciated');
+      }
+      return currentTheme;
+    })
   );
-  themeLabel$: Observable<string> = this.currentTheme$.pipe(map((th) => th?.name ?? ''));
-  themeCredits$: Observable<{ text: string; url: string }[]> = this.currentTheme$.pipe(
-    map((th) => th?.copyright ?? [])
-  );
+  themeLabel$: Observable<string> = this.currentTheme$.pipe(map((th) => th.name ?? ''));
+  themeCredits$: Observable<{ text: string; url: string }[]> = this.currentTheme$.pipe(map((th) => th.copyright ?? []));
   constructor(private _themeServ: ThemeService) {}
 }
