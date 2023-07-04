@@ -91,18 +91,6 @@ export class APIService {
     this._localStorage.delete(localStorageKeys.theme);
   }
 
-  /** Tries  */
-  getTries(): string[] {
-    const tries = this._localStorage.read(localStorageKeys.tries);
-    return tries ? JSON.parse(atob(tries)) : [];
-  }
-  setTries(tries: string[]): void {
-    this._localStorage.update(localStorageKeys.tries, btoa(JSON.stringify(tries)));
-  }
-  deleteTries(): void {
-    this._localStorage.delete(localStorageKeys.tries);
-  }
-
   /** Delete all */
   deleteAll(): void {
     this._localStorage.clearStorage();

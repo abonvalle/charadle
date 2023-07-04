@@ -7,20 +7,23 @@ import { AssetsService } from './assets.service';
 @Injectable({ providedIn: 'root' })
 export class ThemeService implements OnDestroy {
   get themeList(): theme[] {
-    const themeList = this._assetsServ.themes.themes;
-  if(!themeList){throw new TypeError('themeList should be instanciated');}
-  return themeList
-}
+    const themeList = this._assetsServ.themes;
+    if (!themeList) {
+      throw new TypeError('themeList should be instanciated');
+    }
+    return themeList;
+  }
 
- get defaultTheme():theme{
-  const defaultTheme = this.themeList.find((t) => t.default)
-  if(!defaultTheme){throw new TypeError('theme should be instanciated');}
-  return defaultTheme
-}
+  get defaultTheme(): theme {
+    const defaultTheme = this.themeList.find((t) => t.default);
+    if (!defaultTheme) {
+      throw new TypeError('theme should be instanciated');
+    }
+    return defaultTheme;
+  }
   selectedThemeId$: BehaviorSubject<string> = new BehaviorSubject(
     this._APIServ.getTheme() ?? this.defaultTheme.id ?? ''
   );
-
 
   activeThemeId$: BehaviorSubject<string> = new BehaviorSubject(
     this.selectedThemeId$.value === 'random' ? this.getRandomThemeId() : this.selectedThemeId$.value
@@ -46,5 +49,4 @@ export class ThemeService implements OnDestroy {
     const index = Math.floor(Math.random() * this.themeList.length + 1);
     return this.themeList[index]?.id ?? this.defaultTheme.id ?? '';
   }
-
 }
