@@ -10,14 +10,10 @@ import { environment } from '@config/environment';
 @Injectable({ providedIn: 'root' })
 export class AssetsService {
   private _environmentVersion = environment.version.code;
-  //Todo handle multiple versions
-  themes: typeof themesSerie | typeof themesAnime | null = null;
-  charactersInfosJSON: typeof charactersInfosJSONSerie | typeof charactersInfosJSONAnime | null = null;
-  wordlesJSON: typeof wordlesJSONSerie | typeof wordlesJSONAnime | null = null;
+  themes: typeof themesSerie | typeof themesAnime;
+  charactersInfosJSON: typeof charactersInfosJSONSerie | typeof charactersInfosJSONAnime;
+  wordlesJSON: typeof wordlesJSONSerie | typeof wordlesJSONAnime;
   constructor() {
-    this._initAssets();
-  }
-  private _initAssets(): void {
     switch (this._environmentVersion) {
       case 'anime':
         this.themes = themesAnime;
