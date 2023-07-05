@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  version: { code: 'serie', label: 'Séries', link: '' }
+  version: { code: 'serie', label: 'Series 📺', link: '' }
 };
 
 /*
