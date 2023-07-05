@@ -171,7 +171,7 @@ export class GameService implements OnDestroy {
         }
 
         letter.boardBox?.setBackground(letter.state);
-        this._keyboardServ.setKeyBg(key ?? '', letter.state);
+        this._keyboardServ.setKeyBg(key, letter.state);
       });
     });
 

@@ -87,39 +87,25 @@ export class Keyboard {
     return undefined;
   }
   setKeyState(letter: string, state: keyboardKeyBackground): void {
-    // for (let row in this.keyboard) {
-    //   const rowIndex = parseInt(row);
-    //   if (!isNaN(rowIndex)) {
-    //     let letters = this.keyboard[rowIndex];
-    //     if (!letters) {
-    //       return;
-    //     }
-    //     letters.map((letter) => {
-    //       if (letter.letter !== key || letter.state === 'right' || letter.state === 'unused') {
-    //         return;
-    //       }
-    //       if (letter.state === 'partial' && state !== 'right') {
-    //         console.warn('here');
-    //         return;
-    //       }
-    //       letter.state = state;
-    //       letter.classes = `bg-${state}/80`;
-    //     });
-    //   }
-    // }
     const key = this.getKey(letter);
     if (!key) {
       console.error(letter, 'key not found');
       return;
     }
-    if (key.letter !== letter || key.state === 'right' || key.state === 'unused') {
+    if (key.letter !== letter) {
       return;
     }
-    if (key.state === 'partial' && state !== 'right') {
-      return;
+
+    enum statesEnum {
+      'none',
+      'unused',
+      'partial',
+      'right'
     }
-    key.state = state;
-    key.classes = `bg-${state}/80 accessibility-${state}`;
+    if (statesEnum[key.state] < statesEnum[state]) {
+      key.state = state;
+      key.classes = `bg-${state}/80 accessibility-${state}`;
+    }
   }
   hasLetterStates(letter: string, states: keyboardKeyBackground[]): boolean {
     const key = this.getKey(letter);
