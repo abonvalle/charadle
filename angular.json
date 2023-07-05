@@ -154,6 +154,35 @@
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
+          "configurations": {
+            "anime": {
+              "assets": [
+                "projects/wordle/src/php",
+                {
+                  "glob": "**/*",
+                  "input": "projects/wordle/src/assets/anime",
+                  "output": "/assets/"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/wordle/src/environments/environment.ts",
+                  "with": "projects/wordle/src/environments/environment.anime.ts"
+                }
+              ],
+              "styles": [
+                "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+                "styles.anime.css"
+              ]
+            },
+            "serie": {
+              "styles": [
+                "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+                "styles.css"
+              ]
+            }
+          },
+          "defaultConfiguration": "serie",
           "options": {
             "main": "projects/wordle/src/test.ts",
             "polyfills": "projects/wordle/src/polyfills.ts",
@@ -161,11 +190,11 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "projects/wordle/src/php",
-              "projects/wordle/src/assets/serie"
-            ],
-            "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
-              "styles.css"
+              {
+                "glob": "**/*",
+                "input": "projects/wordle/src/assets/serie",
+                "output": "/assets/"
+              }
             ],
             "scripts": []
           }
