@@ -1,9 +1,28 @@
 {
   "themes": [
     {
-      "id": "bf44bfc2-ce1a-4113-ac69-753ba202a0ff",
+      "id": "87132581-c473-4513-9cf3-f558d23df6ab",
       "default": true,
-      "name": "Classique",
+      "name": "Bonbon",
+      "gradient": [
+        "#12c2e9",
+        "#c471ed",
+        "#f64f59"
+      ],
+      "primary": "#0f2027",
+      "secondary": "#1a1a1a",
+      "tertiary": "#162b33",
+      "bgOpacity": 0.5,
+      "copyright": [
+        {
+          "url": "https://www.flaticon.com/packs/letters-and-numbers-3",
+          "text": "Background letters icons by Javier Danglada - Flaticon.com"
+        }
+      ]
+    },
+    {
+      "id": "bf44bfc2-ce1a-4113-ac69-753ba202a0ff",
+      "name": "Charbon",
       "gradient": [
         "#1f1f21",
         "#434343"
@@ -296,25 +315,6 @@
       "gradient": [
         "#ee9ca7",
         "#ffdde1"
-      ],
-      "primary": "#0f2027",
-      "secondary": "#1a1a1a",
-      "tertiary": "#162b33",
-      "bgOpacity": 0.5,
-      "copyright": [
-        {
-          "url": "https://www.flaticon.com/packs/letters-and-numbers-3",
-          "text": "Background letters icons by Javier Danglada - Flaticon.com"
-        }
-      ]
-    },
-    {
-      "id": "87132581-c473-4513-9cf3-f558d23df6ab",
-      "name": "Bonbon",
-      "gradient": [
-        "#12c2e9",
-        "#c471ed",
-        "#f64f59"
       ],
       "primary": "#0f2027",
       "secondary": "#1a1a1a",
