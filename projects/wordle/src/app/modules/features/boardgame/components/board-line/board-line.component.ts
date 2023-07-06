@@ -10,11 +10,12 @@ import { BoardBox } from '@models/*';
 })
 export class BoardLineComponent implements OnChanges {
   @Input() boardBoxes: BoardBox[] = [];
-  rowClass: string = 'letter-row-' + this.boardBoxes.length;
+  @Input() classes: string[] = [];
+  rowClass: string = 'letter-row-' + this.boardBoxes.length + ' ' + this.classes.join(' ');
   constructor(private _cdr: ChangeDetectorRef) {}
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes && changes['boardBoxes']) {
-      this.rowClass = 'letter-row-' + this.boardBoxes.length;
+    if (changes && (changes['boardBoxes'] || changes['classes'])) {
+      this.rowClass = 'letter-row-' + this.boardBoxes.length + ' ' + this.classes.join(' ');
       this._cdr.detectChanges();
     }
   }

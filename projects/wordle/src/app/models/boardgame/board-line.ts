@@ -5,6 +5,7 @@ export interface boardLineArgs {
   isActive?: boolean;
   text?: string;
   oldBoardBoxes?: Map<number, BoardBox>;
+  classes?: string[];
 }
 export class BoardLine {
   index: number;
@@ -12,11 +13,13 @@ export class BoardLine {
   boxCount: number;
   boardBoxes: Map<number, BoardBox>;
   text: string;
+  classes: string[];
   constructor(args: boardLineArgs) {
     this.index = args.index;
     this.isActive = args.isActive ?? false;
     this.boxCount = args.boxCount;
     this.text = args.text ?? '';
+    this.classes = args.classes ?? ['text-font'];
     this.boardBoxes = this._setBoardBoxes(args);
   }
   private _setBoardBoxes(args: boardLineArgs): Map<number, BoardBox> {

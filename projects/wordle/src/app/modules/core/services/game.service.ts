@@ -84,19 +84,38 @@ export class GameService implements OnDestroy {
   addCurrentGuessLetter(letter: string): void {
     let boardGame = this.boardGame$.value;
     const boardLine = boardGame?.getCurrentBoardLine();
-    if (!boardLine?.isBoardLineFull()) {
-      boardLine?.addLetter(letter);
+    if (!boardLine) {
+      this._snackbarService.defaultErrorMsg();
+      return;
     }
+    if (!boardLine.isBoardLineFull()) {
+      boardLine.addLetter(letter);
+    }
+    boardLine.classes =
+      boardLine.isBoardLineFull() && !this.checkGuessValidity(boardLine.text) ? ['text-red-500'] : ['text-font'];
     this.boardGame$.next(boardGame);
   }
 
   removeLastGuessLetter(): void {
     let boardGame = this.boardGame$.value;
     const boardLine = boardGame?.getCurrentBoardLine();
-    boardLine?.removeLetter();
+    if (!boardLine) {
+      this._snackbarService.defaultErrorMsg();
+      return;
+    }
+    boardLine.removeLetter();
+    boardLine.classes = ['text-font'];
     this.boardGame$.next(boardGame);
   }
+  checkGuessValidity(currentGuess: string): boolean {
+    const words = this._assetsServ.wordlesJSON;
 
+    if (!words.includes(currentGuess)) {
+      this._snackbarService.showUnkownNameAlert(currentGuess);
+      return false;
+    }
+    return true;
+  }
   submitGuess(): void {
     let boardGame = this.boardGame$.value;
     let boardLine = boardGame?.getCurrentBoardLine();
@@ -109,10 +128,8 @@ export class GameService implements OnDestroy {
       return;
     }
     const currentGuess = boardLine.text;
-    const words = this._assetsServ.wordlesJSON;
 
-    if (!words.includes(currentGuess)) {
-      this._snackbarService.showUnkownNameAlert(currentGuess);
+    if (!this.checkGuessValidity(currentGuess)) {
       return;
     }
     const wordle = boardGame?.wordle.text?.split('#')[0];
