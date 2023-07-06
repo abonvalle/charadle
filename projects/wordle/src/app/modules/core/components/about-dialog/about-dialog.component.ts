@@ -9,7 +9,7 @@ import { Observable, map } from 'rxjs';
   templateUrl: 'about-dialog.component.html'
 })
 export class AboutDialogComponent {
-  readonly contactAddress: string = 'wordle@abvdev.fr';
+  readonly contactAddress: string = 'nameguessr@abvdev.fr';
   label: string = environment.version.label;
   version: string = packageJson.version;
   currentTheme$: Observable<theme> = this._themeServ.activeThemeId$.pipe(

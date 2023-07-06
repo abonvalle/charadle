@@ -26,7 +26,6 @@
           <mat-calendar #matCalendar [minDate]="minDate" [maxDate]="maxDate" [(selected)]="selectedDate"
             [dateClass]="dateClass" (selectedChange)="onDateChange($event)"></mat-calendar>
         </mat-card>
-        <!-- <p class="text-white">Wordle : {{selected}}</p> -->
         <div [formGroup]="daybydayForm" class="w-80 flex flex-col justify-center">
           <mat-form-field class="w-full">
             <mat-label>Wordle</mat-label>

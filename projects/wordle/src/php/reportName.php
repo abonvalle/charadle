@@ -13,7 +13,7 @@ use PHPMailer\PHPMailer\SMTP;
 //Create an instance; passing `true` enables exceptions
 $mail = new PHPMailer(true);
 try {
-  $domains = ['https://wordle-series.abvdev.fr', 'https://www.wordle-series.abvdev.fr', 'https://wordle-animes.abvdev.fr', 'https://www.wordle-animes.abvdev.fr'];
+  $domains = ['https://nameguessr-series.abvdev.fr', 'https://www.nameguessr-series.abvdev.fr', 'https://nameguessr-animes.abvdev.fr', 'https://www.nameguessr-animes.abvdev.fr'];
   /**
    * Error codes :
    * E00 = 'unknown',

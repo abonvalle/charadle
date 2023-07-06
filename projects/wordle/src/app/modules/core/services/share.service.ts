@@ -13,12 +13,7 @@ export class ShareService {
     private _snackbarService: SnackbarService,
     private _clipboard: Clipboard
   ) {}
-  /**Wordle Séries edition #23 */
-  /** 🟧⬛⬛🟧⬛⬛ */
-  /** 🟧⬛⬛⬛⬛🟩 */
-  /** 🟧⬛⬛🟩🟩🟩 */
-  /**🎯x20 - ✍️x5 | 🚫🃏 => 🖌️x3, 🔤x3, 🎥x1 */
-  /**https://wordle-series.abvdev.fr */
+
   shareScore(): void {
     const shareData = this.generateShareData();
     // if (navigator.canShare && navigator.canShare(shareData)) {
@@ -33,7 +28,7 @@ export class ShareService {
     const tries = bg?.getTries();
     const worldeDate = bg?.wordle.date;
     const score = this.getScore();
-    const text = [`Wordle ${environment.version.label} #${worldeDate} 🎯${score}pts ✍️${nbTries}/6`];
+    const text = [`Name Guessr ${environment.version.label} #${worldeDate} 🎯${score}pts ✍️${nbTries}/6`];
     tries?.forEach((aTry) => {
       text.push(aTry);
     });
