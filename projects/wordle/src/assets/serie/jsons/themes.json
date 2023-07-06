@@ -5,8 +5,8 @@
       "default": true,
       "name": "Classique",
       "gradient": [
-        "#434343",
-        "#000000"
+        "#1f1f21",
+        "#434343"
       ],
       "primary": "#0f2027",
       "secondary": "#1a1a1a",
