@@ -6,7 +6,8 @@ export interface jokerArgs {
 export class Joker {
   name: string;
   maxUse: number;
-  protected get useCount(): number {
+  points: number;
+  get useCount(): number {
     return 0;
   }
   get progress(): number {
@@ -19,6 +20,7 @@ export class Joker {
   constructor(args?: jokerArgs) {
     this.name = args?.name ?? '';
     this.maxUse = this._getMaxUses(args?.difficulty ?? 1);
+    this.points = 0;
   }
   _getMaxUses(difficulty: number): number {
     switch (difficulty) {

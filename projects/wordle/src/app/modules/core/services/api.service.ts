@@ -44,7 +44,7 @@ export class APIService {
             difficulty,
             uses: jokers.placeLetterJoker.uses
           }),
-          serieJoker: new SerieJoker({ uses: jokers.serieJoker.uses })
+          serieJoker: new SerieJoker({ difficulty, uses: jokers.serieJoker.uses })
         }
       : null;
   }

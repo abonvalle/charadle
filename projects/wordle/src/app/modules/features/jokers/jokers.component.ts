@@ -13,6 +13,7 @@ import { Joker, jokersIcons } from '../../../models/joker';
 export class JokersComponent implements OnInit, OnDestroy {
   jokers$: Subject<Joker[]> = new Subject();
   _destroy$: Subject<void> = new Subject();
+  showPoints: boolean = false;
   constructor(private _jokersService: JokersService, private _cdr: ChangeDetectorRef, private _apiServ: APIService) {}
 
   ngOnInit(): void {
@@ -29,6 +30,11 @@ export class JokersComponent implements OnInit, OnDestroy {
         joks && this._apiServ.setJokers(joks);
         this._cdr.detectChanges();
       });
+
+    setInterval(() => {
+      this.showPoints = !this.showPoints;
+      this._cdr.detectChanges();
+    }, 5000);
   }
   ngOnDestroy(): void {
     this._destroy$?.next();

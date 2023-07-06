@@ -18,6 +18,7 @@ export class PlaceLetterJoker extends Joker {
     super(args);
     this.name = 'placeLetter';
     this.uses = args?.uses ?? [];
+    this.points = Math.round(36 / this.maxUse);
   }
   use(letter: placeLetterJokerLetter): boolean {
     if (this.soldOut) {

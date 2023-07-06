@@ -58,9 +58,9 @@ export class ShareService {
   getScore(): number {
     const bg = this._gameService.boardGame$.value;
     const difficulty = this._gameService.boardGame$.value?.wordle.difficulty ?? 1;
-    const nbTries = bg?.success ? bg?.currentActiveBoardLine : 0;
+    const nbTries = bg?.currentActiveBoardLine ?? 0;
     const joks = this._jokersService.jokers$.value;
-    if (!bg?.success || !joks) {
+    if ((bg?.end && !bg?.success) || !joks) {
       return 0;
     }
     const joker1Count = joks?.paintJoker.useCount;

@@ -136,6 +136,12 @@ module.exports = {
           '21%': { transform: 'rotateY(90deg)', 'background-color': '#3a3a3c', 'border-color': '#272728' },
           '50%': { transform: 'rotateY(0deg)', 'background-color': '#3a3a3c', 'border-color': '#272728' },
           '100%': { transform: 'initial', 'background-color': '#3a3a3c', 'border-color': '#272728' },
+        },
+        'pulse-once': {
+          '0%': { opacity: 0 },
+          '25%': { opacity: 1 },
+          '75%': { opacity: 1 },
+          '100%': { opacity: 0 },
         }
       },
       animation: {
@@ -143,6 +149,7 @@ module.exports = {
         'flip-partial': 'flip-partial 0.8s ease-in-out',
         'flip-unused': 'flip-unused 0.8s ease-in-out',
         'pulse-fast': 'pulse 0.8s ease-in-out infinite',
+        'pulse-once': 'pulse-once 5s linear infinite',
       },
     },
     screens: {

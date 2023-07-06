@@ -15,6 +15,7 @@ import { SerieJoker } from '../../../models/joker';
 })
 export class MainPageComponent implements OnInit, OnDestroy {
   serieJoker$: Subject<SerieJoker> = new Subject();
+  points$: Subject<number> = new Subject();
   private _destroy$: Subject<void> = new Subject();
   constructor(
     public shareService: ShareService,
@@ -32,6 +33,14 @@ export class MainPageComponent implements OnInit, OnDestroy {
       filter((jks) => jks !== null && !!jks?.serieJoker),
       map((jks) => jks?.serieJoker)
     ) as Subject<SerieJoker>;
+
+    this.gameService.boardGame$.pipe(takeUntil(this._destroy$)).subscribe(() => {
+      this.points$.next(this.shareService.getScore());
+      this._cdr.detectChanges();
+    });
+
+    this.points$.next(this.shareService.getScore());
+    this._cdr.detectChanges();
   }
 
   ngOnDestroy(): void {

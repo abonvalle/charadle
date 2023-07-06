@@ -14,6 +14,7 @@ export class PaintJoker extends Joker {
     super(args);
     this.name = 'paintLetter';
     this.uses = args?.uses ?? [];
+    this.points = Math.round(19 / this.maxUse);
   }
   use(letter: string): boolean {
     if (this.soldOut) {
