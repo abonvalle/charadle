@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AboutDialogComponent } from './about-dialog.component';
 //class MockUpThemeService {
 //  activeThemeId$ = true;
@@ -14,7 +15,8 @@ describe('AboutDialogComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AboutDialogComponent],
-      imports: [MatDialogModule]
+      imports: [MatDialogModule],
+      providers: [MatSnackBar]
     }).compileComponents();
 
     fixture = TestBed.createComponent(AboutDialogComponent);
