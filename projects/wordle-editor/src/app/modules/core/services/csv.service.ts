@@ -49,9 +49,10 @@ export class CSVService {
       if (from?.trim() === '') {
         continue;
       }
+      const fixImgPath = imgPath?.split('/revision/latest')[0];
       characters[wordle.trim().toLowerCase()] = {
         from: from?.trim(),
-        imgPath: imgPath?.trim() === '' ? undefined : imgPath?.trim(),
+        imgPath: fixImgPath?.trim() === '' ? undefined : fixImgPath?.trim(),
         fullname: fullname?.trim() === '' ? undefined : fullname?.trim(),
         difficulty: !difficulty || difficulty.trim() === '' ? undefined : parseInt(difficulty)
       };

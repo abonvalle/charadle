@@ -25,7 +25,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   } = structuredClone(serieCharactersInfosJSON);
   wordlesJSON: string[] = structuredClone(serieWordlesJSON);
   minDate: Date = new Date('12/02/2022');
-  maxDate: Date = new Date('12/02/2024');
+  maxDate: Date = new Date('12/02/2023');
   form: FormGroup = new FormGroup({});
   daybydayForm: FormGroup = new FormGroup({});
   bulkForm: FormGroup = new FormGroup({});
