@@ -1,0 +1,16 @@
+/* Specific styles for characters or series */
+.gojo {
+  background-image: url(https://static.wikia.nocookie.net/jujutsu-kaisen/images/9/9c/Hollow_Purple_%28Anime%29.gif) !important;
+  background-size: cover;
+  background-position: center center;
+}
+.toge {
+  background-image: url(https://static.wikia.nocookie.net/jujutsu-kaisen/images/2/24/Toge_using_Get_Crushed_on_a_Curse_%28Anime%29.gif) !important;
+  background-size: cover;
+  background-position: center center;
+}
+.panda {
+  background-image: url(https://static.wikia.nocookie.net/jujutsu-kaisen/images/b/bc/Panda_punches_Aoi_%28Anime%29.gif) !important;
+  background-size: cover;
+  background-position: center center;
+}

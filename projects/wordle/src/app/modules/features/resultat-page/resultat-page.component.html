@@ -3,7 +3,7 @@
     <div
       class="flex flex-col justify-center items-center text-white overflow-y-auto bg-black/60 min-w-[280px] rounded-md">
       <h1 class="text-2xl text-shadow-sm shadow-black mb-2 pt-2">
-        {{boardGame?.success? 'Gagné !':'Si proche...'}}
+        {{gameMsg}}
       </h1>
       <img [src]="boardGame?.wordle?.imgPath" [alt]="boardGame?.wordle?.fullname"
         class="rounded-sm max-w-[200px] max-h-[200px]">

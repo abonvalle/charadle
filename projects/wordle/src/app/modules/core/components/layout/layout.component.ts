@@ -11,7 +11,7 @@ import { Subject, combineLatest, map, takeUntil } from 'rxjs';
 })
 export class LayoutComponent implements OnInit, OnDestroy {
   _destroy$: Subject<void> = new Subject();
-  themeId$ = this._themeService.activeThemeId$.pipe(takeUntil(this._destroy$));
+  themeId$ = this.themeService.activeThemeId$.pipe(takeUntil(this._destroy$));
   accessibility$ = this._settingsServ.colorBlindMode$.pipe(
     takeUntil(this._destroy$),
     map((cb) => (cb ? 'accessibility' : ''))
@@ -20,11 +20,12 @@ export class LayoutComponent implements OnInit, OnDestroy {
     takeUntil(this._destroy$),
     map(([value1, value2]) => value1 + ' ' + value2)
   );
+
   constructor(
     public platformService: PlatformService,
+    public themeService: ThemeService,
     private _gameService: GameService,
-    private _settingsServ: SettingsService,
-    private _themeService: ThemeService
+    private _settingsServ: SettingsService
   ) {}
   ngOnInit(): void {
     this._gameService.initBoardGame();

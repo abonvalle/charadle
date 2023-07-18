@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { theme } from '../../../models/theme.interface';
 import { APIService } from './api.service';
 import { AssetsService } from './assets.service';
+import { GameService } from './game.service';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeService implements OnDestroy {
@@ -28,7 +29,7 @@ export class ThemeService implements OnDestroy {
   activeThemeId$: BehaviorSubject<string> = new BehaviorSubject(
     this.selectedThemeId$.value === 'random' ? this.getRandomThemeId() : this.selectedThemeId$.value
   );
-  constructor(private _APIServ: APIService, private _assetsServ: AssetsService) {
+  constructor(private _APIServ: APIService, private _assetsServ: AssetsService, private _gameServ: GameService) {
     this._event();
   }
   ngOnDestroy(): void {
@@ -48,5 +49,17 @@ export class ThemeService implements OnDestroy {
   getRandomThemeId(): string {
     const index = Math.floor(Math.random() * this.themeList.length + 1);
     return this.themeList[index]?.id ?? this.defaultTheme.id ?? '';
+  }
+  get specialClasses(): string {
+    if (!this._gameServ.boardGame$.value?.success) {
+      return '';
+    }
+    if (['gojo', 'panda', 'toge'].includes(this._gameServ.boardGame$.value?.wordle.text)) {
+      return this._gameServ.boardGame$.value?.wordle.text;
+    }
+    if ([''].includes(this._gameServ.boardGame$.value?.wordle.serie)) {
+      return this._gameServ.boardGame$.value?.wordle.text;
+    }
+    return '';
   }
 }
