@@ -3,25 +3,28 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { SharedModule } from '@modules/shared/shared.module';
 import { NgHcaptchaModule } from 'ng-hcaptcha';
 import { AboutDialogComponent } from './components/about-dialog/about-dialog.component';
 import { ChangeWordleDialogComponent } from './components/change-wordle-dialog/change-wordle-dialog.component';
 import { HelpDialogComponent } from './components/help-dialog/help-dialog.component';
+import { IssueReportDialogComponent } from './components/issue-report-dialog/issue-report-dialog.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { NameReportDialogComponent } from './components/name-report-dialog/name-report-dialog.component';
 import { SettingsDialogComponent } from './components/settings-dialog/settings.component';
 import { TopbarComponent } from './components/topbar/topbar.component';
 
-const MODULES: any = [
+const components: any = [
   LayoutComponent,
   TopbarComponent,
   SettingsDialogComponent,
   HelpDialogComponent,
   NameReportDialogComponent,
   ChangeWordleDialogComponent,
-  AboutDialogComponent
+  AboutDialogComponent,
+  IssueReportDialogComponent
 ];
 
 /**
@@ -32,7 +35,7 @@ const MODULES: any = [
  *    - Models specifics to the app and reused in multiples modules (routes, business logic, ..)
  */
 @NgModule({
-  declarations: [...MODULES],
+  declarations: [...components],
   imports: [
     SharedModule,
     MatMenuModule,
@@ -40,7 +43,8 @@ const MODULES: any = [
     MatSlideToggleModule,
     MatInputModule,
     MatButtonModule,
-    NgHcaptchaModule
+    NgHcaptchaModule,
+    MatSelectModule
   ],
   exports: []
 })

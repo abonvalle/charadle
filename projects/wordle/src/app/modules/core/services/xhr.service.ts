@@ -1,0 +1,30 @@
+import { Injectable } from '@angular/core';
+import { SnackbarService } from './snackbar.service';
+
+@Injectable({ providedIn: 'root' })
+export class XHRService {
+  constructor(private _snackbarServ: SnackbarService) {}
+  reportPHP(data: FormData): Promise<unknown> {
+    return new Promise((resolve, reject) => {
+      // Make the AJAX request
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', '/php/report.php', true);
+
+      // Set the Referer header
+      // xhr.setRequestHeader('Referer', '');
+
+      xhr.onload = () => {
+        if (xhr.status == 200) {
+          // Get the response from the server
+          const result = JSON.parse(xhr.responseText);
+          console.warn(result);
+          resolve(result);
+        } else {
+          this._snackbarServ.defaultErrorMsg();
+          reject();
+        }
+      };
+      xhr.send(data);
+    });
+  }
+}

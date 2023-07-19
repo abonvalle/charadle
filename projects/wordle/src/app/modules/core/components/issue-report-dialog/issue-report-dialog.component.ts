@@ -1,26 +1,28 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
+import { GameService } from '@core/services/game.service';
 import { SnackbarService } from '@core/services/snackbar.service';
 import { XHRService } from '@core/services/xhr.service';
 @Component({
-  selector: 'name-report-dialog',
-  templateUrl: 'name-report-dialog.component.html'
+  selector: 'issue-report-dialog',
+  templateUrl: 'issue-report-dialog.component.html'
 })
-export class NameReportDialogComponent {
+export class IssueReportDialogComponent {
   form: FormGroup = new FormGroup({});
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { name: string },
     private _formBuilder: FormBuilder,
     private _snackbarServ: SnackbarService,
-    private _dialogRef: MatDialogRef<NameReportDialogComponent>,
+    private _dialogRef: MatDialogRef<IssueReportDialogComponent>,
+    private _gameService: GameService,
     private _XHRServ: XHRService
   ) {
     this._initForm();
   }
   private _initForm(): void {
     this.form = this._formBuilder.group({
-      name: new FormControl(this.data.name, [Validators.required, Validators.maxLength(15)]),
+      issue: new FormControl('', [Validators.required]),
+      comment: new FormControl('', [Validators.maxLength(250)]),
       captcha: new FormControl<string>('', [Validators.required])
     });
     console.warn(this.form);
@@ -41,7 +43,7 @@ export class NameReportDialogComponent {
     this.form.get('captcha')?.setValue('');
     // An error occured during the verification process.
   }
-  reportName(): void {
+  reportIssue(): void {
     if (this.form.invalid) {
       return;
     }
@@ -50,13 +52,18 @@ export class NameReportDialogComponent {
     (Object.entries(this.form.value) as Array<[string, string]>).forEach(([key, value]) =>
       data.append(key, value.toString())
     );
-    data.append('type', 'name');
+    try {
+      data.append('boardlines', JSON.stringify(this._gameService.boardGame$.value?.boardLines));
+    } catch (e) {
+      console.error(e);
+    }
+    data.append('type', 'issue');
 
     this._XHRServ
       .reportPHP(data)
       .then(
         (_res) => {
-          this._snackbarServ.nameReported();
+          this._snackbarServ.issueReported();
         },
         () => {
           this._snackbarServ.defaultErrorMsg();

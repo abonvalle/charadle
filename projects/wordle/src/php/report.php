@@ -19,7 +19,7 @@ try {
    * E00 = 'unknown',
    * E01 = 'httpError',
    * E02 = 'domain',
-   * E03 = 'legalCheck',
+   * E03 = 'wrongType',
    * E04 = 'mailDelivery',
    * E05 = 'requestMethod',
    * E06 = 'exception',
@@ -29,9 +29,8 @@ try {
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get the form data
-    $name = $_POST["name"];
+    $type = $_POST["type"];
     $res = [];
-
     $data = array(
       'secret' => "0xd07CC2cb7C97184beb967da62A4B661F2E40F24B",
       'response' => $_POST['captcha']
@@ -57,14 +56,16 @@ try {
       exit();
     }
 
-    // Set the recipient email address
-    $to = "report@abvdev.fr";
+    if ($type === 'name') {
+      $name = $_POST["name"];
+      // Set the recipient email address
+      $to = "report@abvdev.fr";
 
-    // Set the email subject
-    $subject = "name report - wordle-series.abvdev.fr";
+      // Set the email subject
+      $subject = "name report - nameguessr";
 
-    // Build the email content
-    $email_content = "
+      // Build the email content
+      $email_content = "
      <!DOCTYPE html>
  <html>
    <head>
@@ -82,6 +83,42 @@ try {
    </body>
  </html>
 ";
+    } else if ($type === 'issue') {
+      $issue = $_POST["issue"];
+      $comment = $_POST["comment"];
+      $boardlines = $_POST["boardlines"];
+      // Set the recipient email address
+      $to = "report@abvdev.fr";
+
+      // Set the email subject
+      $subject = "issue report - nameguessr";
+
+      // Build the email content
+      $email_content = "
+     <!DOCTYPE html>
+ <html>
+   <head>
+     <title>Name report</title>
+     <meta charset=\"utf-8\">
+      <style type=\"text/css\">
+        body{font-family:Arial,sans-serif;font-size:14px;color:#333;background-color:#fefefe;padding:20px;width:calc(100% - 40px);margin:0}h1{margin-top:0}h1,h2{color:#4b4b4b;margin-bottom:20px}strong{color:#333}.content{background-color:#fefefe;width:calc(100% - 70px);padding:35px;border-radius:10px}
+        </style>
+   </head>
+   <body>
+     <div class=\"content\">
+       <h1>Issue report :</h1>
+       <p>Quelqu'un a rencontré un problème : <strong>$issue</strong></p>
+       <p>Commentaire : <br>$comment</p>
+       <p>Data : <br>$boardlines</p>
+     </div>
+   </body>
+ </html>
+";
+    } else {
+      $res = array("error" => "E03");
+      echo json_encode($res);
+      exit();
+    }
 
     //Server settings
     $mail->SMTPDebug = 1;                      //Enable verbose debug output

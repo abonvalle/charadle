@@ -1,0 +1,37 @@
+<h2 mat-dialog-title>Il y a un problème ?</h2>
+<mat-dialog-content class="">
+  <!-- <p class="font-body text-zinc-700 tracking-normal">Alors d'après toi, <b>{{data.name}}</b> serait un prénom valide ?
+  </p> -->
+  <div class="flex flex-col justify-center items-center">
+    <img src="assets/gifs/batsignal.gif" alt="Bat signal" class="py-8">
+    <form [formGroup]="form" class="flex flex-col justify-center items-center w-full">
+      <mat-form-field class="w-full">
+        <mat-label>Nature du problème</mat-label>
+        <mat-select formControlName="issue">
+          <mat-option value="nameguessr">
+            NameGuessr du jour
+          </mat-option>
+          <mat-option value="technical">
+            Problème technique
+          </mat-option>
+          <mat-option value="image">
+            Mauvaise image ou lien cassé
+          </mat-option>
+          <mat-option value="other">
+            Autre
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="w-full">
+        <mat-label>Laisser un commentaire</mat-label>
+        <textarea formControlName="comment" matInput
+          placeholder="Ex.: Le problème c'est pas toi, c'est moi..."></textarea>
+      </mat-form-field>
+    </form>
+    <ng-hcaptcha (verify)="onVerify($event)" (expired)="onExpired()" (error)="onError()"> </ng-hcaptcha>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>No problemo</button>
+  <button mat-button (click)="reportIssue()" [disabled]="form.invalid">Signaler !</button>
+</mat-dialog-actions>

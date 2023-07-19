@@ -34,4 +34,9 @@ export class SnackbarService {
     this.openSnackBar('Prénom en cours de vérification 😽');
     return;
   }
+
+  issueReported() {
+    this.openSnackBar('Problème en cours de vérification 🔍');
+    return;
+  }
 }

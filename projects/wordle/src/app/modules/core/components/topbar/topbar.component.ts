@@ -7,6 +7,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { AboutDialogComponent } from '../about-dialog/about-dialog.component';
 import { ChangeWordleDialogComponent } from '../change-wordle-dialog/change-wordle-dialog.component';
 import { HelpDialogComponent } from '../help-dialog/help-dialog.component';
+import { IssueReportDialogComponent } from '../issue-report-dialog/issue-report-dialog.component';
 import { SettingsDialogComponent } from '../settings-dialog/settings.component';
 
 @Component({
@@ -45,6 +46,9 @@ export class TopbarComponent implements OnInit, OnDestroy {
   }
   changeVersion(): void {
     this._dialog.open(ChangeWordleDialogComponent);
+  }
+  reportIssue(): void {
+    this._dialog.open(IssueReportDialogComponent);
   }
   isCurrentTheme(id: string): boolean {
     return this.currentThemeId$.value === id;

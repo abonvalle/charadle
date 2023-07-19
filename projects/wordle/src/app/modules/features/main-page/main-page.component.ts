@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { GameService } from '@core/services/game.service';
 import { JokersService } from '@core/services/jokers.service';
-import { KeyboardService } from '@core/services/keyboard.service';
 import { SettingsService } from '@core/services/settings.service';
 import { ShareService } from '@core/services/share.service';
 import { Subject, filter, map, takeUntil } from 'rxjs';
@@ -22,9 +21,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
     public gameService: GameService,
     public settingsService: SettingsService,
     private _jokersService: JokersService,
-    private _cdr: ChangeDetectorRef,
-    private _keyboardServ: KeyboardService
-  ) {}
+    private _cdr: ChangeDetectorRef
+  ) // private _keyboardServ: KeyboardService
+  {}
   ngOnInit(): void {
     // this.boardGame$ = this._gameService.boardGame$.asObservable().pipe(takeUntil(this._destroy$));
     // this._gameService.initGame();
@@ -52,13 +51,13 @@ export class MainPageComponent implements OnInit, OnDestroy {
     this._cdr.detectChanges();
   }
 
-  @HostListener('window:keydown', ['$event'])
-  onkeydown(event: KeyboardEvent) {
-    event.stopPropagation();
-    event.preventDefault();
-    let key = event.key === 'Backspace' ? 'delete' : event.key === 'Enter' ? 'enter' : event.key;
-    if (this._keyboardServ.getKey(key.toLowerCase())) {
-      this.onLetterClick(key.toLowerCase());
-    }
-  }
+  // @HostListener('window:keydown', ['$event'])
+  // onkeydown(event: KeyboardEvent) {
+  //   event.stopPropagation();
+  //   event.preventDefault();
+  //   let key = event.key === 'Backspace' ? 'delete' : event.key === 'Enter' ? 'enter' : event.key;
+  //   if (this._keyboardServ.getKey(key.toLowerCase())) {
+  //     this.onLetterClick(key.toLowerCase());
+  //   }
+  // }
 }
