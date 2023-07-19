@@ -182,3 +182,7 @@ Generated using nucleoapp.com
 .icon-info::before {
   content: "\ea1d";
 }
+
+.icon-alert-triangle::before {
+  content: "\ea1e";
+}
