@@ -5,9 +5,11 @@
   <div class="flex flex-col justify-center items-center">
     <img src="assets/gifs/batsignal.gif" alt="Bat signal" class="py-8">
     <form [formGroup]="form" class="flex flex-col justify-center items-center w-full">
-      <mat-form-field class="w-full">
+      <mat-form-field appearance="fill" [floatLabel]="'always'" class="w-full">
         <mat-label>Nature du problème</mat-label>
-        <mat-select formControlName="issue">
+        <mat-select [formControl]="issue">
+          <mat-option>--
+          </mat-option>
           <mat-option value="nameguessr">
             NameGuessr du jour
           </mat-option>
@@ -21,8 +23,10 @@
             Autre
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="issue.dirty && issue.hasError('required')">Ce champs est obligatoire</mat-error>
       </mat-form-field>
-      <mat-form-field class="w-full">
+      <mat-form-field appearance="fill" [floatLabel]="'always'" class="w-full"
+        [ngClass]="{'mt-5':issue.dirty && issue.hasError('required')}">
         <mat-label>Laisser un commentaire</mat-label>
         <textarea formControlName="comment" matInput
           placeholder="Ex.: Le problème c'est pas toi, c'est moi..."></textarea>

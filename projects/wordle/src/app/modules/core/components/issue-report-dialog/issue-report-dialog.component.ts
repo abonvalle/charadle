@@ -10,6 +10,7 @@ import { XHRService } from '@core/services/xhr.service';
 })
 export class IssueReportDialogComponent {
   form: FormGroup = new FormGroup({});
+  issue: FormControl = new FormControl('', Validators.required);
   constructor(
     private _formBuilder: FormBuilder,
     private _snackbarServ: SnackbarService,
@@ -21,7 +22,7 @@ export class IssueReportDialogComponent {
   }
   private _initForm(): void {
     this.form = this._formBuilder.group({
-      issue: new FormControl('', [Validators.required]),
+      issue: this.issue,
       comment: new FormControl('', [Validators.maxLength(250)]),
       captcha: new FormControl<string>('', [Validators.required])
     });
