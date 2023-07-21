@@ -1,9 +1,9 @@
 import { keyboardAzerty } from './keyboard-azerty';
 import { keyboardConfig } from './keyboard-config.interface';
-import { keyboardKeyBackground } from './keyboard-key-background-letter';
 import { keyboardQwerty } from './keyboard-qwerty';
 import { keyboardType } from './keyboard-types';
 import { key, keyboard } from './keyboard.interface';
+import { letterState } from './letter.model';
 
 export class Keyboard {
   keyboard: keyboard;
@@ -39,7 +39,7 @@ export class Keyboard {
         const letters = kbConfig[rowIndex];
 
         letters?.forEach((letter) => {
-          let state: keyboardKeyBackground = 'none';
+          let state: letterState = 'none';
           let classes = '';
           if (oldKeyboard) {
             const oldKey = this.getKey(letter, oldKeyboard);
@@ -86,7 +86,7 @@ export class Keyboard {
     }
     return undefined;
   }
-  setKeyState(letter: string, state: keyboardKeyBackground): void {
+  setKeyState(letter: string, state: letterState): void {
     const key = this.getKey(letter);
     if (!key) {
       console.error(letter, 'key not found');
@@ -107,7 +107,7 @@ export class Keyboard {
       key.classes = `bg-${state}/80 accessibility-${state}`;
     }
   }
-  hasLetterStates(letter: string, states: keyboardKeyBackground[]): boolean {
+  hasLetterStates(letter: string, states: letterState[]): boolean {
     const key = this.getKey(letter);
     if (!key) {
       return false;

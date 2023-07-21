@@ -15,15 +15,15 @@ export class ResultatPageComponent implements OnInit, OnDestroy {
   timeLeftStr: string = '--h--';
   interval: any = null;
   get gameMsg(): string {
-    return this.gameService.boardGame$.value?.success
-      ? this.gameService.boardGame$.value?.wordle.text === 'gojo'
+    return this.gameService.success$.value
+      ? this.gameService.wordle$.value.text === 'gojo'
         ? 'Kyoshiki Murasaki'
         : 'Gagné !'
       : 'Si proche...';
   }
   constructor(public shareService: ShareService, public gameService: GameService, private _cdr: ChangeDetectorRef) {}
   ngOnInit(): void {
-    this.tries = this.gameService.boardGame$.value?.getTries() ?? [];
+    this.tries = this.gameService.getTries() ?? [];
     this.jokerData = this.shareService.getSharingJokersData();
     this.startTimer();
   }

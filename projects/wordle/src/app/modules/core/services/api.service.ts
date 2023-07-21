@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BoardGame, boardgameJokers } from '../../../models/boardgame';
+import { BoardLine } from '../../../models/boardgame';
 import { defaultSettings } from '../../../models/default-settings';
 import { PaintJoker, PlaceLetterJoker, SerieJoker } from '../../../models/joker';
 import { Keyboard, keyboardType } from '../../../models/keyboard';
@@ -11,48 +11,104 @@ import { LocalStorageService } from './local-storage.service';
 @Injectable({ providedIn: 'root' })
 export class APIService {
   constructor(private _localStorage: LocalStorageService) {}
-  /** GameBoard  */
-  getBoardgame(): BoardGame | null {
-    const strBg = this._localStorage.read(localStorageKeys.boardgame);
-    const boardgame = strBg ? (JSON.parse(strBg, this._reviver) as BoardGame) : null;
-    return boardgame
-      ? new BoardGame({
-          currentActiveBoardLine: boardgame.currentActiveBoardLine,
-          boardLines: boardgame.boardLines,
-          wordle: boardgame.wordle,
-          end: boardgame.end,
-          success: boardgame.success
-        })
+  /** BoardLines  */
+  getBoardLines(): BoardLine[] | null {
+    const strBls = this._localStorage.read(localStorageKeys.boardLines);
+    const bls = strBls ? (JSON.parse(strBls) as BoardLine[]) : null;
+    return bls
+      ? bls.map(
+          (bl) =>
+            new BoardLine({
+              index: bl.index,
+              boxCount: bl.boxCount,
+              oldBoardBoxes: bl.boardBoxes,
+              text: bl.text,
+              isActive: bl.isActive,
+              classes: bl.classes
+            })
+        )
       : null;
   }
-  setBoardgame(gb: BoardGame): void {
-    this._localStorage.update(localStorageKeys.boardgame, JSON.stringify(gb, this._replacer));
+  setBoardLines(bls: BoardLine[]): void {
+    this._localStorage.update(localStorageKeys.boardLines, JSON.stringify(bls));
   }
-  deleteBoardgame(): void {
-    this._localStorage.delete(localStorageKeys.boardgame);
+  deleteBoardLines(): void {
+    this._localStorage.delete(localStorageKeys.boardLines);
   }
 
-  /** Jokers  */
-  getJokers(wordle: Wordle): boardgameJokers | null {
-    const difficulty = wordle.difficulty;
-    const strJk = this._localStorage.read(localStorageKeys.jokers);
-    const jokers = strJk ? (JSON.parse(strJk) as boardgameJokers) : null;
-    return jokers
-      ? {
-          paintJoker: new PaintJoker({ difficulty, uses: jokers.paintJoker.uses }),
-          placeLetterJoker: new PlaceLetterJoker({
-            difficulty,
-            uses: jokers.placeLetterJoker.uses
-          }),
-          serieJoker: new SerieJoker({ difficulty, uses: jokers.serieJoker.uses })
-        }
-      : null;
+  /** Wordle  */
+  getWordle(): Wordle | null {
+    const strW = this._localStorage.read(localStorageKeys.wordle);
+    const w = strW ? (JSON.parse(strW) as Wordle) : null;
+    return w ? w : null;
   }
-  setJokers(jokers: boardgameJokers): void {
-    this._localStorage.update(localStorageKeys.jokers, JSON.stringify(jokers));
+  setWordle(w: Wordle): void {
+    this._localStorage.update(localStorageKeys.wordle, JSON.stringify(w));
   }
-  deleteJokers(): void {
-    this._localStorage.delete(localStorageKeys.jokers);
+  deleteWordle(): void {
+    this._localStorage.delete(localStorageKeys.wordle);
+  }
+
+  /** Success  */
+  getSuccess(): boolean | null {
+    const strSuccess = this._localStorage.read(localStorageKeys.success);
+    const success = strSuccess ? (JSON.parse(strSuccess) as boolean) : null;
+    return success ? success : null;
+  }
+  setSuccess(success: boolean): void {
+    this._localStorage.update(localStorageKeys.success, JSON.stringify(success));
+  }
+  deleteSuccess(): void {
+    this._localStorage.delete(localStorageKeys.success);
+  }
+
+  /** End  */
+  getEnd(): boolean | null {
+    const strEnd = this._localStorage.read(localStorageKeys.end);
+    const end = strEnd ? (JSON.parse(strEnd) as boolean) : null;
+    return end ? end : null;
+  }
+  setEnd(end: boolean): void {
+    this._localStorage.update(localStorageKeys.end, JSON.stringify(end));
+  }
+  deleteEnd(): void {
+    this._localStorage.delete(localStorageKeys.end);
+  }
+
+  /** PaintJokers  */
+  getPaintJoker(): PaintJoker | null {
+    const strJk = this._localStorage.read(localStorageKeys.paintJoker);
+    return strJk ? (JSON.parse(strJk) as PaintJoker) : null;
+  }
+  setPaintJoker(jokers: PaintJoker): void {
+    this._localStorage.update(localStorageKeys.paintJoker, JSON.stringify(jokers));
+  }
+  deletePaintJoker(): void {
+    this._localStorage.delete(localStorageKeys.paintJoker);
+  }
+
+  /** PlaceLetterJokers  */
+  getPlaceLetterJoker(): PlaceLetterJoker | null {
+    const strJk = this._localStorage.read(localStorageKeys.placeLetterJoker);
+    return strJk ? (JSON.parse(strJk) as PlaceLetterJoker) : null;
+  }
+  setPlaceLetterJoker(jokers: PlaceLetterJoker): void {
+    this._localStorage.update(localStorageKeys.placeLetterJoker, JSON.stringify(jokers));
+  }
+  deletePlaceLetterJoker(): void {
+    this._localStorage.delete(localStorageKeys.placeLetterJoker);
+  }
+
+  /** SerieJokers  */
+  getSerieJoker(): SerieJoker | null {
+    const strJk = this._localStorage.read(localStorageKeys.serieJoker);
+    return strJk ? (JSON.parse(strJk) as SerieJoker) : null;
+  }
+  setSerieJoker(jokers: SerieJoker): void {
+    this._localStorage.update(localStorageKeys.serieJoker, JSON.stringify(jokers));
+  }
+  deleteSerieJoker(): void {
+    this._localStorage.delete(localStorageKeys.serieJoker);
   }
 
   /** Keyboard  */
@@ -95,29 +151,4 @@ export class APIService {
   deleteAll(): void {
     this._localStorage.clearStorage();
   }
-
-  /** Utils */
-  private _replacer(_key: string, value: Map<unknown, unknown>) {
-    if (value instanceof Map) {
-      return {
-        dataType: 'Map',
-        value: Array.from(value.entries()) // or with spread: value: [...value]
-      };
-    } else {
-      return value;
-    }
-  }
-  private _reviver(_key: string, value: replacer) {
-    if (typeof value === 'object' && value !== null) {
-      if (value.dataType === 'Map') {
-        return new Map(value.value);
-      }
-    }
-    return value;
-  }
-}
-
-interface replacer {
-  dataType: string;
-  value: Iterable<[unknown, unknown]>;
 }

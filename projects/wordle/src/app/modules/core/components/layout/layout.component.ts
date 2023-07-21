@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { GameService } from '@core/services/game.service';
 import { PlatformService } from '@core/services/platform.service';
 import { SettingsService } from '@core/services/settings.service';
 import { ThemeService } from '@core/services/theme.service';
@@ -24,11 +23,9 @@ export class LayoutComponent implements OnInit, OnDestroy {
   constructor(
     public platformService: PlatformService,
     public themeService: ThemeService,
-    private _gameService: GameService,
     private _settingsServ: SettingsService
   ) {}
   ngOnInit(): void {
-    this._gameService.initBoardGame();
     this._settingsServ.initSettings();
   }
   ngOnDestroy(): void {

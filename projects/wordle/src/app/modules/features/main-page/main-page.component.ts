@@ -3,7 +3,7 @@ import { GameService } from '@core/services/game.service';
 import { JokersService } from '@core/services/jokers.service';
 import { SettingsService } from '@core/services/settings.service';
 import { ShareService } from '@core/services/share.service';
-import { Subject, filter, map, takeUntil } from 'rxjs';
+import { Subject, combineLatestWith, filter, takeUntil } from 'rxjs';
 import { SerieJoker } from '../../../models/joker';
 
 @Component({
@@ -17,28 +17,31 @@ export class MainPageComponent implements OnInit, OnDestroy {
   points$: Subject<number> = new Subject();
   private _destroy$: Subject<void> = new Subject();
   constructor(
-    public shareService: ShareService,
     public gameService: GameService,
     public settingsService: SettingsService,
+    private _shareService: ShareService,
     private _jokersService: JokersService,
     private _cdr: ChangeDetectorRef
-  ) // private _keyboardServ: KeyboardService
-  {}
+  ) {}
   ngOnInit(): void {
-    // this.boardGame$ = this._gameService.boardGame$.asObservable().pipe(takeUntil(this._destroy$));
-    // this._gameService.initGame();
-    this.serieJoker$ = this._jokersService.jokers$.pipe(
+    this.serieJoker$ = this._jokersService.serieJoker$.pipe(
       takeUntil(this._destroy$),
-      filter((jks) => jks !== null && !!jks?.serieJoker),
-      map((jks) => jks?.serieJoker)
+      filter((jks) => jks !== null)
     ) as Subject<SerieJoker>;
 
-    this.gameService.boardGame$.pipe(takeUntil(this._destroy$)).subscribe(() => {
-      this.points$.next(this.shareService.getScore());
-      this._cdr.detectChanges();
-    });
+    this.gameService.currentActiveBoardLine$
+      .pipe(
+        combineLatestWith(this._jokersService.paintJoker$),
+        combineLatestWith(this._jokersService.placeLetterJoker$),
+        combineLatestWith(this._jokersService.serieJoker$),
+        takeUntil(this._destroy$)
+      )
+      .subscribe(() => {
+        this.points$.next(this._shareService.getScore());
+        this._cdr.detectChanges();
+      });
 
-    this.points$.next(this.shareService.getScore());
+    this.points$.next(this._shareService.getScore());
     this._cdr.detectChanges();
   }
 

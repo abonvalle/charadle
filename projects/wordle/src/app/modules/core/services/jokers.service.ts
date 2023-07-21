@@ -1,18 +1,56 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { boardgameJokers } from '../../../models/boardgame';
-import { Joker } from '../../../models/joker';
+import { Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { Joker, PaintJoker, PlaceLetterJoker, SerieJoker } from '../../../models/joker';
 import { Wordle } from '../../../models/wordle.model';
+import { APIService } from './api.service';
 import { KeyboardService } from './keyboard.service';
 import { SnackbarService } from './snackbar.service';
 @Injectable({ providedIn: 'root' })
-export class JokersService {
-  jokers$: BehaviorSubject<boardgameJokers | null> = new BehaviorSubject<boardgameJokers | null>(null);
+export class JokersService implements OnDestroy {
+  paintJoker$: BehaviorSubject<PaintJoker | null> = new BehaviorSubject<PaintJoker | null>(null);
+  placeLetterJoker$: BehaviorSubject<PlaceLetterJoker | null> = new BehaviorSubject<PlaceLetterJoker | null>(null);
+  serieJoker$: BehaviorSubject<SerieJoker | null> = new BehaviorSubject<SerieJoker | null>(null);
   private _wordle: Wordle | null = null;
-  constructor(private _keyboardServ: KeyboardService, private _snackbarService: SnackbarService) {}
-  initJokers(wordle: Wordle, initJokers: boardgameJokers) {
-    this.jokers$.next(initJokers);
+  private _destroy$: Subject<void> = new Subject();
+  constructor(
+    private _apiServ: APIService,
+    private _keyboardServ: KeyboardService,
+    private _snackbarService: SnackbarService
+  ) {}
+  ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.unsubscribe();
+  }
+  initJokers(wordle: Wordle, fetchStoredData: boolean): void {
+    let initPaintJoker: PaintJoker;
+    let initPlaceLetterJoker: PlaceLetterJoker;
+    let initSerieJoker: SerieJoker;
+    if (fetchStoredData) {
+      initPaintJoker = new PaintJoker({ difficulty: wordle.difficulty, uses: this._apiServ.getPaintJoker()?.uses });
+      initPlaceLetterJoker = new PlaceLetterJoker({
+        difficulty: wordle.difficulty,
+        uses: this._apiServ.getPlaceLetterJoker()?.uses
+      });
+      initSerieJoker = new SerieJoker({ uses: this._apiServ.getSerieJoker()?.uses });
+    } else {
+      initPaintJoker = new PaintJoker({ difficulty: wordle.difficulty });
+      initPlaceLetterJoker = new PlaceLetterJoker({ difficulty: wordle.difficulty });
+      initSerieJoker = new SerieJoker();
+    }
+
+    this.paintJoker$ = new BehaviorSubject<PaintJoker | null>(initPaintJoker);
+    this.placeLetterJoker$ = new BehaviorSubject<PlaceLetterJoker | null>(initPlaceLetterJoker);
+    this.serieJoker$ = new BehaviorSubject<SerieJoker | null>(initSerieJoker);
     this._wordle = wordle;
+
+    for (let i = 0; i < initPaintJoker.useCount; i++) {
+      const letter = initPaintJoker.uses[i] ?? '';
+      this._keyboardServ.setKeyBg(letter, 'partial');
+    }
+    for (let i = 0; i < initPlaceLetterJoker.useCount; i++) {
+      const letter = initPlaceLetterJoker.uses[i]?.letter ?? '';
+      this._keyboardServ.setKeyBg(letter, 'right');
+    }
     console.warn(this._wordle);
   }
   useJoker(joker: Joker): void {
@@ -29,8 +67,7 @@ export class JokersService {
     }
   }
   private _usePaintLetterJoker(): void {
-    const joks = this.jokers$.value;
-    const jok = joks?.paintJoker;
+    const jok = this.paintJoker$.value;
     if (!jok) {
       return;
     }
@@ -45,16 +82,15 @@ export class JokersService {
       }
       jok.use(letter.letter);
       this._keyboardServ.setKeyBg(letter.letter, 'partial');
-      this.jokers$.next(joks);
+      this.paintJoker$.next(jok);
       return;
     }
-    this._snackbarService.openSnackBar('Toutes les lettres sont découvertes 🤨', 'alert');
+    this._snackbarService.openSnackBar('Toutes les lettres sont découvertes 🤨');
     return;
   }
 
   private _usePlaceLetterJoker(): void {
-    const joks = this.jokers$.value;
-    const jok = joks?.placeLetterJoker;
+    const jok = this.placeLetterJoker$.value;
     if (!jok) {
       return;
     }
@@ -69,16 +105,15 @@ export class JokersService {
       }
       jok.use(letter);
       this._keyboardServ.setKeyBg(letter.letter, 'right');
-      this.jokers$.next(joks);
+      this.placeLetterJoker$.next(jok);
       return;
     }
-    this._snackbarService.openSnackBar('Toutes les lettres sont découvertes 🤨', 'alert');
+    this._snackbarService.openSnackBar('Toutes les lettres sont découvertes 🤨');
     return;
   }
 
   private _useSerieJoker(): void {
-    const joks = this.jokers$.value;
-    const jok = joks?.serieJoker;
+    const jok = this.serieJoker$.value;
     if (!jok) {
       return;
     }
@@ -86,7 +121,7 @@ export class JokersService {
       this._snackbarService.openSnackBar('Joker épuisé 🥲');
       return;
     }
-    this.jokers$.next(joks);
+    this.serieJoker$.next(jok);
   }
 
   private _shuffle(text: string): { letter: string; index: number }[] {

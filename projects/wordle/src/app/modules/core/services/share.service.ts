@@ -23,10 +23,9 @@ export class ShareService {
     // }
   }
   generateShareData(): ShareData {
-    const bg = this._gameService.boardGame$.value;
-    const nbTries = bg?.success ? bg?.currentActiveBoardLine : '💀';
-    const tries = bg?.getTries();
-    const worldeDate = bg?.wordle.date;
+    const nbTries = this._gameService.success$.value ? this._gameService.currentActiveBoardLine$.value : '💀';
+    const tries = this._gameService.getTries();
+    const worldeDate = this._gameService.wordle$.value.date;
     const score = this.getScore();
     const text = [`Name Guessr ${environment.version.label} #${worldeDate} 🎯${score}pts ✍️${nbTries}/6`];
     tries?.forEach((aTry) => {
@@ -39,10 +38,9 @@ export class ShareService {
     };
   }
   getSharingJokersData(): string {
-    const joks = this._jokersService.jokers$.value;
-    const joker1Count = joks?.paintJoker.useCount;
-    const joker2Count = joks?.placeLetterJoker.useCount;
-    const joker3Count = joks?.serieJoker.useCount;
+    const joker1Count = this._jokersService.paintJoker$.value?.useCount;
+    const joker2Count = this._jokersService.placeLetterJoker$.value?.useCount;
+    const joker3Count = this._jokersService.serieJoker$.value?.useCount;
     const hasUsedJoker = joker1Count !== 0 || joker2Count !== 0 || joker3Count !== 0;
     if (hasUsedJoker) {
       return `🖌️x${joker1Count}, 🔤x${joker2Count}, 🎥x${joker3Count}`;
@@ -51,18 +49,24 @@ export class ShareService {
     }
   }
   getScore(): number {
-    const bg = this._gameService.boardGame$.value;
-    const difficulty = this._gameService.boardGame$.value?.wordle.difficulty ?? 1;
-    const nbTries = bg?.currentActiveBoardLine ?? 0;
-    const joks = this._jokersService.jokers$.value;
-    if ((bg?.end && !bg?.success) || !joks) {
+    const difficulty = this._gameService.wordle$.value.difficulty ?? 1;
+    const nbTries = this._gameService.currentActiveBoardLine$.value ?? 0;
+    const paintJoker = this._jokersService.paintJoker$.value;
+    const placeLetterJoker = this._jokersService.placeLetterJoker$.value;
+    const serieJoker = this._jokersService.serieJoker$.value;
+    if (
+      (this._gameService.end$.value && !this._gameService.success$.value) ||
+      !paintJoker ||
+      !placeLetterJoker ||
+      !serieJoker
+    ) {
       return 0;
     }
-    const joker1Count = joks?.paintJoker.useCount;
-    const joker2Count = joks?.placeLetterJoker.useCount;
-    const joker1CountMax = joks?.paintJoker.maxUse;
-    const joker2CountMax = joks?.placeLetterJoker.maxUse;
-    const joker3Count = joks?.serieJoker.useCount;
+    const joker1Count = paintJoker.useCount;
+    const joker2Count = placeLetterJoker.useCount;
+    const joker1CountMax = paintJoker.maxUse;
+    const joker2CountMax = placeLetterJoker.maxUse;
+    const joker3Count = serieJoker.useCount;
     let score = 100;
 
     //Origin joker = -10,9 or 8pts

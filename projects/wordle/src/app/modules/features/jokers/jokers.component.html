@@ -1,5 +1,27 @@
 <div class="flex items-center justify-center my-2 gap-1">
-  <joker-button *ngFor="let joker of jokers$ | async" [joker]="joker" (click)="useJoker(joker)">
+  <joker-button *ngIf="jokersService.paintJoker$| async;let joker" [joker]="joker" (click)="useJoker(joker)">
+    <ng-container *ngIf="!showPoints;else pts">
+      <i class="icon text-lg animate-pulse-once" [ngClass]="getJokerIcon(joker.name)"></i>
+    </ng-container>
+    <ng-template #pts>
+      <span class="text-sm animate-pulse-once">
+        -{{joker.points}}pts
+      </span>
+    </ng-template>
+  </joker-button>
+
+  <joker-button *ngIf="jokersService.placeLetterJoker$ | async;let joker" [joker]="joker" (click)="useJoker(joker)">
+    <ng-container *ngIf="!showPoints;else pts">
+      <i class="icon text-lg animate-pulse-once" [ngClass]="getJokerIcon(joker.name)"></i>
+    </ng-container>
+    <ng-template #pts>
+      <span class="text-sm animate-pulse-once">
+        -{{joker.points}}pts
+      </span>
+    </ng-template>
+  </joker-button>
+
+  <joker-button *ngIf="jokersService.serieJoker$| async;let joker" [joker]="joker" (click)="useJoker(joker)">
     <ng-container *ngIf="!showPoints;else pts">
       <i class="icon text-lg animate-pulse-once" [ngClass]="getJokerIcon(joker.name)"></i>
     </ng-container>

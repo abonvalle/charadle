@@ -1,5 +1,5 @@
 <div
   class="border-2 border-secondary-700 bg-secondary relative rounded-md flex justify-center items-center uppercase h-full w-full"
-  [ngClass]="boardBox.classes.join(' ')">
-  {{ boardBox.letter }}
+  [ngClass]="classes$ | async">
+  {{ letter }}
 </div>

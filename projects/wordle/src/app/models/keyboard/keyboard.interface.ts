@@ -1,10 +1,10 @@
-import { keyboardKeyBackground } from './keyboard-key-background-letter';
+import { letterState } from './letter.model';
 
 export interface keyboard {
   [rowIndex: number]: key[];
 }
 export interface key {
   letter: string;
-  state: keyboardKeyBackground;
+  state: letterState;
   classes: string;
 }

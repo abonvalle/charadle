@@ -10,7 +10,7 @@ export class Letter {
     this.row = row;
     this.order = order;
     this.special = special ?? false;
-    this.state = '';
+    this.state = 'none';
   }
 }
-export type letterState = 'partial' | 'right' | 'unused' | '';
+export type letterState = 'partial' | 'right' | 'unused' | 'none';

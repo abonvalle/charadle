@@ -46,22 +46,23 @@ body {
 .mat-mdc-snack-bar-container.alert {
   --mdc-snackbar-container-color: #c61c1c;
 }
-
-.accessibility div.accessibility-partial::after {
+.accessibility div.accessibility-partial::after,
+.accessibility div.accessibility-right::after,
+.accessibility div.accessibility-unused::after {
   font: normal normal normal 1em/1 "Nucleo";
-  content: "\ea06";
   position: absolute;
   top: 2px;
   left: 2px;
   font-size: 12px;
 }
+.accessibility div.accessibility-partial::after {
+  content: "\ea06";
+}
 .accessibility div.accessibility-right::after {
-  font: normal normal normal 1em/1 "Nucleo";
   content: "\ea05";
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  font-size: 12px;
+}
+.accessibility div.accessibility-unused::after {
+  content: "\ea13";
 }
 @config "./tailwind.config.anime.js";
 @tailwind base;

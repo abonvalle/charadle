@@ -14,7 +14,7 @@ const routes: Routes = [
       },
       {
         path: 'resultat',
-        canMatch: [(_route: Route, _segments: UrlSegment[]) => inject(GameService).boardGame$.value?.end ?? false],
+        canMatch: [(_route: Route, _segments: UrlSegment[]) => inject(GameService).end$.value],
         loadChildren: () => import('@features/resultat-page/resultat-page.module').then((m) => m.ResultatPageModule)
       }
     ]

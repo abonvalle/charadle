@@ -53,7 +53,7 @@ export class IssueReportDialogComponent {
       data.append(key, value.toString())
     );
     try {
-      data.append('boardlines', JSON.stringify(this._gameService.boardGame$.value?.boardLines));
+      data.append('boardlines', JSON.stringify(this._gameService.boardLines$.value));
     } catch (e) {
       console.error(e);
     }
