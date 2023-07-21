@@ -4,14 +4,14 @@ export interface boardLineArgs {
   boxCount: number;
   isActive?: boolean;
   text?: string;
-  oldBoardBoxes?: Map<number, BoardBox>;
+  oldBoardBoxes?: BoardBox[];
   classes?: string[];
 }
 export class BoardLine {
   index: number;
   isActive: boolean;
   boxCount: number;
-  boardBoxes: Map<number, BoardBox>;
+  boardBoxes: BoardBox[];
   text: string;
   classes: string[];
   constructor(args: boardLineArgs) {
@@ -22,13 +22,13 @@ export class BoardLine {
     this.classes = args.classes ?? ['text-font'];
     this.boardBoxes = this._setBoardBoxes(args);
   }
-  private _setBoardBoxes(args: boardLineArgs): Map<number, BoardBox> {
-    const boardLines = new Map();
+  private _setBoardBoxes(args: boardLineArgs): BoardBox[] {
+    const boardLines = [];
     let isBoxActivePassed = false;
     for (let i = 0; i < args.boxCount; i++) {
       let bb;
       if (args.oldBoardBoxes) {
-        bb = args.oldBoardBoxes.get(i);
+        bb = args.oldBoardBoxes[i];
       }
       let isBoxActive = false;
       const letters = args.text?.split('') ?? [];
@@ -37,13 +37,11 @@ export class BoardLine {
         isBoxActivePassed = true;
         isBoxActive = true;
       }
-      boardLines.set(
-        i,
+      boardLines.push(
         new BoardBox({
           index: i,
           boxSize: this._getBoxSize(args.boxCount),
           letter,
-          before: bb?.before,
           isActive: isBoxActive,
           background: bb?.background
         })
@@ -75,12 +73,12 @@ export class BoardLine {
     }
   }
   private _setBoxActive(index: number, isActive: boolean): void {
-    const box = this.boardBoxes.get(index);
+    const box = this.boardBoxes[index];
     box?.setActive(isActive);
   }
   addLetter(letter: string): void {
     this.text = this.text + letter;
-    const box = this.boardBoxes.get(this.text.length - 1);
+    const box = this.boardBoxes[this.text.length - 1];
     this._setBoxActive(this.text.length - 1, false);
     box?.updateLetter(letter);
     this._setBoxActive(this.text.length, true);
@@ -88,7 +86,7 @@ export class BoardLine {
   removeLetter(): void {
     this.text = this.text.slice(0, this.text.length - 1);
     console.warn(this.text);
-    const box = this.boardBoxes.get(this.text.length);
+    const box = this.boardBoxes[this.text.length];
     this._setBoxActive(this.text.length, true);
     box?.updateLetter('');
     this._setBoxActive(this.text.length + 1, false);

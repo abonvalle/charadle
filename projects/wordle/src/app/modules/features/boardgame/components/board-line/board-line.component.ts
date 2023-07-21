@@ -11,16 +11,22 @@ import { BoardBox } from '@models/*';
 export class BoardLineComponent implements OnChanges {
   @Input() boardBoxes: BoardBox[] = [];
   @Input() classes: string[] = [];
+  @Input() isActive: boolean = false;
   rowClass: string = 'letter-row-' + this.boardBoxes.length + ' ' + this.classes.join(' ');
   constructor(private _cdr: ChangeDetectorRef) {}
   ngOnChanges(changes: SimpleChanges): void {
     if (changes && (changes['boardBoxes'] || changes['classes'])) {
+      console.warn('changes in bl');
       this.rowClass = 'letter-row-' + this.boardBoxes.length + ' ' + this.classes.join(' ');
       this._cdr.detectChanges();
     }
   }
+  isCurrentBoardBoxActive(index: number): boolean {
+    return this.isActive ? index === this.boardBoxes.map((bb) => bb.letter).length : false;
+  }
 
   trackByFn(_index: number, item: BoardBox) {
+    console.warn('track', item.index, item);
     return item.index;
   }
 }

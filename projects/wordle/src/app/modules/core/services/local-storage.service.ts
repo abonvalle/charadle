@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from '@config/environment';
 import packageJson from '@packageJSON';
 import { Subject } from 'rxjs';
 import { localStorageKeys } from '../../../models/local-storage-keys.enum';
@@ -38,21 +39,23 @@ export class LocalStorageService {
     return v.join('.') ?? '';
   }
   private _encode(val: string): string {
-    // return val;
-    return window
-      .btoa(val)
-      .split('')
-      .map((l) => this._nextChar(l))
-      .join('');
+    return environment.production
+      ? window
+          .btoa(val)
+          .split('')
+          .map((l) => this._nextChar(l))
+          .join('')
+      : val;
   }
   private _decode(val: string): string {
-    // return val;
-    return window.atob(
-      val
-        .split('')
-        .map((l) => this._prevChar(l))
-        .join('')
-    );
+    return environment.production
+      ? window.atob(
+          val
+            .split('')
+            .map((l) => this._prevChar(l))
+            .join('')
+        )
+      : val;
   }
   private _nextChar(c: string): string {
     return String.fromCharCode(c.charCodeAt(0) + 2);

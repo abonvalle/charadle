@@ -1,13 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  BoardBox,
-  BoardGame,
-  PaintJoker,
-  PlaceLetterJoker,
-  SerieJoker,
-  letterState
-} from 'projects/wordle/src/app/models';
+import { BoardBox, BoardLine, letterState } from 'projects/wordle/src/app/models';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { Wordle } from '../../../models/wordle.model';
 import { APIService } from './api.service';
@@ -19,7 +12,11 @@ import { SnackbarService } from './snackbar.service';
 
 @Injectable({ providedIn: 'root' })
 export class GameService implements OnDestroy {
-  boardGame$: BehaviorSubject<BoardGame | null> = new BehaviorSubject<BoardGame | null>(null);
+  boardLines$: BehaviorSubject<BoardLine[]>;
+  currentActiveBoardLine$: BehaviorSubject<number>;
+  wordle$: BehaviorSubject<Wordle>;
+  success$: BehaviorSubject<boolean>;
+  end$: BehaviorSubject<boolean>;
   destroy$: Subject<void> = new Subject();
   constructor(
     private _localStrgServ: LocalStorageService,
@@ -30,7 +27,63 @@ export class GameService implements OnDestroy {
     private _router: Router,
     private _assetsServ: AssetsService
   ) {
+    const wordle = this.setWordle();
+    let initWordle = this._apiServ.getWordle();
+    let initBoardLines = this._apiServ.getBoardLines();
+    let initSuccess = this._apiServ.getSuccess();
+    let initEnd = this._apiServ.getEnd();
+
+    if (initWordle?.date !== wordle.date) {
+      initWordle = wordle;
+      initBoardLines = null;
+      initSuccess = false;
+      initEnd = false;
+      this._jokersServ.initJokers(initWordle, false);
+    } else {
+      initSuccess = initSuccess ?? false;
+      initEnd = initEnd ?? false;
+      this._jokersServ.initJokers(initWordle, true);
+    }
+    const { boardLines, currentActiveBoardLine } = this._setBoardLines(
+      initWordle.text.split('#')[0]?.length ?? 0,
+      initBoardLines
+    );
+
+    this.boardLines$ = new BehaviorSubject<BoardLine[]>(boardLines);
+    this.wordle$ = new BehaviorSubject(wordle);
+    this.success$ = new BehaviorSubject(initSuccess);
+    this.end$ = new BehaviorSubject(initEnd);
+    this.currentActiveBoardLine$ = new BehaviorSubject(currentActiveBoardLine);
+    if (initEnd) {
+      this._router.navigate(['/resultat']);
+    }
     this._event();
+  }
+  private _setBoardLines(
+    boxCount: number,
+    oldBoardlines?: BoardLine[] | null
+  ): { boardLines: BoardLine[]; currentActiveBoardLine: number } {
+    const boardLines = [];
+    let currentActiveBoardLine = 0;
+    for (let index = 0; index < 6; index++) {
+      let bl;
+      if (oldBoardlines) {
+        bl = oldBoardlines[index];
+      }
+      boardLines.push(
+        new BoardLine({
+          index,
+          boxCount,
+          isActive: bl?.isActive ?? index === 0,
+          text: bl?.text,
+          oldBoardBoxes: bl?.boardBoxes
+        })
+      );
+      if (bl?.isActive) {
+        currentActiveBoardLine = bl.index;
+      }
+    }
+    return { boardLines, currentActiveBoardLine };
   }
   ngOnDestroy(): void {
     this.destroy$?.next();
@@ -38,26 +91,33 @@ export class GameService implements OnDestroy {
   }
   initBoardGame(): void {
     const wordle = this.setWordle();
-    if (!wordle) {
-      this._snackbarService.defaultErrorMsg();
-      return;
+    let initWordle = this._apiServ.getWordle();
+    let initBoardLines = this._apiServ.getBoardLines();
+    let initSuccess = this._apiServ.getSuccess();
+    let initEnd = this._apiServ.getEnd();
+
+    if (initWordle?.date !== wordle.date) {
+      initWordle = wordle;
+      initBoardLines = null;
+      initSuccess = false;
+      initEnd = false;
+      this._jokersServ.initJokers(initWordle, false);
+    } else {
+      initSuccess = initSuccess ?? false;
+      initEnd = initEnd ?? false;
+      this._jokersServ.initJokers(initWordle, true);
     }
-    const savedBG = this._apiServ.getBoardgame();
-    const initBG = savedBG?.wordle.date !== wordle.date ? new BoardGame({ wordle }) : savedBG;
-    const savedJokers = this._apiServ.getJokers(wordle);
-    const initJokers =
-      savedBG?.wordle.date !== wordle.date || !savedJokers
-        ? {
-            paintJoker: new PaintJoker({ difficulty: wordle.difficulty }),
-            placeLetterJoker: new PlaceLetterJoker({ difficulty: wordle.difficulty }),
-            serieJoker: new SerieJoker()
-          }
-        : savedJokers;
-    console.warn(initBG);
-    this.boardGame$.next(initBG);
-    this._jokersServ.initJokers(wordle, initJokers);
-    this._keyboardServ.initKeyBoard(initBG, initJokers);
-    if (initBG.end) {
+    const { boardLines, currentActiveBoardLine } = this._setBoardLines(
+      initWordle.text.split('#')[0]?.length ?? 0,
+      initBoardLines
+    );
+
+    this.boardLines$ = new BehaviorSubject<BoardLine[]>(boardLines);
+    this.wordle$ = new BehaviorSubject(wordle);
+    this.success$ = new BehaviorSubject(initSuccess);
+    this.end$ = new BehaviorSubject(initEnd);
+    this.currentActiveBoardLine$ = new BehaviorSubject(currentActiveBoardLine);
+    if (initEnd) {
       this._router.navigate(['/resultat']);
     }
   }
@@ -66,24 +126,19 @@ export class GameService implements OnDestroy {
     this._localStrgServ.clear$.pipe(takeUntil(this.destroy$)).subscribe(() => {
       this.initBoardGame();
     });
-    this._jokersServ.jokers$.pipe(takeUntil(this.destroy$)).subscribe((joks) => {
-      const bg = this.boardGame$.value;
-      joks?.placeLetterJoker.uses.forEach((letter) => {
-        bg?.boardLines.forEach((bl) => {
-          bl.boardBoxes.forEach((bb) => {
-            if (bb.index === letter?.index) {
-              bb.before = letter?.letter;
-            }
-          });
-        });
-      });
-      this.boardGame$.next(bg);
-    });
   }
-
+  getTries(): string[] {
+    const res: string[] = [];
+    this.boardLines$.value.forEach((bl) => {
+      const bltry = bl.getTry();
+      bltry.length && res.push(bltry);
+    });
+    return res;
+  }
   addCurrentGuessLetter(letter: string): void {
-    let boardGame = this.boardGame$.value;
-    const boardLine = boardGame?.getCurrentBoardLine();
+    let bls = this.boardLines$.value;
+    let blInd = this.currentActiveBoardLine$.value;
+    const boardLine = bls[blInd];
     if (!boardLine) {
       this._snackbarService.defaultErrorMsg();
       return;
@@ -93,19 +148,23 @@ export class GameService implements OnDestroy {
     }
     boardLine.classes =
       boardLine.isBoardLineFull() && !this.checkGuessValidity(boardLine.text) ? ['text-red-500'] : ['text-font'];
-    this.boardGame$.next(boardGame);
+    // this.boardGame$.next(boardGame);
+    bls[blInd] = boardLine;
+    this.boardLines$.next(bls);
   }
 
   removeLastGuessLetter(): void {
-    let boardGame = this.boardGame$.value;
-    const boardLine = boardGame?.getCurrentBoardLine();
+    let bls = this.boardLines$.value;
+    let blInd = this.currentActiveBoardLine$.value;
+    const boardLine = bls[blInd];
     if (!boardLine) {
       this._snackbarService.defaultErrorMsg();
       return;
     }
     boardLine.removeLetter();
     boardLine.classes = ['text-font'];
-    this.boardGame$.next(boardGame);
+    bls[blInd] = boardLine;
+    this.boardLines$.next(bls);
   }
   checkGuessValidity(currentGuess: string): boolean {
     const words = this._assetsServ.wordlesJSON;
@@ -117,9 +176,11 @@ export class GameService implements OnDestroy {
     return true;
   }
   submitGuess(): void {
-    let boardGame = this.boardGame$.value;
-    let boardLine = boardGame?.getCurrentBoardLine();
-    if (!boardGame || !boardLine) {
+    let bls = this.boardLines$.value;
+    let blInd = this.currentActiveBoardLine$.value;
+    const wordle = this.wordle$.value;
+    const boardLine = bls[blInd];
+    if (!bls || !boardLine) {
       this._snackbarService.defaultErrorMsg();
       return;
     }
@@ -132,13 +193,13 @@ export class GameService implements OnDestroy {
     if (!this.checkGuessValidity(currentGuess)) {
       return;
     }
-    const wordle = boardGame?.wordle.text?.split('#')[0];
-    if (!wordle) {
+    const wordleText = wordle.text.split('#')[0];
+    if (!wordleText) {
       this._snackbarService.defaultErrorMsg();
       return;
     }
 
-    const wordleLetters: Map<string, number[]> = wordle.split('').reduce((map, letter, index) => {
+    const wordleLetters: Map<string, number[]> = wordleText.split('').reduce((map, letter, index) => {
       map.set(letter, map.has(letter) ? [...map.get(letter), index] : [index]);
       return map;
     }, new Map());
@@ -149,8 +210,8 @@ export class GameService implements OnDestroy {
       map.set(
         boardBox.letter,
         map.has(boardBox.letter)
-          ? [...(map.get(boardBox.letter) ?? []), { index, state: '', boardBox }]
-          : [{ index, state: '', boardBox }]
+          ? [...(map.get(boardBox.letter) ?? []), { index, state: 'none', boardBox }]
+          : [{ index, state: 'none', boardBox }]
       );
       return map;
     }, new Map());
@@ -176,7 +237,7 @@ export class GameService implements OnDestroy {
     //loop to tag 'partial' or 'unused' letters & to set backgrounds
     guessLetters.forEach((guessLetter, key) => {
       guessLetter.forEach((letter) => {
-        if (letter.state === '') {
+        if (letter.state === 'none') {
           const wordleLetterIndexes = wordleLetters.get(key);
           if (wordleLetterIndexes?.length ?? 0 > 0) {
             letter.state = 'partial';
@@ -192,21 +253,31 @@ export class GameService implements OnDestroy {
       });
     });
 
-    if (currentGuess === wordle) {
-      boardGame.success = true;
-      boardGame.end = true;
+    if (currentGuess === wordleText) {
+      this.success$.next(true);
+      this.end$.next(true);
     }
 
-    boardGame.incrementCurrentActiveBoardLine();
-    if (boardGame.end) {
+    boardLine.setActive(false);
+    bls[boardLine.index] = boardLine;
+    this.currentActiveBoardLine$.next(this.currentActiveBoardLine$.value + 1);
+    const nextBoardLine = bls[this.currentActiveBoardLine$.value];
+    if (!nextBoardLine) {
+      this.end$.next(true);
+    } else {
+      nextBoardLine.setActive(true);
+      bls[nextBoardLine.index] = nextBoardLine;
+    }
+
+    if (this.end$.value) {
       setTimeout(() => {
         this._router.navigate(['/resultat']);
       }, wordle.length * 375);
     }
-    this.boardGame$.next(boardGame);
+    this.boardLines$.next(bls);
   }
 
-  setWordle(): Wordle | null {
+  setWordle(): Wordle {
     let date = new Date();
     let numerodujour = date.getDate();
     let numerodumois = date.getMonth() + 1;
@@ -233,7 +304,7 @@ export class GameService implements OnDestroy {
     });
   }
   enterLetter(letter: string): void {
-    if (this.boardGame$.value?.success) {
+    if (this.success$.value) {
       return;
     }
     if (letter === 'enter') {

@@ -1,26 +1,23 @@
 <div class="flex flex-col h-full">
-  <ng-container *ngIf="(gameService.boardGame$ | async) ;let boardGame">
 
-    <boardgame></boardgame>
-    <p *ngIf="(serieJoker$ | async)?.soldOut && !boardGame?.success"
-      class="text-white text-center text-2xl text-shadow-sm shadow-black">
-      {{boardGame?.wordle?.serie}}
+  <boardgame></boardgame>
+  <p *ngIf="(serieJoker$ | async)?.soldOut && (gameService.success$ | async) !== true"
+    class="text-white text-center text-2xl text-shadow-sm shadow-black">
+    {{(gameService.wordle$ | async)?.serie}}
+  </p>
+  <div *ngIf="(gameService.success$ | async) !== true" class="flex flex-row items-end justify-center">
+    <p class="text-center text-white text-shadow-sm shadow-black bg-slate-800 p-2 rounded-t-md absolute left-0">
+      🎯 {{points$|async}}pts
     </p>
-    <div class="flex flex-row items-end justify-center">
-      <p *ngIf="!boardGame?.success"
-        class="text-center text-white text-shadow-sm shadow-black bg-slate-800 p-2 rounded-t-md absolute left-0">
-        🎯 {{points$|async}}pts
-      </p>
-      <jokers *ngIf="!boardGame?.success"></jokers>
-    </div>
-    <ng-container *ngIf="!boardGame.end;else resultatPageLinkTpl">
-      <app-keyboard *ngIf="(settingsService.hideKeyboard$ | async) === false"
-        (letterClick)="onLetterClick($event)"></app-keyboard>
-    </ng-container>
-    <ng-template #resultatPageLinkTpl>
-      <a [routerLink]="'/resultat'" class="m-12">
-        <p class="underline text-center text-white text-shadow-sm shadow-black">Voir le résultat</p>
-      </a>
-    </ng-template>
+    <jokers></jokers>
+  </div>
+  <ng-container *ngIf="(gameService.end$ | async) !== true;else resultatPageLinkTpl">
+    <app-keyboard *ngIf="(settingsService.hideKeyboard$ | async) === false"
+      (letterClick)="onLetterClick($event)"></app-keyboard>
   </ng-container>
+  <ng-template #resultatPageLinkTpl>
+    <a [routerLink]="'/resultat'" class="m-12">
+      <p class="underline text-center text-white text-shadow-sm shadow-black">Voir le résultat</p>
+    </a>
+  </ng-template>
 </div>

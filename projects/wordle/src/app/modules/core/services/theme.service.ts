@@ -51,14 +51,14 @@ export class ThemeService implements OnDestroy {
     return this.themeList[index]?.id ?? this.defaultTheme.id ?? '';
   }
   get specialClasses(): string {
-    if (!this._gameServ.boardGame$.value?.success) {
+    if (!this._gameServ.success$.value) {
       return '';
     }
-    if (['gojo', 'panda', 'toge'].includes(this._gameServ.boardGame$.value?.wordle.text)) {
-      return this._gameServ.boardGame$.value?.wordle.text;
+    if (['gojo', 'panda', 'toge'].includes(this._gameServ.wordle$.value.text)) {
+      return this._gameServ.wordle$.value.text;
     }
-    if ([''].includes(this._gameServ.boardGame$.value?.wordle.serie)) {
-      return this._gameServ.boardGame$.value?.wordle.text;
+    if ([''].includes(this._gameServ.wordle$.value.serie)) {
+      return this._gameServ.wordle$.value.text;
     }
     return '';
   }

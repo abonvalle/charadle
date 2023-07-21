@@ -1,36 +1,29 @@
 import { Injectable } from '@angular/core';
 import { APIService } from '@core/services/api.service';
 import { BehaviorSubject } from 'rxjs';
-import { BoardGame, boardgameJokers, key, Keyboard, keyboardKeyBackground, keyboardType } from '../../../models';
+import { BoardLine, Keyboard, Wordle, key, keyboardType, letterState } from '../../../models';
 
 @Injectable({ providedIn: 'root' })
 export class KeyboardService {
   keyboard$: BehaviorSubject<Keyboard> = new BehaviorSubject(new Keyboard('AZERTY'));
   constructor(private _apiServ: APIService) {}
-  initKeyBoard(bg: BoardGame, joks: boardgameJokers): void {
+  initKeyBoard(boardLines: BoardLine[], wordle: Wordle): void {
     const kb = this._apiServ.getKeyboard();
-    bg.boardLines.forEach((bl) => {
+    boardLines.forEach((bl) => {
       if (bl.isActive) {
         return;
       }
       bl.text.split('').forEach((letter, index) => {
-        let state: keyboardKeyBackground = 'none';
-        if (bg.wordle.text.includes(letter)) {
-          state = bg.wordle.text[index] === letter ? 'right' : 'partial';
+        let state: letterState = 'none';
+        if (wordle.text.includes(letter)) {
+          state = wordle.text[index] === letter ? 'right' : 'partial';
         } else {
           state = 'unused';
         }
         kb.setKeyState(letter, state);
       });
     });
-    for (let i = 0; i < joks.paintJoker.useCount; i++) {
-      const letter = joks.paintJoker.uses[i] ?? '';
-      kb.setKeyState(letter, 'partial');
-    }
-    for (let i = 0; i < joks.placeLetterJoker.useCount; i++) {
-      const letter = joks.placeLetterJoker.uses[i]?.letter ?? '';
-      kb.setKeyState(letter, 'right');
-    }
+
     this.keyboard$.next(kb);
   }
   setKeyboard(): void {
@@ -45,7 +38,7 @@ export class KeyboardService {
     this.keyboard$.next(kb);
     this._apiServ.setKeyboard(kb.config);
   }
-  setKeyBg(key: string, bg: keyboardKeyBackground): void {
+  setKeyBg(key: string, bg: letterState): void {
     // this.keyboard$.value?.setKeyState(key, bg);
     const kb = this.keyboard$.value;
     if (!kb) {
@@ -54,7 +47,7 @@ export class KeyboardService {
     kb.setKeyState(key, bg);
     this.keyboard$.next(kb);
   }
-  hasLetterStates(key: string, states: keyboardKeyBackground[]): boolean {
+  hasLetterStates(key: string, states: letterState[]): boolean {
     const kb = this.keyboard$.value;
     if (!kb) {
       return false;
