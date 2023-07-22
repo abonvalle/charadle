@@ -1,14 +1,24 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { JokersService } from '@core/services/jokers.service';
+import { PlaceLetterJoker } from '@models/*';
+import { BehaviorSubject } from 'rxjs';
 import { BoardLetterBoxComponent } from './board-letter-box.component';
 
 describe('BoardLetterBoxComponent', () => {
   let component: BoardLetterBoxComponent;
   let fixture: ComponentFixture<BoardLetterBoxComponent>;
-
+  const serviceSpy = jasmine.createSpyObj(
+    'JokersService',
+    {},
+    {
+      placeLetterJoker$: new BehaviorSubject<PlaceLetterJoker | null>(null)
+    }
+  );
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [BoardLetterBoxComponent]
+      declarations: [BoardLetterBoxComponent],
+      providers: [{ provide: JokersService, useValue: serviceSpy }]
     }).compileComponents();
 
     fixture = TestBed.createComponent(BoardLetterBoxComponent);
