@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BoardBox } from '@models/*';
 import { BoardLetterBoxComponent } from './board-letter-box.component';
 
 describe('BoardLetterBoxComponent', () => {
@@ -14,7 +13,7 @@ describe('BoardLetterBoxComponent', () => {
 
     fixture = TestBed.createComponent(BoardLetterBoxComponent);
     component = fixture.componentInstance;
-    component.boardBox = new BoardBox({ index: 1, boxSize: 2, letter: 'a' });
+    // component.boardBox = new BoardBox({ index: 1, boxSize: 2, letter: 'a' });
     fixture.detectChanges();
   });
 

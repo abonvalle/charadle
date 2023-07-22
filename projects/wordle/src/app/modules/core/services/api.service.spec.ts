@@ -1,15 +1,14 @@
 import { defaultSettings } from '../../../models/default-settings';
 import { Keyboard } from '../../../models/keyboard';
-import { Wordle } from '../../../models/wordle.model';
 import { APIService } from './api.service';
 import { LocalStorageService } from './local-storage.service';
 
 describe('APIService', () => {
   let service: APIService;
-  let wordle: Wordle;
+  // let wordle: Wordle;
   beforeEach(() => {
     service = new APIService(new LocalStorageService());
-    wordle = new Wordle({ date: '', text: '', serie: '', imgPath: '', fullname: '' });
+    // wordle = new Wordle({ date: '', text: '', serie: '', imgPath: '', fullname: '' });
   });
 
   // it('#getBoardgame should return BoardGame or null', () => {
