@@ -1,10 +1,10 @@
 <div class="flex flex-row justify-between py-2 h-[64px]">
   <div class="flex items-center ">
-    <button (click)="openSettings()"
+    <button (click)="openSettings()" title="Paramètres"
       class="w-10 h-10 rounded-lg ml-2 flex justify-center items-center cursor-pointer hover:bg-background-alt/75 border-b-2 bg-tertiary border-tertiary-700">
       <i class="icon icon-settings text-font"></i>
     </button>
-    <button (click)="openHelp()"
+    <button (click)="openHelp()" title="Aide"
       class="w-10 h-10 rounded-lg ml-2 flex justify-center items-center cursor-pointer hover:bg-background-alt/75 border-b-2 bg-tertiary border-tertiary-700">
       <i class="icon icon-help-circle text-font"></i>
     </button>
@@ -17,7 +17,7 @@
     </h2>
   </div>
   <div class="flex items-center justify-end w-[84px]">
-    <button [matMenuTriggerFor]="colorPicker">
+    <button [matMenuTriggerFor]="colorPicker" title="Thèmes">
       <span
         class="w-8 h-8 border-2 border-tertiary-700 from-[#16A085] via-[#61045F] to-[#1FA2FF] block rounded-lg shadow-sm bg-gradient-to-tl">
       </span>
@@ -55,7 +55,7 @@
       </div>
     </mat-menu>
 
-    <button [matMenuTriggerFor]="menu">
+    <button [matMenuTriggerFor]="menu" title="Menu">
       <i class="icon icon-more-vertical text-white text-xl h-12 w-12 p-3"></i>
     </button>
     <mat-menu #menu="matMenu">
