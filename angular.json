@@ -19,6 +19,8 @@
             "polyfills": "projects/wordle/src/polyfills.ts",
             "tsConfig": "projects/wordle/src/tsconfig.app.json",
             "assets": [
+              "projects/wordle/src/sitemap.xml",
+              "projects/wordle/src/robots.txt",
               "projects/wordle/src/php",
               {
                 "glob": "**/*",
@@ -34,7 +36,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumError": "1.5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -59,7 +61,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumError": "1.5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -68,6 +70,8 @@
                 }
               ],
               "assets": [
+                "projects/wordle/src/sitemap.xml",
+                "projects/wordle/src/robots.txt",
                 "projects/wordle/src/php",
                 {
                   "glob": "**/*",
