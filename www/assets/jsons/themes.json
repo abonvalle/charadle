@@ -1,0 +1,331 @@
+{
+  "themes": [
+    {
+      "id": "87132581-c473-4513-9cf3-f558d23df6ab",
+      "default": true,
+      "name": "Bonbon",
+      "gradient": [
+        "#12c2e9",
+        "#c471ed",
+        "#f64f59"
+      ],
+      "primary": "#0f2027",
+      "secondary": "#1a1a1a",
+      "tertiary": "#162b33",
+      "bgOpacity": 0.5,
+      "copyright": [
+        {
+          "url": "https://www.flaticon.com/packs/letters-and-numbers-3",
+          "text": "Background letters icons by Javier Danglada - Flaticon.com"
+        }
+      ]
+    },
+    {
+      "id": "bf44bfc2-ce1a-4113-ac69-753ba202a0ff",
+      "name": "Charbon",
+      "gradient": [
+        "#1f1f21",
+        "#434343"
+      ],
+      "primary": "#0f2027",
+      "secondary": "#1a1a1a",
+      "tertiary": "#162b33",
+      "bgOpacity": 0.2,
+      "copyright": [
+        {
+          "url": "https://www.flaticon.com/packs/letters-and-numbers-3",
+          "text": "Background letters icons by Javier Danglada - Flaticon.com"
+        }
+      ]
+    },
+    {
+      "id": "8b008a17-b3e2-408b-a7b6-1944043c5fa0",
+      "name": "Noël",
+      "gradient": [
+        "#8E0E00",
+        "#1F1C18"
+      ],
+      "primary": "#0f2027",
+      "secondary": "#1a1a1a",
+      "tertiary": "#162b33",
+      "bgOpacity": 0.2,
+      "copyright": [
+        {
+          "url": "https://www.flaticon.com/packs/letters-and-numbers-3",
+          "text": "Background letters icons by Javier Danglada - Flaticon.com"
+        }
+      ]
+    },
+    {
+      "id": "7d423921-b5f8-4990-81cf-998200a400ea",
+      "name": "Grenadine",
+      "gradient": [
+        "#cb2d3e",
+        "#ef473a"
+      ],
+      "primary": "#0f2027",
+      "secondary": "#1a1a1a",
+      "tertiary": "#162b33",
+      "bgOpacity": 0.5,
+      "copyright": [
+        {
+          "url": "https://www.flaticon.com/packs/letters-and-numbers-3",
+          "text": "Background letters icons by Javier Danglada - Flaticon.com"
+        }
+      ]
+    },
+    {
+      "id": "e2f68fba-cbec-4234-9166-9655bbeeba64",
+      "name": "Cocktail",
+      "gradient": [
+        "#C6FFDD",
+        "#FBD786",
+        "#f7797d"
+      ],
+      "primary": "#0f2027",
+      "secondary": "#1a1a1a",
+      "tertiary": "#162b33",
+      "bgOpacity": 0.5,
+      "copyright": [
+        {
+          "url": "https://www.flaticon.com/packs/letters-and-numbers-3",
+          "text": "Background letters icons by Javier Danglada - Flaticon.com"
+        }
+      ]
+    },
+    {
+      "id": "b34b9307-947e-4e4b-a38a-2680e1943fff",
+      "name": "Soleil",
+      "gradient": [
+        "#fceabb",
+        "#f8b500"
+      ],
+      "primary": "#0f2027",
+      "secondary": "#1a1a1a",
+      "tertiary": "#162b33",
+      "bgOpacity": 0.5,
+      "copyright": [
+        {
+          "url": "https://www.flaticon.com/packs/letters-and-numbers-3",
+          "text": "Background letters icons by Javier Danglada - Flaticon.com"
+        }
+      ]
+    },
+    {
+      "id": "62e9b9ab-9da8-41d6-81ec-6c824195a30b",
+      "name": "Citron",
+      "gradient": [
+        "#EDE574",
+        "#E1F5C4"
+      ],
+      "primary": "#0f2027",
+      "secondary": "#1a1a1a",
+      "tertiary": "#162b33",
+      "bgOpacity": 0.5,
+      "copyright": [
+        {
+          "url": "https://www.flaticon.com/packs/letters-and-numbers-3",
+          "text": "Background letters icons by Javier Danglada - Flaticon.com"
+        }
+      ]
+    },
+    {
+      "id": "07aa9d47-33c2-499e-b829-4f7bcea8335e",
+      "name": "Menthe",
+      "gradient": [
+        "#1D976C",
+        "#93F9B9"
+      ],
+      "primary": "#0f2027",
+      "secondary": "#1a1a1a",
+      "tertiary": "#162b33",
+      "bgOpacity": 0.5,
+      "copyright": [
+        {
+          "url": "https://www.flaticon.com/packs/letters-and-numbers-3",
+          "text": "Background letters icons by Javier Danglada - Flaticon.com"
+        }
+      ]
+    },
+    {
+      "id": "8db3c410-545e-4651-9e33-6273f3083e57",
+      "name": "Mojito",
+      "gradient": [
+        "#11998e",
+        "#38ef7d"
+      ],
+      "primary": "#0f2027",
+      "secondary": "#1a1a1a",
+      "tertiary": "#162b33",
+      "bgOpacity": 0.5,
+      "copyright": [
+        {
+          "url": "https://www.flaticon.com/packs/letters-and-numbers-3",
+          "text": "Background letters icons by Javier Danglada - Flaticon.com"
+        }
+      ]
+    },
+    {
+      "id": "ad55579a-fea8-4829-896c-b7262a15e642",
+      "name": "Sapin",
+      "gradient": [
+        "#134E5E",
+        "#71B280"
+      ],
+      "primary": "#0f2027",
+      "secondary": "#1a1a1a",
+      "tertiary": "#162b33",
+      "bgOpacity": 0.2,
+      "copyright": [
+        {
+          "url": "https://www.flaticon.com/packs/letters-and-numbers-3",
+          "text": "Background letters icons by Javier Danglada - Flaticon.com"
+        }
+      ]
+    },
+    {
+      "id": "6a54c593-8ba0-4365-9875-1955820ec9bd",
+      "name": "Ciel",
+      "gradient": [
+        "#2193b0",
+        "#6dd5ed"
+      ],
+      "primary": "#0f2027",
+      "secondary": "#1a1a1a",
+      "tertiary": "#162b33",
+      "bgOpacity": 0.5,
+      "copyright": [
+        {
+          "url": "https://www.flaticon.com/packs/letters-and-numbers-3",
+          "text": "Background letters icons by Javier Danglada - Flaticon.com"
+        }
+      ]
+    },
+    {
+      "id": "14c05845-fbb6-4d66-ac50-6bf0690e0f66",
+      "name": "Océan",
+      "gradient": [
+        "#000428",
+        "#004e92"
+      ],
+      "primary": "#0f2027",
+      "secondary": "#1a1a1a",
+      "tertiary": "#162b33",
+      "bgOpacity": 0.2,
+      "copyright": [
+        {
+          "url": "https://www.flaticon.com/packs/letters-and-numbers-3",
+          "text": "Background letters icons by Javier Danglada - Flaticon.com"
+        }
+      ]
+    },
+    {
+      "id": "926f810f-a997-444e-9eb3-e8b09280dbf5",
+      "name": "Encre",
+      "gradient": [
+        "#141E30",
+        "#243B55"
+      ],
+      "primary": "#0f2027",
+      "secondary": "#1a1a1a",
+      "tertiary": "#162b33",
+      "bgOpacity": 0.2,
+      "copyright": [
+        {
+          "url": "https://www.flaticon.com/packs/letters-and-numbers-3",
+          "text": "Background letters icons by Javier Danglada - Flaticon.com"
+        }
+      ]
+    },
+    {
+      "id": "dd68bcc1-19fa-494a-a83b-8e53253534c4",
+      "name": "Aubergine",
+      "gradient": [
+        "#6441A5",
+        "#2a0845"
+      ],
+      "primary": "#0f2027",
+      "secondary": "#1a1a1a",
+      "tertiary": "#162b33",
+      "bgOpacity": 0.2,
+      "copyright": [
+        {
+          "url": "https://www.flaticon.com/packs/letters-and-numbers-3",
+          "text": "Background letters icons by Javier Danglada - Flaticon.com"
+        }
+      ]
+    },
+    {
+      "id": "c0f28391-d671-4c52-aca8-fd12b00b2407",
+      "name": "Lila",
+      "gradient": [
+        "#c8a2c8",
+        "#f4c4f3"
+      ],
+      "primary": "#0f2027",
+      "secondary": "#1a1a1a",
+      "tertiary": "#162b33",
+      "bgOpacity": 0.5,
+      "copyright": [
+        {
+          "url": "https://www.flaticon.com/packs/letters-and-numbers-3",
+          "text": "Background letters icons by Javier Danglada - Flaticon.com"
+        }
+      ]
+    },
+    {
+      "id": "4fbe7734-80c5-4aa0-ac06-2f0c61209968",
+      "name": "Prune",
+      "gradient": [
+        "#C04848",
+        "#480048"
+      ],
+      "primary": "#0f2027",
+      "secondary": "#1a1a1a",
+      "tertiary": "#162b33",
+      "bgOpacity": 0.2,
+      "copyright": [
+        {
+          "url": "https://www.flaticon.com/packs/letters-and-numbers-3",
+          "text": "Background letters icons by Javier Danglada - Flaticon.com"
+        }
+      ]
+    },
+    {
+      "id": "18286d30-6d15-4b73-a5b5-6759911f09a2",
+      "name": "Pêche",
+      "gradient": [
+        "#ED4264",
+        "#FFEDBC"
+      ],
+      "primary": "#0f2027",
+      "secondary": "#1a1a1a",
+      "tertiary": "#162b33",
+      "bgOpacity": 0.5,
+      "copyright": [
+        {
+          "url": "https://www.flaticon.com/packs/letters-and-numbers-3",
+          "text": "Background letters icons by Javier Danglada - Flaticon.com"
+        }
+      ]
+    },
+    {
+      "id": "68331efd-6a4f-4c3b-96d6-78e3176133f7",
+      "name": "Malabar",
+      "gradient": [
+        "#ee9ca7",
+        "#ffdde1"
+      ],
+      "primary": "#0f2027",
+      "secondary": "#1a1a1a",
+      "tertiary": "#162b33",
+      "bgOpacity": 0.5,
+      "copyright": [
+        {
+          "url": "https://www.flaticon.com/packs/letters-and-numbers-3",
+          "text": "Background letters icons by Javier Danglada - Flaticon.com"
+        }
+      ]
+    }
+  ]
+}

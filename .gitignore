@@ -40,3 +40,11 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Ionic
+.tmp
+/platforms
+/plugins
+*.swp
+*.swo
+*.log
