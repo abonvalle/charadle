@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UtilsService } from '@modules/shared/utils.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, combineLatestWith, map } from 'rxjs';
 import { defaultVersion } from '../../../models/default-version.const';
 import { localStorageKeys } from '../../../models/local-storage-keys.enum';
 import { version } from '../../../models/version.interface';
@@ -9,6 +9,14 @@ import { versions } from '../../../models/versions.const';
 @Injectable({ providedIn: 'root' })
 export class EnvironmentService {
   version$: BehaviorSubject<version>;
+  versionsState$: BehaviorSubject<{ code: string; end: boolean }[]>;
+  otherVersionsState$: Observable<
+    {
+      code: string;
+      end: boolean;
+    }[]
+  >;
+
   constructor(private _utilsServ: UtilsService) {
     const versionCode = this._getStoredVersionCode();
     const version = versionCode ? versions[versionCode] : defaultVersion;
@@ -16,6 +24,14 @@ export class EnvironmentService {
       throw new TypeError('Version should be properly instancied');
     }
     this.version$ = new BehaviorSubject(version);
+    this.versionsState$ = new BehaviorSubject<{ code: string; end: boolean }[]>([
+      { code: 'serie', end: false },
+      { code: 'anime', end: false }
+    ]);
+    this.otherVersionsState$ = this.versionsState$.pipe(
+      combineLatestWith(this.version$),
+      map(([vsState, currentV]) => vsState.filter((v) => v.code !== currentV.code))
+    );
   }
   setVersion(version: version): void {
     this.version$.next(version);

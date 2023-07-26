@@ -20,101 +20,127 @@
   <div class="flex items-center justify-end w-[84px]">
     <button [matMenuTriggerFor]="colorPicker" title="Thèmes">
       <span
-        class="w-8 h-8 border-2 border-tertiary-700 from-[#16A085] via-[#61045F] to-[#1FA2FF] block rounded-lg shadow-sm bg-gradient-to-tl">
+        class="w-10 h-10 border-2 border-tertiary-700 from-[#16A085] via-[#61045F] to-[#1FA2FF] block rounded-lg shadow-sm bg-gradient-to-tl">
       </span>
     </button>
 
-    <mat-menu #colorPicker="matMenu">
-      <div class="flex flex-col gap-4 px-4 py-2">
-        <div class="grid grid-cols-3 gap-4">
-          <ng-container *ngFor="let theme of themeList$ | async;trackBy:trackByFn">
-            <div class="text-sm font-extralight font-body text-center flex flex-col items-center justify-center">
-              <button (click)="changeTheme(theme.id)" [ngClass]="theme.id">
-                <span
-                  class="w-12 h-12 flex items-center justify-center rounded-lg shadow-sm bg-gradient-to-tl from-gradient-start via-gradient-middle to-gradient-end"
-                  [ngClass]="{'border-2 border-neutral-900':isCurrentTheme(theme.id)}">
-                  <span *ngIf="isSelectedTheme(theme.id)"
-                    class="bg-neutral-900 opacity-20 z-10 w-12 h-12 absolute rounded-lg">
+    <div class="relative">
+      <button [matMenuTriggerFor]="menu" title="Menu"
+        class="w-10 h-10 rounded-lg mx-2 flex justify-center items-center cursor-pointer hover:bg-background-alt/75 border-b-2 bg-tertiary border-tertiary-700">
+        <span *ngIf="showPingBadge$ | async"
+          class="absolute flex justify-center items-center h-4 w-4 mr-[-18px] mt-[-18px]">
+          <span
+            class="animate-custom-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+        </span>
+        <i class="icon icon-more-vertical text-white text-xl"></i>
+      </button>
+      <p *ngIf="showPingBadge$ | async"
+        class="text-white text-center text-xs text-shadow-sm shadow-black bg-slate-800 py-2 px-4 rounded-md z-10 absolute right-3 top-16 whitespace-nowrap animate-bounce-8 before:content-[''] before:inline-block before:absolute before:bg-slate-800 before:w-4 before:h-4 before:rotate-45 before:right-3 before:top-[-6px] before:rounded-sm">
+        Essayez les autres versions !
+      </p>
+    </div>
 
-                  </span>
-                  <i *ngIf="isSelectedTheme(theme.id)"
-                    class="icon icon-paintbrush text-font text-2xl font-bold text-shadow-sm shadow-black z-20"></i>
-                </span>
-              </button>
-              <span class="flex justify-center items-center gap-1"
-                [ngClass]="{'font-bold text-neutral-900':isCurrentTheme(theme.id)}">
-                {{theme.name}}
-                <i *ngIf="isCurrentTheme(theme.id)" class="icon icon-check font-bold"></i>
-              </span>
-            </div>
-          </ng-container>
-        </div>
-        <div class="flex justify-center items-center">
-          <div class="text-sm font-extralight font-body text-center flex flex-col items-center justify-center">
-            <button (click)="changeTheme('random')">
-              <span
-                class="w-12 h-12 rounded-lg shadow-sm bg-gradient-to-tl from-[#16A085] via-[#61045F] to-[#1FA2FF] flex items-center justify-center"
-                [ngClass]="{'border-2 border-neutral-900':isCurrentTheme('random')}">
-                <i class="icon icon-shuffle text-white text-shadow-sm shadow-black text-xl font-bold"></i>
-              </span>
-            </button>
-            <span class="flex justify-center items-center gap-1"
-              [ngClass]="{'font-bold text-neutral-900':isCurrentTheme('random')}">
-              Au hasard
-              <i *ngIf="isCurrentTheme('random')" class="icon icon-check font-bold"></i>
-            </span>
-          </div>
-        </div>
-      </div>
-    </mat-menu>
-
-    <mat-menu #changeVersionMenu="matMenu">
-      <div class="flex flex-col justify-center items-start">
-        <div *ngFor="let version of versions" (click)="changeVersion(version)"
-          class="flex flex-row justify-start items-center gap-2 hover:bg-[#f5f5f5] pl-3 py-2 w-full"
-          [ngClass]="{'hover:bg-[#d6d6d6] bg-[#d6d6d6]':isCurrentVersion(version.code)}">
-          <h3>{{version.label}}</h3>
-          <i *ngIf="isCurrentVersion(version.code)" class="icon icon-check"></i>
-        </div>
-      </div>
-    </mat-menu>
-
-    <button [matMenuTriggerFor]="menu" title="Menu">
-      <i class="icon icon-more-vertical text-white text-xl h-12 w-12 p-3"></i>
-    </button>
-    <mat-menu #menu="matMenu">
-      <button (click)="openAbout()" mat-menu-item class="flex flex-row justify-start items-center">
-        <i class="icon icon-info pr-2"></i>
-        <span>A propos</span>
-      </button>
-      <button mat-menu-item [disabled]="true" class="flex flex-row justify-start items-center">
-        <i class="icon icon-calendar pr-2"></i>
-        <span>Archives</span>
-      </button>
-      <button (click)="openHelp()" mat-menu-item class="flex flex-row justify-start items-center">
-        <i class="icon icon-help-circle pr-2"></i>
-        <span>Comment jouer ?</span>
-      </button>
-      <button [matMenuTriggerFor]="colorPicker" mat-menu-item class="flex flex-row justify-start items-center">
-        <i class="icon icon-format-paint pr-2"></i>
-        <span>Modifier thème</span>
-      </button>
-      <button (click)="openSettings()" mat-menu-item class="flex flex-row justify-start items-center">
-        <i class="icon icon-settings pr-2"></i>
-        <span>Paramètres</span>
-      </button>
-      <button [matMenuTriggerFor]="changeVersionMenu" mat-menu-item class="flex flex-row justify-start items-center">
-        <i class="icon icon-shuffle-1 pr-2"></i>
-        <span>Version NameGuessr</span>
-      </button>
-      <button mat-menu-item [disabled]="true" class="flex flex-row justify-start items-center">
-        <i class="icon icon-handshake pr-2"></i>
-        <span>Contribuer</span>
-      </button>
-      <button (click)="reportIssue()" mat-menu-item class="flex flex-row justify-start items-center">
-        <i class="icon icon-alert-triangle pr-2"></i>
-        <span>Signaler problème</span>
-      </button>
-    </mat-menu>
   </div>
 </div>
+
+<mat-menu #colorPicker="matMenu">
+  <div class="flex flex-col gap-4 px-4 py-2">
+    <div class="grid grid-cols-3 gap-4">
+      <ng-container *ngFor="let theme of themeList$ | async;trackBy:trackByFn">
+        <div class="text-sm font-extralight font-body text-center flex flex-col items-center justify-center">
+          <button (click)="changeTheme(theme.id)" [ngClass]="theme.id">
+            <span
+              class="w-12 h-12 flex items-center justify-center rounded-lg shadow-sm bg-gradient-to-tl from-gradient-start via-gradient-middle to-gradient-end"
+              [ngClass]="{'border-2 border-neutral-900':isCurrentTheme(theme.id)}">
+              <span *ngIf="isSelectedTheme(theme.id)"
+                class="bg-neutral-900 opacity-20 z-10 w-12 h-12 absolute rounded-lg">
+
+              </span>
+              <i *ngIf="isSelectedTheme(theme.id)"
+                class="icon icon-paintbrush text-font text-2xl font-bold text-shadow-sm shadow-black z-20"></i>
+            </span>
+          </button>
+          <span class="flex justify-center items-center gap-1"
+            [ngClass]="{'font-bold text-neutral-900':isCurrentTheme(theme.id)}">
+            {{theme.name}}
+            <i *ngIf="isCurrentTheme(theme.id)" class="icon icon-check font-bold"></i>
+          </span>
+        </div>
+      </ng-container>
+    </div>
+    <div class="flex justify-center items-center">
+      <div class="text-sm font-extralight font-body text-center flex flex-col items-center justify-center">
+        <button (click)="changeTheme('random')">
+          <span
+            class="w-12 h-12 rounded-lg shadow-sm bg-gradient-to-tl from-[#16A085] via-[#61045F] to-[#1FA2FF] flex items-center justify-center"
+            [ngClass]="{'border-2 border-neutral-900':isCurrentTheme('random')}">
+            <i class="icon icon-shuffle text-white text-shadow-sm shadow-black text-xl font-bold"></i>
+          </span>
+        </button>
+        <span class="flex justify-center items-center gap-1"
+          [ngClass]="{'font-bold text-neutral-900':isCurrentTheme('random')}">
+          Au hasard
+          <i *ngIf="isCurrentTheme('random')" class="icon icon-check font-bold"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+</mat-menu>
+
+<mat-menu #changeVersionMenu="matMenu">
+  <div class="flex flex-col justify-center items-start overflow-hidden">
+    <div *ngFor="let version of versions" (click)="changeVersion(version)"
+      class="flex flex-row justify-start items-center gap-2 pl-3 py-2 w-full relative"
+      [ngClass]="isCurrentVersion(version.code) ? 'hover:bg-[#d6d6d6] bg-[#d6d6d6]': 'hover:bg-[#f5f5f5]'">
+      <h3>{{version.label}}</h3>
+      <i *ngIf="isCurrentVersion(version.code)" class="icon icon-check"></i>
+      <span *ngIf="showPingBadgeForVersion(version.code)"
+        class="absolute flex justify-center items-center h-4 w-4 right-1 top-1">
+        <span class="animate-custom-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+      </span>
+    </div>
+  </div>
+</mat-menu>
+
+<mat-menu #menu="matMenu">
+  <button (click)="openAbout()" mat-menu-item class="flex flex-row justify-start items-center">
+    <i class="icon icon-info pr-2"></i>
+    <span>A propos</span>
+  </button>
+  <button mat-menu-item [disabled]="true" class="flex flex-row justify-start items-center">
+    <i class="icon icon-calendar pr-2"></i>
+    <span>Archives</span>
+  </button>
+  <button (click)="openHelp()" mat-menu-item class="flex flex-row justify-start items-center">
+    <i class="icon icon-help-circle pr-2"></i>
+    <span>Comment jouer ?</span>
+  </button>
+  <button [matMenuTriggerFor]="colorPicker" mat-menu-item class="flex flex-row justify-start items-center">
+    <i class="icon icon-format-paint pr-2"></i>
+    <span>Modifier thème</span>
+  </button>
+  <button (click)="openSettings()" mat-menu-item class="flex flex-row justify-start items-center">
+    <i class="icon icon-settings pr-2"></i>
+    <span>Paramètres</span>
+  </button>
+  <button [matMenuTriggerFor]="changeVersionMenu" mat-menu-item
+    class="flex flex-row justify-start items-center relative">
+    <i class="icon icon-shuffle-1 pr-2"></i>
+    <span>Version NameGuessr
+    </span>
+    <span *ngIf="showPingBadge$ | async" class="absolute flex justify-center items-center h-4 w-4 right-1 top-1">
+      <span class="animate-custom-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+      <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+    </span>
+  </button>
+  <button mat-menu-item [disabled]="true" class="flex flex-row justify-start items-center">
+    <i class="icon icon-handshake pr-2"></i>
+    <span>Contribuer</span>
+  </button>
+  <button (click)="reportIssue()" mat-menu-item class="flex flex-row justify-start items-center">
+    <i class="icon icon-alert-triangle pr-2"></i>
+    <span>Signaler problème</span>
+  </button>
+</mat-menu>

@@ -143,7 +143,17 @@ module.exports = {
           '25%': { opacity: 1 },
           '75%': { opacity: 1 },
           '100%': { opacity: 0 },
-        }
+        },
+        'custom-ping': {
+          '0%': {
+            transform: 'scale(1)',
+            opacity: 1
+          },
+          '75%, 100%': {
+            transform: 'scale(2)',
+            opacity: 0
+          }
+        },
       },
       animation: {
         'flip-right': 'flip-right 0.8s ease-in-out',
@@ -151,6 +161,8 @@ module.exports = {
         'flip-unused': 'flip-unused 0.8s ease-in-out',
         'pulse-fast': 'pulse 0.8s ease-in-out infinite',
         'pulse-once': 'pulse-once 5s linear infinite',
+        'custom-ping': 'custom-ping 2s cubic-bezier(0, 0, 0.2, 1) 6 forwards',
+        'bounce-8': 'bounce 1s ease-in-out 8 forwards'
       },
     },
     screens: {

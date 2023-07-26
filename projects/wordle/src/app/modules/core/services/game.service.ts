@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { BoardBox, BoardLine, letterState } from 'projects/wordle/src/app/models';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { jokers } from '../../../models/joker/jokers.interface';
 import { Wordle } from '../../../models/wordle.model';
 import { APIService } from './api.service';
@@ -18,7 +18,7 @@ export class GameService implements OnDestroy {
   wordle$: BehaviorSubject<Wordle>;
   success$: BehaviorSubject<boolean>;
   end$: BehaviorSubject<boolean>;
-  destroy$: Subject<void> = new Subject();
+  private _destroy$: Subject<void> = new Subject();
   constructor(
     private _snackbarService: SnackbarService,
     private _keyboardServ: KeyboardService,
@@ -88,8 +88,8 @@ export class GameService implements OnDestroy {
     return { boardLines, currentActiveBoardLine };
   }
   ngOnDestroy(): void {
-    this.destroy$?.next();
-    this.destroy$?.unsubscribe();
+    this._destroy$?.next();
+    this._destroy$?.unsubscribe();
   }
   initBoardGame(): void {
     const wordle = this.setWordle();
@@ -127,11 +127,19 @@ export class GameService implements OnDestroy {
   }
 
   private _event(): void {
-    // this._localStrgServ.clear$
-    //   .pipe(combineLatestWith(this._envServ.version$), takeUntil(this.destroy$))
-    this._envServ.version$.subscribe(() => {
+    this._envServ.version$.pipe(takeUntil(this._destroy$)).subscribe(() => {
       console.warn('init bg');
       this.initBoardGame();
+    });
+    this.end$.pipe(takeUntil(this._destroy$)).subscribe((end) => {
+      const vs = this._envServ.versionsState$.value;
+      vs.map((v) => {
+        if (v.code === this._envServ.version$.value.code) {
+          v.end = end;
+        }
+        return v;
+      });
+      this._envServ.versionsState$.next(vs);
     });
   }
   getTries(): string[] {

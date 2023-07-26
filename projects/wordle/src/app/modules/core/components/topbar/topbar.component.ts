@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EnvironmentService } from '@core/services/environment.service';
+import { GameService } from '@core/services/game.service';
 import { ThemeService } from '@core/services/theme.service';
 import { theme, version, versions } from '@models/*';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, combineLatestWith, map, takeUntil } from 'rxjs';
 import { AboutDialogComponent } from '../about-dialog/about-dialog.component';
 import { HelpDialogComponent } from '../help-dialog/help-dialog.component';
 import { IssueReportDialogComponent } from '../issue-report-dialog/issue-report-dialog.component';
@@ -20,8 +21,13 @@ export class TopbarComponent implements OnInit, OnDestroy {
   selectedThemeId$ = this._themeServ.selectedThemeId$;
   currentThemeId$ = this._themeServ.activeTheme$;
   versions = Object.values(versions);
+  showPingBadge$ = this.envServ.otherVersionsState$.pipe(
+    combineLatestWith(this._gameServ.end$),
+    map(([versions, isEnded]) => isEnded && versions.some((v) => !v.end))
+  );
   constructor(
     public envServ: EnvironmentService,
+    private _gameServ: GameService,
     private _dialog: MatDialog,
     private _themeServ: ThemeService,
     private _cdr: ChangeDetectorRef
@@ -62,6 +68,13 @@ export class TopbarComponent implements OnInit, OnDestroy {
   }
   isSelectedTheme(id: string): boolean {
     return this.currentThemeId$.value.id === id;
+  }
+  showPingBadgeForVersion(code: string): boolean {
+    if (this.isCurrentVersion(code) || !this._gameServ.end$.value) {
+      return false;
+    }
+    const version = this.envServ.versionsState$.value.find((v) => v.code === code);
+    return version ? !version.end : false;
   }
   trackByFn(_index: number, item: theme) {
     return item.id;
