@@ -34,15 +34,17 @@
                   class="w-12 h-12 flex items-center justify-center rounded-lg shadow-sm bg-gradient-to-tl from-gradient-start via-gradient-middle to-gradient-end"
                   [ngClass]="{'border-2 border-neutral-900':isCurrentTheme(theme.id)}">
                   <span *ngIf="isSelectedTheme(theme.id)"
-                    class="bg-neutral-900 opacity-50 z-10 w-12 h-12 absolute rounded-lg">
+                    class="bg-neutral-900 opacity-20 z-10 w-12 h-12 absolute rounded-lg">
 
                   </span>
                   <i *ngIf="isSelectedTheme(theme.id)"
                     class="icon icon-paintbrush text-font text-2xl font-bold text-shadow-sm shadow-black z-20"></i>
                 </span>
               </button>
-              <span [ngClass]="{'font-bold text-neutral-900':isCurrentTheme(theme.id)}">
+              <span class="flex justify-center items-center gap-1"
+                [ngClass]="{'font-bold text-neutral-900':isCurrentTheme(theme.id)}">
                 {{theme.name}}
+                <i *ngIf="isCurrentTheme(theme.id)" class="icon icon-check font-bold"></i>
               </span>
             </div>
           </ng-container>
@@ -56,8 +58,10 @@
                 <i class="icon icon-shuffle text-white text-shadow-sm shadow-black text-xl font-bold"></i>
               </span>
             </button>
-            <span [ngClass]="{'font-bold text-neutral-900':isCurrentTheme('random')}">
+            <span class="flex justify-center items-center gap-1"
+              [ngClass]="{'font-bold text-neutral-900':isCurrentTheme('random')}">
               Au hasard
+              <i *ngIf="isCurrentTheme('random')" class="icon icon-check font-bold"></i>
             </span>
           </div>
         </div>
