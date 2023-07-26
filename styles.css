@@ -64,7 +64,7 @@ body {
 .accessibility div.accessibility-unused::after {
   content: "\ea13";
 }
-@config "./tailwind.config.js";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

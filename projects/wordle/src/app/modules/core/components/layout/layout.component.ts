@@ -10,7 +10,10 @@ import { Subject, combineLatest, map, takeUntil } from 'rxjs';
 })
 export class LayoutComponent implements OnInit, OnDestroy {
   _destroy$: Subject<void> = new Subject();
-  themeId$ = this.themeService.activeThemeId$.pipe(takeUntil(this._destroy$));
+  themeId$ = this.themeService.activeTheme$.pipe(
+    takeUntil(this._destroy$),
+    map((th) => th.id)
+  );
   accessibility$ = this._settingsServ.colorBlindMode$.pipe(
     takeUntil(this._destroy$),
     map((cb) => (cb ? 'accessibility' : ''))

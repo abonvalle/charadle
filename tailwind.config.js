@@ -2,12 +2,13 @@
 const plugin = require('tailwindcss/plugin')
 const { getCustomThemesConfigs, getDefaultThemeConfig, getThemesIds } = require('./themes.js')
 const { themes } = require('./projects/wordle/src/assets/serie/jsons/themes.json')
+const themesAnimes = require('./projects/wordle/src/assets/anime/jsons/themes.json').themes
 const defaultTheme = themes.find((t) => t.default)
 
 module.exports = {
   mode: 'jit',
   content: ['./projects/wordle/src/**/*.{html,ts}', './projects/wordle-editor/src/**/*.{html,ts}'],
-  safelist: [...getThemesIds(themes), 'h-full', 'border-cyan-500',
+  safelist: [...getThemesIds(themes), ...getThemesIds(themesAnimes), 'h-full', 'border-cyan-500',
     'bg-right/80',
     'bg-partial/80',
     'bg-unused/80',
@@ -185,7 +186,7 @@ module.exports = {
   plugins: [
     require('tailwindcss-themer')({
       defaultTheme: getDefaultThemeConfig(defaultTheme),
-      themes: getCustomThemesConfigs(themes)
+      themes: [...getCustomThemesConfigs(themes), ...getCustomThemesConfigs(themesAnimes)]
     }),
     function ({ addVariant }) {
       addVariant('child', '& > *');

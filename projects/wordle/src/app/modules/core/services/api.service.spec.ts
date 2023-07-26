@@ -1,13 +1,15 @@
+import { UtilsService } from '@modules/shared/utils.service';
 import { defaultSettings } from '../../../models/default-settings';
 import { Keyboard } from '../../../models/keyboard';
 import { APIService } from './api.service';
+import { EnvironmentService } from './environment.service';
 import { LocalStorageService } from './local-storage.service';
 
 describe('APIService', () => {
   let service: APIService;
   // let wordle: Wordle;
   beforeEach(() => {
-    service = new APIService(new LocalStorageService());
+    service = new APIService(new LocalStorageService(new EnvironmentService(new UtilsService()), new UtilsService()));
     // wordle = new Wordle({ date: '', text: '', serie: '', imgPath: '', fullname: '' });
   });
 

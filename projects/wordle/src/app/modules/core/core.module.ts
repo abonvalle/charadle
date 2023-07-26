@@ -8,7 +8,6 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { SharedModule } from '@modules/shared/shared.module';
 import { NgHcaptchaModule } from 'ng-hcaptcha';
 import { AboutDialogComponent } from './components/about-dialog/about-dialog.component';
-import { ChangeWordleDialogComponent } from './components/change-wordle-dialog/change-wordle-dialog.component';
 import { HelpDialogComponent } from './components/help-dialog/help-dialog.component';
 import { IssueReportDialogComponent } from './components/issue-report-dialog/issue-report-dialog.component';
 import { LayoutComponent } from './components/layout/layout.component';
@@ -22,7 +21,6 @@ const components: any = [
   SettingsDialogComponent,
   HelpDialogComponent,
   NameReportDialogComponent,
-  ChangeWordleDialogComponent,
   AboutDialogComponent,
   IssueReportDialogComponent
 ];

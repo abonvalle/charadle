@@ -10,7 +10,7 @@
 // }
 
 function getThemeConfigFromTheme(theme, defaultTheme = false) {
-  const { id, primary, secondary, tertiary, bgOpacity, gradient, background = "url('/assets/images/background/wordcloud.svg')", font } = theme;
+  const { id, primary, secondary, tertiary, bgOpacity, gradient, background = "url('/assets/serie/images/background/wordcloud.svg')", font } = theme;
   const fontColor = font ?? "#f4f4f4";
   const opacity = { dynamic: bgOpacity }
   const backgroundImage = { wordcloud: background }
@@ -169,8 +169,8 @@ function getComplementaryColor(hexColor) {
 module.exports = {
   getDefaultThemeConfig: (defaultTheme) => getThemeConfigFromTheme(defaultTheme, true),
   getCustomThemesConfigs(themes) {
-    return themes.map((theme) => getThemeConfigFromTheme(theme));
+    return themes?.map((theme) => getThemeConfigFromTheme(theme));
   },
-  getThemesIds(themes) { return themes.map(({ id }) => id) },
+  getThemesIds(themes) { return themes?.map(({ id }) => id) },
 };
 

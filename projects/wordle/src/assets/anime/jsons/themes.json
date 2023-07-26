@@ -1,7 +1,7 @@
 {
   "themes": [
     {
-      "id": "7d423921-b5f8-4990-81cf-998200a400es",
+      "id": "d28e2775-fff5-4900-8ab3-d79a6c3fc929",
       "default": true,
       "name": "Manga",
       "gradient": [
@@ -12,7 +12,7 @@
       "secondary": "#1a1a1a",
       "tertiary": "#162b33",
       "bgOpacity": 0.5,
-      "background": "url('/assets/images/background/wordcloud-manga.svg')",
+      "background": "url('/assets/anime/images/background/wordcloud-manga.svg')",
       "copyright": [
         {
           "text": "Image by macrovector - freepik.com",
@@ -21,7 +21,7 @@
       ]
     },
     {
-      "id": "bf44bfc2-ce1a-4113-ac69-753ba202a0fs",
+      "id": "7c09526e-4739-45d4-b02d-504e1c2695ae",
       "name": "Japan",
       "gradient": [
         "#fffbd5",
@@ -31,7 +31,7 @@
       "secondary": "#1a1a1a",
       "tertiary": "#162b33",
       "bgOpacity": 0.8,
-      "background": "url('/assets/images/background/wordcloud-japan-red.svg')",
+      "background": "url('/assets/anime/images/background/wordcloud-japan-red.svg')",
       "copyright": [
         {
           "text": "Image by rawpixel.com - freepik.com",
@@ -40,7 +40,7 @@
       ]
     },
     {
-      "id": "bf44bfc2-ce1a-4113-ac69-753ba292a0ff",
+      "id": "922adad3-dfeb-4e2d-994d-228ee3fe79e3",
       "name": "Aka",
       "gradient": [
         "#d33c50",
@@ -50,7 +50,7 @@
       "secondary": "#1a1a1a",
       "tertiary": "#162b33",
       "bgOpacity": 1,
-      "background": "url('/assets/images/background/wordcloud-aka.svg')",
+      "background": "url('/assets/anime/images/background/wordcloud-aka.svg')",
       "copyright": [
         {
           "text": "Image by Freepik - freepik.com",
@@ -59,7 +59,7 @@
       ]
     },
     {
-      "id": "bf44bfc2-ce1a-4113-ac69-721ba292a0ff",
+      "id": "ec3d6226-536e-4779-b528-cdeddb3000ba",
       "name": "Koï",
       "gradient": [
         "#354f77",
@@ -69,7 +69,7 @@
       "secondary": "#1a1a1a",
       "tertiary": "#162b33",
       "bgOpacity": 1,
-      "background": "url('/assets/images/background/wordcloud-koi.svg')",
+      "background": "url('/assets/anime/images/background/wordcloud-koi.svg')",
       "copyright": [
         {
           "text": "Image by Freepik - freepik.com",
@@ -82,7 +82,7 @@
       ]
     },
     {
-      "id": "bf44bfc2-ce1a-4113-ac69-753ba282a0ff",
+      "id": "75f813d6-c449-4536-9136-d2a3a8122a0f",
       "name": "Katakana",
       "gradient": [
         "#fff",
@@ -92,7 +92,7 @@
       "secondary": "#1a1a1a",
       "tertiary": "#162b33",
       "bgOpacity": 0.7,
-      "background": "url('/assets/images/background/wordcloud.svg')",
+      "background": "url('/assets/anime/images/background/wordcloud.svg')",
       "copyright": [
         {
           "text": "Background Japanese font by Fontworks Inc. - Github.com",
@@ -101,7 +101,7 @@
       ]
     },
     {
-      "id": "8b008a17-b3e2-408b-a7b6-1944043c2fa0",
+      "id": "6ed27ff0-8e37-4593-9c43-16bfbbf1ae63",
       "name": "Sakura",
       "gradient": [
         "#FBD3E9",
@@ -111,7 +111,7 @@
       "secondary": "#1a1a1a",
       "tertiary": "#162b33",
       "bgOpacity": 0.8,
-      "background": "url('/assets/images/background/wordcloud-sakura.svg')",
+      "background": "url('/assets/anime/images/background/wordcloud-sakura.svg')",
       "copyright": [
         {
           "text": "Image by Freepik - freepik.com",
@@ -120,7 +120,7 @@
       ]
     },
     {
-      "id": "bf44bfc2-ce1a-4113-ac69-753ba202a0js",
+      "id": "eef26867-eed8-4128-b8d1-cdeebc691729",
       "name": "Miaka",
       "gradient": [
         "#FC354C",
@@ -130,7 +130,7 @@
       "secondary": "#1a1a1a",
       "tertiary": "#162b33",
       "bgOpacity": 0.7,
-      "background": "url('/assets/images/background/wordcloud-japan-2.svg')",
+      "background": "url('/assets/anime/images/background/wordcloud-japan-2.svg')",
       "copyright": [
         {
           "text": "Image by callmetak - freepik.com",
@@ -139,7 +139,7 @@
       ]
     },
     {
-      "id": "7d423921-b5f8-4990-81cf-998200a400ea",
+      "id": "ebdcfa99-16e9-4a82-8229-e000ea8a59b0",
       "name": "Shōnen",
       "gradient": [
         "#ea5413",
@@ -149,7 +149,7 @@
       "secondary": "#1a1a1a",
       "tertiary": "#162b33",
       "bgOpacity": 0.6,
-      "background": "url('/assets/images/background/wordcloud-shonen.svg')",
+      "background": "url('/assets/anime/images/background/wordcloud-shonen.svg')",
       "copyright": [
         {
           "text": "Image by rawpixel.com - freepik.com",
@@ -158,7 +158,7 @@
       ]
     },
     {
-      "id": "7d423921-b5f8-4990-81cf-998200a400ed",
+      "id": "973a297e-5dad-410c-9d03-cad4cf43c100",
       "name": "Ruri-iro",
       "gradient": [
         "#006C7F",
@@ -168,7 +168,7 @@
       "secondary": "#1a1a1a",
       "tertiary": "#162b33",
       "bgOpacity": 0.5,
-      "background": "url('/assets/images/background/wordcloud-wave.svg')",
+      "background": "url('/assets/anime/images/background/wordcloud-wave.svg')",
       "copyright": [
         {
           "text": "Image by callmetak - freepik.com",

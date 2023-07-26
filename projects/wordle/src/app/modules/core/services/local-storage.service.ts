@@ -1,73 +1,53 @@
 import { Injectable } from '@angular/core';
-import { environment } from '@config/environment';
+import { UtilsService } from '@modules/shared/utils.service';
 import packageJson from '@packageJSON';
 import { Subject } from 'rxjs';
 import { localStorageKeys } from '../../../models/local-storage-keys.enum';
+import { EnvironmentService } from './environment.service';
 
 @Injectable({ providedIn: 'root' })
 export class LocalStorageService {
   clear$: Subject<void> = new Subject();
-  isVersionCtrl: boolean = false;
-  constructor() {}
-  read(key: string): string | null {
-    if (!this.isVersionCtrl) {
+  isVersionCtrled: boolean = false;
+  constructor(private _environmentServ: EnvironmentService, private _utilsServ: UtilsService) {}
+  read(key: string, unprefixed: boolean = false): string | null {
+    if (!this.isVersionCtrled) {
       if (!this._checkVersion()) {
         localStorage.clear();
-        this.update(localStorageKeys.version, this._getMajorMinorVersion());
-        this.isVersionCtrl = true;
+        localStorage.setItem(localStorageKeys.appVersion, this._utilsServ.encode(this._getMajorMinorVersion()));
+        this.isVersionCtrled = true;
         return null;
       }
-      this.isVersionCtrl = true;
+      this.isVersionCtrled = true;
     }
 
-    const res = localStorage.getItem(key);
-    return res ? this._decode(res) : null;
+    const res = localStorage.getItem(unprefixed ? key : this._prefixedkey(key));
+    return res ? this._utilsServ.decode(res) : null;
   }
-  update(key: string, value: string): void {
-    localStorage.setItem(key, this._encode(value));
+  update(key: string, value: string, unprefixed: boolean = false): void {
+    localStorage.setItem(unprefixed ? key : this._prefixedkey(key), this._utilsServ.encode(value));
   }
-  delete(key: string): void {
-    localStorage.removeItem(key);
+  delete(key: string, unprefixed: boolean = false): void {
+    localStorage.removeItem(unprefixed ? key : this._prefixedkey(key));
   }
   clearStorage(): void {
     this.clear$.next();
     localStorage.clear();
+  }
+  private _prefixedkey(key: string): string {
+    return `${this._environmentServ.version$.value.storagePrefix}-${key}`;
   }
   private _getMajorMinorVersion(): string {
     const v = packageJson.version.split('.');
     v.pop();
     return v.join('.') ?? '';
   }
-  private _encode(val: string): string {
-    return environment.production
-      ? window
-          .btoa(val)
-          .split('')
-          .map((l) => this._nextChar(l))
-          .join('')
-      : val;
-  }
-  private _decode(val: string): string {
-    return environment.production
-      ? window.atob(
-          val
-            .split('')
-            .map((l) => this._prevChar(l))
-            .join('')
-        )
-      : val;
-  }
-  private _nextChar(c: string): string {
-    return String.fromCharCode(c.charCodeAt(0) + 2);
-  }
-  private _prevChar(c: string): string {
-    return String.fromCharCode(c.charCodeAt(0) - 2);
-  }
+
   private _checkVersion(): boolean {
-    const res = localStorage.getItem(localStorageKeys.version);
+    const res = localStorage.getItem(localStorageKeys.appVersion);
     if (!res) {
       return false;
     }
-    return this._decode(res).split('.')[0] === this._getMajorMinorVersion().split('.')[0];
+    return this._utilsServ.decode(res).split('.')[0] === this._getMajorMinorVersion().split('.')[0];
   }
 }

@@ -22,11 +22,7 @@
               "projects/wordle/src/sitemap.xml",
               "projects/wordle/src/robots.txt",
               "projects/wordle/src/php",
-              {
-                "glob": "**/*",
-                "input": "projects/wordle/src/assets/serie",
-                "output": "/assets/"
-              }
+              "projects/wordle/src/assets"
             ],
             "scripts": []
           },
@@ -56,41 +52,6 @@
                 "styles.css"
               ]
             },
-            "production-anime": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1.5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
-                }
-              ],
-              "assets": [
-                "projects/wordle/src/sitemap.xml",
-                "projects/wordle/src/robots.txt",
-                "projects/wordle/src/php",
-                {
-                  "glob": "**/*",
-                  "input": "projects/wordle/src/assets/anime",
-                  "output": "/assets/"
-                }
-              ],
-              "fileReplacements": [
-                {
-                  "replace": "projects/wordle/src/environments/environment.ts",
-                  "with": "projects/wordle/src/environments/environment.prod.anime.ts"
-                }
-              ],
-              "outputHashing": "all",
-              "styles": [
-                "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
-                "styles.anime.css"
-              ]
-            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -102,32 +63,6 @@
                 "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
                 "styles.css"
               ]
-            },
-            "development-anime": {
-              "buildOptimizer": false,
-              "optimization": false,
-              "vendorChunk": true,
-              "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true,
-              "assets": [
-                "projects/wordle/src/php",
-                {
-                  "glob": "**/*",
-                  "input": "projects/wordle/src/assets/anime",
-                  "output": "/assets/"
-                }
-              ],
-              "fileReplacements": [
-                {
-                  "replace": "projects/wordle/src/environments/environment.ts",
-                  "with": "projects/wordle/src/environments/environment.anime.ts"
-                }
-              ],
-              "styles": [
-                "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
-                "styles.anime.css"
-              ]
             }
           },
           "defaultConfiguration": "production"
@@ -135,12 +70,6 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
-            "production-anime": {
-              "browserTarget": "wordle:build:production-anime"
-            },
-            "development-anime": {
-              "browserTarget": "wordle:build:development-anime"
-            },
             "production": {
               "browserTarget": "wordle:build:production"
             },
@@ -161,12 +90,10 @@
           "configurations": {
             "anime": {
               "assets": [
+                "projects/wordle/src/sitemap.xml",
+                "projects/wordle/src/robots.txt",
                 "projects/wordle/src/php",
-                {
-                  "glob": "**/*",
-                  "input": "projects/wordle/src/assets/anime",
-                  "output": "/assets/"
-                }
+                "projects/wordle/src/assets"
               ],
               "fileReplacements": [
                 {
@@ -193,12 +120,10 @@
             "tsConfig": "projects/wordle/src/tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
+              "projects/wordle/src/sitemap.xml",
+              "projects/wordle/src/robots.txt",
               "projects/wordle/src/php",
-              {
-                "glob": "**/*",
-                "input": "projects/wordle/src/assets/serie",
-                "output": "/assets/"
-              }
+              "projects/wordle/src/assets"
             ],
             "scripts": []
           }

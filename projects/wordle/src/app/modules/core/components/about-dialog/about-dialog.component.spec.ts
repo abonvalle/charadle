@@ -34,10 +34,6 @@ describe('AboutDialogComponent', () => {
     expect(component.contactAddress).toContain('@abvdev.fr');
   });
 
-  it('should instanciate a label', () => {
-    expect(component.label).toBeDefined();
-  });
-
   it('should instanciate a version', () => {
     expect(component.version).toBeDefined();
   });

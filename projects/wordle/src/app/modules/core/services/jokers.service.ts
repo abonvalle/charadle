@@ -1,6 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { Joker, PaintJoker, PlaceLetterJoker, SerieJoker } from '../../../models/joker';
+import { jokers } from '../../../models/joker/jokers.interface';
 import { Wordle } from '../../../models/wordle.model';
 import { APIService } from './api.service';
 import { KeyboardService } from './keyboard.service';
@@ -21,7 +22,7 @@ export class JokersService implements OnDestroy {
     this._destroy$.next();
     this._destroy$.unsubscribe();
   }
-  initJokers(wordle: Wordle, fetchStoredData: boolean): void {
+  initJokers(wordle: Wordle, fetchStoredData: boolean): jokers {
     let initPaintJoker: PaintJoker;
     let initPlaceLetterJoker: PlaceLetterJoker;
     let initSerieJoker: SerieJoker;
@@ -38,20 +39,13 @@ export class JokersService implements OnDestroy {
       initSerieJoker = new SerieJoker();
     }
 
-    this.paintJoker$ = new BehaviorSubject<PaintJoker | null>(initPaintJoker);
-    this.placeLetterJoker$ = new BehaviorSubject<PlaceLetterJoker | null>(initPlaceLetterJoker);
-    this.serieJoker$ = new BehaviorSubject<SerieJoker | null>(initSerieJoker);
+    this.paintJoker$.next(initPaintJoker);
+    this.placeLetterJoker$.next(initPlaceLetterJoker);
+    this.serieJoker$.next(initSerieJoker);
     this._wordle = wordle;
 
-    for (let i = 0; i < initPaintJoker.useCount; i++) {
-      const letter = initPaintJoker.uses[i] ?? '';
-      this._keyboardServ.setKeyBg(letter, 'partial');
-    }
-    for (let i = 0; i < initPlaceLetterJoker.useCount; i++) {
-      const letter = initPlaceLetterJoker.uses[i]?.letter ?? '';
-      this._keyboardServ.setKeyBg(letter, 'right');
-    }
     console.warn(this._wordle);
+    return { paintJoker: initPaintJoker, placeLetterJoker: initPlaceLetterJoker, serieJoker: initSerieJoker };
   }
   useJoker(joker: Joker): void {
     switch (joker.name) {

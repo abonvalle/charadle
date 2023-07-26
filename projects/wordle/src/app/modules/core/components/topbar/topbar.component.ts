@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { environment } from '@config/environment';
+import { EnvironmentService } from '@core/services/environment.service';
 import { ThemeService } from '@core/services/theme.service';
-import { theme } from '@models/*';
+import { theme, version, versions } from '@models/*';
 import { Subject, takeUntil } from 'rxjs';
 import { AboutDialogComponent } from '../about-dialog/about-dialog.component';
-import { ChangeWordleDialogComponent } from '../change-wordle-dialog/change-wordle-dialog.component';
 import { HelpDialogComponent } from '../help-dialog/help-dialog.component';
 import { IssueReportDialogComponent } from '../issue-report-dialog/issue-report-dialog.component';
 import { SettingsDialogComponent } from '../settings-dialog/settings.component';
@@ -17,11 +16,15 @@ import { SettingsDialogComponent } from '../settings-dialog/settings.component';
 })
 export class TopbarComponent implements OnInit, OnDestroy {
   _destroy$: Subject<void> = new Subject();
-  themeList = this._themeServ.themeList;
+  themeList$ = this._themeServ.themeList$;
   currentThemeId$ = this._themeServ.selectedThemeId$;
-  version: string = environment.version.label;
-
-  constructor(private _dialog: MatDialog, private _themeServ: ThemeService, private _cdr: ChangeDetectorRef) {}
+  versions = Object.values(versions);
+  constructor(
+    public envServ: EnvironmentService,
+    private _dialog: MatDialog,
+    private _themeServ: ThemeService,
+    private _cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.currentThemeId$.pipe(takeUntil(this._destroy$)).subscribe(() => {
@@ -44,8 +47,8 @@ export class TopbarComponent implements OnInit, OnDestroy {
   changeTheme(id: string): void {
     this._themeServ.updateTheme(id);
   }
-  changeVersion(): void {
-    this._dialog.open(ChangeWordleDialogComponent);
+  changeVersion(version: version): void {
+    this.envServ.setVersion(version);
   }
   reportIssue(): void {
     this._dialog.open(IssueReportDialogComponent);

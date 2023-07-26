@@ -13,6 +13,7 @@ export enum localStorageKeys {
   paintJoker = 'baccd072-8f68-4a3c-a9b0-4e5073bfb391',
   placeLetterJoker = '1290bbd1-76e6-41e3-87ef-71eae430b5d9',
   serieJoker = '0b2b69ea-1266-4795-ac34-db8a192ff82b',
-  version = '414f0cfd-2090-427e-8456-0f2cf03dc1b3',
+  appVersion = '414f0cfd-2090-427e-8456-0f2cf03dc1b3',
+  nameGuessrVersion = '056d2569-d801-4416-9d8e-a7dd21034da3',
   jokers = 'a2df2e3d-5156-4b1b-bdef-40a3a85e0d63'
 }

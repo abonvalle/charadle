@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { APIService } from '@core/services/api.service';
 import { BehaviorSubject } from 'rxjs';
 import { BoardLine, Keyboard, Wordle, key, keyboardType, letterState } from '../../../models';
+import { jokers } from '../../../models/joker/jokers.interface';
 
 @Injectable({ providedIn: 'root' })
 export class KeyboardService {
   keyboard$: BehaviorSubject<Keyboard> = new BehaviorSubject(new Keyboard('AZERTY'));
   constructor(private _apiServ: APIService) {}
-  initKeyBoard(boardLines: BoardLine[], wordle: Wordle): void {
+  initKeyBoard(boardLines: BoardLine[], wordle: Wordle, jokers: jokers): void {
     const kb = this._apiServ.getKeyboard();
     boardLines.forEach((bl) => {
       if (bl.isActive) {
@@ -23,6 +24,15 @@ export class KeyboardService {
         kb.setKeyState(letter, state);
       });
     });
+
+    for (let i = 0; i < jokers.paintJoker.useCount; i++) {
+      const letter = jokers.paintJoker.uses[i] ?? '';
+      kb.setKeyState(letter, 'partial');
+    }
+    for (let i = 0; i < jokers.placeLetterJoker.useCount; i++) {
+      const letter = jokers.placeLetterJoker.uses[i]?.letter ?? '';
+      kb.setKeyState(letter, 'right');
+    }
 
     this.keyboard$.next(kb);
   }

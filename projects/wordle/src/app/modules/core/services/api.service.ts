@@ -137,8 +137,8 @@ export class APIService {
   }
 
   /** Theme */
-  getTheme(): string {
-    return this._localStorage.read(localStorageKeys.theme) as string;
+  getTheme(): string | null {
+    return this._localStorage.read(localStorageKeys.theme);
   }
   setTheme(theme: string): void {
     this._localStorage.update(localStorageKeys.theme, theme);

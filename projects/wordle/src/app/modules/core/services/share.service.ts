@@ -1,6 +1,6 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Injectable } from '@angular/core';
-import { environment } from '@config/environment';
+import { EnvironmentService } from './environment.service';
 import { GameService } from './game.service';
 import { JokersService } from './jokers.service';
 import { SnackbarService } from './snackbar.service';
@@ -11,7 +11,8 @@ export class ShareService {
     private _gameService: GameService,
     private _jokersService: JokersService,
     private _snackbarService: SnackbarService,
-    private _clipboard: Clipboard
+    private _clipboard: Clipboard,
+    private _envServ: EnvironmentService
   ) {}
 
   shareScore(): void {
@@ -27,12 +28,12 @@ export class ShareService {
     const tries = this._gameService.getTries();
     const worldeDate = this._gameService.wordle$.value.date;
     const score = this.getScore();
-    const text = [`Name Guessr ${environment.version.label} #${worldeDate} 🎯${score}pts ✍️${nbTries}/6`];
+    const text = [`Name Guessr ${this._envServ.version$.value.label} #${worldeDate} 🎯${score}pts ✍️${nbTries}/6`];
     tries?.forEach((aTry) => {
       text.push(aTry);
     });
     text.push(this.getSharingJokersData());
-    text.push(environment.version.link);
+    // text.push(this._envServ.version$.value.link);
     return {
       text: text.join('\n')
     };
