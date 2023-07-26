@@ -1,4 +1,4 @@
-<div class="flex items-center justify-center my-2 gap-1">
+<div class="flex items-center justify-center gap-1">
   <joker-button *ngIf="jokersService.paintJoker$| async;let joker" [joker]="joker" (click)="useJoker(joker)">
     <ng-container *ngIf="!showPoints;else pts">
       <i class="icon text-lg animate-pulse-once" [ngClass]="getJokerIcon(joker.name)"></i>

@@ -24,6 +24,11 @@
               "projects/wordle/src/php",
               "projects/wordle/src/assets"
             ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "./node_modules/animate.css/animate.min.css",
+              "styles.css"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -47,10 +52,6 @@
                 }
               ],
               "outputHashing": "all",
-              "styles": [
-                "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
-                "styles.css"
-              ]
             },
             "development": {
               "buildOptimizer": false,
@@ -59,10 +60,6 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true,
-              "styles": [
-                "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
-                "styles.css"
-              ]
             }
           },
           "defaultConfiguration": "production"
@@ -87,33 +84,6 @@
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
-          "configurations": {
-            "anime": {
-              "assets": [
-                "projects/wordle/src/sitemap.xml",
-                "projects/wordle/src/robots.txt",
-                "projects/wordle/src/php",
-                "projects/wordle/src/assets"
-              ],
-              "fileReplacements": [
-                {
-                  "replace": "projects/wordle/src/environments/environment.ts",
-                  "with": "projects/wordle/src/environments/environment.anime.ts"
-                }
-              ],
-              "styles": [
-                "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
-                "styles.anime.css"
-              ]
-            },
-            "serie": {
-              "styles": [
-                "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
-                "styles.css"
-              ]
-            }
-          },
-          "defaultConfiguration": "serie",
           "options": {
             "main": "projects/wordle/src/test.ts",
             "polyfills": "projects/wordle/src/polyfills.ts",
@@ -154,6 +124,7 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "./node_modules/animate.css/animate.min.css",
               "styles.css"
             ],
             "scripts": []
@@ -224,6 +195,7 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "./node_modules/animate.css/animate.min.css",
               "styles.css"
             ],
             "scripts": []

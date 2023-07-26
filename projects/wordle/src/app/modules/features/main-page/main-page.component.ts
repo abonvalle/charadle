@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { EnvironmentService } from '@core/services/environment.service';
 import { GameService } from '@core/services/game.service';
 import { JokersService } from '@core/services/jokers.service';
 import { SettingsService } from '@core/services/settings.service';
@@ -18,6 +19,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   private _destroy$: Subject<void> = new Subject();
   constructor(
     public gameService: GameService,
+    public envServ: EnvironmentService,
     public settingsService: SettingsService,
     private _shareService: ShareService,
     private _jokersService: JokersService,
