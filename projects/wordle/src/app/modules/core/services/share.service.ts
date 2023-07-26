@@ -1,5 +1,6 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Injectable } from '@angular/core';
+import { environment } from '@config/environment';
 import { EnvironmentService } from './environment.service';
 import { GameService } from './game.service';
 import { JokersService } from './jokers.service';
@@ -33,7 +34,7 @@ export class ShareService {
       text.push(aTry);
     });
     text.push(this.getSharingJokersData());
-    // text.push(this._envServ.version$.value.link);
+    text.push(environment.link);
     return {
       text: text.join('\n')
     };

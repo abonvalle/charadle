@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  version: { code: 'serie', label: 'Series 📺', link: '' }
+  link: 'http://localhost:4200/'
 };
 
 /*
