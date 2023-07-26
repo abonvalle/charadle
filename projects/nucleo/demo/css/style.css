@@ -287,3 +287,7 @@ icons
   content: "\ea1e";
 }
 
+.icon-paintbrush::before {
+  content: "\ea1f";
+}
+

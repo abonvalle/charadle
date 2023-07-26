@@ -186,3 +186,7 @@ Generated using nucleoapp.com
 .icon-alert-triangle::before {
   content: "\ea1e";
 }
+
+.icon-paintbrush::before {
+  content: "\ea1f";
+}

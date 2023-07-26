@@ -17,7 +17,8 @@ import { SettingsDialogComponent } from '../settings-dialog/settings.component';
 export class TopbarComponent implements OnInit, OnDestroy {
   _destroy$: Subject<void> = new Subject();
   themeList$ = this._themeServ.themeList$;
-  currentThemeId$ = this._themeServ.selectedThemeId$;
+  selectedThemeId$ = this._themeServ.selectedThemeId$;
+  currentThemeId$ = this._themeServ.activeTheme$;
   versions = Object.values(versions);
   constructor(
     public envServ: EnvironmentService,
@@ -27,7 +28,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.currentThemeId$.pipe(takeUntil(this._destroy$)).subscribe(() => {
+    this.selectedThemeId$.pipe(takeUntil(this._destroy$)).subscribe(() => {
       this._cdr.detectChanges();
     });
   }
@@ -54,7 +55,13 @@ export class TopbarComponent implements OnInit, OnDestroy {
     this._dialog.open(IssueReportDialogComponent);
   }
   isCurrentTheme(id: string): boolean {
-    return this.currentThemeId$.value === id;
+    return this.selectedThemeId$.value === id;
+  }
+  isCurrentVersion(code: string): boolean {
+    return this.envServ.version$.value.code === code;
+  }
+  isSelectedTheme(id: string): boolean {
+    return this.currentThemeId$.value.id === id;
   }
   trackByFn(_index: number, item: theme) {
     return item.id;
