@@ -2,7 +2,9 @@
 @import "./projects/wordle/src/assets/styles.css";
 @import "~animate.css/animate.min";
 
-*, *: after, *: before {
+*,
+*:after,
+*:before {
   box-sizing: border-box;
 }
 
