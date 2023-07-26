@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { GameService } from '@core/services/game.service';
 import { ShareService } from '@core/services/share.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'resultat-page',
@@ -21,7 +23,19 @@ export class ResultatPageComponent implements OnInit, OnDestroy {
         : 'Gagné !'
       : 'Si proche...';
   }
-  constructor(public shareService: ShareService, public gameService: GameService, private _cdr: ChangeDetectorRef) {}
+  sub: Subscription;
+  constructor(
+    public shareService: ShareService,
+    public gameService: GameService,
+    private _cdr: ChangeDetectorRef,
+    private _router: Router
+  ) {
+    this.sub = this.gameService.end$.subscribe((end) => {
+      if (end === false) {
+        this._router.navigate(['/']);
+      }
+    });
+  }
   ngOnInit(): void {
     this.tries = this.gameService.getTries() ?? [];
     this.jokerData = this.shareService.getSharingJokersData();
@@ -29,6 +43,7 @@ export class ResultatPageComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     this.pauseTimer();
+    this.sub.unsubscribe();
   }
   openPanel(): void {
     this.panelOpenState = true;
