@@ -1,27 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://nameguessr-series.abvdev.fr/</loc>
+    <loc>https://nameguessr.abvdev.fr/</loc>
   </url>
   <url>
-    <loc>https://www.nameguessr-series.abvdev.fr/</loc>
+    <loc>https://www.nameguessr.abvdev.fr/</loc>
   </url>
   <url>
-    <loc>https://nameguessr-series.abvdev.fr/resultat</loc>
+    <loc>https://nameguessr.abvdev.fr/resultat</loc>
   </url>
   <url>
-    <loc>https://www.nameguessr-series.abvdev.fr/resultat</loc>
-  </url>
-  <url>
-    <loc>https://nameguessr-animes.abvdev.fr/</loc>
-  </url>
-  <url>
-    <loc>https://www.nameguessr-animes.abvdev.fr/</loc>
-  </url>
-  <url>
-    <loc>https://nameguessr-animes.abvdev.fr/resultat</loc>
-  </url>
-  <url>
-    <loc>https://www.nameguessr-animes.abvdev.fr/resultat</loc>
+    <loc>https://www.nameguessr.abvdev.fr/resultat</loc>
   </url>
 </urlset>
