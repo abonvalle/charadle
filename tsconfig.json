@@ -12,8 +12,6 @@
       "@modules/*": ["projects/wordle/src/app/modules/*"],
       "@shared/*": ["projects/wordle/src/app/modules/shared/*"],
       "jszip": ["../node_modules/jszip/dist/jszip.min.js"],
-      "@assets-series/*": ["projects/wordle/src/assets/serie/*"],
-      "@assets-anime/*": ["projects/wordle/src/assets/anime/*"],
       /*editor paths*/
       "@editor-config/*": ["projects/wordle-editor/src/environments/*"],
       "@editor-core/*": ["projects/wordle-editor/src/app/modules/core/*"],
