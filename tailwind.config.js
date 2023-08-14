@@ -1,3 +1,4 @@
+/** @type {import('tailwindcss').Config} */
 // @ts-nocheck
 const plugin = require('tailwindcss/plugin')
 const { getCustomThemesConfigs, getDefaultThemeConfig, getThemesIds } = require('./themes.js')
