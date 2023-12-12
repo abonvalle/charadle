@@ -296,7 +296,7 @@ export class GameService implements OnDestroy {
     let date = new Date();
     let numerodujour = date.getDate();
     let numerodumois = date.getMonth() + 1;
-    let numeroannee = date.getFullYear() - 2022;
+    let numeroannee = date.getFullYear() - 2023;
     const wordles = this._assetsServ.wordlesJSON$;
 
     const ind =

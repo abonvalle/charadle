@@ -8,7 +8,7 @@ import { Subject } from 'rxjs';
 })
 export class LayoutComponent implements OnInit {
   _destroy$: Subject<void> = new Subject();
-  themeId = this._themeService.defaultTheme;
+  themeId$ = this._themeService.defaultTheme$;
 
   constructor(private _themeService: ThemeService) {}
   ngOnInit(): void {}

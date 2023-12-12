@@ -1,18 +1,17 @@
-<div class="w-full overflow-hidden h-full bg-gradient-to-tl from-gradient-start via-gradient-middle to-gradient-end"
-  [ngClass]="themeId ?? ''">
-  <div class="h-full flex justify-center">
+<div
+  class="h-full w-full overflow-hidden bg-gradient-to-tl from-gradient-start via-gradient-middle to-gradient-end"
+  [ngClass]="(themeId$ | async) ?? ''">
+  <div class="flex h-full justify-center">
     <div
-      class="z-10 overflow-hidden h-full w-full  relative outline outline-2 outline-primary-900 bg-gradient-to-tl from-gradient-start via-gradient-middle to-gradient-end">
-      <div class="h-full w-full z-20 relative">
+      class="relative z-10 h-full w-full overflow-hidden bg-gradient-to-tl from-gradient-start via-gradient-middle to-gradient-end outline outline-2 outline-primary-900">
+      <div class="relative z-20 h-full w-full">
         <topbar></topbar>
         <div class="h-full-w-topbar">
           <router-outlet></router-outlet>
         </div>
       </div>
       <div
-        class="h-full w-full bg-wordcloud bg-[length:350px_350px] bg-repeat opacity-dynamic top-0 left-0 z-10 absolute pointer-events-none">
-      </div>
+        class="pointer-events-none absolute left-0 top-0 z-10 h-full w-full bg-wordcloud bg-[length:350px_350px] bg-repeat opacity-dynamic"></div>
     </div>
   </div>
-
 </div>
