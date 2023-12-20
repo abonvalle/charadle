@@ -26,7 +26,7 @@ export class NameReportDialogComponent {
     console.warn(this.form);
   }
 
-  onVerify(token: string) {
+  onVerify(token: Event) {
     // The verification process was successful.
     // You can verify the token on your server now.
     this.form.get('captcha')?.setValue(token);

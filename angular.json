@@ -163,10 +163,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "wordle-editor:build:production"
+              "buildTarget": "wordle-editor:build:production"
             },
             "development": {
-              "browserTarget": "wordle-editor:build:development"
+              "buildTarget": "wordle-editor:build:development"
             }
           },
           "defaultConfiguration": "development",
@@ -177,7 +177,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "wordle-editor:build"
+            "buildTarget": "wordle-editor:build"
           }
         },
         "test": {
