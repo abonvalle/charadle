@@ -1,24 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { EnvironmentService } from '@core/services/environment.service';
 import { GameService } from '@core/services/game.service';
 import { SnackbarService } from '@core/services/snackbar.service';
 import { XHRService } from '@core/services/xhr.service';
+import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 @Component({
   selector: 'issue-report-dialog',
   templateUrl: 'issue-report-dialog.component.html'
 })
-export class IssueReportDialogComponent {
+export class IssueReportDialogComponent implements OnInit, OnDestroy {
   form: FormGroup = new FormGroup({});
   issue: FormControl = new FormControl('', Validators.required);
+  assetsPaths$ = new BehaviorSubject('');
+  private _destroy$ = new Subject<void>();
   constructor(
     private _formBuilder: FormBuilder,
     private _snackbarServ: SnackbarService,
     private _dialogRef: MatDialogRef<IssueReportDialogComponent>,
     private _gameService: GameService,
-    private _XHRServ: XHRService
-  ) {
+    private _XHRServ: XHRService,
+    private _envServ: EnvironmentService
+  ) {}
+  ngOnInit(): void {
     this._initForm();
+    this._envServ.version$.pipe(takeUntil(this._destroy$)).subscribe((version) => {
+      this.assetsPaths$.next(`assets/${version.code}/gifs/batsignal.gif`);
+    });
+  }
+  ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.unsubscribe();
   }
   private _initForm(): void {
     this.form = this._formBuilder.group({

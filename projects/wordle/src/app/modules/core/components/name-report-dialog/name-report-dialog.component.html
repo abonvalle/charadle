@@ -1,9 +1,10 @@
 <h2 mat-dialog-title>Signaler prénom existant</h2>
 <mat-dialog-content class="">
-  <p class="font-body text-zinc-700 tracking-normal">Alors d'après toi, <b>{{data.name}}</b> serait un prénom valide ?
+  <p class="font-body tracking-normal text-zinc-700">
+    Alors d'après toi, <b>{{ data.name }}</b> serait un prénom valide ?
   </p>
-  <div class="flex flex-col justify-center items-center">
-    <img src="assets/gifs/suspicious.gif" alt="suspicious" class="py-8">
+  <div class="flex flex-col items-center justify-center">
+    <img [src]="assetsPaths$ | async" alt="suspicious" class="py-8" />
     <ng-hcaptcha (verify)="onVerify($event)" (expired)="onExpired()" (error)="onError()"> </ng-hcaptcha>
   </div>
 </mat-dialog-content>
