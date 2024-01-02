@@ -16,7 +16,6 @@ export class BoardLineComponent implements OnChanges {
   constructor(private _cdr: ChangeDetectorRef) {}
   ngOnChanges(changes: SimpleChanges): void {
     if (changes && (changes['boardBoxes'] || changes['classes'])) {
-      console.warn('changes in bl');
       this.rowClass = 'letter-row-' + this.boardBoxes.length + ' ' + this.classes.join(' ');
       this._cdr.detectChanges();
     }
@@ -26,7 +25,6 @@ export class BoardLineComponent implements OnChanges {
   }
 
   trackByFn(_index: number, item: BoardBox) {
-    console.warn('track', item.index, item);
     return item.index;
   }
 }

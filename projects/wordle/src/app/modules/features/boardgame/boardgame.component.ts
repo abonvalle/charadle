@@ -12,7 +12,11 @@ import { BoardLine } from '../../../models/boardgame';
 })
 export class BoardgameComponent implements OnInit, OnDestroy {
   _destroy$: Subject<void> = new Subject();
-  constructor(public gameService: GameService, private _cdr: ChangeDetectorRef, private _apiServ: APIService) {}
+  constructor(
+    public gameService: GameService,
+    private _cdr: ChangeDetectorRef,
+    private _apiServ: APIService
+  ) {}
   ngOnInit(): void {
     this.gameService.wordle$
       .asObservable()
@@ -50,7 +54,6 @@ export class BoardgameComponent implements OnInit, OnDestroy {
     this._destroy$?.unsubscribe();
   }
   trackByFn(_index: number, item: BoardLine) {
-    console.warn('track bg', item.index, item);
     return item.index;
   }
   isCursor(
