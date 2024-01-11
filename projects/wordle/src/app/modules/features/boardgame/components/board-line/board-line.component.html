@@ -1,6 +1,10 @@
-<div class="flex flex-row items-center justify-center h-full gap-1" [ngClass]="rowClass">
-  <ng-container *ngFor="let boardBox of boardBoxes; trackBy: trackByFn">
-    <board-letter-box [index]="boardBox.index" [letter]="boardBox.letter" [isBoardLineActive]="isActive"
-      [state]="boardBox.background" [isCurrentActive]="boardBox.isActive"></board-letter-box>
-  </ng-container>
+<div class="flex h-full flex-row items-center justify-center gap-1" [ngClass]="rowClass">
+  @for (boardBox of boardBoxes; track boardBox.index) {
+    <board-letter-box
+      [index]="boardBox.index"
+      [letter]="boardBox.letter"
+      [isBoardLineActive]="isActive"
+      [state]="boardBox.background"
+      [isCurrentActive]="boardBox.isActive"></board-letter-box>
+  }
 </div>

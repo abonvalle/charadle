@@ -23,8 +23,4 @@ export class BoardLineComponent implements OnChanges {
   isCurrentBoardBoxActive(index: number): boolean {
     return this.isActive ? index === this.boardBoxes.map((bb) => bb.letter).length : false;
   }
-
-  trackByFn(_index: number, item: BoardBox) {
-    return item.index;
-  }
 }

@@ -1,18 +1,20 @@
 <h2 mat-dialog-title>A propos</h2>
 <mat-dialog-content class="">
-  <p class="p-2 font-body text-zinc-700 tracking-normal">Version : <b>Name Guessr - v{{version}}</b>
+  <p class="p-2 font-body tracking-normal text-zinc-700">
+    Version : <b>Name Guessr - v{{ version }}</b>
   </p>
-  <p class="p-2 font-body text-zinc-700 tracking-normal"> Thème : <b>{{themeLabel$ | async}}</b>
-    <br>Illustrations :
+  <p class="p-2 font-body tracking-normal text-zinc-700">
+    Thème : <b>{{ themeLabel$ | async }}</b> <br />Illustrations :
   </p>
-  <ul class="px-6 list-disc">
-    <ng-container *ngFor="let credit of themeCredits$ | async">
+  <ul class="list-disc px-6">
+    @for (credit of themeCredits$ | async; track credit.url) {
       <li>
-        <a [href]="credit.url" class="underline">{{credit.text}}</a>
+        <a [href]="credit.url" class="underline">{{ credit.text }}</a>
       </li>
-    </ng-container>
+    }
   </ul>
-  <p class="p-2 font-body text-zinc-700 tracking-normal" name="contact"> Contact : <i>{{contactAddress}}</i>
+  <p class="p-2 font-body tracking-normal text-zinc-700" name="contact">
+    Contact : <i>{{ contactAddress }}</i>
   </p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">

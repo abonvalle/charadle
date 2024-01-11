@@ -1,34 +1,29 @@
 <div class="flex items-center justify-center gap-1">
-  <joker-button *ngIf="jokersService.paintJoker$| async;let joker" [joker]="joker" (click)="useJoker(joker)">
-    <ng-container *ngIf="!showPoints;else pts">
-      <i class="icon text-lg animate-pulse-once" [ngClass]="getJokerIcon(joker.name)"></i>
-    </ng-container>
-    <ng-template #pts>
-      <span class="text-sm animate-pulse-once">
-        -{{joker.points}}pts
-      </span>
-    </ng-template>
-  </joker-button>
-
-  <joker-button *ngIf="jokersService.placeLetterJoker$ | async;let joker" [joker]="joker" (click)="useJoker(joker)">
-    <ng-container *ngIf="!showPoints;else pts">
-      <i class="icon text-lg animate-pulse-once" [ngClass]="getJokerIcon(joker.name)"></i>
-    </ng-container>
-    <ng-template #pts>
-      <span class="text-sm animate-pulse-once">
-        -{{joker.points}}pts
-      </span>
-    </ng-template>
-  </joker-button>
-
-  <joker-button *ngIf="jokersService.serieJoker$| async;let joker" [joker]="joker" (click)="useJoker(joker)">
-    <ng-container *ngIf="!showPoints;else pts">
-      <i class="icon text-lg animate-pulse-once" [ngClass]="getJokerIcon(joker.name)"></i>
-    </ng-container>
-    <ng-template #pts>
-      <span class="text-sm animate-pulse-once">
-        -{{joker.points}}pts
-      </span>
-    </ng-template>
-  </joker-button>
+  @if (jokersService.paintJoker$ | async; as joker) {
+    <joker-button [joker]="joker" (click)="useJoker(joker)">
+      @if (!showPoints) {
+        <i class="icon animate-pulse-once text-lg" [ngClass]="getJokerIcon(joker.name)"></i>
+      } @else {
+        <span class="animate-pulse-once text-sm"> -{{ joker.points }}pts </span>
+      }
+    </joker-button>
+  }
+  @if (jokersService.placeLetterJoker$ | async; as joker) {
+    <joker-button [joker]="joker" (click)="useJoker(joker)">
+      @if (!showPoints) {
+        <i class="icon animate-pulse-once text-lg" [ngClass]="getJokerIcon(joker.name)"></i>
+      } @else {
+        <span class="animate-pulse-once text-sm"> -{{ joker.points }}pts </span>
+      }
+    </joker-button>
+  }
+  @if (jokersService.serieJoker$ | async; as joker) {
+    <joker-button [joker]="joker" (click)="useJoker(joker)">
+      @if (!showPoints) {
+        <i class="icon animate-pulse-once text-lg" [ngClass]="getJokerIcon(joker.name)"></i>
+      } @else {
+        <span class="animate-pulse-once text-sm"> -{{ joker.points }}pts </span>
+      }
+    </joker-button>
+  }
 </div>

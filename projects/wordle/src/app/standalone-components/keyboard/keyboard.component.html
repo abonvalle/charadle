@@ -1,11 +1,13 @@
-<div class="flex flex-col justify-center items-center p-1 bg-primary border-t-2 border-primary-600">
-  <ng-container *ngFor="let row of (keyboard$ |async) | keyvalue;trackBy:trackByRowFn">
-    <div class="flex flex-row justify-center items-center w-full">
-      <ng-container *ngFor="let key of row.value;trackBy:trackByKeyFn">
+<div class="flex flex-col items-center justify-center border-t-2 border-primary-600 bg-primary p-1">
+  @for (row of keyboard$ | async | keyvalue; track row.key) {
+    <div class="flex w-full flex-row items-center justify-center">
+      @for (key of row.value; track key.letter) {
         <!--  [backgroundClass]="''" -->
-        <app-keyboard-key [letter]="key.letter" [backgroundClass]="key.classes"
+        <app-keyboard-key
+          [letter]="key.letter"
+          [backgroundClass]="key.classes"
           (letterClick)="enterLetter($event)"></app-keyboard-key>
-      </ng-container>
+      }
     </div>
-  </ng-container>
+  }
 </div>
