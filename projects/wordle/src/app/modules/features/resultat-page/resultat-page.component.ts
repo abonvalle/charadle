@@ -87,7 +87,4 @@ export class ResultatPageComponent implements OnInit, OnDestroy {
   pauseTimer() {
     this.interval && clearInterval(this.interval);
   }
-  trackByFn(index: number, _item: string) {
-    return index;
-  }
 }

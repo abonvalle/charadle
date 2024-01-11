@@ -24,9 +24,11 @@
         <p>{{ jokerData }}</p>
       </div>
       <div class="mt-4">
-        <div *ngFor="let tryLine of tries; trackBy: trackByFn" class="text-center shadow-black text-shadow-sm">
-          {{ tryLine }}
-        </div>
+        @for (tryLine of tries; track $index) {
+          <div class="text-center shadow-black text-shadow-sm">
+            {{ tryLine }}
+          </div>
+        }
         <a [routerLink]="'/'">
           <p class="text-center underline shadow-black text-shadow-sm">Voir les essais</p>
         </a>
