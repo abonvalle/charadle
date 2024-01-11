@@ -1,16 +1,24 @@
-<div *ngIf="!isSpecial else specialLetter" (click)="clickEnterLetter(letter)" (touchstart)="enterLetter(letter)"
-  class="text-font rounded-sm flex justify-center items-center m-0.5 max-w-[80px] w-[10%] text-[130%] select-none h-16 border-b-2 uppercase transition-all duration-500 border-black/60 relative"
-  [ngClass]="backgroundClass">
-  <span *ngIf="(feedBack$ | async) === true"
-    class="absolute h-28 w-[9.5vw] bg-primary-100 text-font flex justify-center items-start mb-12 pt-3 z-50 pointer-events-none">
-    {{letter}}</span>
+@if (!isSpecial) {
+  <div
+    (click)="clickEnterLetter(letter)"
+    (touchstart)="enterLetter(letter)"
+    class="relative m-0.5 flex h-16 w-[10%] max-w-[80px] select-none items-center justify-center rounded-sm border-b-2 border-black/60 text-[130%] uppercase text-font transition-all duration-500"
+    [ngClass]="backgroundClass">
+    @if ((feedBack$ | async) === true) {
+      <span
+        class="pointer-events-none absolute z-50 mb-12 flex h-28 w-[9.5vw] items-start justify-center bg-primary-100 pt-3 text-font">
+        {{ letter }}
+      </span>
+    }
 
-  {{letter}}
-</div>
-<ng-template #specialLetter>
-  <div (click)="clickEnterLetter(letter)" (touchstart)="enterLetter(letter)"
-    class="text-font rounded-sm flex justify-center items-center m-0.5 max-w-[120px] w-[15%] text-[130%] select-none h-16 border-black/60 uppercase transition-all"
-    [ngClass]="{'border-b-0 bg-white/10':(feedBack$ | async) === true,'border-b-2':(feedBack$ | async) === false}">
+    {{ letter }}
+  </div>
+} @else {
+  <div
+    (click)="clickEnterLetter(letter)"
+    (touchstart)="enterLetter(letter)"
+    class="m-0.5 flex h-16 w-[15%] max-w-[120px] select-none items-center justify-center rounded-sm border-black/60 text-[130%] uppercase text-font transition-all"
+    [ngClass]="{ 'border-b-0 bg-white/10': (feedBack$ | async) === true, 'border-b-2': (feedBack$ | async) === false }">
     <i class="icon" [ngClass]="letterIcon"></i>
   </div>
-</ng-template>
+}

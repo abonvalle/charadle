@@ -1,18 +1,14 @@
 <h2 mat-dialog-title>Paramètres</h2>
 <mat-dialog-content>
-  <form [formGroup]="form" class="pt-4 flex flex-col justify-center items-start">
+  <form [formGroup]="form" class="flex flex-col items-start justify-center pt-4">
     <!-- <mat-form-field>
       <mat-label>Votre prénom</mat-label>
       <input matInput type="text" formControlName="playerName">
-      <button *ngIf="form.get('playerName')?.value" matSuffix mat-icon-button aria-label="Clear"
-        (click)="form.get('playerName')?.setValue('')">
-        <i class="icon icon-x p-2 absolute right-1 top-2"></i>
-      </button>
     </mat-form-field> -->
     <mat-slide-toggle class="" formControlName="colorBlindMode">
       <span class="ml-2">Mode daltonien </span>
     </mat-slide-toggle>
-    <ul class="text-sm mb-4 pl-16">
+    <ul class="mb-4 pl-16 text-sm">
       <li><i class="icon icon-format-paint"></i> = Mal placée</li>
       <li><i class="icon icon-format-color-text"></i> = Bien placée</li>
       <li><i class="icon icon-x"></i> = Pas dans le mot</li>
@@ -21,14 +17,13 @@
     <!-- <mat-slide-toggle class="mb-6" formControlName="hideKeyboard">
       <span class="ml-2">Cacher le clavier </span>
     </mat-slide-toggle> -->
-
-
   </form>
-  <hr class="mb-4">
-  <button mat-stroked-button color="warn" class="text-sm whitespace-nowrap" (click)="deleteAllData()">Supprimer toutes
-    les données</button>
+  <hr class="mb-4" />
+  <button mat-stroked-button color="warn" class="whitespace-nowrap text-sm" (click)="deleteAllData()">
+    Supprimer toutes les données
+  </button>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Annuler</button>
-  <button mat-button mat-dialog-close [disabled]=" form.pristine" (click)="save()">Sauvegarder</button>
+  <button mat-button mat-dialog-close [disabled]="form.pristine" (click)="save()">Sauvegarder</button>
 </mat-dialog-actions>

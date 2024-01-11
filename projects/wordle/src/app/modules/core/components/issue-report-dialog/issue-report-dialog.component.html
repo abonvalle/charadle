@@ -14,7 +14,9 @@
           <mat-option value="image"> Mauvaise image ou lien cassé </mat-option>
           <mat-option value="other"> Autre </mat-option>
         </mat-select>
-        <mat-error *ngIf="issue.dirty && issue.hasError('required')">Ce champs est obligatoire</mat-error>
+        @if (issue.dirty && issue.hasError("required")) {
+          <mat-error>Ce champs est obligatoire</mat-error>
+        }
       </mat-form-field>
       <mat-form-field
         appearance="fill"
