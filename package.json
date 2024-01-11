@@ -12,27 +12,27 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^16.0.0",
+    "@angular/animations": "^17.0.9",
     "@angular/cdk": "^16.0.0",
-    "@angular/common": "^16.0.0",
-    "@angular/compiler": "^16.0.0",
-    "@angular/core": "^16.0.0",
-    "@angular/forms": "^16.0.0",
+    "@angular/common": "^17.0.9",
+    "@angular/compiler": "^17.0.9",
+    "@angular/core": "^17.0.9",
+    "@angular/forms": "^17.0.9",
     "@angular/material": "^16.0.0",
-    "@angular/platform-browser": "^16.0.0",
-    "@angular/platform-browser-dynamic": "^16.0.0",
-    "@angular/router": "^16.0.0",
+    "@angular/platform-browser": "^17.0.9",
+    "@angular/platform-browser-dynamic": "^17.0.9",
+    "@angular/router": "^17.0.9",
     "animate.css": "^4.1.1",
     "ng-hcaptcha": "^2.3.1",
     "rxjs": "^7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.13.0"
+    "zone.js": "~0.14.3"
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "^16.0.0",
-    "@angular-devkit/build-angular": "^16.0.0",
-    "@angular/cli": "^16.0.0",
-    "@angular/compiler-cli": "^16.0.0",
+    "@angular-devkit/build-angular": "^17.0.10",
+    "@angular/cli": "^17.0.10",
+    "@angular/compiler-cli": "^17.0.9",
     "@types/brotli-webpack-plugin": "^1.1.2",
     "@types/file-saver": "^2.0.5",
     "@types/jasmine": "~4.0.0",
@@ -58,6 +58,6 @@
     "prettier-plugin-tailwindcss": "^0.5.2",
     "tailwindcss": "^3.2.6",
     "tailwindcss-themer": "^3.0.1",
-    "typescript": "5.1"
+    "typescript": "5.2.2"
   }
 }
