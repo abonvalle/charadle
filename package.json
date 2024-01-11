@@ -29,18 +29,14 @@
     "zone.js": "~0.14.3"
   },
   "devDependencies": {
-    "@angular-builders/custom-webpack": "^16.0.0",
     "@angular-devkit/build-angular": "^17.0.10",
     "@angular/cli": "^17.0.10",
     "@angular/compiler-cli": "^17.0.9",
-    "@types/brotli-webpack-plugin": "^1.1.2",
     "@types/file-saver": "^2.0.5",
     "@types/jasmine": "~4.0.0",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.52.0",
     "autoprefixer": "^10.4.13",
-    "brotli-webpack-plugin": "^1.1.0",
-    "compression-webpack-plugin": "^10.0.0",
     "eslint": "^8.34.0",
     "eslint-config-prettier": "^8.6.0",
     "file-saver": "^2.0.5",
