@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { APIService } from '@core/services/api.service';
 import { GameService } from '@core/services/game.service';
 import { Subject, takeUntil } from 'rxjs';
-import { BoardLine } from '../../../models/boardgame';
 
 @Component({
   selector: 'boardgame',
@@ -53,9 +52,7 @@ export class BoardgameComponent implements OnInit, OnDestroy {
     this._destroy$?.next();
     this._destroy$?.unsubscribe();
   }
-  trackByFn(_index: number, item: BoardLine) {
-    return item.index;
-  }
+
   isCursor(
     line: { guess: string; submitted: boolean; current: boolean; lineIndex: number },
     indexLetter: number

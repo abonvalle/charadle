@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { EnvironmentService } from '@core/services/environment.service';
 import { GameService } from '@core/services/game.service';
 import { ThemeService } from '@core/services/theme.service';
-import { theme, version, versions } from '@models/*';
+import { version, versions } from '@models/*';
 import { Subject, combineLatestWith, map, takeUntil } from 'rxjs';
 import { AboutDialogComponent } from '../about-dialog/about-dialog.component';
 import { HelpDialogComponent } from '../help-dialog/help-dialog.component';
@@ -75,8 +75,5 @@ export class TopbarComponent implements OnInit, OnDestroy {
     }
     const version = this.envServ.versionsState$.value.find((v) => v.code === code);
     return version ? !version.end : false;
-  }
-  trackByFn(_index: number, item: theme) {
-    return item.id;
   }
 }

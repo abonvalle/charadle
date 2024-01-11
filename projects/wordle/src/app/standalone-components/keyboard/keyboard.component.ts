@@ -1,7 +1,7 @@
-import { CommonModule, KeyValue } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, map, takeUntil } from 'rxjs';
-import { key, keyboard } from '../../models/keyboard';
+import { keyboard } from '../../models/keyboard';
 import { KeyboardService } from '../../modules/core/services/keyboard.service';
 import { KeyboardKeyComponent } from './components/keyboard-key/keyboard-key.component';
 
@@ -29,12 +29,5 @@ export class KeyboardComponent implements OnInit, OnDestroy {
 
   enterLetter(letter: string): void {
     this.letterClick.emit(letter);
-  }
-
-  trackByKeyFn(_index: number, item: key) {
-    return item.letter;
-  }
-  trackByRowFn(_index: number, item: KeyValue<string, key[]>) {
-    return item.key;
   }
 }
