@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist",
+            "outputPath": "dist/",
             "index": "projects/wordle/src/index.html",
             "main": "projects/wordle/src/main.ts",
             "polyfills": "projects/wordle/src/polyfills.ts",
@@ -33,6 +33,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "./",
               "budgets": [
                 {
                   "type": "initial",
