@@ -8,7 +8,8 @@ export class XHRService {
     return new Promise((resolve, reject) => {
       // Make the AJAX request
       const xhr = new XMLHttpRequest();
-      xhr.open('POST', '/php/report.php', true);
+      console.warn('xhr send', xhr);
+      xhr.open('POST', 'https://nodemailerezug4luh-nameguessr-mailer.functions.fnc.fr-par.scw.cloud', true);
 
       // Set the Referer header
       // xhr.setRequestHeader('Referer', '');
@@ -17,7 +18,7 @@ export class XHRService {
         if (xhr.status == 200) {
           // Get the response from the server
           const result = JSON.parse(xhr.responseText);
-          console.warn(result);
+          console.warn('xhr', result);
           resolve(result);
         } else {
           this._snackbarServ.defaultErrorMsg();
