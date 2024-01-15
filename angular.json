@@ -33,7 +33,7 @@
           },
           "configurations": {
             "production": {
-              "baseHref": "/",
+              "baseHref": "/wordle-v2/",
               "budgets": [
                 {
                   "type": "initial",
