@@ -72,17 +72,16 @@ export class NameReportDialogComponent implements OnInit, OnDestroy {
       version: this._envServ.version$.value.code
     });
 
-    this._XHRServ
-      .reportPHP(data)
-      .then(
-        (_res) => {
-          this._snackbarServ.nameReported();
-        },
-        () => {
-          this._snackbarServ.defaultErrorMsg();
-        }
-      )
-      .finally(() => this._dialogRef.close());
+    this._XHRServ.reportPHP(data).then(
+      (_res) => {
+        this._snackbarServ.nameReported();
+      },
+      () => {
+        this._snackbarServ.defaultErrorMsg();
+      }
+    );
+    this._snackbarServ.openSnackBar("Rapport en cours d'envoi 📨");
+    this._dialogRef.close();
     console.warn(this.form.value);
   }
 }
