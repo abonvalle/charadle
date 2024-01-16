@@ -12,7 +12,7 @@
       "secondary": "#1a1a1a",
       "tertiary": "#162b33",
       "bgOpacity": 0.5,
-      "background": "url('/assets/anime/images/background/wordcloud-manga.svg')",
+      "background": "url('./projects/wordle/src/assets/anime/images/background/wordcloud-manga.svg')",
       "copyright": [
         {
           "text": "Image by macrovector - freepik.com",
@@ -31,7 +31,7 @@
       "secondary": "#1a1a1a",
       "tertiary": "#162b33",
       "bgOpacity": 0.8,
-      "background": "url('/assets/anime/images/background/wordcloud-japan-red.svg')",
+      "background": "url('./projects/wordle/src/assets/anime/images/background/wordcloud-japan-red.svg')",
       "copyright": [
         {
           "text": "Image by rawpixel.com - freepik.com",
@@ -50,7 +50,7 @@
       "secondary": "#1a1a1a",
       "tertiary": "#162b33",
       "bgOpacity": 1,
-      "background": "url('/assets/anime/images/background/wordcloud-aka.svg')",
+      "background": "url('./projects/wordle/src/assets/anime/images/background/wordcloud-aka.svg')",
       "copyright": [
         {
           "text": "Image by Freepik - freepik.com",
@@ -69,7 +69,7 @@
       "secondary": "#1a1a1a",
       "tertiary": "#162b33",
       "bgOpacity": 1,
-      "background": "url('/assets/anime/images/background/wordcloud-koi.svg')",
+      "background": "url('./projects/wordle/src/assets/anime/images/background/wordcloud-koi.svg')",
       "copyright": [
         {
           "text": "Image by Freepik - freepik.com",
@@ -92,7 +92,7 @@
       "secondary": "#1a1a1a",
       "tertiary": "#162b33",
       "bgOpacity": 0.7,
-      "background": "url('/assets/anime/images/background/wordcloud.svg')",
+      "background": "url('./projects/wordle/src/assets/anime/images/background/wordcloud.svg')",
       "copyright": [
         {
           "text": "Background Japanese font by Fontworks Inc. - Github.com",
@@ -111,7 +111,7 @@
       "secondary": "#1a1a1a",
       "tertiary": "#162b33",
       "bgOpacity": 0.8,
-      "background": "url('/assets/anime/images/background/wordcloud-sakura.svg')",
+      "background": "url('./projects/wordle/src/assets/anime/images/background/wordcloud-sakura.svg')",
       "copyright": [
         {
           "text": "Image by Freepik - freepik.com",
@@ -130,7 +130,7 @@
       "secondary": "#1a1a1a",
       "tertiary": "#162b33",
       "bgOpacity": 0.7,
-      "background": "url('/assets/anime/images/background/wordcloud-japan-2.svg')",
+      "background": "url('./projects/wordle/src/assets/anime/images/background/wordcloud-japan-2.svg')",
       "copyright": [
         {
           "text": "Image by callmetak - freepik.com",
@@ -149,7 +149,7 @@
       "secondary": "#1a1a1a",
       "tertiary": "#162b33",
       "bgOpacity": 0.6,
-      "background": "url('/assets/anime/images/background/wordcloud-shonen.svg')",
+      "background": "url('./projects/wordle/src/assets/anime/images/background/wordcloud-shonen.svg')",
       "copyright": [
         {
           "text": "Image by rawpixel.com - freepik.com",
@@ -168,7 +168,7 @@
       "secondary": "#1a1a1a",
       "tertiary": "#162b33",
       "bgOpacity": 0.5,
-      "background": "url('/assets/anime/images/background/wordcloud-wave.svg')",
+      "background": "url('./projects/wordle/src/assets/anime/images/background/wordcloud-wave.svg')",
       "copyright": [
         {
           "text": "Image by callmetak - freepik.com",
