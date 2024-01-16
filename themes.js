@@ -17,7 +17,7 @@ function getThemeConfigFromTheme(theme, defaultTheme = false) {
     tertiary,
     bgOpacity,
     gradient,
-    background = "url('/assets/serie/images/background/wordcloud.svg')",
+    background = "url('./projects/wordle/src/assets/serie/images/background/wordcloud.svg')",
     font
   } = theme;
   const fontColor = font ?? '#f4f4f4';

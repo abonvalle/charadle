@@ -21,7 +21,6 @@
             "assets": [
               "projects/wordle/src/sitemap.xml",
               "projects/wordle/src/robots.txt",
-              "projects/wordle/src/php",
               "projects/wordle/src/assets"
             ],
             "styles": [
@@ -87,7 +86,6 @@
             "assets": [
               "projects/wordle/src/sitemap.xml",
               "projects/wordle/src/robots.txt",
-              "projects/wordle/src/php",
               "projects/wordle/src/assets"
             ],
             "scripts": []
