@@ -60,12 +60,17 @@ export class NameReportDialogComponent implements OnInit, OnDestroy {
       return;
     }
     // Get the form data
-    let data = new FormData();
+    let data = {};
     (Object.entries(this.form.value) as Array<[string, string]>).forEach(([key, value]) =>
-      data.append(key, value.toString())
+      Object.assign(data, {
+        [key]: value.toString()
+      })
     );
-    data.append('type', 'name');
-    data.append('version', this._envServ.version$.value.code);
+
+    Object.assign(data, {
+      type: 'name',
+      version: this._envServ.version$.value.code
+    });
 
     this._XHRServ
       .reportPHP(data)

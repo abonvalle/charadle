@@ -4,7 +4,7 @@ import { SnackbarService } from './snackbar.service';
 @Injectable({ providedIn: 'root' })
 export class XHRService {
   constructor(private _snackbarServ: SnackbarService) {}
-  reportPHP(data: FormData): Promise<unknown> {
+  reportPHP(data: { [key: string]: string }): Promise<unknown> {
     return new Promise((resolve, reject) => {
       // Make the AJAX request
       const xhr = new XMLHttpRequest();
@@ -25,7 +25,7 @@ export class XHRService {
           reject();
         }
       };
-      xhr.send(data);
+      xhr.send(JSON.stringify(data));
     });
   }
 }

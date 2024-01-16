@@ -62,17 +62,23 @@ export class IssueReportDialogComponent implements OnInit, OnDestroy {
       return;
     }
     // Get the form data
-    let data = new FormData();
+    let data = {};
     (Object.entries(this.form.value) as Array<[string, string]>).forEach(([key, value]) =>
-      data.append(key, value.toString())
+      Object.assign(data, {
+        [key]: value.toString()
+      })
     );
     try {
-      data.append('boardlines', JSON.stringify(this._gameService.boardLines$.value));
+      Object.assign(data, {
+        boardlines: JSON.stringify(this._gameService.boardLines$.value)
+      });
     } catch (e) {
       console.error(e);
     }
-    data.append('type', 'issue');
-    data.append('version', this._envServ.version$.value.code);
+    Object.assign(data, {
+      type: 'issue',
+      version: this._envServ.version$.value.code
+    });
 
     this._XHRServ
       .reportPHP(data)
