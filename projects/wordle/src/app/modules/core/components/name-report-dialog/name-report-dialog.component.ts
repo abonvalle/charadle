@@ -65,6 +65,7 @@ export class NameReportDialogComponent implements OnInit, OnDestroy {
       data.append(key, value.toString())
     );
     data.append('type', 'name');
+    data.append('version', this._envServ.version$.value.code);
 
     this._XHRServ
       .reportPHP(data)

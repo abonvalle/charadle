@@ -72,6 +72,7 @@ export class IssueReportDialogComponent implements OnInit, OnDestroy {
       console.error(e);
     }
     data.append('type', 'issue');
+    data.append('version', this._envServ.version$.value.code);
 
     this._XHRServ
       .reportPHP(data)
