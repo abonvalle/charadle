@@ -1,8 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import {
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogModule,
+  MatDialogRef,
+  MatDialogTitle
+} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { EnvironmentService } from '@core/services/environment.service';
 import { GameService } from '@core/services/game.service';
@@ -14,7 +23,21 @@ import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
   selector: 'issue-report-dialog',
   templateUrl: 'issue-report-dialog.component.html',
   standalone: true,
-  imports: [CommonModule, MatDialogModule, NgHcaptchaModule, MatFormFieldModule, ReactiveFormsModule, MatSelectModule]
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    MatDialogActions,
+    MatDialogContent,
+    MatDialogTitle,
+    MatButtonModule,
+    MatDialogClose,
+    NgHcaptchaModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatSelectModule
+  ]
 })
 export class IssueReportDialogComponent implements OnInit, OnDestroy {
   form: FormGroup = new FormGroup({});
