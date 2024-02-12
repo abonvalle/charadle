@@ -5,9 +5,9 @@ import wordlesJSONAnime from '@assets-anime/jsons/wordles.json';
 import * as charactersInfosJSONSerie from '@assets-series/jsons/characters.json';
 import themesSerie from '@assets-series/jsons/themes.json';
 import wordlesJSONSerie from '@assets-series/jsons/wordles.json';
-import { EnvironmentService } from '@core/services/environment.service';
 import { theme } from '@models/*';
 import { BehaviorSubject, Subscription } from 'rxjs';
+import { EnvironmentService } from './environment.service';
 
 @Injectable({ providedIn: 'root' })
 export class AssetsService implements OnDestroy {
