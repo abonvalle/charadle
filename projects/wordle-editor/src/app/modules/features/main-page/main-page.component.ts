@@ -24,8 +24,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
     [key: string]: { from: string; imgPath?: string; fullname?: string; difficulty?: number };
   } = structuredClone(serieCharactersInfosJSON);
   wordlesJSON: string[] = structuredClone(serieWordlesJSON);
-  minDate: Date = new Date('12/02/2022');
-  maxDate: Date = new Date('12/02/2023');
+  minDate: Date = new Date('12/02/2023');
+  maxDate: Date = new Date('12/02/2024');
   form: FormGroup = new FormGroup({});
   daybydayForm: FormGroup = new FormGroup({});
   bulkForm: FormGroup = new FormGroup({});
@@ -36,7 +36,10 @@ export class MainPageComponent implements OnInit, OnDestroy {
     return this.daybydayForm.disabled || this.daybydayForm.invalid || this.daybydayForm.pristine;
   }
 
-  constructor(private _formBuilder: FormBuilder, private _csvServ: CSVService) {}
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _csvServ: CSVService
+  ) {}
   ngOnInit(): void {
     this.resetForms();
     this.formSubscribes();
@@ -121,7 +124,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   getDateIndex(date: Date): number {
     let numerodujour = date.getDate();
     let numerodumois = date.getMonth() + 1;
-    let numeroannee = date.getFullYear() - 2022;
+    let numeroannee = date.getFullYear() - 2023;
     const ind =
       12 * (numerodujour - 1) + numerodumois + (Math.pow(numerodujour, 2) + 1 * numerodujour) / 2 + 868 * numeroannee;
     return ind - 1;
