@@ -6,7 +6,7 @@
     [ngClass]="backgroundClass">
     @if ((feedBack$ | async) === true) {
       <span
-        class="pointer-events-none absolute z-50 mb-12 flex h-28 w-[9.5vw] items-start justify-center bg-primary-100 pt-3 text-font">
+        class="pointer-events-none absolute z-50 mb-12 flex h-28 w-[9.5vw] max-w-[80px] items-start justify-center bg-primary-100 pt-3 text-font">
         {{ letter }}
       </span>
     }
