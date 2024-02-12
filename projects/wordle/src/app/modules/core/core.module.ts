@@ -20,9 +20,7 @@ const components: any = [
   TopbarComponent,
   SettingsDialogComponent,
   HelpDialogComponent,
-  NameReportDialogComponent,
-  AboutDialogComponent,
-  IssueReportDialogComponent
+  AboutDialogComponent
 ];
 
 /**
@@ -42,7 +40,9 @@ const components: any = [
     MatInputModule,
     MatButtonModule,
     NgHcaptchaModule,
-    MatSelectModule
+    MatSelectModule,
+    NameReportDialogComponent,
+    IssueReportDialogComponent
   ],
   exports: []
 })

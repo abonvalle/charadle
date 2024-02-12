@@ -1,13 +1,17 @@
+import { CommonModule } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { EnvironmentService } from '@core/services/environment.service';
 import { SnackbarService } from '@core/services/snackbar.service';
 import { XHRService } from '@core/services/xhr.service';
+import { NgHcaptchaModule } from 'ng-hcaptcha';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 @Component({
   selector: 'name-report-dialog',
-  templateUrl: 'name-report-dialog.component.html'
+  templateUrl: 'name-report-dialog.component.html',
+  standalone: true,
+  imports: [CommonModule, MatDialogModule, NgHcaptchaModule]
 })
 export class NameReportDialogComponent implements OnInit, OnDestroy {
   form: FormGroup = new FormGroup({});

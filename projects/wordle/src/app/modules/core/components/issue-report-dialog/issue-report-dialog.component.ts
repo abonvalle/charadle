@@ -1,14 +1,20 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 import { EnvironmentService } from '@core/services/environment.service';
 import { GameService } from '@core/services/game.service';
 import { SnackbarService } from '@core/services/snackbar.service';
 import { XHRService } from '@core/services/xhr.service';
+import { NgHcaptchaModule } from 'ng-hcaptcha';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 @Component({
   selector: 'issue-report-dialog',
-  templateUrl: 'issue-report-dialog.component.html'
+  templateUrl: 'issue-report-dialog.component.html',
+  standalone: true,
+  imports: [CommonModule, MatDialogModule, NgHcaptchaModule, MatFormFieldModule, ReactiveFormsModule, MatSelectModule]
 })
 export class IssueReportDialogComponent implements OnInit, OnDestroy {
   form: FormGroup = new FormGroup({});
