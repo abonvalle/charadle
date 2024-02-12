@@ -16,13 +16,13 @@ describe('XHRService', () => {
   });
 
   it('should open proper XMLHttpRequest', function () {
-    service.reportPHP(new FormData());
+    service.reportPHP({});
 
     expect(XMLHttpRequest.prototype.open).toHaveBeenCalled();
   });
 
   it('should send proper data', function () {
-    service.reportPHP(new FormData());
+    service.reportPHP({});
 
     expect(XMLHttpRequest.prototype.send).toHaveBeenCalled();
   });
