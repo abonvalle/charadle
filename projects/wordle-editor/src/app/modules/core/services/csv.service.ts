@@ -127,7 +127,7 @@ export class CSVService {
   getDateIndex(date: Date): number {
     let numerodujour = date.getDate();
     let numerodumois = date.getMonth() + 1;
-    let numeroannee = date.getFullYear() - 2022;
+    let numeroannee = date.getFullYear() - 2023;
     const ind =
       12 * (numerodujour - 1) + numerodumois + (Math.pow(numerodujour, 2) + 1 * numerodujour) / 2 + 868 * numeroannee;
     return ind - 1;
