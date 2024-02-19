@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatCalendar, MatCalendarCellClassFunction } from '@angular/material/datepicker';
 import * as animeCharactersInfosJSON from '@assets-anime/jsons/characters.json';
@@ -31,6 +31,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   bulkForm: FormGroup = new FormGroup({});
   validNames: string = '';
   everyWordles: { wordle: string; date: Date; index: number }[] = [];
+  imgPath: string = '';
   private _destroy$: Subject<void> = new Subject();
   get daybydayFormDisable(): boolean {
     return this.daybydayForm.disabled || this.daybydayForm.invalid || this.daybydayForm.pristine;
@@ -38,7 +39,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private _csvServ: CSVService
+    private _csvServ: CSVService,
+    private _cdr: ChangeDetectorRef
   ) {}
   ngOnInit(): void {
     this.resetForms();
@@ -119,6 +121,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     this.daybydayForm.get('from')?.setValue(wordle.serie ?? '');
     this.daybydayForm.get('fullname')?.setValue(wordle.fullname ?? '');
     this.daybydayForm.get('imgPath')?.setValue(wordle.imgPath ?? '');
+    this.imgPath = wordle.imgPath ?? '';
     this.daybydayForm.get('difficulty')?.setValue(wordle.difficulty ?? '');
   }
   getDateIndex(date: Date): number {
@@ -305,5 +308,13 @@ export class MainPageComponent implements OnInit, OnDestroy {
       };
       xhr.send();
     }
+  }
+  selectDate(dateIncr: number) {
+    let date = this.selectedDate ? this.selectedDate : new Date();
+    date.setDate(date.getDate() + dateIncr);
+    this.selectedDate = new Date(date);
+    console.warn(date);
+    this.onDateChange(date);
+    this._cdr.markForCheck();
   }
 }
