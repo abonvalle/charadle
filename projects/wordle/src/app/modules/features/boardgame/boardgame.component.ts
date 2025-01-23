@@ -4,10 +4,11 @@ import { GameService } from '@core/services/game.service';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
-  selector: 'boardgame',
-  templateUrl: 'boardgame.component.html',
-  styles: [':host{flex-grow:1;overflow:auto}'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'boardgame',
+    templateUrl: 'boardgame.component.html',
+    styles: [':host{flex-grow:1;overflow:auto}'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BoardgameComponent implements OnInit, OnDestroy {
   _destroy$: Subject<void> = new Subject();

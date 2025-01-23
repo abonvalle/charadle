@@ -1,7 +1,8 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[lowercase]'
+    selector: '[lowercase]',
+    standalone: false
 })
 export class LowercaseDirective {
   constructor(private el: ElementRef) {}

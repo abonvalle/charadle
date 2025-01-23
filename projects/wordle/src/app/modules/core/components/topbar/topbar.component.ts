@@ -11,9 +11,10 @@ import { IssueReportDialogComponent } from '../issue-report-dialog/issue-report-
 import { SettingsDialogComponent } from '../settings-dialog/settings.component';
 
 @Component({
-  selector: 'topbar',
-  templateUrl: 'topbar.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'topbar',
+    templateUrl: 'topbar.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TopbarComponent implements OnInit, OnDestroy {
   _destroy$: Subject<void> = new Subject();

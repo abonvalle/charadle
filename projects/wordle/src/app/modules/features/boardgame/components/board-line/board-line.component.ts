@@ -2,11 +2,12 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges
 import { BoardBox } from '@models';
 
 @Component({
-  selector: 'board-line',
-  templateUrl: 'board-line.component.html',
-  styleUrls: ['board-line.component.css'],
-  styles: [':host{flex-basis: 16.666667%;}'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'board-line',
+    templateUrl: 'board-line.component.html',
+    styleUrls: ['board-line.component.css'],
+    styles: [':host{flex-basis: 16.666667%;}'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BoardLineComponent implements OnChanges {
   @Input() boardBoxes: BoardBox[] = [];

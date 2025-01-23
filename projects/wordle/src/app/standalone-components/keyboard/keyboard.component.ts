@@ -6,11 +6,10 @@ import { KeyboardService } from '../../modules/core/services/keyboard.service';
 import { KeyboardKeyComponent } from './components/keyboard-key/keyboard-key.component';
 
 @Component({
-  standalone: true,
-  selector: 'app-keyboard',
-  templateUrl: 'keyboard.component.html',
-  imports: [CommonModule, KeyboardKeyComponent],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-keyboard',
+    templateUrl: 'keyboard.component.html',
+    imports: [CommonModule, KeyboardKeyComponent],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class KeyboardComponent implements OnInit, OnDestroy {
   @Output() letterClick: EventEmitter<string> = new EventEmitter();

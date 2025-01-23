@@ -20,24 +20,23 @@ import { XHRService } from '@core/services/xhr.service';
 import { NgHcaptchaModule } from 'ng-hcaptcha';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 @Component({
-  selector: 'issue-report-dialog',
-  templateUrl: 'issue-report-dialog.component.html',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatDialogModule,
-    MatDialogActions,
-    MatDialogContent,
-    MatDialogTitle,
-    MatButtonModule,
-    MatDialogClose,
-    NgHcaptchaModule,
-    MatFormFieldModule,
-    FormsModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatSelectModule
-  ]
+    selector: 'issue-report-dialog',
+    templateUrl: 'issue-report-dialog.component.html',
+    imports: [
+        CommonModule,
+        MatDialogModule,
+        MatDialogActions,
+        MatDialogContent,
+        MatDialogTitle,
+        MatButtonModule,
+        MatDialogClose,
+        NgHcaptchaModule,
+        MatFormFieldModule,
+        FormsModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        MatSelectModule
+    ]
 })
 export class IssueReportDialogComponent implements OnInit, OnDestroy {
   form: FormGroup = new FormGroup({});

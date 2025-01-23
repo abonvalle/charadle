@@ -5,12 +5,11 @@ import { BehaviorSubject } from 'rxjs';
 import { specialLetters } from '../../models/special-letters';
 
 @Component({
-  standalone: true,
-  selector: 'app-keyboard-key',
-  templateUrl: './keyboard-key.component.html',
-  styles: [':host{display:contents}'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule]
+    selector: 'app-keyboard-key',
+    templateUrl: './keyboard-key.component.html',
+    styles: [':host{display:contents}'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule]
 })
 export class KeyboardKeyComponent implements OnInit {
   @Input({ required: true }) letter!: string;

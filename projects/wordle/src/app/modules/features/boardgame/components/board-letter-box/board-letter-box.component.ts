@@ -4,11 +4,12 @@ import { PlaceLetterJoker, letterState } from '@models';
 import { BehaviorSubject, Observable, Subject, map, takeUntil } from 'rxjs';
 
 @Component({
-  selector: 'board-letter-box',
-  templateUrl: 'board-letter-box.component.html',
-  styleUrls: ['board-letter-box.component.css'],
-  // styles: [':host{flex-basis: 16.666667%;}'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'board-letter-box',
+    templateUrl: 'board-letter-box.component.html',
+    styleUrls: ['board-letter-box.component.css'],
+    // styles: [':host{flex-basis: 16.666667%;}'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BoardLetterBoxComponent implements OnChanges, OnDestroy {
   @Input({ required: true }) index!: number;

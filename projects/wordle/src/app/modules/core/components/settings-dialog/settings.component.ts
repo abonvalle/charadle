@@ -4,8 +4,9 @@ import { APIService } from '@core/services/api.service';
 import { SettingsService } from '@core/services/settings.service';
 
 @Component({
-  selector: 'settings',
-  templateUrl: 'settings.component.html'
+    selector: 'settings',
+    templateUrl: 'settings.component.html',
+    standalone: false
 })
 export class SettingsDialogComponent {
   form: FormGroup;

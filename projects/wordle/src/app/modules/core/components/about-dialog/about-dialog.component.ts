@@ -4,8 +4,9 @@ import { theme } from '@models';
 import packageJson from '@packageJSON';
 import { Observable, map } from 'rxjs';
 @Component({
-  selector: 'about-dialog',
-  templateUrl: 'about-dialog.component.html'
+    selector: 'about-dialog',
+    templateUrl: 'about-dialog.component.html',
+    standalone: false
 })
 export class AboutDialogComponent {
   readonly contactAddress: string = 'nameguessr@abvdev.fr';

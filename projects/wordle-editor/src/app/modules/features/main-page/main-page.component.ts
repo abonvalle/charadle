@@ -11,10 +11,11 @@ import * as FileSaver from 'file-saver';
 import * as JSZip from 'jszip';
 import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 @Component({
-  selector: 'main-page',
-  styles: [':host{overflow:hidden;height:100%;}'],
-  templateUrl: 'main-page.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'main-page',
+    styles: [':host{overflow:hidden;height:100%;}'],
+    templateUrl: 'main-page.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class MainPageComponent implements OnInit, OnDestroy {
   @ViewChild('matCalendar') matCalendar: MatCalendar<Date> | null = null;

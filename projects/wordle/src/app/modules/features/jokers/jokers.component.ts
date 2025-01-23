@@ -5,10 +5,11 @@ import { Subject, takeUntil } from 'rxjs';
 import { Joker, jokersIcons } from '../../../models/joker';
 
 @Component({
-  selector: 'jokers',
-  // styles: [':host{overflow:hidden;height:100%}'],
-  templateUrl: 'jokers.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'jokers',
+    // styles: [':host{overflow:hidden;height:100%}'],
+    templateUrl: 'jokers.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class JokersComponent implements OnInit, OnDestroy {
   _destroy$: Subject<void> = new Subject();

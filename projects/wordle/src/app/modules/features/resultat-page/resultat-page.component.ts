@@ -5,10 +5,11 @@ import { ShareService } from '@core/services/share.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'resultat-page',
-  templateUrl: 'resultat-page.component.html',
-  styles: [':host{overflow:hidden;height:100%}'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'resultat-page',
+    templateUrl: 'resultat-page.component.html',
+    styles: [':host{overflow:hidden;height:100%}'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ResultatPageComponent implements OnInit, OnDestroy {
   panelOpenState = true;

@@ -8,10 +8,11 @@ import { Subject, combineLatestWith, filter, takeUntil } from 'rxjs';
 import { SerieJoker } from '../../../models/joker';
 
 @Component({
-  selector: 'main-page',
-  styles: [':host{overflow:hidden;height:100%}'],
-  templateUrl: 'main-page.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'main-page',
+    styles: [':host{overflow:hidden;height:100%}'],
+    templateUrl: 'main-page.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class MainPageComponent implements OnInit, OnDestroy {
   serieJoker$: Subject<SerieJoker> = new Subject();

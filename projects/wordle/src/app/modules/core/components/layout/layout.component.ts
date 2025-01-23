@@ -5,8 +5,9 @@ import { ThemeService } from '@core/services/theme.service';
 import { Subject, combineLatest, map, takeUntil } from 'rxjs';
 
 @Component({
-  selector: 'layout',
-  templateUrl: 'layout.component.html'
+    selector: 'layout',
+    templateUrl: 'layout.component.html',
+    standalone: false
 })
 export class LayoutComponent implements OnInit, OnDestroy {
   _destroy$: Subject<void> = new Subject();

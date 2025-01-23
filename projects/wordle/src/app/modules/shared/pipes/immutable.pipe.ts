@@ -1,8 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'immutable',
-  pure: false
+    name: 'immutable',
+    pure: false,
+    standalone: false
 })
 export class ImmutablelPipe implements PipeTransform {
   transform(object: any): any {
