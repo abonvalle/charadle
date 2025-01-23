@@ -23,7 +23,7 @@
     "@angular/platform-browser-dynamic": "^18.2.13",
     "@angular/router": "^18.2.13",
     "animate.css": "^4.1.1",
-    "ng-hcaptcha": "^2.3.1",
+    "ng-hcaptcha": "^2.4.0",
     "rxjs": "^7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
