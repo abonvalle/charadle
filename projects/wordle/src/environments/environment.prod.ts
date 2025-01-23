@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  link: 'https://nameguessr.abvdev.fr'
+  link: 'https://charadle.abvdev.fr'
 };

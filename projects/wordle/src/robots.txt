@@ -1,7 +1,7 @@
 # Allow all URLs (see https://www.robotstxt.org/robotstxt.html)
 User-agent: *
 Disallow:
-Sitemap: https://nameguessr-series.abvdev.fr/sitemap.xml
+Sitemap: https://charadle.abvdev.fr/sitemap.xml
 
 User-agent: Googlebot-Image
 Disallow: /assets/*

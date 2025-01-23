@@ -39,10 +39,10 @@ export class EnvironmentService {
   }
 
   private _getStoredVersionCode(): string | null {
-    const res = localStorage.getItem(localStorageKeys.nameGuessrVersion);
+    const res = localStorage.getItem(localStorageKeys.charadleVersion);
     return res ? this._utilsServ.decode(res) : null;
   }
   private _updateStoredVersion(version: version): void {
-    localStorage.setItem(localStorageKeys.nameGuessrVersion, this._utilsServ.encode(version.code));
+    localStorage.setItem(localStorageKeys.charadleVersion, this._utilsServ.encode(version.code));
   }
 }

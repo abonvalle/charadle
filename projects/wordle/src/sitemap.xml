@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://nameguessr.abvdev.fr/</loc>
+    <loc>https://charadle.abvdev.fr/</loc>
   </url>
   <url>
-    <loc>https://www.nameguessr.abvdev.fr/</loc>
+    <loc>https://www.charadle.abvdev.fr/</loc>
   </url>
   <url>
-    <loc>https://nameguessr.abvdev.fr/resultat</loc>
+    <loc>https://charadle.abvdev.fr/resultat</loc>
   </url>
   <url>
-    <loc>https://www.nameguessr.abvdev.fr/resultat</loc>
+    <loc>https://www.charadle.abvdev.fr/resultat</loc>
   </url>
 </urlset>
