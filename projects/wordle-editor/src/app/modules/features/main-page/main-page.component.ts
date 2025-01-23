@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCalendar, MatCalendarCellClassFunction } from '@angular/material/datepicker';
 import * as animeCharactersInfosJSON from '@assets-anime/jsons/characters.json';
 import animeWordlesJSON from '@assets-anime/jsons/wordles.json';
@@ -10,12 +10,18 @@ import { Wordle } from '@models/wordle.model';
 import * as FileSaver from 'file-saver';
 import * as JSZip from 'jszip';
 import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatButton } from '@angular/material/button';
+import { MatCard } from '@angular/material/card';
+import { LowercaseDirective } from '../../shared/directives/lowercase.directive';
+import { DatePipe } from '@angular/common';
 @Component({
     selector: 'main-page',
     styles: [':host{overflow:hidden;height:100%;}'],
     templateUrl: 'main-page.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    imports: [MatFormField, MatLabel, MatInput, FormsModule, MatButton, ReactiveFormsModule, MatCard, MatCalendar, LowercaseDirective, DatePipe]
 })
 export class MainPageComponent implements OnInit, OnDestroy {
   @ViewChild('matCalendar') matCalendar: MatCalendar<Date> | null = null;

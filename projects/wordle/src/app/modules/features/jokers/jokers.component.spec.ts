@@ -10,12 +10,12 @@ describe('JokersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [JokersComponent],
-      providers: [
+    imports: [JokersComponent],
+    providers: [
         { provide: SnackbarService, useValue: {} },
         { provide: MatDialogRef, useValue: {} }
-      ]
-    }).compileComponents();
+    ]
+}).compileComponents();
 
     fixture = TestBed.createComponent(JokersComponent);
     component = fixture.componentInstance;

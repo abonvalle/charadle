@@ -17,9 +17,9 @@ describe('BoardLetterBoxComponent', () => {
   );
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [BoardLetterBoxComponent],
-      providers: [{ provide: JokersService, useValue: serviceSpy }]
-    }).compileComponents();
+    imports: [BoardLetterBoxComponent],
+    providers: [{ provide: JokersService, useValue: serviceSpy }]
+}).compileComponents();
 
     fixture = TestBed.createComponent(BoardLetterBoxComponent);
     component = fixture.componentInstance;

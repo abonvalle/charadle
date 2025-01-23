@@ -1,8 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'mapToArr', pure: false,
-    standalone: false
+    name: 'mapToArr', pure: false
 })
 export class mapToArr implements PipeTransform {
   transform<T extends unknown>(value: Map<unknown, T>): T[] {

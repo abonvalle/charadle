@@ -14,10 +14,9 @@ describe('AboutDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AboutDialogComponent],
-      imports: [MatDialogModule],
-      providers: [MatSnackBar]
-    }).compileComponents();
+    imports: [MatDialogModule, AboutDialogComponent],
+    providers: [MatSnackBar]
+}).compileComponents();
 
     fixture = TestBed.createComponent(AboutDialogComponent);
     component = fixture.componentInstance;

@@ -2,13 +2,15 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { APIService } from '@core/services/api.service';
 import { GameService } from '@core/services/game.service';
 import { Subject, takeUntil } from 'rxjs';
+import { BoardLineComponent } from './components/board-line/board-line.component';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
     selector: 'boardgame',
     templateUrl: 'boardgame.component.html',
     styles: [':host{flex-grow:1;overflow:auto}'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    imports: [BoardLineComponent, AsyncPipe]
 })
 export class BoardgameComponent implements OnInit, OnDestroy {
   _destroy$: Subject<void> = new Subject();

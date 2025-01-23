@@ -4,8 +4,7 @@ import { JokerButtonComponent } from '../../../standalone-components/joker-butto
 import { JokersComponent } from './jokers.component';
 
 @NgModule({
-  declarations: [JokersComponent],
-  imports: [SharedModule, JokerButtonComponent],
-  exports: [JokersComponent]
+    imports: [SharedModule, JokerButtonComponent, JokersComponent],
+    exports: [JokersComponent]
 })
 export class JokersModule {}

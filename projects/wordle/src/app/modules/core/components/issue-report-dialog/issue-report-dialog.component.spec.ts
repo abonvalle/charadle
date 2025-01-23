@@ -10,13 +10,12 @@ describe('IssueReportDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [IssueReportDialogComponent],
-      imports: [MatDialogModule],
-      providers: [
+    imports: [MatDialogModule, IssueReportDialogComponent],
+    providers: [
         { provide: SnackbarService, useValue: {} },
         { provide: MatDialogRef, useValue: {} }
-      ]
-    }).compileComponents();
+    ]
+}).compileComponents();
 
     fixture = TestBed.createComponent(IssueReportDialogComponent);
     component = fixture.componentInstance;

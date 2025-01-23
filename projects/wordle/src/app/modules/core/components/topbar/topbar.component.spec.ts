@@ -9,9 +9,8 @@ describe('TopbarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TopbarComponent],
-      imports: [CoreModule]
-    }).compileComponents();
+    imports: [CoreModule, TopbarComponent]
+}).compileComponents();
 
     fixture = TestBed.createComponent(TopbarComponent);
     component = fixture.componentInstance;

@@ -10,16 +10,16 @@ import { KeyboardComponent } from '../../../standalone-components/keyboard/keybo
 import { MainPageRoutingModule } from './main-page-routing.module';
 import { MainPageComponent } from './main-page.component';
 @NgModule({
-  declarations: [MainPageComponent],
-  providers: [ShareService],
-  imports: [
-    SharedModule,
-    MainPageRoutingModule,
-    MatTooltipModule,
-    KeyboardComponent,
-    BoardgameModule,
-    JokersModule,
-    ResultatPageModule
-  ]
+    providers: [ShareService],
+    imports: [
+        SharedModule,
+        MainPageRoutingModule,
+        MatTooltipModule,
+        KeyboardComponent,
+        BoardgameModule,
+        JokersModule,
+        ResultatPageModule,
+        MainPageComponent
+    ]
 })
 export class MainPageModule {}

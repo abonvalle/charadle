@@ -5,8 +5,7 @@ import { BoardLetterBoxComponent } from './components/board-letter-box/board-let
 import { BoardLineComponent } from './components/board-line/board-line.component';
 
 @NgModule({
-  declarations: [BoardgameComponent, BoardLineComponent, BoardLetterBoxComponent],
-  imports: [SharedModule],
-  exports: [BoardgameComponent, BoardLineComponent, BoardLetterBoxComponent]
+    imports: [SharedModule, BoardgameComponent, BoardLineComponent, BoardLetterBoxComponent],
+    exports: [BoardgameComponent, BoardLineComponent, BoardLetterBoxComponent]
 })
 export class BoardgameModule {}

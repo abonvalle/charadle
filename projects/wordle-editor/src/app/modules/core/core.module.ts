@@ -17,8 +17,7 @@ const MODULES: any = [LayoutComponent, TopbarComponent];
  *    - Models specifics to the app and reused in multiples modules (routes, business logic, ..)
  */
 @NgModule({
-  declarations: [...MODULES],
-  imports: [SharedModule, MatMenuModule, MatSlideToggleModule, MatInputModule, MatButtonModule],
-  exports: []
+    imports: [SharedModule, MatMenuModule, MatSlideToggleModule, MatInputModule, MatButtonModule, ...MODULES],
+    exports: []
 })
 export class CoreModule {}

@@ -9,9 +9,8 @@ describe('SettingsDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SettingsDialogComponent],
-      imports: [MatDialogModule]
-    }).compileComponents();
+    imports: [MatDialogModule, SettingsDialogComponent]
+}).compileComponents();
 
     fixture = TestBed.createComponent(SettingsDialogComponent);
     component = fixture.componentInstance;

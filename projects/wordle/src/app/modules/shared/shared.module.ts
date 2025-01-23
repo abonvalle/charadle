@@ -13,8 +13,7 @@ const IMPORTED_MODULES = [CommonModule, RouterModule, MatSnackBarModule, FormsMo
 const exports = [...IMPORTED_MODULES, ...DECLARED_MODULES];
 
 @NgModule({
-  imports: IMPORTED_MODULES,
-  declarations: DECLARED_MODULES,
-  exports: exports
+    imports: [...IMPORTED_MODULES, ...DECLARED_MODULES],
+    exports: exports
 })
 export class SharedModule {}

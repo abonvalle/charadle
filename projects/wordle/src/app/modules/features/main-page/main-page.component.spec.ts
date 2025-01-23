@@ -11,13 +11,13 @@ describe('MainPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MainPageComponent],
-      providers: [
+    imports: [MainPageComponent],
+    providers: [
         { provide: SettingsService, useValue: {} },
         { provide: SnackbarService, useValue: {} },
         { provide: MatDialogRef, useValue: {} }
-      ]
-    }).compileComponents();
+    ]
+}).compileComponents();
 
     fixture = TestBed.createComponent(MainPageComponent);
     component = fixture.componentInstance;

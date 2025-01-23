@@ -10,12 +10,12 @@ describe('ResultatPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ResultatPageComponent],
-      providers: [
+    imports: [ResultatPageComponent],
+    providers: [
         { provide: SnackbarService, useValue: {} },
         { provide: MatDialogRef, useValue: {} }
-      ]
-    }).compileComponents();
+    ]
+}).compileComponents();
 
     fixture = TestBed.createComponent(ResultatPageComponent);
     component = fixture.componentInstance;

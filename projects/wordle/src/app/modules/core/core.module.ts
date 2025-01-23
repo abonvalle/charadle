@@ -31,19 +31,19 @@ const components: any = [
  *    - Models specifics to the app and reused in multiples modules (routes, business logic, ..)
  */
 @NgModule({
-  declarations: [...components],
-  imports: [
-    SharedModule,
-    MatMenuModule,
-    MatDialogModule,
-    MatSlideToggleModule,
-    MatInputModule,
-    MatButtonModule,
-    NgHcaptchaModule,
-    MatSelectModule,
-    NameReportDialogComponent,
-    IssueReportDialogComponent
-  ],
-  exports: []
+    imports: [
+        SharedModule,
+        MatMenuModule,
+        MatDialogModule,
+        MatSlideToggleModule,
+        MatInputModule,
+        MatButtonModule,
+        NgHcaptchaModule,
+        MatSelectModule,
+        NameReportDialogComponent,
+        IssueReportDialogComponent,
+        ...components
+    ],
+    exports: []
 })
 export class CoreModule {}

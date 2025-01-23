@@ -9,12 +9,14 @@ import { AboutDialogComponent } from '../about-dialog/about-dialog.component';
 import { HelpDialogComponent } from '../help-dialog/help-dialog.component';
 import { IssueReportDialogComponent } from '../issue-report-dialog/issue-report-dialog.component';
 import { SettingsDialogComponent } from '../settings-dialog/settings.component';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { NgClass, AsyncPipe } from '@angular/common';
 
 @Component({
     selector: 'topbar',
     templateUrl: 'topbar.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    imports: [MatMenuTrigger, MatMenu, NgClass, MatMenuItem, AsyncPipe]
 })
 export class TopbarComponent implements OnInit, OnDestroy {
   _destroy$: Subject<void> = new Subject();

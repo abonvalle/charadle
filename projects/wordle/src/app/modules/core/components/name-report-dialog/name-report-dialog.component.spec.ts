@@ -10,14 +10,13 @@ describe('NameReportDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [NameReportDialogComponent],
-      imports: [MatDialogModule],
-      providers: [
+    imports: [MatDialogModule, NameReportDialogComponent],
+    providers: [
         { provide: SnackbarService, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: { name: 'ed' } },
         { provide: MatDialogRef, useValue: {} }
-      ]
-    }).compileComponents();
+    ]
+}).compileComponents();
 
     fixture = TestBed.createComponent(NameReportDialogComponent);
     component = fixture.componentInstance;

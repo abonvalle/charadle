@@ -9,9 +9,8 @@ describe('HelpDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HelpDialogComponent],
-      imports: [MatDialogModule]
-    }).compileComponents();
+    imports: [MatDialogModule, HelpDialogComponent]
+}).compileComponents();
 
     fixture = TestBed.createComponent(HelpDialogComponent);
     component = fixture.componentInstance;

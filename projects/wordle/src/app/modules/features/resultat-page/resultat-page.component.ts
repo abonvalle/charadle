@@ -1,15 +1,16 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { GameService } from '@core/services/game.service';
 import { ShareService } from '@core/services/share.service';
 import { Subscription } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
     selector: 'resultat-page',
     templateUrl: 'resultat-page.component.html',
     styles: [':host{overflow:hidden;height:100%}'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    imports: [RouterLink, AsyncPipe]
 })
 export class ResultatPageComponent implements OnInit, OnDestroy {
   panelOpenState = true;

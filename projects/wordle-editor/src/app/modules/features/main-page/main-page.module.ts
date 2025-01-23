@@ -11,18 +11,18 @@ import { SharedModule } from '@editor-modules/shared/shared.module';
 import { MainPageRoutingModule } from './main-page-routing.module';
 import { MainPageComponent } from './main-page.component';
 @NgModule({
-  declarations: [MainPageComponent],
-  imports: [
-    SharedModule,
-    MainPageRoutingModule,
-    MatTooltipModule,
-    MatDatepickerModule,
-    MatCardModule,
-    MatNativeDateModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatInputModule,
-    MatButtonModule
-  ]
+    imports: [
+        SharedModule,
+        MainPageRoutingModule,
+        MatTooltipModule,
+        MatDatepickerModule,
+        MatCardModule,
+        MatNativeDateModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatInputModule,
+        MatButtonModule,
+        MainPageComponent
+    ]
 })
 export class MainPageModule {}

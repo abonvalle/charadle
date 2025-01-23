@@ -1,9 +1,9 @@
 <div class="flex h-full flex-row items-center justify-center gap-1" [ngClass]="rowClass">
-  @for (boardBox of boardBoxes; track boardBox.index) {
+  @for (boardBox of boardBoxes(); track boardBox.index) {
     <board-letter-box
       [index]="boardBox.index"
       [letter]="boardBox.letter"
-      [isBoardLineActive]="isActive"
+      [isBoardLineActive]="isActive()"
       [state]="boardBox.background"
       [isCurrentActive]="boardBox.isActive"></board-letter-box>
   }

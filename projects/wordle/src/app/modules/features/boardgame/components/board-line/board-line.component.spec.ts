@@ -8,8 +8,8 @@ describe('BoardLineComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [BoardLineComponent]
-    }).compileComponents();
+    imports: [BoardLineComponent]
+}).compileComponents();
 
     fixture = TestBed.createComponent(BoardLineComponent);
     component = fixture.componentInstance;

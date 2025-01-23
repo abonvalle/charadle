@@ -1,12 +1,16 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { APIService } from '@core/services/api.service';
 import { SettingsService } from '@core/services/settings.service';
+import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { MatButton } from '@angular/material/button';
 
 @Component({
     selector: 'settings',
     templateUrl: 'settings.component.html',
-    standalone: false
+    imports: [MatDialogTitle, CdkScrollable, MatDialogContent, FormsModule, ReactiveFormsModule, MatSlideToggle, MatButton, MatDialogActions, MatDialogClose]
 })
 export class SettingsDialogComponent {
   form: FormGroup;

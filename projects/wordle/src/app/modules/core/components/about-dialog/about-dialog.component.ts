@@ -3,10 +3,14 @@ import { ThemeService } from '@core/services/theme.service';
 import { theme } from '@models';
 import packageJson from '@packageJSON';
 import { Observable, map } from 'rxjs';
+import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatButton } from '@angular/material/button';
+import { AsyncPipe } from '@angular/common';
 @Component({
     selector: 'about-dialog',
     templateUrl: 'about-dialog.component.html',
-    standalone: false
+    imports: [MatDialogTitle, CdkScrollable, MatDialogContent, MatDialogActions, MatButton, MatDialogClose, AsyncPipe]
 })
 export class AboutDialogComponent {
   readonly contactAddress: string = 'nameguessr@abvdev.fr';

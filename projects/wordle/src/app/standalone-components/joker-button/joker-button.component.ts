@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, input } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Joker } from '../../models/joker/joker.model';
 
@@ -12,20 +12,20 @@ import { Joker } from '../../models/joker/joker.model';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JokerButtonComponent implements OnInit, OnDestroy {
-  @Input({ required: true }) joker!: Joker;
+  readonly joker = input.required<Joker>();
   classes: string = '';
   _destroy: Subject<void> = new Subject();
   constructor(private _cdr: ChangeDetectorRef) {}
   ngOnInit() {
     this._setClasses();
-    if (!this.joker) {
+    if (!this.joker()) {
       throw new TypeError('Joker should be instancied');
     }
   }
   ngOnDestroy(): void {}
   private _setClasses() {
     const classes = [];
-    classes.push(this.joker.soldOut ? `opacity-60 active:bg-complementary/80` : `active:bg-primary`);
+    classes.push(this.joker().soldOut ? `opacity-60 active:bg-complementary/80` : `active:bg-primary`);
     this.classes = classes.join(' ');
     this._cdr.detectChanges();
   }

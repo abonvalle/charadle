@@ -6,13 +6,18 @@ import { SettingsService } from '@core/services/settings.service';
 import { ShareService } from '@core/services/share.service';
 import { Subject, combineLatestWith, filter, takeUntil } from 'rxjs';
 import { SerieJoker } from '../../../models/joker';
+import { BoardgameComponent } from '../boardgame/boardgame.component';
+import { JokersComponent } from '../jokers/jokers.component';
+import { KeyboardComponent } from '../../../standalone-components/keyboard/keyboard.component';
+import { RouterLink } from '@angular/router';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
     selector: 'main-page',
     styles: [':host{overflow:hidden;height:100%}'],
     templateUrl: 'main-page.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    imports: [BoardgameComponent, JokersComponent, KeyboardComponent, RouterLink, AsyncPipe]
 })
 export class MainPageComponent implements OnInit, OnDestroy {
   serieJoker$: Subject<SerieJoker> = new Subject();

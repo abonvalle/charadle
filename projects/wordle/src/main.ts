@@ -1,8 +1,13 @@
-import { enableProdMode } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { enableProdMode, importProvidersFrom } from '@angular/core';
 
-import { AppModule } from './app/app.module';
+
 import { environment } from './environments/environment';
+import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
+import { CoreModule } from '@core/core.module';
+import { AppRoutingModule } from './app/app-routing.module';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { NgHcaptchaModule } from 'ng-hcaptcha';
+import { AppComponent } from './app/app.component';
 
 if (environment.production) {
   enableProdMode();
@@ -62,6 +67,12 @@ if (environment.production) {
   }
 }
 
-platformBrowserDynamic()
-  .bootstrapModule(AppModule)
+bootstrapApplication(AppComponent, {
+    providers: [
+        importProvidersFrom(BrowserModule, CoreModule, AppRoutingModule, NgHcaptchaModule.forRoot({
+            siteKey: '4be39cb9-ee10-4877-9d2c-3ebcec2bcda9'
+        })),
+        provideNoopAnimations()
+    ]
+})
   .catch((err) => console.error(err));

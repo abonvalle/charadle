@@ -1,19 +1,19 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AsyncPipe, NgClass } from '@angular/common';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output, input } from '@angular/core';
 import { PlatformService } from '@core/services/platform.service';
 import { BehaviorSubject } from 'rxjs';
 import { specialLetters } from '../../models/special-letters';
 
 @Component({
-    selector: 'app-keyboard-key',
-    templateUrl: './keyboard-key.component.html',
-    styles: [':host{display:contents}'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CommonModule]
+  selector: 'app-keyboard-key',
+  templateUrl: './keyboard-key.component.html',
+  styles: [':host{display:contents}'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [NgClass, AsyncPipe]
 })
 export class KeyboardKeyComponent implements OnInit {
-  @Input({ required: true }) letter!: string;
-  @Input() backgroundClass: string = 'bg-secondary';
+  readonly letter = input.required<string>();
+  readonly backgroundClass = input<string>('bg-secondary');
   @Output() letterClick: EventEmitter<string> = new EventEmitter();
   feedBack$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isSpecial: boolean = false;
@@ -21,12 +21,13 @@ export class KeyboardKeyComponent implements OnInit {
 
   constructor(private _platformServ: PlatformService) {}
   ngOnInit() {
-    if (!this.letter) {
+    const letterValue = this.letter();
+    if (!letterValue) {
       throw new TypeError('Letter should be instancied');
     }
-    this.isSpecial = Object.keys(specialLetters).includes(this.letter);
+    this.isSpecial = Object.keys(specialLetters).includes(letterValue);
     if (this.isSpecial) {
-      const specialLetter = Object.entries(specialLetters).find(([letter]) => letter === this.letter);
+      const specialLetter = Object.entries(specialLetters).find(([letter]) => letter === this.letter());
       this.letterIcon = specialLetter ? specialLetter[1] : '';
     }
   }

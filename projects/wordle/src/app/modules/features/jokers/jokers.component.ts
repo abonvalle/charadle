@@ -3,13 +3,15 @@ import { APIService } from '@core/services/api.service';
 import { JokersService } from '@core/services/jokers.service';
 import { Subject, takeUntil } from 'rxjs';
 import { Joker, jokersIcons } from '../../../models/joker';
+import { JokerButtonComponent } from '../../../standalone-components/joker-button/joker-button.component';
+import { NgClass, AsyncPipe } from '@angular/common';
 
 @Component({
     selector: 'jokers',
     // styles: [':host{overflow:hidden;height:100%}'],
     templateUrl: 'jokers.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    imports: [JokerButtonComponent, NgClass, AsyncPipe]
 })
 export class JokersComponent implements OnInit, OnDestroy {
   _destroy$: Subject<void> = new Subject();

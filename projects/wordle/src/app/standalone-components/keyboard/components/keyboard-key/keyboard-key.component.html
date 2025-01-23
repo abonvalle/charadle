@@ -1,22 +1,22 @@
 @if (!isSpecial) {
   <div
-    (click)="clickEnterLetter(letter)"
-    (touchstart)="enterLetter(letter)"
+    (click)="clickEnterLetter(letter())"
+    (touchstart)="enterLetter(letter())"
     class="relative m-0.5 flex h-16 w-[10%] max-w-[80px] select-none items-center justify-center rounded-sm border-b-2 border-black/60 text-[130%] uppercase text-font transition-all duration-500"
-    [ngClass]="backgroundClass">
+    [ngClass]="backgroundClass()">
     @if ((feedBack$ | async) === true) {
       <span
         class="pointer-events-none absolute z-50 mb-12 flex h-28 w-[9.5vw] max-w-[80px] items-start justify-center bg-primary-100 pt-3 text-font">
-        {{ letter }}
+        {{ letter() }}
       </span>
     }
 
-    {{ letter }}
+    {{ letter() }}
   </div>
 } @else {
   <div
-    (click)="clickEnterLetter(letter)"
-    (touchstart)="enterLetter(letter)"
+    (click)="clickEnterLetter(letter())"
+    (touchstart)="enterLetter(letter())"
     class="m-0.5 flex h-16 w-[15%] max-w-[120px] select-none items-center justify-center rounded-sm border-black/60 text-[130%] uppercase text-font transition-all"
     [ngClass]="{ 'border-b-0 bg-white/10': (feedBack$ | async) === true, 'border-b-2': (feedBack$ | async) === false }">
     <i class="icon" [ngClass]="letterIcon"></i>

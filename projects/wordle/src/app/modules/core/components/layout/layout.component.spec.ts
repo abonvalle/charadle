@@ -9,9 +9,8 @@ describe('LayoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LayoutComponent],
-      imports: [CoreModule]
-    }).compileComponents();
+    imports: [CoreModule, LayoutComponent]
+}).compileComponents();
 
     fixture = TestBed.createComponent(LayoutComponent);
     component = fixture.componentInstance;

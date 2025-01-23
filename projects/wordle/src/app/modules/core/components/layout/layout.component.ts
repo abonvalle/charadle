@@ -3,11 +3,14 @@ import { PlatformService } from '@core/services/platform.service';
 import { SettingsService } from '@core/services/settings.service';
 import { ThemeService } from '@core/services/theme.service';
 import { Subject, combineLatest, map, takeUntil } from 'rxjs';
+import { NgClass, AsyncPipe } from '@angular/common';
+import { TopbarComponent } from '../topbar/topbar.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
     selector: 'layout',
     templateUrl: 'layout.component.html',
-    standalone: false
+    imports: [NgClass, TopbarComponent, RouterOutlet, AsyncPipe]
 })
 export class LayoutComponent implements OnInit, OnDestroy {
   _destroy$: Subject<void> = new Subject();

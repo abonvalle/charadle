@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnChanges, OnDestroy, SimpleChanges, input } from '@angular/core';
 import { JokersService } from '@core/services/jokers.service';
 import { PlaceLetterJoker, letterState } from '@models';
 import { BehaviorSubject, Observable, Subject, map, takeUntil } from 'rxjs';
+import { NgClass, AsyncPipe } from '@angular/common';
 
 @Component({
     selector: 'board-letter-box',
@@ -9,14 +10,14 @@ import { BehaviorSubject, Observable, Subject, map, takeUntil } from 'rxjs';
     styleUrls: ['board-letter-box.component.css'],
     // styles: [':host{flex-basis: 16.666667%;}'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    imports: [NgClass, AsyncPipe]
 })
 export class BoardLetterBoxComponent implements OnChanges, OnDestroy {
-  @Input({ required: true }) index!: number;
-  @Input() letter: string = '';
-  @Input() state: letterState = 'none';
-  @Input() isCurrentActive: boolean = false;
-  @Input() isBoardLineActive: boolean = false;
+  readonly index = input.required<number>();
+  readonly letter = input<string>('');
+  readonly state = input<letterState>('none');
+  readonly isCurrentActive = input<boolean>(false);
+  readonly isBoardLineActive = input<boolean>(false);
   computedClasses$: BehaviorSubject<{ state: string; active: string; placeholder: string }> = new BehaviorSubject({
     state: '',
     active: '',
@@ -36,7 +37,8 @@ export class BoardLetterBoxComponent implements OnChanges, OnDestroy {
     if (!changes) {
       return;
     }
-    if (!this.index && this.index !== 0) {
+    const index = this.index();
+    if (!index && index !== 0) {
       throw new TypeError('index should be instancied');
     }
 
@@ -48,7 +50,7 @@ export class BoardLetterBoxComponent implements OnChanges, OnDestroy {
     if (changes['isCurrentActive']) {
       const { state, placeholder } = this.computedClasses$.value;
       this.computedClasses$.next({
-        active: this.isCurrentActive ? 'active after:animate-pulse-fast after:absolute' : '',
+        active: this.isCurrentActive() ? 'active after:animate-pulse-fast after:absolute' : '',
         placeholder,
         state
       });
@@ -73,10 +75,10 @@ export class BoardLetterBoxComponent implements OnChanges, OnDestroy {
   }
 
   private _getPlaceholder(placeLetterJoker?: PlaceLetterJoker): string {
-    if (!this.isBoardLineActive || this.letter !== '' || !placeLetterJoker) {
+    if (!this.isBoardLineActive() || this.letter() !== '' || !placeLetterJoker) {
       return '';
     }
-    const letter = placeLetterJoker.uses.find((plJok) => plJok.index === this.index)?.letter;
+    const letter = placeLetterJoker.uses.find((plJok) => plJok.index === this.index())?.letter;
     if (!letter) {
       return '';
     }
@@ -85,11 +87,12 @@ export class BoardLetterBoxComponent implements OnChanges, OnDestroy {
 
   private _getStateClasses(): string {
     const classes = [];
-    if (this.state !== 'none') {
-      classes.push(`animate-[flip-${this.state}_1.5s_ease-in-out_${Math.floor(this.index * 0.3 * 10) / 10}s_forwards]`);
+    const state = this.state();
+    if (state !== 'none') {
+      classes.push(`animate-[flip-${state}_1.5s_ease-in-out_${Math.floor(this.index() * 0.3 * 10) / 10}s_forwards]`);
 
       //colorblind
-      classes.push(`accessibility-${this.state}`);
+      classes.push(`accessibility-${state}`);
     }
     return classes.join(' ');
   }
