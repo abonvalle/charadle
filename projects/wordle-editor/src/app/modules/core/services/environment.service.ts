@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { defaultVersion, localStorageKeys, version, versions } from '@models/*';
+import { defaultVersion, localStorageKeys, version, versions } from '@models';
 import { UtilsService } from '@modules/shared/utils.service';
 import { BehaviorSubject, Observable, combineLatestWith, map } from 'rxjs';
 

@@ -72,7 +72,7 @@ export class ShareService {
     let score = 100;
 
     //Origin joker = -10,9 or 8pts
-    score -= joker3Count > 0 ? 10 - (difficulty - 1) ?? 10 : 0;
+    score -= joker3Count > 0 ? 10 - (difficulty - 1) : 0;
 
     //Paint joker = -19pts / maxUse * useCount
     score -= (19 / joker1CountMax) * joker1Count;

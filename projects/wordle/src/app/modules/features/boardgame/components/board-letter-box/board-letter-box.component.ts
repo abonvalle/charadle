@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { JokersService } from '@core/services/jokers.service';
-import { PlaceLetterJoker, letterState } from '@models/*';
+import { PlaceLetterJoker, letterState } from '@models';
 import { BehaviorSubject, Observable, Subject, map, takeUntil } from 'rxjs';
 
 @Component({

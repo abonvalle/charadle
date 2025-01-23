@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ThemeService } from '@core/services/theme.service';
-import { theme } from '@models/*';
+import { theme } from '@models';
 import packageJson from '@packageJSON';
 import { Observable, map } from 'rxjs';
 @Component({

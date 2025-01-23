@@ -5,7 +5,7 @@ import wordlesJSONAnime from '@assets-anime/jsons/wordles.json';
 import * as charactersInfosJSONSerie from '@assets-series/jsons/characters.json';
 import themesSerie from '@assets-series/jsons/themes.json';
 import wordlesJSONSerie from '@assets-series/jsons/wordles.json';
-import { theme } from '@models/*';
+import { theme } from '@models';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { EnvironmentService } from './environment.service';
 

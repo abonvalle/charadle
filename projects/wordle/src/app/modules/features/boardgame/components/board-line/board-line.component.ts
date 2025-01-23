@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { BoardBox } from '@models/*';
+import { BoardBox } from '@models';
 
 @Component({
   selector: 'board-line',

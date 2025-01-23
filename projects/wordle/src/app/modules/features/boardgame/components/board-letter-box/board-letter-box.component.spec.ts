@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { JokersService } from '@core/services/jokers.service';
-import { PlaceLetterJoker } from '@models/*';
+import { PlaceLetterJoker } from '@models';
 import { BehaviorSubject } from 'rxjs';
 import { BoardLetterBoxComponent } from './board-letter-box.component';
 
