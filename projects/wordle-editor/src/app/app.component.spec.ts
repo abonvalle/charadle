@@ -5,8 +5,8 @@ import { AppComponent } from './app.component';
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [RouterTestingModule, AppComponent]
-}).compileComponents();
+      imports: [RouterTestingModule, AppComponent]
+    }).compileComponents();
   });
 
   it('should create the app', () => {
@@ -15,9 +15,9 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'Name Guessr editor'`, () => {
+  it(`should have as title 'Charadle editor'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('Name Guessr editor');
+    expect(app.title).toEqual('Charadle editor');
   });
 });

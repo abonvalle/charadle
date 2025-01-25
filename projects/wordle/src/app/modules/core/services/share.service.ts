@@ -29,7 +29,7 @@ export class ShareService {
     const tries = this._gameService.getTries();
     const worldeDate = this._gameService.wordle$.value.date;
     const score = this.getScore();
-    const text = [`Name Guessr ${this._envServ.version$.value.label} #${worldeDate} 🎯${score}pts ✍️${nbTries}/6`];
+    const text = [`Charadle ${this._envServ.version$.value.label} #${worldeDate} 🎯${score}pts ✍️${nbTries}/6`];
     tries?.forEach((aTry) => {
       text.push(aTry);
     });

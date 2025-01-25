@@ -17,9 +17,7 @@
               "base": "dist/"
             },
             "index": "projects/wordle/src/index.html",
-            "polyfills": [
-              "projects/wordle/src/polyfills.ts"
-            ],
+            "polyfills": ["projects/wordle/src/polyfills.ts"],
             "tsConfig": "projects/wordle/src/tsconfig.app.json",
             "assets": [
               "projects/wordle/src/sitemap.xml",
@@ -61,7 +59,8 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "outputHashing": "media"
             }
           },
           "defaultConfiguration": "production"
@@ -109,9 +108,7 @@
               "base": "dist/wordle-editor"
             },
             "index": "projects/wordle-editor/src/index.html",
-            "polyfills": [
-              "projects/wordle-editor/src/polyfills.ts"
-            ],
+            "polyfills": ["projects/wordle-editor/src/polyfills.ts"],
             "tsConfig": "projects/wordle-editor/src/tsconfig.app.json",
             "assets": [
               {
@@ -187,9 +184,7 @@
             "polyfills": "projects/wordle-editor/src/polyfills.ts",
             "tsConfig": "projects/wordle-editor/src/tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": [
-              "projects/wordle/src/assets/serie"
-            ],
+            "assets": ["projects/wordle/src/assets/serie"],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "./node_modules/animate.css/animate.min.css",
