@@ -4,22 +4,51 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@packageJSON": ["./package.json"],
-      "@config/*": ["projects/wordle/src/environments/*"],
-      "@core/*": ["projects/wordle/src/app/modules/core/*"],
-      "@features/*": ["projects/wordle/src/app/modules/features/*"],
-      "@models": ["projects/wordle/src/app/models"],
-      "@modules/*": ["projects/wordle/src/app/modules/*"],
-      "@shared/*": ["projects/wordle/src/app/modules/shared/*"],
-      "jszip": ["../node_modules/jszip/dist/jszip.min.js"],
-      "@assets-series/*": ["projects/wordle/src/assets/serie/*"],
-      "@assets-anime/*": ["projects/wordle/src/assets/anime/*"],
-      /*editor paths*/
-      "@editor-config/*": ["projects/wordle-editor/src/environments/*"],
-      "@editor-core/*": ["projects/wordle-editor/src/app/modules/core/*"],
-      "@editor-features/*": ["projects/wordle-editor/src/app/modules/features/*"],
-      "@editor-modules/*": ["projects/wordle-editor/src/app/modules/*"],
-      "@editor-shared/*": ["projects/wordle-editor/src/app/modules/shared/*"]
+      "@packageJSON": [
+        "./package.json"
+      ],
+      "@config/*": [
+        "projects/wordle/src/environments/*"
+      ],
+      "@core/*": [
+        "projects/wordle/src/app/modules/core/*"
+      ],
+      "@features/*": [
+        "projects/wordle/src/app/modules/features/*"
+      ],
+      "@models": [
+        "projects/wordle/src/app/models"
+      ],
+      "@modules/*": [
+        "projects/wordle/src/app/modules/*"
+      ],
+      "@shared/*": [
+        "projects/wordle/src/app/modules/shared/*"
+      ],
+      "jszip": [
+        "../node_modules/jszip/dist/jszip.min.js"
+      ],
+      "@assets-series/*": [
+        "projects/wordle/src/assets/serie/*"
+      ],
+      "@assets-anime/*": [
+        "projects/wordle/src/assets/anime/*"
+      ],
+      "@editor-config/*": [
+        "projects/wordle-editor/src/environments/*"
+      ],
+      "@editor-core/*": [
+        "projects/wordle-editor/src/app/modules/core/*"
+      ],
+      "@editor-features/*": [
+        "projects/wordle-editor/src/app/modules/features/*"
+      ],
+      "@editor-modules/*": [
+        "projects/wordle-editor/src/app/modules/*"
+      ],
+      "@editor-shared/*": [
+        "projects/wordle-editor/src/app/modules/shared/*"
+      ]
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
@@ -32,11 +61,14 @@
     "sourceMap": true,
     "declaration": false,
     "experimentalDecorators": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
     "module": "es2020",
-    "lib": ["es2020", "dom"],
+    "lib": [
+      "es2020",
+      "dom"
+    ],
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "allowUnreachableCode": true,

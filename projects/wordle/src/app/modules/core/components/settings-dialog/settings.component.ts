@@ -31,7 +31,7 @@ export class SettingsDialogComponent {
   deleteAllData(): void {
     this._apiServ.deleteAll();
     this.resetForm();
-    window.location = window.location;
+    window.location.reload();
   }
   resetForm(): void {
     this.form.get('colorBlindMode')?.setValue('');

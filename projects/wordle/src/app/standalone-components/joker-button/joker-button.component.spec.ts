@@ -14,7 +14,7 @@ describe('JokerButtonComponent', () => {
 
     fixture = TestBed.createComponent(JokerButtonComponent);
     component = fixture.componentInstance;
-    component.joker = new Joker();
+    fixture.componentRef.setInput('joker', new Joker());
     fixture.detectChanges();
   });
 

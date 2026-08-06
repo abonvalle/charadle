@@ -13,7 +13,7 @@ describe('KeyboardKeyComponent', () => {
 
     fixture = TestBed.createComponent(KeyboardKeyComponent);
     component = fixture.componentInstance;
-    component.letter = 'a';
+    fixture.componentRef.setInput('letter', 'a');
     fixture.detectChanges();
   });
 
